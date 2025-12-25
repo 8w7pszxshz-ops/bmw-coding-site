@@ -60,12 +60,15 @@ export default function Index() {
         <header className="border-b border-primary/20 backdrop-blur-sm bg-black/50">
           <div className="container mx-auto px-4 py-6 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/30 neon-border">
-                <Icon name="Car" className="w-10 h-10 text-primary" />
-              </div>
+              <img 
+                src="https://cdn.poehali.dev/files/reborn.jpg" 
+                alt="Reborn Technologies" 
+                className="h-16 w-auto object-contain"
+              />
+              <div className="hidden sm:block border-l border-primary/30 h-12 mx-2" />
               <div>
-                <h1 className="text-3xl font-bold neon-glow">BMW CODING</h1>
-                <p className="text-sm text-muted-foreground">Профессиональная работа с электроникой BMW</p>
+                <h1 className="text-2xl md:text-3xl font-bold neon-glow">BMW CODING</h1>
+                <p className="text-xs md:text-sm text-muted-foreground">Профессиональная работа с электроникой BMW</p>
               </div>
             </div>
             <Button className="bg-primary hover:bg-primary/80 text-white font-bold neon-border animate-glow">
