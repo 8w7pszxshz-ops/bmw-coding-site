@@ -180,24 +180,26 @@ export default function Index() {
             
             <div className="flex flex-col lg:flex-row">
               {/* Левая часть - Изображение */}
-              <div className="lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-gray-900 to-black">
+              <div className="lg:w-1/2 relative overflow-hidden bg-black">
                 <img 
                   src="https://cdn.poehali.dev/files/-O880h2Gy2CrXb3pJUh9Zc1ZnLY-1920.jpg" 
                   alt="BMW Live Cockpit Professional - Российские карты навигации" 
                   className="w-full h-full object-contain"
                   style={{
-                    filter: 'brightness(1.15) contrast(1.25) saturate(1.4)'
+                    filter: 'brightness(0.85) contrast(1.4) saturate(1.3) blur(0px)'
                   }}
                 />
                 
-                {/* Затемнение для интеграции с дизайном */}
+                {/* Оверлей для уменьшения засветов */}
                 <div 
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background: `
-                      linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%),
-                      linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 50%, rgba(0, 0, 0, 0.3) 100%)
-                    `
+                      radial-gradient(ellipse at 30% 40%, rgba(0, 0, 0, 0.4) 0%, transparent 50%),
+                      radial-gradient(ellipse at 70% 50%, rgba(0, 0, 0, 0.3) 0%, transparent 40%),
+                      linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, transparent 30%, transparent 70%, rgba(0, 0, 0, 0.2) 100%)
+                    `,
+                    mixBlendMode: 'multiply'
                   }}
                 />
               </div>
