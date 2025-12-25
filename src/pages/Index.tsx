@@ -360,7 +360,7 @@ export default function Index() {
                   <p className="text-sm text-white/40 mb-4 font-light">
                     {service.description}
                   </p>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-4">
                     <span 
                       className="text-lg font-light tracking-wide"
                       style={{ color: service.color }}
@@ -372,6 +372,23 @@ export default function Index() {
                       className="w-5 h-5 text-white/30 transition-all duration-300 group-hover:translate-x-1"
                     />
                   </div>
+                  
+                  {/* Кнопка связаться в Telegram */}
+                  <a
+                    href="https://t.me/Bocha_reborn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
+                    style={{
+                      background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
+                      border: `1px solid ${service.color}30`,
+                      boxShadow: `0 4px 12px ${service.color}10`
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Icon name="Send" className="w-4 h-4" style={{ color: service.color }} />
+                    <span className="text-sm font-light text-white/80">Связаться</span>
+                  </a>
                 </CardContent>
               </Card>
             ))}
