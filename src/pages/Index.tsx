@@ -180,9 +180,9 @@ export default function Index() {
             
             <div className="flex flex-col lg:flex-row">
               {/* Левая часть - Изображение */}
-              <div className="lg:w-1/2 relative h-64 lg:h-96">
+              <div className="lg:w-1/2 relative h-80 lg:h-auto">
                 <img 
-                  src="https://cdn.poehali.dev/files/mgu.jpg" 
+                  src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/1f18a7a3-96ae-4180-a67d-a328be890f64.jpg" 
                   alt="Российские карты навигации BMW" 
                   className="w-full h-full object-cover"
                 />
