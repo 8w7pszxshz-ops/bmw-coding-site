@@ -167,29 +167,28 @@ export default function Index() {
                 className="group relative overflow-hidden cursor-pointer border-0 transition-all duration-500 hover:scale-[1.02]"
                 onClick={() => setSelectedService(selectedService === service.id ? null : service.id)}
                 style={{
-                  background: `
-                    linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
-                    repeating-linear-gradient(
-                      45deg,
-                      rgba(20, 20, 20, 0.8) 0px,
-                      rgba(20, 20, 20, 0.8) 2px,
-                      rgba(30, 30, 30, 0.6) 2px,
-                      rgba(30, 30, 30, 0.6) 4px
-                    )
-                  `,
+                  background: 'rgba(255, 255, 255, 0.03)',
                   backdropFilter: 'blur(20px)',
-                  boxShadow: selectedService === service.id
-                    ? `0 20px 60px -10px ${service.color}40, inset 0 1px 0 rgba(255, 255, 255, 0.1)`
-                    : '0 10px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
                   animationDelay: `${index * 0.1}s`
                 }}
               >
-                {/* BMW M Tricolor на hover */}
+                {/* BMW M Tricolor на hover - правильные цвета */}
                 <div 
-                  className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-all duration-500"
                   style={{
-                    background: 'linear-gradient(90deg, #005eb8 0%, #005eb8 33.33%, #e31e24 33.33%, #e31e24 66.66%, #8b4895 66.66%, #8b4895 100%)',
-                    boxShadow: '0 0 20px rgba(227, 30, 36, 0.5)'
+                    background: 'linear-gradient(90deg, #1C69D4 0%, #1C69D4 33.33%, #E4002B 33.33%, #E4002B 66.66%, #333E48 66.66%, #333E48 100%)',
+                    boxShadow: '0 0 30px rgba(28, 105, 212, 0.6)'
+                  }}
+                />
+                
+                {/* Подсветка glassmorphism при hover */}
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle at center, rgba(28, 105, 212, 0.1), transparent 70%)',
+                    backdropFilter: 'blur(30px)'
                   }}
                 />
                 {/* Accent Line */}
