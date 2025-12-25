@@ -182,8 +182,8 @@ export default function Index() {
               {/* Левая часть - Изображение */}
               <div className="lg:w-1/2 relative h-80 lg:h-auto">
                 <img 
-                  src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/1f18a7a3-96ae-4180-a67d-a328be890f64.jpg" 
-                  alt="Российские карты навигации BMW" 
+                  src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/20354f3c-459c-463e-8e72-73cb66367731.jpg" 
+                  alt="BMW Live Cockpit Professional - Российские карты навигации" 
                   className="w-full h-full object-cover"
                 />
                 
