@@ -180,50 +180,24 @@ export default function Index() {
             
             <div className="flex flex-col lg:flex-row">
               {/* Левая часть - Изображение */}
-              <div className="lg:w-1/2 relative h-80 lg:h-auto">
+              <div className="lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-gray-900 to-black">
                 <img 
-                  src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/20354f3c-459c-463e-8e72-73cb66367731.jpg" 
+                  src="https://cdn.poehali.dev/files/-O880h2Gy2CrXb3pJUh9Zc1ZnLY-1920.jpg" 
                   alt="BMW Live Cockpit Professional - Российские карты навигации" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain opacity-90"
+                  style={{
+                    filter: 'brightness(0.85) contrast(1.1)'
+                  }}
                 />
                 
-                {/* Градиентные оверлеи для разделения До/После */}
-                <div className="absolute inset-0 flex">
-                  {/* Левая половина - До */}
-                  <div 
-                    className="w-1/2 relative"
-                    style={{
-                      background: 'linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 80%, transparent 100%)'
-                    }}
-                  >
-                    <div className="absolute top-6 left-6">
-                      <div className="px-4 py-2 rounded-full bg-red-500/90 backdrop-blur-sm border border-red-400/40">
-                        <span className="text-white text-sm font-medium">До</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Правая половина - После */}
-                  <div 
-                    className="w-1/2 relative"
-                    style={{
-                      background: 'linear-gradient(to left, rgba(0, 0, 0, 0.3) 0%, transparent 100%)'
-                    }}
-                  >
-                    <div className="absolute top-6 right-6">
-                      <div className="px-4 py-2 rounded-full bg-emerald-500/90 backdrop-blur-sm border border-emerald-400/40">
-                        <span className="text-white text-sm font-medium">После</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Вертикальная разделительная линия */}
+                {/* Затемнение для интеграции с дизайном */}
                 <div 
-                  className="absolute top-0 bottom-0 left-1/2 w-1 -translate-x-1/2 z-10"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: 'linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 0.9) 80%, transparent 100%)',
-                    boxShadow: '0 0 15px rgba(255, 255, 255, 0.6)'
+                    background: `
+                      linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%),
+                      linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 50%, rgba(0, 0, 0, 0.3) 100%)
+                    `
                   }}
                 />
               </div>
