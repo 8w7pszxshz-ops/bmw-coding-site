@@ -178,17 +178,21 @@ export default function Index() {
                 <div 
                   className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-all duration-500"
                   style={{
-                    background: 'linear-gradient(90deg, #1C69D4 0%, #1C69D4 33.33%, #E4002B 33.33%, #E4002B 66.66%, #333E48 66.66%, #333E48 100%)',
-                    boxShadow: '0 0 30px rgba(28, 105, 212, 0.6)'
+                    background: 'linear-gradient(90deg, #81C4FF 0%, #81C4FF 33.33%, #16588E 33.33%, #16588E 66.66%, #E7222E 66.66%, #E7222E 100%)',
+                    boxShadow: '0 0 40px rgba(129, 196, 255, 0.8), 0 0 20px rgba(231, 34, 46, 0.6)'
                   }}
                 />
                 
-                {/* Подсветка glassmorphism при hover */}
+                {/* Подсветка glassmorphism при hover - увеличенная */}
                 <div 
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none"
                   style={{
-                    background: 'radial-gradient(circle at center, rgba(28, 105, 212, 0.1), transparent 70%)',
-                    backdropFilter: 'blur(30px)'
+                    background: `
+                      radial-gradient(circle at 50% 50%, rgba(129, 196, 255, 0.25), transparent 60%),
+                      radial-gradient(circle at 80% 20%, rgba(22, 88, 142, 0.2), transparent 50%),
+                      radial-gradient(circle at 20% 80%, rgba(231, 34, 46, 0.15), transparent 50%)
+                    `,
+                    backdropFilter: 'blur(40px)'
                   }}
                 />
                 {/* Accent Line */}
