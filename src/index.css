@@ -6,26 +6,26 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
+    --background: 0 0% 3%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 5%;
+    --card: 0 0% 8%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 5%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 0 100% 43%;
+    --primary: 0 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 10%;
+    --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 188 100% 50%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 0 0% 85%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -119,16 +119,22 @@
 @layer utilities {
   .neon-glow {
     text-shadow:
-      0 0 10px hsl(var(--neon-red)),
-      0 0 20px hsl(var(--neon-red)),
-      0 0 30px hsl(var(--neon-red));
+      0 0 10px rgba(220, 0, 0, 0.5),
+      0 0 20px rgba(220, 0, 0, 0.3),
+      0 0 30px rgba(220, 0, 0, 0.2);
   }
 
   .neon-border {
     box-shadow:
-      0 0 5px hsl(var(--neon-red)),
-      0 0 10px hsl(var(--neon-red)),
-      inset 0 0 5px hsl(var(--neon-red));
+      0 0 10px rgba(220, 0, 0, 0.3),
+      0 0 20px rgba(220, 0, 0, 0.2),
+      inset 0 0 10px rgba(220, 0, 0, 0.1);
+  }
+
+  .premium-shadow {
+    box-shadow:
+      0 10px 40px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(220, 0, 0, 0.2);
   }
 
   .cyan-glow {

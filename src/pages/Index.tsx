@@ -57,18 +57,20 @@ export default function Index() {
       />
       
       <div className="relative z-10">
-        <header className="border-b border-primary/20 backdrop-blur-sm bg-black/50">
-          <div className="container mx-auto px-4 py-6 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <img 
-                src="https://cdn.poehali.dev/files/reborn.jpg" 
-                alt="Reborn Technologies" 
-                className="h-16 w-auto object-contain"
-              />
-              <div className="hidden sm:block border-l border-primary/30 h-12 mx-2" />
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold neon-glow">BMW CODING</h1>
-                <p className="text-xs md:text-sm text-muted-foreground">Профессиональная работа с электроникой BMW</p>
+        <header className="border-b border-primary/20 backdrop-blur-sm bg-black/80">
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:bg-primary/30 transition-all" />
+                <img 
+                  src="https://cdn.poehali.dev/files/reborn.jpg" 
+                  alt="Reborn Technologies" 
+                  className="h-20 md:h-24 w-auto object-contain relative z-10 drop-shadow-[0_0_15px_rgba(220,0,0,0.5)]"
+                />
+              </div>
+              <div className="hidden lg:block">
+                <h1 className="text-3xl font-bold text-white tracking-wide">BMW CODING</h1>
+                <p className="text-sm text-muted-foreground">Профессиональная работа с электроникой BMW</p>
               </div>
             </div>
             <Button className="bg-primary hover:bg-primary/80 text-white font-bold neon-border animate-glow">
@@ -86,20 +88,16 @@ export default function Index() {
               </p>
             </div>
             <h2 className="text-5xl md:text-7xl font-bold mb-6 neon-glow leading-tight">
-              +30 СКРЫТЫХ ФУНКЦИЙ<br/>БЕЗ ВИЗИТА В ДИЛЕР
+              +10 СКРЫТЫХ ФУНКЦИЙ<br/>БЕЗ ВИЗИТА В ДИЛЕР
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-3xl mx-auto">
               Складывание зеркал, видео в движении, русское меню — всё это уже есть в вашем BMW. 
               Просто заблокировано заводом.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-4">
               <div className="flex items-center gap-2 text-accent">
                 <Icon name="CheckCircle2" className="w-5 h-5" />
                 <span className="font-semibold">Гарантия на работу</span>
-              </div>
-              <div className="flex items-center gap-2 text-accent">
-                <Icon name="Clock" className="w-5 h-5" />
-                <span className="font-semibold">Выезд к вам за 30 мин</span>
               </div>
               <div className="flex items-center gap-2 text-accent">
                 <Icon name="Shield" className="w-5 h-5" />
@@ -117,20 +115,20 @@ export default function Index() {
             {services.map((service, index) => (
               <Card
                 key={service.id}
-                className="bg-card/50 backdrop-blur-md border-primary/20 hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden"
+                className="bg-card/80 backdrop-blur-md border-primary/10 hover:border-primary/30 transition-all cursor-pointer group relative overflow-hidden premium-shadow hover:scale-[1.02]"
                 style={{ animationDelay: `${index * 100}ms` }}
                 onClick={() => setSelectedService(selectedService === service.id ? null : service.id)}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 <CardHeader>
-                  <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-4 border border-primary/30 group-hover:animate-glow">
-                    <Icon name={service.icon as any} className="w-8 h-8 text-primary" />
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-4 border border-primary/20 group-hover:border-primary/40 transition-all">
+                    <Icon name={service.icon as any} className="w-10 h-10 text-primary" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-white group-hover:neon-glow transition-all">
+                  <CardTitle className="text-2xl font-bold text-white transition-all">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground">
+                  <CardDescription className="text-muted-foreground text-base">
                     {service.description}
                   </CardDescription>
                 </CardHeader>
@@ -160,21 +158,21 @@ export default function Index() {
         </section>
 
         <section className="container mx-auto px-4 py-20">
-          <Card className="bg-gradient-to-r from-primary/10 to-accent/10 backdrop-blur-md border-primary/30 neon-border">
+          <Card className="bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md border-primary/20 premium-shadow">
             <CardContent className="p-12 text-center">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4 neon-glow">
+              <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                 ГОТОВЫ МОДЕРНИЗИРОВАТЬ ВАШ BMW?
               </h3>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
                 Свяжитесь с нами для консультации и записи на обслуживание. 
                 Работаем со всеми моделями BMW.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-primary hover:bg-primary/80 text-white font-bold neon-border text-lg px-8">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-bold text-lg px-10 py-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
                   <Icon name="MessageCircle" className="w-5 h-5 mr-2" />
                   Написать в WhatsApp
                 </Button>
-                <Button size="lg" variant="outline" className="border-accent/50 hover:bg-accent/10 text-white font-bold text-lg px-8">
+                <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:bg-primary/5 hover:border-primary/50 text-white font-bold text-lg px-10 py-6 transition-all">
                   <Icon name="Phone" className="w-5 h-5 mr-2" />
                   Позвонить
                 </Button>
