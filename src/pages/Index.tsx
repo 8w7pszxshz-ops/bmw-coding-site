@@ -98,9 +98,11 @@ export default function Index() {
       <div className="fixed left-0 top-0 bottom-0 w-2 ambient-line" style={{ animationDelay: '1s' }} />
       <div className="fixed right-0 top-0 bottom-0 w-2 ambient-line" style={{ animationDelay: '3s' }} />
       
-      <div className="fixed top-20 left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl floating-3d" />
-      <div className="fixed bottom-20 right-20 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl floating-3d" style={{ animationDelay: '2s', animationDuration: '8s' }} />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl floating-3d" style={{ animationDelay: '4s', animationDuration: '10s' }} />
+      <div className="fixed top-20 left-20 w-96 h-96 rounded-full blur-3xl floating-3d" style={{ background: 'radial-gradient(circle, rgba(0, 153, 255, 0.15) 0%, transparent 70%)' }} />
+      <div className="fixed bottom-20 right-20 w-[500px] h-[500px] rounded-full blur-3xl floating-3d" style={{ background: 'radial-gradient(circle, rgba(255, 120, 60, 0.12) 0%, transparent 70%)', animationDelay: '2s', animationDuration: '8s' }} />
+      <div className="fixed top-1/3 right-1/4 w-80 h-80 rounded-full blur-3xl floating-3d" style={{ background: 'radial-gradient(circle, rgba(165, 100, 255, 0.08) 0%, transparent 70%)', animationDelay: '3s', animationDuration: '9s' }} />
+      <div className="fixed bottom-1/3 left-1/4 w-[450px] h-[450px] rounded-full blur-3xl floating-3d" style={{ background: 'radial-gradient(circle, rgba(100, 200, 180, 0.08) 0%, transparent 70%)', animationDelay: '5s', animationDuration: '11s' }} />
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl floating-3d" style={{ background: 'radial-gradient(circle, rgba(0, 153, 255, 0.06) 0%, rgba(255, 120, 60, 0.04) 50%, transparent 100%)', animationDelay: '4s', animationDuration: '12s' }} />
       
       <div className="relative z-10">
         <header className="glass-cockpit nappa-leather rounded-3xl mx-4 mt-4 overflow-hidden cockpit-reflection bmw-3d-panel">
