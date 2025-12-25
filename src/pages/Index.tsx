@@ -68,13 +68,52 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       
-      {/* Curved Display Container */}
+      {/* iDrive 9.0 Background with animated gradient mesh */}
       <div 
         className="min-h-screen relative"
         style={{
-          background: 'radial-gradient(ellipse at center top, #0a0a0f 0%, #000000 100%)',
+          background: `
+            radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 150, 255, 0.15), transparent),
+            radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 200, 255, 0.12), transparent),
+            radial-gradient(ellipse 400px 400px at 50% 50%, rgba(50, 180, 255, 0.08), transparent),
+            linear-gradient(135deg, #000000 0%, #0a0d15 50%, #000509 100%)
+          `,
         }}
       >
+        
+        {/* Animated ambient particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div 
+            className="absolute w-96 h-96 rounded-full blur-3xl animate-pulse"
+            style={{
+              background: 'radial-gradient(circle, rgba(0, 150, 255, 0.2), transparent)',
+              top: '10%',
+              left: '15%',
+              animationDuration: '4s'
+            }}
+          />
+          <div 
+            className="absolute w-80 h-80 rounded-full blur-3xl animate-pulse"
+            style={{
+              background: 'radial-gradient(circle, rgba(100, 200, 255, 0.15), transparent)',
+              bottom: '15%',
+              right: '20%',
+              animationDuration: '5s',
+              animationDelay: '1s'
+            }}
+          />
+          <div 
+            className="absolute w-64 h-64 rounded-full blur-3xl animate-pulse"
+            style={{
+              background: 'radial-gradient(circle, rgba(50, 180, 255, 0.18), transparent)',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              animationDuration: '6s',
+              animationDelay: '2s'
+            }}
+          />
+        </div>
         
         {/* Status Bar - как в iDrive 8 */}
         <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 flex items-center justify-between backdrop-blur-md border-b border-white/5">
