@@ -42,27 +42,6 @@ const offers = [
       { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Check', text: 'Без замены блока' }
     ]
-  },
-  {
-    id: 3,
-    icon: 'Cpu',
-    label: 'Специальное предложение',
-    title: 'Unlock блока управления двигателя',
-    description: 'Разблокировка блока двигателя для дальнейшего чип тюнинга автомобилей 2020+ года выпуска. Доставка личным курьером для полной сохранности ЭБУ.',
-    oldPrice: '50 000 ₽',
-    newPrice: 'от 3 до 5 дней',
-    discount: '',
-    image: 'https://cdn.poehali.dev/files/MD1.png',
-    imageStyle: {
-      filter: 'brightness(1.35) contrast(1.5) saturate(1.4)',
-      objectPosition: 'center 35%',
-      transform: 'scale(1.5)',
-    },
-    features: [
-      { icon: 'Clock', text: 'Срок 3-5 дней' },
-      { icon: 'Shield', text: 'Гарантия' },
-      { icon: 'Truck', text: 'Личный курьер' }
-    ]
   }
 ];
 
