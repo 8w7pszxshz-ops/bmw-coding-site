@@ -39,7 +39,7 @@ export default function EngineGroupCard({ group, index, onSelect }: EngineGroupC
       <div className="mb-3">
         <div className="text-white/40 text-xs mb-2">Подходящие модели:</div>
         <div className="flex flex-wrap gap-2">
-          {group.variants.flatMap(v => v.models).slice(0, 4).map((model, i) => (
+          {group.variants.flatMap(v => v.models).map((model, i) => (
             <span 
               key={i}
               className="px-2 py-1 rounded-lg text-xs text-white/70"
@@ -51,9 +51,6 @@ export default function EngineGroupCard({ group, index, onSelect }: EngineGroupC
               {model}
             </span>
           ))}
-          {totalModels > 4 && (
-            <span className="text-white/40 text-xs self-center">+{totalModels - 4}</span>
-          )}
         </div>
       </div>
     </button>
