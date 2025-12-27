@@ -5,8 +5,9 @@ export default function SpecialOffer() {
     <div 
       className="relative rounded-3xl overflow-hidden mb-16 group cursor-pointer"
       style={{
-        border: '2px solid rgba(231, 34, 46, 0.3)',
-        boxShadow: '0 25px 80px -15px rgba(231, 34, 46, 0.6), 0 0 60px rgba(231, 34, 46, 0.3)'
+        border: '1px solid rgba(231, 34, 46, 0.25)',
+        boxShadow: '0 30px 90px -20px rgba(231, 34, 46, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
+        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005))'
       }}
     >
       <div 
@@ -24,18 +25,36 @@ export default function SpecialOffer() {
             alt="BMW Live Cockpit Professional с российскими картами МКАД" 
             className="w-full h-full object-cover"
             style={{
-              filter: 'brightness(1.15) contrast(1.7) saturate(1.6)',
+              filter: 'brightness(1.25) contrast(1.4) saturate(1.3) blur(0.3px)',
               objectPosition: 'center 30%',
-              transform: 'scale(1.3)'
+              transform: 'scale(1.3)',
+              imageRendering: 'crisp-edges'
             }}
           />
           
+          {/* Эффект стекла поверх картинки */}
           <div 
             className="absolute inset-0 pointer-events-none"
             style={{
               background: `
-                linear-gradient(to bottom, transparent 0%, transparent 70%, rgba(0, 0, 0, 0.7) 85%, rgba(0, 0, 0, 1) 100%)
-              `
+                linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(0, 150, 255, 0.08) 0%, transparent 40%, transparent 70%, rgba(0, 0, 0, 0.6) 85%, rgba(0, 0, 0, 0.95) 100%)
+              `,
+              backdropFilter: 'blur(0.5px)',
+              mixBlendMode: 'normal'
+            }}
+          />
+          
+          {/* Сглаживающий слой для плавных цветов */}
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `
+                radial-gradient(ellipse at 50% 40%, rgba(255, 100, 80, 0.12), transparent 60%),
+                radial-gradient(ellipse at 30% 60%, rgba(255, 150, 100, 0.08), transparent 50%)
+              `,
+              mixBlendMode: 'overlay',
+              opacity: 0.6
             }}
           />
         </div>
@@ -44,18 +63,32 @@ export default function SpecialOffer() {
           className="lg:w-1/2 relative p-12 flex flex-col justify-center"
           style={{
             background: `
-              radial-gradient(ellipse at right, rgba(231, 34, 46, 0.2) 0%, transparent 70%),
-              radial-gradient(ellipse at center, rgba(231, 34, 46, 0.15) 0%, transparent 60%),
-              linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)
+              radial-gradient(ellipse at right, rgba(231, 34, 46, 0.15) 0%, transparent 70%),
+              radial-gradient(ellipse at center, rgba(231, 34, 46, 0.1) 0%, transparent 60%),
+              linear-gradient(135deg, rgba(20, 20, 30, 0.92) 0%, rgba(10, 10, 15, 0.96) 100%)
             `,
-            backdropFilter: 'blur(20px)'
+            backdropFilter: 'blur(24px) saturate(180%)'
           }}
         >
+          {/* Стеклянный эффект с бликом */}
           <div 
-            className="absolute inset-0 opacity-60 pointer-events-none"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(circle at 80% 50%, rgba(231, 34, 46, 0.3), transparent 50%)',
-              mixBlendMode: 'screen'
+              background: `
+                linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 80% 50%, rgba(231, 34, 46, 0.2), transparent 50%)
+              `,
+              mixBlendMode: 'overlay'
+            }}
+          />
+          
+          {/* Мягкое свечение */}
+          <div 
+            className="absolute inset-0 opacity-50 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse at 70% 40%, rgba(255, 80, 90, 0.15), transparent 60%)',
+              mixBlendMode: 'screen',
+              filter: 'blur(40px)'
             }}
           />
           
