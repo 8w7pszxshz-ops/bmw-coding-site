@@ -188,22 +188,21 @@ export default function Index() {
               {/* Левая часть - Изображение */}
               <div className="lg:w-1/2 relative overflow-hidden bg-black">
                 <img 
-                  src="https://cdn.poehali.dev/files/-O880h2Gy2CrXb3pJUh9Zc1ZnLY-1920.jpg" 
-                  alt="BMW Live Cockpit Professional - Российские карты навигации" 
-                  className="w-full h-full object-contain"
+                  src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/151cce9c-5746-406d-9285-1afbbaf1145b.jpg" 
+                  alt="BMW Live Cockpit Professional - До и После установки российских карт" 
+                  className="w-full h-full object-cover"
                   style={{
-                    filter: 'brightness(0.85) contrast(1.4) saturate(1.3) blur(0px)'
+                    filter: 'brightness(1.1) contrast(1.6) saturate(1.5) blur(0px)'
                   }}
                 />
                 
-                {/* Оверлей для уменьшения засветов */}
+                {/* Тонкий оверлей для глубины */}
                 <div 
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background: `
-                      radial-gradient(ellipse at 30% 40%, rgba(0, 0, 0, 0.4) 0%, transparent 50%),
-                      radial-gradient(ellipse at 70% 50%, rgba(0, 0, 0, 0.3) 0%, transparent 40%),
-                      linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, transparent 30%, transparent 70%, rgba(0, 0, 0, 0.2) 100%)
+                      radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.15) 0%, transparent 60%),
+                      linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, transparent 40%, transparent 70%, rgba(0, 0, 0, 0.1) 100%)
                     `,
                     mixBlendMode: 'multiply'
                   }}
