@@ -20,7 +20,7 @@ const offers = [
     features: [
       { icon: 'Clock', text: 'Установка 1 час' },
       { icon: 'Shield', text: 'Гарантия' },
-      { icon: 'Check', text: 'Настройка бесплатно' }
+      { icon: 'Gift', text: 'Apple CarPlay бесплатно', highlight: true }
     ]
   },
   {
@@ -205,11 +205,30 @@ export default function SpecialOffer() {
                 </div>
               </div>
               
-              <div className="flex items-center gap-6 text-white/60 text-sm">
+              <div className="flex items-center gap-6 text-sm flex-wrap">
                 {offer.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <Icon name={feature.icon as any} className="w-4 h-4" />
-                    <span>{feature.text}</span>
+                  <div 
+                    key={idx} 
+                    className="flex items-center gap-2"
+                    style={feature.highlight ? {
+                      padding: '8px 16px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.2), rgba(231, 34, 46, 0.1))',
+                      border: '1px solid rgba(231, 34, 46, 0.4)',
+                      boxShadow: '0 4px 20px rgba(231, 34, 46, 0.3)'
+                    } : {}}
+                  >
+                    <Icon 
+                      name={feature.icon as any} 
+                      className="w-4 h-4"
+                      style={{ color: feature.highlight ? '#E7222E' : 'rgba(255, 255, 255, 0.6)' }}
+                    />
+                    <span style={{ 
+                      color: feature.highlight ? '#E7222E' : 'rgba(255, 255, 255, 0.6)',
+                      fontWeight: feature.highlight ? '500' : 'normal'
+                    }}>
+                      {feature.text}
+                    </span>
                   </div>
                 ))}
               </div>
