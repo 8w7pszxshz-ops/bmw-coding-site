@@ -24,7 +24,7 @@ export default function EngineGroupCard({ group, index, onSelect }: EngineGroupC
     >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <div className="text-2xl font-light text-white mb-2 group-hover:text-[#FFD700] transition-colors duration-300">
+          <div className="text-2xl font-light text-white mb-2 group-hover:text-[#FF9900] transition-colors duration-300">
             {group.name}
           </div>
           <div className="flex items-center gap-2 mb-1">

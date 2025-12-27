@@ -20,7 +20,7 @@ export default function ChipTuning() {
     <div className="mb-16">
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <Icon name="Gauge" className="w-8 h-8 text-[#FFD700]" />
+          <Icon name="Gauge" className="w-8 h-8 text-[#FF9900]" />
           <h2 className="font-light text-white text-3xl">Чип-тюнинг BMW Stage 1</h2>
         </div>
         <p className="text-white/60 text-sm">Выберите двигатель вашего автомобиля</p>

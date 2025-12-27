@@ -26,12 +26,12 @@ export default function ChipTuningFilters({
             className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 hover:scale-105 whitespace-nowrap"
             style={{
               background: generationFilter === filter.id
-                ? 'linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1))'
+                ? 'linear-gradient(135deg, rgba(255, 153, 0, 0.2), rgba(255, 153, 0, 0.1))'
                 : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
               border: generationFilter === filter.id
-                ? '1px solid rgba(255, 215, 0, 0.5)'
+                ? '1px solid rgba(255, 153, 0, 0.5)'
                 : '1px solid rgba(255, 255, 255, 0.1)',
-              color: generationFilter === filter.id ? '#FFD700' : 'rgba(255, 255, 255, 0.6)'
+              color: generationFilter === filter.id ? '#FF9900' : 'rgba(255, 255, 255, 0.6)'
             }}
           >
             <Icon name={filter.icon as any} className="w-4 h-4" />

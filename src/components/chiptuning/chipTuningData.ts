@@ -227,5 +227,5 @@ export const getGainPercentage = (before: number, after: number): number => {
 };
 
 export const getTypeColor = (type: string): string => {
-  return type === 'petrol' ? '#FFD700' : '#81C4FF';
+  return type === 'petrol' ? '#FF9900' : '#FF9900';
 };
