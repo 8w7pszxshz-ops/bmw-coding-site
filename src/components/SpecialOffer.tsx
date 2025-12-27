@@ -82,7 +82,8 @@ export default function SpecialOffer() {
         style={{
           border: '1px solid rgba(231, 34, 46, 0.25)',
           boxShadow: '0 30px 90px -20px rgba(231, 34, 46, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
-          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005))'
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005))',
+          minHeight: '500px'
         }}
       >
         <div 
