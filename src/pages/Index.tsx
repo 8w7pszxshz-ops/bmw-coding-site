@@ -4,6 +4,7 @@ import HeroSection from '@/components/HeroSection';
 import SpecialOffer from '@/components/SpecialOffer';
 import CodingPackages from '@/components/CodingPackages';
 import ServicesGrid from '@/components/ServicesGrid';
+import ExpertTips from '@/components/ExpertTips';
 import Reviews from '@/components/Reviews';
 import QuickActions from '@/components/QuickActions';
 
@@ -85,6 +86,7 @@ export default function Index() {
           <SpecialOffer />
           <ServicesGrid />
           <CodingPackages />
+          <ExpertTips />
           <Reviews />
           <QuickActions />
         </div>
