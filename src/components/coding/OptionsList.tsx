@@ -41,10 +41,11 @@ export default function OptionsList({
         </div>
         <button
           onClick={onResetSeries}
-          className="px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm"
+          className="px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
           style={{
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)'
           }}
         >
           Изменить серию
@@ -56,7 +57,7 @@ export default function OptionsList({
           <button
             key={cat.id}
             onClick={() => onCategoryChange(cat.id)}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 whitespace-nowrap"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 whitespace-nowrap hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
             style={{
               background: activeCategory === cat.id
                 ? 'linear-gradient(135deg, #81C4FF, #16588E)'
@@ -66,7 +67,8 @@ export default function OptionsList({
                 : '1px solid rgba(255, 255, 255, 0.1)',
               boxShadow: activeCategory === cat.id
                 ? '0 8px 32px rgba(129, 196, 255, 0.3)'
-                : 'none'
+                : 'none',
+              backdropFilter: 'blur(10px)'
             }}
           >
             <Icon name={cat.icon as any} className="w-5 h-5" />
@@ -82,7 +84,7 @@ export default function OptionsList({
             <button
               key={option.id}
               onClick={() => onToggleOption(option.id)}
-              className="relative p-6 rounded-xl transition-all duration-300 text-left group"
+              className="relative p-6 rounded-xl transition-all duration-300 text-left group hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
               style={{
                 background: isSelected
                   ? 'linear-gradient(135deg, rgba(129, 196, 255, 0.15), rgba(22, 88, 142, 0.15))'
@@ -93,7 +95,8 @@ export default function OptionsList({
                 boxShadow: isSelected
                   ? '0 8px 32px rgba(129, 196, 255, 0.2)'
                   : 'none',
-                animationDelay: `${index * 30}ms`
+                animationDelay: `${index * 30}ms`,
+                backdropFilter: 'blur(10px)'
               }}
             >
               <div className="flex items-start justify-between mb-3">
@@ -185,10 +188,11 @@ export default function OptionsList({
             <button
               onClick={() => onToggleOption('')}
               disabled={selectedCount === 0}
-              className="px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed"
+              className="px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
               style={{
                 background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                border: '1px solid rgba(255, 255, 255, 0.2)'
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(10px)'
               }}
             >
               Сбросить
@@ -196,13 +200,14 @@ export default function OptionsList({
             <button
               onClick={onSendConfig}
               disabled={selectedCount === 0}
-              className="flex items-center gap-2 px-8 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-8 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
               style={{
                 background: selectedCount > 0
                   ? 'linear-gradient(135deg, #81C4FF, #16588E)'
                   : 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
                 border: '1px solid rgba(129, 196, 255, 0.3)',
-                boxShadow: selectedCount > 0 ? '0 10px 40px rgba(129, 196, 255, 0.4)' : 'none'
+                boxShadow: selectedCount > 0 ? '0 10px 40px rgba(129, 196, 255, 0.4)' : 'none',
+                backdropFilter: 'blur(10px)'
               }}
             >
               <Icon name="Send" className="w-5 h-5" />

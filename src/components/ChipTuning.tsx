@@ -60,10 +60,11 @@ export default function ChipTuning() {
               </div>
               <button
                 onClick={() => setSelectedGroup(null)}
-                className="px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm"
+                className="px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)'
                 }}
               >
                 Изменить двигатель

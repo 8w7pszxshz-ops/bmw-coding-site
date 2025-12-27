@@ -56,11 +56,12 @@ export default function QuickActions() {
               <Element
                 key={action.id}
                 {...(action.link ? { href: action.link, target: action.id === 'telegram' ? '_blank' : undefined, rel: action.id === 'telegram' ? 'noopener noreferrer' : undefined } : { onClick: () => handleActionClick(action.id) })}
-                className="group flex flex-col items-center gap-4 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.05]"
+                className="group flex flex-col items-center gap-4 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.3)'
+                  boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.3)',
+                  backdropFilter: 'blur(10px)'
                 }}
               >
                 <div 

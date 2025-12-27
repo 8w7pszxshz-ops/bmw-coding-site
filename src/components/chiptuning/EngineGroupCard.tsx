@@ -14,17 +14,18 @@ export default function EngineGroupCard({ group, index, onSelect }: EngineGroupC
   return (
     <button
       onClick={onSelect}
-      className="p-8 rounded-2xl transition-all duration-500 hover:scale-105 group text-left animate-fade-in"
+      className="p-8 rounded-2xl transition-all duration-500 hover:scale-105 group text-left animate-fade-in hover:shadow-[0_0_40px_rgba(231,34,46,0.6)]"
       style={{
         background: `linear-gradient(135deg, ${color}12, ${color}05)`,
         border: `1px solid ${color}40`,
         boxShadow: `0 8px 32px ${color}20`,
-        animationDelay: `${index * 100}ms`
+        animationDelay: `${index * 100}ms`,
+        backdropFilter: 'blur(10px)'
       }}
     >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <div className="text-2xl font-light text-white mb-2 group-hover:text-[#003366] transition-colors duration-300">
+          <div className="text-2xl font-light text-white mb-2 group-hover:text-[#E7222E] transition-colors duration-300">
             {group.name}
           </div>
           <div className="flex items-center gap-2 mb-1">

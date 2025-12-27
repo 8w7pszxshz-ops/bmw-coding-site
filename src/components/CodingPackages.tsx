@@ -80,11 +80,12 @@ export default function CodingPackages() {
           href="https://disk.yandex.ru/i/UmJoVZEGPbNOPw"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
+          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
           style={{
             background: 'linear-gradient(135deg, rgba(129, 196, 255, 0.1), rgba(22, 88, 142, 0.1))',
             border: '1px solid rgba(129, 196, 255, 0.3)',
-            boxShadow: '0 4px 20px rgba(129, 196, 255, 0.2)'
+            boxShadow: '0 4px 20px rgba(129, 196, 255, 0.2)',
+            backdropFilter: 'blur(10px)'
           }}
         >
           <Icon name="Download" className="w-5 h-5" />
@@ -95,11 +96,12 @@ export default function CodingPackages() {
           href="https://disk.yandex.ru/i/Nd0Xi_oEIpiw4g"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
+          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
           style={{
             background: 'linear-gradient(135deg, rgba(129, 196, 255, 0.1), rgba(22, 88, 142, 0.1))',
             border: '1px solid rgba(129, 196, 255, 0.3)',
-            boxShadow: '0 4px 20px rgba(129, 196, 255, 0.2)'
+            boxShadow: '0 4px 20px rgba(129, 196, 255, 0.2)',
+            backdropFilter: 'blur(10px)'
           }}
         >
           <Icon name="Download" className="w-5 h-5" />

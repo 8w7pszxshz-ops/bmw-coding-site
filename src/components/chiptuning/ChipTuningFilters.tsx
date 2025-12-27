@@ -23,7 +23,7 @@ export default function ChipTuningFilters({
           <button
             key={filter.id}
             onClick={() => onGenerationChange(filter.id as any)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 hover:scale-105 whitespace-nowrap"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 hover:scale-105 whitespace-nowrap hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
             style={{
               background: generationFilter === filter.id
                 ? 'linear-gradient(135deg, rgba(0, 51, 102, 0.2), rgba(0, 51, 102, 0.1))'
@@ -31,7 +31,8 @@ export default function ChipTuningFilters({
               border: generationFilter === filter.id
                 ? '1px solid rgba(0, 51, 102, 0.5)'
                 : '1px solid rgba(255, 255, 255, 0.1)',
-              color: generationFilter === filter.id ? '#003366' : 'rgba(255, 255, 255, 0.6)'
+              color: generationFilter === filter.id ? '#003366' : 'rgba(255, 255, 255, 0.6)',
+              backdropFilter: 'blur(10px)'
             }}
           >
             <Icon name={filter.icon as any} className="w-4 h-4" />
