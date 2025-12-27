@@ -7,21 +7,42 @@ const packages = [
     name: 'Comfort', 
     price: '4 000 ₽',
     description: 'Базовые настройки комфорта',
-    icon: 'Settings'
+    icon: 'Settings',
+    features: [
+      'Отключение автостопа',
+      'Сворачивание зеркал по брелку',
+      'Активация видео в движении',
+      'Настройка ремней безопасности',
+      'Отключение экономичного режима'
+    ]
   },
   { 
     id: 'multimedia', 
     name: 'Multimedia', 
     price: '6 000 ₽',
     description: 'Расширенные функции мультимедиа',
-    icon: 'Monitor'
+    icon: 'Monitor',
+    features: [
+      'Все функции пакета Comfort',
+      'Apple CarPlay / Android Auto',
+      'Активация Spotify и YouTube',
+      'Расширенная навигация',
+      'Улучшенное аудио'
+    ]
   },
   { 
     id: 'full', 
     name: 'Full Unlock', 
     price: '10 000 ₽',
     description: 'Полная разблокировка функций',
-    icon: 'Unlock'
+    icon: 'Unlock',
+    features: [
+      'Все функции пакетов Comfort + Multimedia',
+      'Активация скрытых меню',
+      'Полная кастомизация дисплеев',
+      'Разблокировка заводских ограничений',
+      'Индивидуальная настройка под запрос'
+    ]
   }
 ];
 
@@ -35,9 +56,7 @@ export default function CodingPackages() {
           <Icon name="Code" className="w-8 h-8 text-[#81C4FF]" />
           <h2 className="font-light text-white text-3xl">Кодировки BMW G-серии</h2>
         </div>
-        <p className="text-white/60 text-lg font-light max-w-2xl mx-auto">
-          Профессиональная настройка и активация скрытых функций вашего BMW
-        </p>
+
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -95,16 +114,29 @@ export default function CodingPackages() {
 
             <div className="mb-6">
               <div 
-                className="text-3xl font-light"
+                className="text-3xl font-light mb-6"
                 style={{ color: selectedPackage === pkg.id ? '#81C4FF' : 'rgba(255, 255, 255, 0.9)' }}
               >
                 {pkg.price}
+              </div>
+
+              <div className="space-y-2">
+                {pkg.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-2 text-sm text-white/60">
+                    <Icon 
+                      name="Check" 
+                      className="w-4 h-4 mt-0.5 flex-shrink-0"
+                      style={{ color: selectedPackage === pkg.id ? '#81C4FF' : 'rgba(255, 255, 255, 0.4)' }}
+                    />
+                    <span>{feature}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
             {selectedPackage === pkg.id && (
               <div 
-                className="flex items-center gap-2 text-sm"
+                className="flex items-center gap-2 text-sm mt-4"
                 style={{ color: '#81C4FF' }}
               >
                 <Icon name="CheckCircle" className="w-5 h-5" />

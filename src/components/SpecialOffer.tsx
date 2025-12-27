@@ -42,6 +42,27 @@ const offers = [
       { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Check', text: 'Без замены блока' }
     ]
+  },
+  {
+    id: 3,
+    icon: 'Cpu',
+    label: 'Специальное предложение',
+    title: 'Unlock блока управления двигателя',
+    description: 'Профессиональная разблокировка ЭБУ двигателя для максимальной производительности. Гарантия качества работы.',
+    oldPrice: '',
+    newPrice: 'от 3 до 5 дней',
+    discount: '',
+    image: 'https://cdn.poehali.dev/files/MD1.png',
+    imageStyle: {
+      filter: 'brightness(1.1) contrast(1.2) saturate(0.9)',
+      objectPosition: 'center center',
+      transform: 'scale(1.2)',
+    },
+    features: [
+      { icon: 'Zap', text: 'Быстрая обработка' },
+      { icon: 'Shield', text: 'Гарантия' },
+      { icon: 'Check', text: 'Профессиональное оборудование' }
+    ]
   }
 ];
 
