@@ -54,10 +54,9 @@ const offers = [
     discount: '',
     image: 'https://cdn.poehali.dev/files/MD1.png',
     imageStyle: {
-      filter: 'brightness(1.3) contrast(1.15) saturate(1.05)',
-      objectPosition: 'center center',
-      transform: 'scale(1)',
-      imageRendering: 'crisp-edges'
+      filter: 'brightness(1.35) contrast(1.5) saturate(1.4)',
+      objectPosition: 'center 35%',
+      transform: 'scale(1.5)',
     },
     features: [
       { icon: 'Clock', text: 'Срок 3-5 дней' },
