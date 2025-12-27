@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
+const navigationPackages = [
+  { id: 'comfort', name: 'Comfort', price: '4 000 ₽' },
+  { id: 'multimedia', name: 'Multimedia', price: '6 000 ₽' },
+  { id: 'full', name: 'Full Unlock', price: '10 000 ₽' }
+];
+
 const offers = [
   {
     id: 1,
@@ -21,7 +27,8 @@ const offers = [
       { icon: 'Clock', text: 'Установка 1 час' },
       { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Gift', text: 'Apple CarPlay бесплатно', highlight: true }
-    ]
+    ],
+    hasPackages: true
   },
   {
     id: 2,
@@ -48,6 +55,7 @@ const offers = [
 export default function SpecialOffer() {
   const [currentOffer, setCurrentOffer] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [selectedPackage, setSelectedPackage] = useState('comfort');
   const offer = offers[currentOffer];
 
   useEffect(() => {
@@ -188,22 +196,54 @@ export default function SpecialOffer() {
                 {offer.description}
               </p>
               
-              <div className="flex items-center gap-8 mb-8">
-                <div>
-                  <span className="text-white/40 text-sm line-through block mb-2">{offer.oldPrice}</span>
-                  <span className="font-light text-[#E7222E] text-2xl">{offer.newPrice}</span>
+              {offer.hasPackages && (
+                <div className="mb-8">
+                  <p className="text-white/60 text-sm mb-4">Выберите пакет:</p>
+                  <div className="flex gap-3 flex-wrap">
+                    {navigationPackages.map((pkg) => (
+                      <button
+                        key={pkg.id}
+                        onClick={() => setSelectedPackage(pkg.id)}
+                        className="relative px-6 py-3 rounded-xl font-medium transition-all duration-300"
+                        style={{
+                          background: selectedPackage === pkg.id 
+                            ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
+                            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
+                          border: selectedPackage === pkg.id 
+                            ? '1px solid rgba(231, 34, 46, 0.6)'
+                            : '1px solid rgba(255, 255, 255, 0.1)',
+                          boxShadow: selectedPackage === pkg.id 
+                            ? '0 8px 32px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                            : '0 4px 12px rgba(0, 0, 0, 0.2)',
+                          color: selectedPackage === pkg.id ? '#fff' : 'rgba(255, 255, 255, 0.7)'
+                        }}
+                      >
+                        <div className="text-sm">{pkg.name}</div>
+                        <div className="text-lg mt-1">{pkg.price}</div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div 
-                  className="py-4 rounded-2xl px-[11px]"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
-                    border: '1px solid rgba(231, 34, 46, 0.5)',
-                    boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-                  }}
-                >
-                  <span className="text-white text-2xl font-medium">{offer.discount}</span>
+              )}
+
+              {!offer.hasPackages && (
+                <div className="flex items-center gap-8 mb-8">
+                  <div>
+                    <span className="text-white/40 text-sm line-through block mb-2">{offer.oldPrice}</span>
+                    <span className="font-light text-[#E7222E] text-2xl">{offer.newPrice}</span>
+                  </div>
+                  <div 
+                    className="py-4 rounded-2xl px-[11px]"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
+                      border: '1px solid rgba(231, 34, 46, 0.5)',
+                      boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                    }}
+                  >
+                    <span className="text-white text-2xl font-medium">{offer.discount}</span>
+                  </div>
                 </div>
-              </div>
+              )}
               
               <div className="flex items-center gap-6 text-sm flex-wrap">
                 {offer.features.map((feature, idx) => (
