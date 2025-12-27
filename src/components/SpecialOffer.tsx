@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 const offers = [
@@ -34,7 +34,7 @@ const offers = [
     discount: '-75%',
     image: 'https://cdn.poehali.dev/files/KOnOQJrG2OG-A3IbwfD2C7UUxm4-1920.jpg',
     imageStyle: {
-      filter: 'brightness(1.1) contrast(1.2)',
+      filter: 'brightness(1.2) contrast(1.3) saturate(1.1)',
       objectPosition: 'center center',
     },
     features: [
@@ -48,6 +48,14 @@ const offers = [
 export default function SpecialOffer() {
   const [currentOffer, setCurrentOffer] = useState(0);
   const offer = offers[currentOffer];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentOffer((prev) => (prev + 1) % offers.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="mb-16 relative">
