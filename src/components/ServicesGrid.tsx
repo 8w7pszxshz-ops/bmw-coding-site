@@ -10,7 +10,11 @@ const services = [
     icon: 'Zap',
     price: 'от 25 000 ₽',
     color: '#FF0040',
-    details: '- Stage 1, Stage 2\n- EGR, DPF OFF\n- Adblue OFF'
+    details: [
+      { title: 'Stage 1, Stage 2', desc: 'Увеличение мощности до +40%, улучшение динамики разгона' },
+      { title: 'EGR, DPF OFF', desc: 'Отключение клапана рециркуляции и сажевого фильтра' },
+      { title: 'Adblue OFF', desc: 'Отключение системы нейтрализации выхлопных газов' }
+    ]
   },
   {
     id: 'coding',
@@ -159,15 +163,27 @@ export default function ServicesGrid() {
               }}
             >
               <div 
-                className="mb-4 p-4 rounded-xl"
+                className="mb-4 p-4 rounded-xl space-y-3"
                 style={{
                   background: `linear-gradient(135deg, ${service.color}10, ${service.color}05)`,
                   border: `1px solid ${service.color}20`
                 }}
               >
-                <p className="text-sm text-white/70 font-light leading-relaxed">
-                  {service.details}
-                </p>
+                {Array.isArray(service.details) ? (
+                  service.details.map((item, idx) => (
+                    <div key={idx} className="flex gap-3">
+                      <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-2" style={{ backgroundColor: service.color }} />
+                      <div className="flex-1">
+                        <div className="text-sm font-medium text-white/90 mb-1">{item.title}</div>
+                        <div className="text-xs text-white/60 font-light leading-relaxed">{item.desc}</div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-white/70 font-light leading-relaxed">
+                    {service.details}
+                  </p>
+                )}
               </div>
             </div>
             
