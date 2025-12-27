@@ -47,20 +47,38 @@ const offers = [
 
 export default function SpecialOffer() {
   const [currentOffer, setCurrentOffer] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
   const offer = offers[currentOffer];
 
   useEffect(() => {
+    if (!autoPlay) return;
+
     const interval = setInterval(() => {
       setCurrentOffer((prev) => (prev + 1) % offers.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [autoPlay]);
+
+  const handlePrev = () => {
+    setAutoPlay(false);
+    setCurrentOffer((prev) => (prev === 0 ? offers.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setAutoPlay(false);
+    setCurrentOffer((prev) => (prev + 1) % offers.length);
+  };
+
+  const handleDotClick = (idx: number) => {
+    setAutoPlay(false);
+    setCurrentOffer(idx);
+  };
 
   return (
     <div className="mb-16 relative">
       <div 
-        className="relative rounded-3xl overflow-hidden group cursor-pointer"
+        className="relative rounded-3xl overflow-hidden group"
         style={{
           border: '1px solid rgba(231, 34, 46, 0.25)',
           boxShadow: '0 30px 90px -20px rgba(231, 34, 46, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
@@ -196,25 +214,66 @@ export default function SpecialOffer() {
             </div>
           </div>
         </div>
+
+        <button
+          onClick={handlePrev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+          style={{
+            background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
+            border: '1px solid rgba(231, 34, 46, 0.5)',
+            boxShadow: '0 10px 30px rgba(231, 34, 46, 0.4)'
+          }}
+        >
+          <Icon name="ChevronLeft" className="w-6 h-6 text-white" />
+        </button>
+
+        <button
+          onClick={handleNext}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+          style={{
+            background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
+            border: '1px solid rgba(231, 34, 46, 0.5)',
+            boxShadow: '0 10px 30px rgba(231, 34, 46, 0.4)'
+          }}
+        >
+          <Icon name="ChevronRight" className="w-6 h-6 text-white" />
+        </button>
       </div>
 
-      <div className="flex justify-center gap-3 mt-6">
-        {offers.map((_, idx) => (
+      <div className="flex items-center justify-center gap-4 mt-6">
+        <div className="flex items-center gap-2 text-white/40 text-xs">
+          <Icon name="Layers" className="w-4 h-4" />
+          <span>{currentOffer + 1} / {offers.length}</span>
+        </div>
+
+        <div className="flex gap-3">
+          {offers.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleDotClick(idx)}
+              className="transition-all duration-300"
+              style={{
+                width: currentOffer === idx ? '32px' : '8px',
+                height: '8px',
+                borderRadius: '4px',
+                background: currentOffer === idx 
+                  ? 'linear-gradient(90deg, #E7222E, #FF4444)' 
+                  : 'rgba(255, 255, 255, 0.2)',
+                boxShadow: currentOffer === idx ? '0 0 12px rgba(231, 34, 46, 0.6)' : 'none'
+              }}
+            />
+          ))}
+        </div>
+
+        {!autoPlay && (
           <button
-            key={idx}
-            onClick={() => setCurrentOffer(idx)}
-            className="transition-all duration-300"
-            style={{
-              width: currentOffer === idx ? '32px' : '8px',
-              height: '8px',
-              borderRadius: '4px',
-              background: currentOffer === idx 
-                ? 'linear-gradient(90deg, #E7222E, #FF4444)' 
-                : 'rgba(255, 255, 255, 0.2)',
-              boxShadow: currentOffer === idx ? '0 0 12px rgba(231, 34, 46, 0.6)' : 'none'
-            }}
-          />
-        ))}
+            onClick={() => setAutoPlay(true)}
+            className="flex items-center gap-1.5 text-white/40 text-xs hover:text-white/60 transition-colors"
+          >
+            <Icon name="Play" className="w-3.5 h-3.5" />
+            <span>Авто</span>
+          </button>
+        )}
       </div>
     </div>
   );
