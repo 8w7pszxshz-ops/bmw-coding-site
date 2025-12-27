@@ -1,0 +1,215 @@
+import Icon from '@/components/ui/icon';
+import { Option, categories, options, calculatePrice } from './codingData';
+
+interface OptionsListProps {
+  selectedSeries: 'F' | 'G';
+  selectedOptions: Set<string>;
+  activeCategory: string;
+  onCategoryChange: (category: string) => void;
+  onToggleOption: (optionId: string) => void;
+  onResetSeries: () => void;
+  onSendConfig: () => void;
+}
+
+export default function OptionsList({
+  selectedSeries,
+  selectedOptions,
+  activeCategory,
+  onCategoryChange,
+  onToggleOption,
+  onResetSeries,
+  onSendConfig
+}: OptionsListProps) {
+  const filteredOptions = options.filter(
+    o => o.category === activeCategory && (o.series === selectedSeries || o.series === 'both')
+  );
+
+  const selectedCount = selectedOptions.size;
+  const pricing = calculatePrice(selectedCount);
+
+  return (
+    <>
+      <div className="flex items-center justify-center gap-4 mb-8">
+        <div 
+          className="px-6 py-3 rounded-xl flex items-center gap-3"
+          style={{
+            background: 'linear-gradient(135deg, #81C4FF, #16588E)',
+            boxShadow: '0 8px 32px rgba(129, 196, 255, 0.3)'
+          }}
+        >
+          <span className="text-white font-medium">BMW {selectedSeries}-series</span>
+        </div>
+        <button
+          onClick={onResetSeries}
+          className="px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
+            border: '1px solid rgba(255, 255, 255, 0.1)'
+          }}
+        >
+          Изменить серию
+        </button>
+      </div>
+
+      <div className="flex gap-3 mb-8 overflow-x-auto pb-2">
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => onCategoryChange(cat.id)}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 whitespace-nowrap"
+            style={{
+              background: activeCategory === cat.id
+                ? 'linear-gradient(135deg, #81C4FF, #16588E)'
+                : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
+              border: activeCategory === cat.id
+                ? '1px solid rgba(129, 196, 255, 0.5)'
+                : '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: activeCategory === cat.id
+                ? '0 8px 32px rgba(129, 196, 255, 0.3)'
+                : 'none'
+            }}
+          >
+            <Icon name={cat.icon as any} className="w-5 h-5" />
+            <span>{cat.name}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        {filteredOptions.map((option) => {
+          const isSelected = selectedOptions.has(option.id);
+          return (
+            <button
+              key={option.id}
+              onClick={() => onToggleOption(option.id)}
+              className="relative p-6 rounded-xl transition-all duration-300 text-left group"
+              style={{
+                background: isSelected
+                  ? 'linear-gradient(135deg, rgba(129, 196, 255, 0.15), rgba(22, 88, 142, 0.15))'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01))',
+                border: isSelected
+                  ? '2px solid rgba(129, 196, 255, 0.5)'
+                  : '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: isSelected
+                  ? '0 8px 32px rgba(129, 196, 255, 0.2)'
+                  : 'none'
+              }}
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="p-2 rounded-lg"
+                    style={{
+                      background: isSelected
+                        ? 'linear-gradient(135deg, rgba(129, 196, 255, 0.3), rgba(22, 88, 142, 0.2))'
+                        : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
+                      border: '1px solid rgba(129, 196, 255, 0.2)'
+                    }}
+                  >
+                    <Icon 
+                      name={option.icon as any} 
+                      className="w-5 h-5"
+                      style={{ color: isSelected ? '#81C4FF' : 'rgba(255, 255, 255, 0.6)' }}
+                    />
+                  </div>
+                  <div>
+                    <h3 
+                      className="font-medium text-base mb-1"
+                      style={{ color: isSelected ? '#81C4FF' : '#fff' }}
+                    >
+                      {option.name}
+                    </h3>
+                  </div>
+                </div>
+                
+                <div 
+                  className="w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0"
+                  style={{
+                    borderColor: isSelected ? '#81C4FF' : 'rgba(255, 255, 255, 0.2)',
+                    background: isSelected ? '#81C4FF' : 'transparent'
+                  }}
+                >
+                  {isSelected && <Icon name="Check" className="w-4 h-4 text-black" />}
+                </div>
+              </div>
+
+              <p className="text-white/50 text-sm">{option.description}</p>
+            </button>
+          );
+        })}
+      </div>
+
+      <div 
+        className="sticky bottom-6 rounded-2xl p-6 backdrop-blur-xl"
+        style={{
+          background: 'linear-gradient(135deg, rgba(129, 196, 255, 0.15), rgba(22, 88, 142, 0.15))',
+          border: '1px solid rgba(129, 196, 255, 0.3)',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+        }}
+      >
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-8">
+            <div>
+              <div className="text-white/60 text-sm mb-1">Выбрано опций</div>
+              <div className="text-white text-2xl font-light">{selectedCount}</div>
+            </div>
+            <div 
+              className="h-12 w-px"
+              style={{ background: 'linear-gradient(180deg, transparent, rgba(129, 196, 255, 0.3), transparent)' }}
+            />
+            <div>
+              <div className="text-white/60 text-sm mb-1">
+                {pricing.discount > 0 ? (
+                  <span className="flex items-center gap-2">
+                    Скидка <span className="text-[#81C4FF] font-medium">{pricing.discount}%</span>
+                  </span>
+                ) : (
+                  'Итоговая стоимость'
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                {pricing.discount > 0 && (
+                  <span className="text-white/40 text-lg line-through">
+                    {pricing.original.toLocaleString('ru-RU')} ₽
+                  </span>
+                )}
+                <span className="text-[#81C4FF] text-2xl font-light">
+                  {pricing.total.toLocaleString('ru-RU')} ₽
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
+            <button
+              onClick={() => onToggleOption('')}
+              disabled={selectedCount === 0}
+              className="px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}
+            >
+              Сбросить
+            </button>
+            <button
+              onClick={onSendConfig}
+              disabled={selectedCount === 0}
+              className="flex items-center gap-2 px-8 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{
+                background: selectedCount > 0
+                  ? 'linear-gradient(135deg, #81C4FF, #16588E)'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+                border: '1px solid rgba(129, 196, 255, 0.3)',
+                boxShadow: selectedCount > 0 ? '0 10px 40px rgba(129, 196, 255, 0.4)' : 'none'
+              }}
+            >
+              <Icon name="Send" className="w-5 h-5" />
+              <span>Отправить конфигурацию</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
