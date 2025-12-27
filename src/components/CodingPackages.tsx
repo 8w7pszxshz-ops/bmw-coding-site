@@ -102,37 +102,70 @@ const options: Option[] = [
   { id: 'f_battery_min', name: 'Минимальный заряд АКБ', category: 'comfort', description: 'Увеличение минимального заряда', icon: 'Battery', series: 'F' },
   { id: 'f_brake_system', name: 'Данные тормозной системы', category: 'comfort', description: 'Изменение информации о тормозах', icon: 'Disc', series: 'F' },
   
-  // Комфорт - G series
-  { id: 'g_autostop', name: 'Отключение Start/Stop', category: 'comfort', description: 'Полное отключение системы автостарта', icon: 'Power', series: 'G' },
-  { id: 'g_mirrors', name: 'Сворачивание зеркал', category: 'comfort', description: 'Автоматическое складывание по брелку', icon: 'Maximize2', series: 'G' },
-  { id: 'g_seatbelt', name: 'Настройка ремней безопасности', category: 'comfort', description: 'Отключение звуковых сигналов', icon: 'UserCheck', series: 'G' },
-  { id: 'g_eco', name: 'Отключение ECO режима', category: 'comfort', description: 'Деактивация экономичного режима', icon: 'Leaf', series: 'G' },
-  { id: 'g_gesture', name: 'Управление жестами', category: 'comfort', description: 'Активация управления жестами', icon: 'Hand', series: 'G' },
-
-  // Мультимедиа - G series
-  { id: 'g_carplay', name: 'Apple CarPlay', category: 'multimedia', description: 'Активация CarPlay', icon: 'Smartphone', series: 'G' },
-  { id: 'g_video', name: 'Видео в движении', category: 'multimedia', description: 'Просмотр видео на ходу', icon: 'Play', series: 'G' },
-  { id: 'g_youtube', name: 'YouTube / Spotify', category: 'multimedia', description: 'Активация стриминга', icon: 'Music', series: 'G' },
-  { id: 'g_fullscreen', name: 'Полноэкранный режим', category: 'multimedia', description: 'Увеличение области отображения', icon: 'Maximize', series: 'G' },
-  { id: 'g_android', name: 'Android Auto', category: 'multimedia', description: 'Активация Android Auto', icon: 'Smartphone', series: 'G' },
+  // Производительность - G series (Режимы езды)
+  { id: 'g_autostop', name: 'Отключение Start/Stop', category: 'performance', description: 'Отключение функции старт-стоп в DME', icon: 'Power', series: 'G' },
+  { id: 'g_sport', name: 'Sport режим по умолчанию', category: 'performance', description: 'Изменение стандартного режима при запуске', icon: 'Gauge', series: 'G' },
+  { id: 'g_sport_plus', name: 'Режим Sport Plus', category: 'performance', description: 'Кодировка режима Sport Plus', icon: 'Zap', series: 'G' },
+  { id: 'g_comfort_plus', name: 'Режим Comfort Plus', category: 'performance', description: 'Кодировка режима Комфорт Плюс', icon: 'Armchair', series: 'G' },
+  { id: 'g_eco_pro', name: 'Режим ECO Pro', category: 'performance', description: 'Настройка режима ECO Pro', icon: 'Leaf', series: 'G' },
+  { id: 'g_eco_pro_plus', name: 'Режим ECO Pro Plus', category: 'performance', description: 'Кодировка режима Эко Про Плюс', icon: 'Leaf', series: 'G' },
+  { id: 'g_launch', name: 'Launch Control', category: 'performance', description: 'Активация ланч-контроля через спорт-коробку', icon: 'Rocket', series: 'G' },
+  { id: 'g_perf_control', name: 'Performance Control', category: 'performance', description: 'Настройка управления в поворотах', icon: 'Gauge', series: 'G' },
+  { id: 'g_xdrive_off', name: 'Отключение xDrive меню', category: 'performance', description: 'Убрать меню xDrive', icon: 'Settings2', series: 'G' },
+  { id: 'g_dsc', name: 'Полное отключение DSC', category: 'performance', description: 'Деактивация стабилизации', icon: 'RotateCcw', series: 'G' },
+  { id: 'g_exhaust', name: 'Звук двигателя через колонки', category: 'performance', description: 'Постоянный спортивный звук', icon: 'Volume2', series: 'G' },
+  { id: 'g_steering_paddle', name: 'Лепестки на руле', category: 'performance', description: 'Настройка работы лепестков', icon: 'Gauge', series: 'G' },
+  { id: 'g_m_pack', name: 'M-пакет (код 337)', category: 'performance', description: 'Руль становится тяжелее', icon: 'Star', series: 'G' },
   
-  // Внешний вид - G series
-  { id: 'g_drl', name: 'Режимы DRL', category: 'exterior', description: 'Различные режимы дневных огней', icon: 'Sun', series: 'G' },
-  { id: 'g_welcome_anim', name: 'Приветственная анимация', category: 'exterior', description: 'Световое шоу при открытии', icon: 'Star', series: 'G' },
-  { id: 'g_laser', name: 'Лазерный свет', category: 'exterior', description: 'Активация лазерных фар', icon: 'Zap', series: 'G' },
-  { id: 'g_ambient', name: 'Ambient свет расширенный', category: 'exterior', description: 'Дополнительные режимы подсветки', icon: 'Lightbulb', series: 'G' },
+  // Мультимедиа - G series (Панель приборов и БК)
+  { id: 'g_digital_speed', name: 'Мелкая цифровая скорость', category: 'multimedia', description: 'В верхней части спидометра постоянно', icon: 'Gauge', series: 'G' },
+  { id: 'g_digital_speed_large', name: 'Крупная цифровая скорость', category: 'multimedia', description: 'Внизу на базовой приборке', icon: 'Gauge', series: 'G' },
+  { id: 'g_digital_speed_freq', name: 'Частота обновления скорости', category: 'multimedia', description: 'Увеличение частоты обновления цифровой скорости', icon: 'Activity', series: 'G' },
+  { id: 'g_range_off', name: 'Отключить запас хода', category: 'multimedia', description: 'Убрать отображение под спидометром', icon: 'Gauge', series: 'G' },
+  { id: 'g_fuel_scale', name: 'Шкала расходометра топлива', category: 'multimedia', description: 'Изменение длины шкалы (15/20/30 л)', icon: 'Fuel', series: 'G' },
+  { id: 'g_sport_color', name: 'Цвет приборки в Sport', category: 'multimedia', description: 'Изменение на серый M-стиль', icon: 'Palette', series: 'G' },
+  { id: 'g_speedo_330', name: 'Разметка спидометра 330 км/ч', category: 'multimedia', description: 'М-шрифт + разметка до 330', icon: 'Gauge', series: 'G' },
+  { id: 'g_m_icon', name: 'Значок M на приборке', category: 'multimedia', description: 'В режиме Sport отображается M', icon: 'Star', series: 'G' },
+  { id: 'g_accel', name: 'Акселерометр', category: 'multimedia', description: 'Активация и настройка пределов виджета', icon: 'Activity', series: 'G' },
+  { id: 'g_sport_instruments', name: 'Расширенное меню спортприборов', category: 'multimedia', description: 'Дополнительные спортивные индикаторы', icon: 'Gauge', series: 'G' },
+  { id: 'g_led_covers', name: 'Обложки для LED приборки', category: 'multimedia', description: 'Выбор обложек приборной панели', icon: 'Image', series: 'G' },
+  { id: 'g_video', name: 'Видео в движении', category: 'multimedia', description: 'Просмотр видео на ходу', icon: 'Play', series: 'G' },
+  { id: 'g_tpms_temp', name: 'Температура в шинах', category: 'multimedia', description: 'Отображение температуры TPMS', icon: 'Thermometer', series: 'G' },
+  { id: 'g_tpms_off', name: 'Отключить контроль давления', category: 'multimedia', description: 'Деактивация TPMS', icon: 'Gauge', series: 'G' },
+  { id: 'g_bowers', name: 'Профили звука Bowers & Wilkins', category: 'multimedia', description: 'Активация профилей звука (нужен H/K)', icon: 'Music', series: 'G' },
+  { id: 'g_car_select', name: 'Выбор цвета авто в MGU', category: 'multimedia', description: 'Настройка комплектации на экране', icon: 'Palette', series: 'G' },
+  { id: 'g_sounds_bmw', name: 'Звуковые предупреждения BMW', category: 'multimedia', description: 'Стили звукового оформления', icon: 'Volume2', series: 'G' },
+  { id: 'g_m_animation', name: 'M заставка', category: 'multimedia', description: 'Смена стартовой анимации', icon: 'Star', series: 'G' },
+  { id: 'g_m_theme', name: 'M-style тема ГУ', category: 'multimedia', description: 'Смена темы оформления NBT', icon: 'Palette', series: 'G' },
+  { id: 'g_greeting', name: 'Приветствие на приборке', category: 'multimedia', description: 'Приветствие/прощание при старте', icon: 'MessageCircle', series: 'G' },
+  { id: 'g_ringtone', name: 'Передача рингтона в авто', category: 'multimedia', description: 'Использование собственного рингтона', icon: 'Phone', series: 'G' },
+  { id: 'g_bluetooth_ext', name: 'Расширенный Bluetooth', category: 'multimedia', description: 'СМС и несколько телефонов одновременно', icon: 'Bluetooth', series: 'G' },
+  { id: 'g_lane_assist', name: 'Lane Change Assist', category: 'multimedia', description: 'Ассистент смены полосы', icon: 'Navigation', series: 'G' },
+  { id: 'g_driving_view', name: 'Assisted Driving View', category: 'multimedia', description: 'Визуализация потока на приборке', icon: 'Eye', series: 'G' },
+  
+  // Внешний вид - G series (Осветительные приборы)
+  { id: 'g_lights_off', name: 'Отключить свет в положении 0', category: 'exterior', description: 'Полное отключение света', icon: 'SunOff', series: 'G' },
+  { id: 'g_angel_bright', name: 'Яркость ангельских глазок', category: 'exterior', description: 'Настройка яркости Angel Eyes', icon: 'Circle', series: 'G' },
+  { id: 'g_strobe', name: 'ПТФ в режиме стробоскопов', category: 'exterior', description: 'Отключаются при дальнем свете', icon: 'Zap', series: 'G' },
+  { id: 'g_welcome_light', name: 'Приветственная анимация света', category: 'exterior', description: 'Световое шоу при открытии', icon: 'Star', series: 'G' },
+  { id: 'g_ambient', name: 'Цвет подсветки салона', category: 'exterior', description: 'Изменение цвета Ambient', icon: 'Lightbulb', series: 'G' },
   
   // Безопасность - G series
-  { id: 'g_speed', name: 'Снятие ограничения скорости', category: 'safety', description: 'Увеличение до 280 км/ч', icon: 'Gauge', series: 'G' },
-  { id: 'g_camera', name: 'Камеры на ходу', category: 'safety', description: 'Просмотр камер в движении', icon: 'Camera', series: 'G' },
-  { id: 'g_parking', name: 'Parking Assistant Plus', category: 'safety', description: 'Активация автопарковки', icon: 'Navigation2', series: 'G' },
-  { id: 'g_tpms', name: 'Настройка TPMS', category: 'safety', description: 'Калибровка датчиков давления', icon: 'Activity', series: 'G' },
+  { id: 'g_belt_gong_off', name: 'Отключение гонга ремня', category: 'safety', description: 'Убрать звук непристегнутого ремня', icon: 'UserCheck', series: 'G' },
+  { id: 'g_belt_icon_off', name: 'Отключение значка ремня', category: 'safety', description: 'Убрать значок на LED приборке', icon: 'UserCheck', series: 'G' },
+  { id: 'g_horn_off', name: 'Отключение клаксона при закрытии', category: 'safety', description: 'Нет звука при постановке на охрану', icon: 'Volume2', series: 'G' },
+  { id: 'g_horn_alarm', name: 'Звук при постановке на охрану', category: 'safety', description: 'Управление звуковым сигналом', icon: 'Volume2', series: 'G' },
   
-  // Производительность - G series
-  { id: 'g_sport', name: 'Sport режим по умолчанию', category: 'performance', description: 'Запуск всегда в Sport', icon: 'Gauge', series: 'G' },
-  { id: 'g_xdrive', name: 'Настройка xDrive', category: 'performance', description: 'Калибровка полного привода', icon: 'Settings2', series: 'G' },
-  { id: 'g_dsc', name: 'Полное отключение DSC', category: 'performance', description: 'Деактивация стабилизации', icon: 'RotateCcw', series: 'G' },
-  { id: 'g_exhaust', name: 'Выхлоп активный', category: 'performance', description: 'Постоянный спортивный звук', icon: 'Volume2', series: 'G' },
+  // Комфорт - G series (Багажник, Кузов, Салон)
+  { id: 'g_mirror_tilt', name: 'Угол наклона зеркала при R', category: 'comfort', description: 'Настройка наклона при заднем ходе', icon: 'Maximize2', series: 'G' },
+  { id: 'g_mirror_dimming', name: 'Чувствительность затемнения зеркал', category: 'comfort', description: 'Настройка для тонировки', icon: 'Sun', series: 'G' },
+  { id: 'g_wiper_count', name: 'Количество взмахов стеклоочистителей', category: 'comfort', description: 'Изменение числа проходов', icon: 'Wind', series: 'G' },
+  { id: 'g_blinker_5x', name: '5-кратное мигание поворотника', category: 'comfort', description: 'При касании рычага', icon: 'Navigation', series: 'G' },
+  { id: 'g_trunk_close_fast', name: 'Закрытие багажника без задержки', category: 'comfort', description: 'Без долгого удержания кнопки', icon: 'Package', series: 'G' },
+  { id: 'g_window_no_hold', name: 'Закрывание стеклоподъемников без удержания', category: 'comfort', description: 'При открытой двери без удержания', icon: 'ArrowUp', series: 'G' },
+  { id: 'g_seat_heat_zones', name: 'Распределение подогрева сидений', category: 'comfort', description: 'Спина/колени/полностью (только водитель)', icon: 'Thermometer', series: 'G' },
+  { id: 'g_seat_heat_auto', name: 'Авто подогрев/вентиляция сидений', category: 'comfort', description: 'Управление в меню климата (VO-код)', icon: 'Thermometer', series: 'G' },
+  { id: 'g_easy_entry', name: 'Комфортная посадка', category: 'comfort', description: 'Отодвигается сиденье при входе', icon: 'Armchair', series: 'G' },
 ];
 
 // Функция расчёта цены со скидкой
