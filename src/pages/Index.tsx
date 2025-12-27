@@ -188,23 +188,23 @@ export default function Index() {
               {/* Левая часть - Изображение */}
               <div className="lg:w-1/2 relative overflow-hidden bg-black">
                 <img 
-                  src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/151cce9c-5746-406d-9285-1afbbaf1145b.jpg" 
-                  alt="BMW Live Cockpit Professional - До и После установки российских карт" 
+                  src="https://cdn.poehali.dev/files/mgu1.jpg" 
+                  alt="BMW Live Cockpit Professional с российскими картами МКАД" 
                   className="w-full h-full object-cover"
                   style={{
-                    filter: 'brightness(1.1) contrast(1.6) saturate(1.5) blur(0px)'
+                    filter: 'brightness(1.15) contrast(1.7) saturate(1.6)',
+                    objectPosition: 'center 30%',
+                    transform: 'scale(1.3)'
                   }}
                 />
                 
-                {/* Тонкий оверлей для глубины */}
+                {/* Градиент для обрезки низа */}
                 <div 
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background: `
-                      radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.15) 0%, transparent 60%),
-                      linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, transparent 40%, transparent 70%, rgba(0, 0, 0, 0.1) 100%)
-                    `,
-                    mixBlendMode: 'multiply'
+                      linear-gradient(to bottom, transparent 0%, transparent 70%, rgba(0, 0, 0, 0.7) 85%, rgba(0, 0, 0, 1) 100%)
+                    `
                   }}
                 />
               </div>
