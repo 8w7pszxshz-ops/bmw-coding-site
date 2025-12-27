@@ -3,6 +3,7 @@ import Icon from '@/components/ui/icon';
 import HeroSection from '@/components/HeroSection';
 import SpecialOffer from '@/components/SpecialOffer';
 import CodingPackages from '@/components/CodingPackages';
+import ChipTuning from '@/components/ChipTuning';
 import ServicesGrid from '@/components/ServicesGrid';
 import ExpertTips from '@/components/ExpertTips';
 import Reviews from '@/components/Reviews';
@@ -86,6 +87,7 @@ export default function Index() {
           <SpecialOffer />
           <ServicesGrid />
           <CodingPackages />
+          <ChipTuning />
           <ExpertTips />
           <Reviews />
           <QuickActions />
