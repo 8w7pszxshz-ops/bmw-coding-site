@@ -36,21 +36,25 @@ export default function EngineGroupCard({ group, index, onSelect }: EngineGroupC
         </div>
       </div>
 
-      <div className="space-y-2 mb-4">
-        {group.variants.map((variant, i) => (
-          <div key={i} className="text-white/60 text-sm flex items-center gap-2">
-            <div className="w-1 h-1 rounded-full" style={{ background: color }} />
-            <span>{variant.name}</span>
-            <span className="text-white/40">→</span>
-            <span style={{ color }}>{variant.powerAfter} л.с.</span>
-            <span className="text-green-400 text-xs ml-1">+{getGainPercentage(variant.powerBefore, variant.powerAfter)}%</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex items-center gap-2 text-white/40 text-xs pt-3 border-t" style={{ borderColor: `${color}20` }}>
-        <Icon name="Car" className="w-4 h-4" />
-        <span>{totalModels} моделей BMW</span>
+      <div className="mb-3">
+        <div className="text-white/40 text-xs mb-2">Подходящие модели:</div>
+        <div className="flex flex-wrap gap-2">
+          {group.variants.flatMap(v => v.models).slice(0, 4).map((model, i) => (
+            <span 
+              key={i}
+              className="px-2 py-1 rounded-lg text-xs text-white/70"
+              style={{
+                background: `linear-gradient(135deg, ${color}15, ${color}08)`,
+                border: `1px solid ${color}25`
+              }}
+            >
+              {model}
+            </span>
+          ))}
+          {totalModels > 4 && (
+            <span className="text-white/40 text-xs self-center">+{totalModels - 4}</span>
+          )}
+        </div>
       </div>
     </button>
   );
