@@ -10,7 +10,7 @@ const services = [
     icon: 'Zap',
     price: 'от 25 000 ₽',
     color: '#FF0040',
-    details: 'Stage 1, Stage 2, Stage 3. Увеличение мощности до +40%, улучшение динамики разгона. Гарантия на работу 2 года. Диагностика перед чип-тюнингом бесплатно.'
+    details: '- Stage 1, Stage 2\n- EGR, DPF OFF\n- Adblue OFF'
   },
   {
     id: 'coding',
