@@ -18,7 +18,7 @@ export interface EngineGroup {
 
 export const engineGroups: EngineGroup[] = [
   {
-    name: 'N20 2.0 Turbo',
+    name: 'N20 2.0',
     type: 'petrol',
     description: 'F-серия (2011-2015)',
     variants: [
@@ -35,7 +35,7 @@ export const engineGroups: EngineGroup[] = [
     ]
   },
   {
-    name: 'N55 3.0 Turbo',
+    name: 'N55 3.0',
     type: 'petrol',
     description: 'F-серия (2010-2016)',
     variants: [
@@ -52,7 +52,7 @@ export const engineGroups: EngineGroup[] = [
     ]
   },
   {
-    name: 'B48 2.0 Turbo',
+    name: 'B48 2.0',
     type: 'petrol',
     description: 'G-серия (2015+)',
     variants: [
@@ -79,7 +79,7 @@ export const engineGroups: EngineGroup[] = [
     ]
   },
   {
-    name: 'B58 3.0 Turbo',
+    name: 'B58 3.0',
     type: 'petrol',
     description: 'G-серия (2015+)',
     variants: [
@@ -106,7 +106,7 @@ export const engineGroups: EngineGroup[] = [
     ]
   },
   {
-    name: 'S58 3.0 Twin-Turbo',
+    name: 'S58 3.0',
     type: 'petrol',
     description: 'M-Performance (2019+)',
     variants: [
