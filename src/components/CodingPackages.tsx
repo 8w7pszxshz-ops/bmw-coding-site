@@ -54,7 +54,7 @@ export default function CodingPackages() {
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Icon name="Code" className="w-8 h-8 text-[#81C4FF]" />
-          <h2 className="font-light text-white text-3xl">Кодировки BMW G-серии</h2>
+          <h2 className="font-light text-white text-3xl">Пакеты скрытых опций BMW G-series</h2>
         </div>
 
       </div>
@@ -159,7 +159,7 @@ export default function CodingPackages() {
             border: '1px solid rgba(129, 196, 255, 0.3)'
           }}
         >
-          Записаться на кодировку
+          Получить пакет
         </a>
 
         <div className="flex gap-4">
