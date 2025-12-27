@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
 const quickActions = [
-  { id: 'call', icon: 'Phone', label: 'Позвонить' },
-  { id: 'whatsapp', icon: 'MessageCircle', label: 'WhatsApp' },
+  { id: 'call', icon: 'Phone', label: 'Позвонить', link: 'tel:+79873573338' },
+  { id: 'telegram', icon: 'Send', label: 'Telegram', link: 'https://t.me/Bocha_reborn' },
   { id: 'location', icon: 'MapPin', label: 'Адрес' },
   { id: 'time', icon: 'Clock', label: 'Режим' }
 ];
@@ -22,9 +22,12 @@ export default function QuickActions() {
       >
         <CardContent className="p-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickActions.map((action) => (
-              <button
+            {quickActions.map((action) => {
+              const Element = action.link ? 'a' : 'button';
+              return (
+              <Element
                 key={action.id}
+                {...(action.link ? { href: action.link, target: action.id === 'telegram' ? '_blank' : undefined, rel: action.id === 'telegram' ? 'noopener noreferrer' : undefined } : {})}
                 className="group flex flex-col items-center gap-4 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.05]"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
@@ -45,8 +48,8 @@ export default function QuickActions() {
                   />
                 </div>
                 <span className="text-sm text-white/60 font-light">{action.label}</span>
-              </button>
-            ))}
+              </Element>
+            )})}
           </div>
         </CardContent>
       </Card>
@@ -66,18 +69,10 @@ export default function QuickActions() {
             <Icon name="Send" className="w-5 h-5" />
           </a>
           <a 
-            href="tel:+79999999999"
+            href="tel:+79873573338"
             className="text-white/40 hover:text-blue-400 transition-colors duration-300"
           >
             <Icon name="Phone" className="w-5 h-5" />
-          </a>
-          <a 
-            href="https://wa.me/79999999999"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/40 hover:text-blue-400 transition-colors duration-300"
-          >
-            <Icon name="MessageCircle" className="w-5 h-5" />
           </a>
         </div>
       </div>
