@@ -11,7 +11,7 @@ const seriesData = [
 
 export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) {
   return (
-    <div className="max-w-4xl mx-auto mb-12 animate-fade-in">
+    <div className="max-w-2xl mx-auto mb-12 animate-fade-in">
       <h3 className="text-white text-xl font-light mb-6 text-center animate-slide-in">Выберите серию вашего BMW</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {seriesData.map((series) => (
