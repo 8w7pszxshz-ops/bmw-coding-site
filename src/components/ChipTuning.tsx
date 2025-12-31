@@ -35,15 +35,17 @@ function ChipTuningMobile() {
       />
 
       {!selectedGroup ? (
-        <div className="grid grid-cols-1 gap-4">
-          {filteredGroups.map((group, idx) => (
-            <EngineGroupCard
-              key={group.name}
-              group={group}
-              index={idx}
-              onSelect={() => setSelectedGroup(group)}
-            />
-          ))}
+        <div className="overflow-x-auto scrollbar-hide -mx-4">
+          <div className="flex gap-4 px-4 pb-4">
+            {filteredGroups.map((group, idx) => (
+              <EngineGroupCard
+                key={group.name}
+                group={group}
+                index={idx}
+                onSelect={() => setSelectedGroup(group)}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <>

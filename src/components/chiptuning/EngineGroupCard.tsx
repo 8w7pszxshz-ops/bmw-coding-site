@@ -15,7 +15,7 @@ function EngineGroupCardMobile({ group, index, onSelect }: EngineGroupCardProps)
   return (
     <Card
       onClick={onSelect}
-      className="group relative overflow-hidden border-0 transition-all duration-300 cursor-pointer"
+      className="group relative overflow-hidden border-0 transition-all duration-300 cursor-pointer flex-shrink-0"
       style={{
         background: `
           linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
@@ -27,7 +27,9 @@ function EngineGroupCardMobile({ group, index, onSelect }: EngineGroupCardProps)
           inset 0 1px 0 rgba(255, 255, 255, 0.1),
           0 0 0 1px ${color}15
         `,
-        animationDelay: `${index * 50}ms`
+        animationDelay: `${index * 50}ms`,
+        minWidth: '260px',
+        width: '260px'
       }}
     >
       <div 

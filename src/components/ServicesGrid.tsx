@@ -67,7 +67,7 @@ const services = [
 function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
   return (
     <Card
-      className="group relative overflow-hidden border-0 transition-all duration-500"
+      className="group relative overflow-hidden border-0 transition-all duration-500 flex-shrink-0"
       style={{
         background: `
           linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
@@ -79,7 +79,9 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
           inset 0 1px 0 rgba(255, 255, 255, 0.1),
           0 0 0 1px ${service.color}15
         `,
-        animationDelay: `${index * 50}ms`
+        animationDelay: `${index * 50}ms`,
+        minWidth: '280px',
+        width: '280px'
       }}
     >
       <div 
@@ -312,16 +314,20 @@ export default function ServicesGrid() {
   return (
     <Adaptive
       mobile={
-        <div className="grid grid-cols-1 gap-4 mb-12 px-4">
-          {services.map((service, index) => (
-            <ServiceCardMobile
-              key={service.id}
-              service={service}
-              index={index}
-              isSelected={selectedService === service.id}
-              onToggle={() => setSelectedService(selectedService === service.id ? null : service.id)}
-            />
-          ))}
+        <div className="mb-12">
+          <div className="overflow-x-auto scrollbar-hide -mx-4">
+            <div className="flex gap-4 px-4 pb-4">
+              {services.map((service, index) => (
+                <ServiceCardMobile
+                  key={service.id}
+                  service={service}
+                  index={index}
+                  isSelected={selectedService === service.id}
+                  onToggle={() => setSelectedService(selectedService === service.id ? null : service.id)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       }
       desktop={
