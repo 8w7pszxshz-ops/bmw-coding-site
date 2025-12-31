@@ -1,11 +1,21 @@
 {
   "tests": [
     {
-      "name": "Test AI chat endpoint",
+      "name": "Test AI chat with history",
       "method": "POST",
       "path": "/",
       "body": {
-        "message": "Что такое чип-тюнинг?"
+        "message": "А сколько это стоит?",
+        "history": [
+          {
+            "sender": "user",
+            "text": "Что такое чип-тюнинг?"
+          },
+          {
+            "sender": "ai",
+            "text": "Чип-тюнинг — это перепрограммирование электронного блока управления двигателем."
+          }
+        ]
       },
       "expectedStatus": 200,
       "expectedBody": {

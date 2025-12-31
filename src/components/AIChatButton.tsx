@@ -46,7 +46,10 @@ export default function AIChatButton() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userMessage.text })
+        body: JSON.stringify({ 
+          message: userMessage.text,
+          history: messages
+        })
       });
 
       const data = await response.json();

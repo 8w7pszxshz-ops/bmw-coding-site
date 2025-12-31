@@ -45,6 +45,7 @@ def handler(event: dict, context) -> dict:
     
     body = json.loads(event.get('body', '{}'))
     user_message = body.get('message', '').strip()
+    history = body.get('history', [])
     
     if not user_message:
         return {
@@ -66,17 +67,32 @@ def handler(event: dict, context) -> dict:
 - Рекомендовать услуги автосервиса, когда это уместно
 - Отвечать кратко, но информативно (2-4 предложения)
 - Использовать понятный язык без сложных технических терминов
+- Учитывать контекст предыдущих сообщений в беседе
 
 Важно: Ты консультируешь, но не заменяешь профессиональную диагностику в автосервисе."""
     
     url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}'
     
+    contents = []
+    
+    if history:
+        for msg in history:
+            role = 'user' if msg.get('sender') == 'user' else 'model'
+            contents.append({
+                'role': role,
+                'parts': [{'text': msg.get('text', '')}]
+            })
+    
+    contents.append({
+        'role': 'user',
+        'parts': [{'text': user_message}]
+    })
+    
     payload = {
-        'contents': [{
-            'parts': [{
-                'text': f'{system_context}\n\nВопрос клиента: {user_message}'
-            }]
-        }],
+        'contents': contents,
+        'systemInstruction': {
+            'parts': [{'text': system_context}]
+        },
         'generationConfig': {
             'temperature': 0.7,
             'maxOutputTokens': 300,
