@@ -305,7 +305,7 @@ export default function VinDecoder() {
               )}
 
               {/* Доступные кодировки */}
-              {result.analysis.available_coding?.length > 0 && (
+              {Array.isArray(result.analysis.available_coding) && result.analysis.available_coding.length > 0 && (
                 <div className="bg-gradient-to-br from-green-900/20 to-emerald-900/20 backdrop-blur-xl rounded-2xl border border-green-500/20 p-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
