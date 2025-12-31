@@ -43,7 +43,7 @@ export default function AIChatButton() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://functions.poehali.dev/25652561-3ba1-4233-a353-6f7ba36918c2', {
+      const response = await fetch('https://functions.poehali.dev/82216dc4-3ce0-4f44-9084-9ce91dba6cbf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
