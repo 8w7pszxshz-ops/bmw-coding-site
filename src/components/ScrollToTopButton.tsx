@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
+const vibrate = (pattern: number | number[] = 10) => {
+  if ('vibrate' in navigator) {
+    navigator.vibrate(pattern);
+  }
+};
+
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -18,6 +24,7 @@ export default function ScrollToTopButton() {
   }, []);
 
   const scrollToTop = () => {
+    vibrate(15);
     window.scrollTo({
       top: 0,
       behavior: 'smooth'

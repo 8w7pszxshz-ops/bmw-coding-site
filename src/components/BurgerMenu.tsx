@@ -12,10 +12,22 @@ const menuItems = [
   { id: 'contact', label: 'Контакты', icon: 'MapPin' },
 ];
 
+const vibrate = (pattern: number | number[] = 10) => {
+  if ('vibrate' in navigator) {
+    navigator.vibrate(pattern);
+  }
+};
+
 export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleToggle = () => {
+    vibrate(15);
+    setIsOpen(!isOpen);
+  };
+
   const scrollToSection = (id: string) => {
+    vibrate(10);
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -33,7 +45,7 @@ export default function BurgerMenu() {
   return (
     <MobileOnly>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
         className="fixed top-4 right-4 z-[60] w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/90 to-cyan-500/90 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg"
         aria-label="Меню"
       >
@@ -48,7 +60,7 @@ export default function BurgerMenu() {
         <>
           <div 
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55]"
-            onClick={() => setIsOpen(false)}
+            onClick={() => { vibrate(5); setIsOpen(false); }}
           />
           
           <div className="fixed top-20 right-4 z-[58] bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
