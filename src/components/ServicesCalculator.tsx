@@ -226,13 +226,39 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
             </div>
           </div>
 
-          <button
-            onClick={() => { vibrate(15); setShowContact(true); }}
-            className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 rounded-xl font-semibold transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
-          >
-            <Icon name="CheckCircle" className="w-5 h-5" />
-            <span>Оформить заказ</span>
-          </button>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={() => { vibrate(15); setShowContact(true); }}
+              className="bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 rounded-xl font-semibold transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+            >
+              <Icon name="CheckCircle" className="w-5 h-5" />
+              <span>Форма заказа</span>
+            </button>
+            <button
+              onClick={() => {
+                vibrate(15);
+                const services = Array.from(selectedServices)
+                  .map(code => {
+                    for (const cat of Object.values(categories)) {
+                      const service = cat.services.find(s => s.service_code === code);
+                      if (service) return `${service.service_name} (${service.price.toLocaleString()} ₽)`;
+                    }
+                    return '';
+                  })
+                  .filter(Boolean)
+                  .join('\n');
+                
+                const message = `🚗 *Заказ с VIN Decoder*\n\n*VIN:* ${vinData.vin}\n*Авто:* ${vinData.vehicle.manufacturer} ${vinData.vehicle.series} (${vinData.vehicle.year})\n\n*Выбранные услуги:*\n${services}\n\n*Итого:* ${finalPrice.toLocaleString()} ₽${discount > 0 ? ` (скидка ${discount}%)` : ''}\n*Время работы:* ~${Math.round(totalDuration / 60)} ч`;
+                
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://t.me/bochaservice?text=${encodedMessage}`, '_blank');
+              }}
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-xl font-semibold transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+            >
+              <Icon name="Send" className="w-5 h-5" />
+              <span>В Telegram</span>
+            </button>
+          </div>
         </div>
       )}
 
