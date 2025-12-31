@@ -111,9 +111,22 @@ export default function VinDecoder() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               Узнай возможности своего BMW
             </h2>
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg mb-4">
               Введи VIN и получи полный анализ HWEL блоков и доступных опций кодирования
             </p>
+            <button
+              onClick={() => {
+                vibrate(15);
+                setVin('WBATX71070LB47317');
+                setTimeout(() => {
+                  handleDecode();
+                }, 100);
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-lg text-purple-300 hover:bg-purple-500/30 transition-all text-sm"
+            >
+              <Icon name="Play" className="w-4 h-4" />
+              <span>Попробовать демо BMW 340i</span>
+            </button>
           </div>
 
           <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden p-6 mb-8">
@@ -124,14 +137,26 @@ export default function VinDecoder() {
                   value={vin}
                   onChange={(e) => setVin(e.target.value.toUpperCase())}
                   onKeyPress={handleKeyPress}
-                  placeholder="WBADT43452G123456"
+                  placeholder="WBATX71070LB47317"
                   maxLength={17}
                   disabled={isLoading}
                   className="w-full bg-white/10 text-white placeholder:text-gray-500 rounded-xl px-4 py-3 text-lg font-mono tracking-wider focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50"
                 />
-                <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
-                  <Icon name="Info" className="w-4 h-4" />
-                  <span>17 символов, например: WBADT43452G123456</span>
+                <div className="flex items-center justify-between mt-2 text-xs">
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <Icon name="Info" className="w-4 h-4" />
+                    <span>17 символов VIN автомобиля</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      vibrate(10);
+                      setVin('WBATX71070LB47317');
+                    }}
+                    className="text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1"
+                  >
+                    <Icon name="Sparkles" className="w-3 h-3" />
+                    <span>Вставить демо</span>
+                  </button>
                 </div>
               </div>
               <button
