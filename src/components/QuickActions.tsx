@@ -56,7 +56,7 @@ export default function QuickActions() {
               <Element
                 key={action.id}
                 {...(action.link ? { href: action.link, target: action.id === 'telegram' ? '_blank' : undefined, rel: action.id === 'telegram' ? 'noopener noreferrer' : undefined } : { onClick: () => handleActionClick(action.id) })}
-                className="group flex flex-col items-center gap-4 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
+                className="group flex flex-col items-center gap-4 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_40px_rgba(231,34,46,0.4)] min-h-[120px] min-w-[120px]"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -73,10 +73,10 @@ export default function QuickActions() {
                 >
                   <Icon 
                     name={action.icon as any}
-                    className="w-7 h-7 text-blue-400"
+                    className="w-8 h-8 text-blue-400"
                   />
                 </div>
-                <span className="text-sm text-white/60 font-light">{action.label}</span>
+                <span className="text-base text-white/80 font-light">{action.label}</span>
               </Element>
             )})}
           </div>
@@ -106,9 +106,9 @@ export default function QuickActions() {
               href="https://yandex.ru/maps/org/reborn_technologies/70103871083/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+              className="flex items-center gap-3 text-base text-blue-400 hover:text-blue-300 transition-colors min-h-[44px] py-3"
             >
-              <Icon name="ExternalLink" className="w-4 h-4" />
+              <Icon name="ExternalLink" className="w-5 h-5" />
               Открыть на карте
             </a>
           </div>

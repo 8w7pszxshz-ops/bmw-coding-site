@@ -105,7 +105,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
         <h3 className="text-xl font-light text-white mb-2 tracking-tight">
           {service.title}
         </h3>
-        <p className="text-xs text-white/50 mb-3 font-light">
+        <p className="text-xs text-white/70 mb-3 font-light">
           {service.description}
         </p>
         

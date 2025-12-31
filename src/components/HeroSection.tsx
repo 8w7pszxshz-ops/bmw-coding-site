@@ -17,7 +17,7 @@ function HeroMobile() {
         </span>
       </h1>
       
-      <p className="text-base text-white/50 font-light mb-6">
+      <p className="text-base text-white/70 font-light mb-6">
         Профессиональное программирование и активация скрытых функций
       </p>
 
@@ -26,7 +26,7 @@ function HeroMobile() {
           <Icon name="ShieldCheck" className="w-7 h-7 text-blue-400 flex-shrink-0 mt-0.5" />
           <div>
             <div className="text-white/90 font-light text-base mb-1">Без экспериментов</div>
-            <div className="text-white/60 text-sm font-light leading-relaxed">
+            <div className="text-white/75 text-sm font-light leading-relaxed">
               Применяем только рабочие решения
             </div>
           </div>
@@ -54,7 +54,7 @@ function HeroDesktop() {
             </span>
           </h1>
           
-          <p className="text-xl text-white/50 font-light max-w-2xl mb-12">
+          <p className="text-xl text-white/70 font-light max-w-2xl mb-12">
             Профессиональное программирование и активация скрытых функций
           </p>
         </div>
@@ -65,7 +65,7 @@ function HeroDesktop() {
               <Icon name="ShieldCheck" className="w-9 h-9 text-blue-400 flex-shrink-0 mt-0.5" />
               <div>
                 <div className="text-white/90 font-light text-lg mb-2">Без экспериментов</div>
-                <div className="text-white/60 text-lg font-light leading-relaxed">
+                <div className="text-white/75 text-lg font-light leading-relaxed">
                   Применяем только рабочие решения
                 </div>
               </div>

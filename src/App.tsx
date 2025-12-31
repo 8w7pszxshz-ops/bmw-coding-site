@@ -6,6 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import StickyContactButton from "@/components/StickyContactButton";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
+import BurgerMenu from "@/components/BurgerMenu";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +17,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <StickyContactButton />
+      <ScrollToTopButton />
+      <BurgerMenu />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

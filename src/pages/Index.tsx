@@ -12,13 +12,27 @@ export default function Index() {
   return (
     <MainLayout>
       <HeroSection />
-      <SpecialOffer />
-      <ServicesGrid />
-      <CodingPackages />
-      <ChipTuning />
-      <ExpertTips />
-      <Reviews />
-      <QuickActions />
+      <div id="offers">
+        <SpecialOffer />
+      </div>
+      <div id="services">
+        <ServicesGrid />
+      </div>
+      <div id="packages">
+        <CodingPackages />
+      </div>
+      <div id="chiptuning">
+        <ChipTuning />
+      </div>
+      <div id="tips">
+        <ExpertTips />
+      </div>
+      <div id="reviews">
+        <Reviews />
+      </div>
+      <div id="contact">
+        <QuickActions />
+      </div>
     </MainLayout>
   );
 }

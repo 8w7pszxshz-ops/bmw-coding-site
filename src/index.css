@@ -132,29 +132,21 @@
 
 @layer utilities {
   .electric-glow {
-    text-shadow:
-      0 0 20px rgba(0, 153, 255, 0.7),
-      0 0 40px rgba(0, 153, 255, 0.4),
-      0 0 60px rgba(0, 153, 255, 0.2);
+    text-shadow: 0 0 30px rgba(0, 153, 255, 0.5);
   }
 
   .electric-border {
     box-shadow:
-      0 0 15px rgba(0, 153, 255, 0.5),
-      0 0 30px rgba(0, 153, 255, 0.25),
+      0 0 20px rgba(0, 153, 255, 0.4),
       inset 0 0 15px rgba(0, 153, 255, 0.15);
   }
 
   .premium-shadow {
-    box-shadow:
-      0 20px 60px rgba(0, 0, 0, 0.7),
-      0 0 40px rgba(0, 153, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
   }
 
   .orange-glow {
-    text-shadow:
-      0 0 20px rgba(255, 120, 60, 0.6),
-      0 0 40px rgba(255, 120, 60, 0.3);
+    text-shadow: 0 0 30px rgba(255, 120, 60, 0.5);
   }
 
   .bmw-gradient {
@@ -177,24 +169,16 @@
 
   .ambient-glow {
     box-shadow:
-      0 0 30px rgba(0, 153, 255, 0.5),
-      0 0 60px rgba(0, 153, 255, 0.25),
+      0 0 40px rgba(0, 153, 255, 0.4),
       inset 0 0 30px rgba(0, 153, 255, 0.08);
   }
 
   .leather-texture {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 0.03) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        ellipse at bottom right,
-        rgba(255, 255, 255, 0.02) 0%,
-        transparent 50%
-      ),
-      linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
   }
 
   .curved-edge {
@@ -243,19 +227,12 @@
   }
 
   .glass-cockpit {
-    background: linear-gradient(
-      135deg,
-      rgba(5, 8, 12, 0.95) 0%,
-      rgba(8, 12, 18, 0.92) 50%,
-      rgba(5, 8, 12, 0.95) 100%
-    );
-    backdrop-filter: blur(24px) saturate(180%);
+    background: rgba(8, 12, 18, 0.92);
+    backdrop-filter: blur(24px);
     border: 1px solid rgba(0, 153, 255, 0.25);
     box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(0, 153, 255, 0.15),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-      0 0 40px rgba(0, 153, 255, 0.08);
+      inset 0 1px 0 rgba(0, 153, 255, 0.15);
   }
 
   .cockpit-reflection {
@@ -328,33 +305,19 @@
   }
 
   .idrive-screen {
-    background: radial-gradient(
-      ellipse at center,
-      rgba(0, 153, 255, 0.06) 0%,
-      rgba(255, 120, 60, 0.02) 50%,
-      transparent 100%
-    );
+    background: rgba(0, 153, 255, 0.04);
     box-shadow:
-      0 0 100px rgba(0, 153, 255, 0.35),
-      0 0 60px rgba(255, 120, 60, 0.15),
+      0 0 80px rgba(0, 153, 255, 0.3),
       inset 0 0 60px rgba(0, 153, 255, 0.12);
   }
 
   .carbon-fiber {
-    background:
-      repeating-linear-gradient(
-        45deg,
-        rgba(30, 30, 30, 1) 0px,
-        rgba(40, 40, 40, 1) 2px,
-        rgba(30, 30, 30, 1) 4px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        rgba(35, 35, 35, 1) 0px,
-        rgba(45, 45, 45, 1) 2px,
-        rgba(35, 35, 35, 1) 4px
-      );
-    background-blend-mode: multiply;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(30, 30, 30, 1) 0px,
+      rgba(40, 40, 40, 1) 2px,
+      rgba(30, 30, 30, 1) 4px
+    );
   }
 
   .nappa-leather {
