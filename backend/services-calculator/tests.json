@@ -1,0 +1,32 @@
+{
+  "tests": [
+    {
+      "name": "Test missing VIN data",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "action": "get_services"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "VIN data required"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test calculate without services",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "action": "calculate_order",
+        "vinData": {"vin": "TEST"},
+        "selectedServices": []
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "No services selected"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
