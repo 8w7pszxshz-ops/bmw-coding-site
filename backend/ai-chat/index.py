@@ -104,13 +104,15 @@ def handler(event: dict, context) -> dict:
     response = requests.post(url, json=payload, timeout=30)
     
     if response.status_code != 200:
+        error_detail = response.text[:200] if response.text else 'No error details'
+        print(f"Google AI API Error: {response.status_code}, Details: {error_detail}")
         return {
             'statusCode': response.status_code,
             'headers': {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps({'error': 'AI service error'}),
+            'body': json.dumps({'error': 'AI service error', 'details': error_detail}),
             'isBase64Encoded': False
         }
     
