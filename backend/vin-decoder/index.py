@@ -97,8 +97,8 @@ def handler(event: dict, context) -> dict:
     # Фильтруем блоки по реально установленным SA кодам
     installed_blocks = filter_installed_blocks(all_blocks, equipment)
     
-    # Анализ возможностей кодирования
-    coding_analysis = analyze_coding_options(vehicle_info, installed_blocks, equipment)
+    # Анализ возможностей кодирования из БД
+    coding_analysis = get_available_coding_from_db(dsn, installed_blocks, equipment)
     
     return {
         'statusCode': 200,
@@ -161,276 +161,90 @@ def decode_bmw_vin(vin: str) -> dict:
     }
 
 
-def analyze_coding_options(vehicle_info: dict, available_blocks: list, equipment: dict) -> dict:
-    '''Анализ возможностей кодирования для конкретного авто на основе установленных опций'''
+def get_available_coding_from_db(dsn: str, installed_blocks: list, equipment: dict) -> dict:
+    '''Получение доступных кодировок из базы данных (как в калькуляторе)'''
     
-    analysis = {
-        'available_coding': [],  # Доступные кодировки
-        'engine_tuning': [],
-        'transmission_tuning': [],
-        'recommendations': []
-    }
-    
-    # Определяем доступные кодировки на основе установленного оборудования
-    multimedia = equipment.get('multimedia', {})
-    options = equipment.get('options', [])
-    
-    # === МУЛЬТИМЕДИА КОДИРОВКИ ===
-    
-    # Если есть NBT Evo (609)
-    if multimedia.get('NBT Evo ID6 Navigation Professional'):
-        analysis['available_coding'].extend([
-            {
-                'category': 'Мультимедиа',
-                'name': 'Видео в движении',
-                'description': 'Пассажир может смотреть видео во время движения',
-                'price': 2000,
-                'duration': 30
-            },
-            {
-                'category': 'Мультимедиа',
-                'name': 'Apple CarPlay активация',
-                'description': 'Беспроводное подключение iPhone к мультимедиа',
-                'price': 8000,
-                'duration': 60
-            },
-            {
-                'category': 'Мультимедиа',
-                'name': 'Android Auto активация',
-                'description': 'Беспроводное подключение Android телефона',
-                'price': 8000,
-                'duration': 60
-            },
-            {
-                'category': 'Мультимедиа',
-                'name': 'Split-screen режим',
-                'description': 'Разделение экрана на 2 зоны одновременно',
-                'price': 2000,
-                'duration': 20
-            }
-        ])
-    
-    # Если есть камера заднего вида
-    if multimedia.get('camera'):
-        analysis['available_coding'].append({
-            'category': 'Мультимедиа',
-            'name': 'Камера на весь экран',
-            'description': 'Увеличенное изображение камеры заднего вида',
-            'price': 2000,
-            'duration': 20
-        })
-    
-    # Если есть Top View камера
-    if multimedia.get('top_view'):
-        analysis['available_coding'].append({
-            'category': 'Мультимедиа',
-            'name': 'Top View на скорости',
-            'description': 'Круговой обзор 360° на скорости до 30 км/ч',
-            'price': 2500,
-            'duration': 25
-        })
-    
-    # Если есть HUD
-    if multimedia.get('Head-Up Display') or multimedia.get('BMW Head-Up Display'):
-        analysis['available_coding'].extend([
-            {
-                'category': 'Приборная панель',
-                'name': 'HUD расширенная информация',
-                'description': 'Дополнительные данные на проекции (температура, G-force)',
-                'price': 2000,
-                'duration': 30
-            },
-            {
-                'category': 'Приборная панель',
-                'name': 'HUD регулировка яркости',
-                'description': 'Увеличенный диапазон яркости проекции',
-                'price': 1500,
-                'duration': 15
-            }
-        ])
-    
-    # === ОСВЕЩЕНИЕ ===
-    
-    if 'Adaptive LED Headlights' in options:
-        analysis['available_coding'].extend([
-            {
-                'category': 'Освещение',
-                'name': 'Welcome Light Show',
-                'description': 'Анимация фар при открытии/закрытии автомобиля',
-                'price': 1500,
-                'duration': 20
-            },
-            {
-                'category': 'Освещение',
-                'name': 'Динамические поворотники',
-                'description': 'Бегущие указатели поворота',
-                'price': 3000,
-                'duration': 40
-            }
-        ])
-    
-    # Общие кодировки освещения
-    analysis['available_coding'].extend([
-        {
-            'category': 'Освещение',
-            'name': 'ДХО не гаснут с поворотниками',
-            'description': 'Дневные ходовые огни остаются активными при повороте',
-            'price': 1500,
-            'duration': 15
-        },
-        {
-            'category': 'Освещение',
-            'name': 'Отключение автоматического дальнего света',
-            'description': 'Фары всегда в режиме ближнего света',
-            'price': 1500,
-            'duration': 10
-        }
-    ])
-    
-    # === КОМФОРТ ===
-    
-    if 'Comfort Access' in options:
-        analysis['available_coding'].extend([
-            {
-                'category': 'Комфорт',
-                'name': 'Автозакрытие зеркал',
-                'description': 'Зеркала складываются при закрытии автомобиля',
-                'price': 1500,
-                'duration': 15
-            },
-            {
-                'category': 'Комфорт',
-                'name': 'Автозакрытие окон с брелока',
-                'description': 'Закрытие всех стёкол удержанием кнопки брелока',
-                'price': 2000,
-                'duration': 20
-            }
-        ])
-    
-    # Общие комфортные кодировки
-    analysis['available_coding'].extend([
-        {
-            'category': 'Комфорт',
-            'name': 'Двойное моргание аварийкой',
-            'description': 'Двойное мигание при закрытии автомобиля',
-            'price': 1000,
-            'duration': 10
-        },
-        {
-            'category': 'Комфорт',
-            'name': 'Отключение автостопа Start/Stop',
-            'description': 'Система всегда выключена по умолчанию',
-            'price': 2000,
-            'duration': 15
-        },
-        {
-            'category': 'Комфорт',
-            'name': 'Отключение звука ремня безопасности',
-            'description': 'Убрать назойливый звуковой сигнал непристёгнутого ремня',
-            'price': 1000,
-            'duration': 10
-        }
-    ])
-    
-    # === ПРИБОРНАЯ ПАНЕЛЬ ===
-    
-    analysis['available_coding'].extend([
-        {
-            'category': 'Приборная панель',
-            'name': 'Цифровая скорость в приборке',
-            'description': 'Отображение скорости цифрами на панели',
-            'price': 1500,
-            'duration': 15
-        },
-        {
-            'category': 'Приборная панель',
-            'name': 'Sweep-анимация стрелок',
-            'description': 'Красивая анимация стрелок при запуске',
-            'price': 2000,
-            'duration': 20
-        },
-        {
-            'category': 'Приборная панель',
-            'name': 'M-режимы отображения',
-            'description': 'Спортивные режимы приборной панели',
-            'price': 3000,
-            'duration': 30
-        }
-    ])
-    
-    # === БЕЗОПАСНОСТЬ / ДРАЙВ ===
-    
-    if 'M Sport Package' in options:
-        analysis['available_coding'].extend([
-            {
-                'category': 'Безопасность',
-                'name': 'MDM режим (M Dynamic Mode)',
-                'description': 'Промежуточный режим стабилизации для дрифта',
-                'price': 2000,
-                'duration': 25
-            },
-            {
-                'category': 'Безопасность',
-                'name': 'Полное отключение DSC',
-                'description': 'Возможность полного выключения стабилизации',
-                'price': 1500,
-                'duration': 20
-            }
-        ])
-    
-    # Общие кодировки
-    analysis['available_coding'].extend([
-        {
-            'category': 'Безопасность',
-            'name': 'Отключение ограничения скорости',
-            'description': 'Снятие программного ограничения 250 км/ч',
-            'price': 2000,
-            'duration': 20
-        }
-    ])
-    
-    # Анализ возможностей чип-тюнинга двигателя
-    engine = equipment.get('engine', {})
-    if engine.get('code'):
-        engine_code = engine['code']
-        engine_type = engine.get('type', '')
+    try:
+        conn = psycopg2.connect(dsn)
+        cur = conn.cursor(cursor_factory=RealDictCursor)
         
-        # Популярные двигатели BMW для тюнинга
-        tunable_engines = {
-            'B58': {'stage1': 400, 'stage2': 500, 'name': 'B58 3.0L Turbo'},
-            'B48': {'stage1': 280, 'stage2': 320, 'name': 'B48 2.0L Turbo'},
-            'N55': {'stage1': 380, 'stage2': 450, 'name': 'N55 3.0L Turbo'},
-            'N20': {'stage1': 260, 'stage2': 290, 'name': 'N20 2.0L Turbo'},
-            'S55': {'stage1': 500, 'stage2': 600, 'name': 'S55 3.0L Twin Turbo (M)'},
-            'S58': {'stage1': 550, 'stage2': 650, 'name': 'S58 3.0L Twin Turbo (M)'},
-            'B57': {'stage1': 350, 'stage2': 400, 'name': 'B57 3.0L Diesel'}
-        }
+        # Получаем список HWEL кодов установленных блоков
+        installed_hwel = [block['hwel_code'] for block in installed_blocks]
         
-        for code, specs in tunable_engines.items():
-            if code in engine_code or code in engine_type:
-                analysis['engine_tuning'].append({
-                    'engine': specs['name'],
-                    'stock_hp': engine.get('power', 'н/д'),
-                    'stage1_hp': specs['stage1'],
-                    'stage2_hp': specs['stage2'],
-                    'available': True
+        # Получаем все услуги из БД
+        cur.execute("""
+            SELECT 
+                service_code,
+                category,
+                service_name,
+                description,
+                required_hwel_codes,
+                price,
+                duration_minutes,
+                complexity,
+                is_popular
+            FROM coding_services
+            ORDER BY 
+                CASE category
+                    WHEN 'engine' THEN 1
+                    WHEN 'transmission' THEN 2
+                    WHEN 'multimedia' THEN 3
+                    WHEN 'lighting' THEN 4
+                    WHEN 'dashboard' THEN 5
+                    WHEN 'comfort' THEN 6
+                    WHEN 'safety' THEN 7
+                END,
+                is_popular DESC,
+                price DESC
+        """)
+        
+        all_services = [dict(row) for row in cur.fetchall()]
+        
+        # Фильтруем доступные услуги
+        available_coding = []
+        
+        for service in all_services:
+            required = service['required_hwel_codes'] or []
+            # Услуга доступна, если хотя бы один требуемый блок установлен
+            has_required = any(code in installed_hwel for code in required) if required else True
+            
+            if has_required:
+                available_coding.append({
+                    'category': get_category_name(service['category']),
+                    'name': service['service_name'],
+                    'description': service['description'],
+                    'price': service['price'],
+                    'duration': service['duration_minutes']
                 })
-                analysis['recommendations'].append(f'Доступен чип-тюнинг {specs["name"]}: Stage 1 до {specs["stage1"]} л.с.')
-                break
-    
-    # Анализ возможностей прошивки коробки
-    transmission = equipment.get('transmission', {})
-    if transmission.get('type') == 'ZF8HP':
-        analysis['transmission_tuning'].append({
-            'transmission': 'ZF 8HP (8-speed automatic)',
-            'xhp_stage1': 'Быстрые переключения + Sport режим',
-            'xhp_stage2': 'Launch Control + Custom maps',
-            'xhp_stage3': 'Full custom + Track mode',
-            'available': True
-        })
-        analysis['recommendations'].append('Доступна прошивка XHP для коробки ZF8HP')
-    
-    return analysis
+        
+        cur.close()
+        conn.close()
+        
+        return {
+            'available_coding': available_coding,
+            'total_available': len(available_coding)
+        }
+        
+    except Exception as e:
+        print(f'Database error in get_available_coding_from_db: {str(e)}')
+        return {
+            'available_coding': [],
+            'total_available': 0
+        }
+
+
+def get_category_name(cat: str) -> str:
+    '''Возвращает русское название категории'''
+    names = {
+        'engine': 'Двигатель',
+        'transmission': 'Трансмиссия',
+        'multimedia': 'Мультимедиа',
+        'lighting': 'Освещение',
+        'dashboard': 'Приборная панель',
+        'comfort': 'Комфорт',
+        'safety': 'Безопасность'
+    }
+    return names.get(cat, cat.capitalize())
 
 
 def get_mock_sa_codes(vin: str) -> list:
@@ -441,6 +255,7 @@ def get_mock_sa_codes(vin: str) -> list:
             '1CA',  # BMW M Sport package
             '2VB',  # Acoustic comfort glazing
             '302',  # Automatic transmission Steptronic
+            '315',  # Tire Pressure Display
             '322',  # Comfort Access
             '430',  # Interior mirror with automatic-dip
             '494',  # Seat heating for driver and front passenger
