@@ -71,9 +71,11 @@ def handler(event: dict, context) -> dict:
     equipment = parse_sa_codes(sa_codes)
     vehicle_info.update(equipment)
     
+    # Получаем DSN для БД
+    dsn = os.environ.get('DATABASE_URL')
+    
     # Получаем HWEL блоки из базы данных
     try:
-        dsn = os.environ.get('DATABASE_URL')
         conn = psycopg2.connect(dsn)
         cur = conn.cursor(cursor_factory=RealDictCursor)
         
@@ -91,13 +93,13 @@ def handler(event: dict, context) -> dict:
         conn.close()
         
     except Exception as e:
-        print(f'Database error: {str(e)}')
+        print(f'Database error getting blocks: {str(e)}')
         all_blocks = []
     
     # Фильтруем блоки по реально установленным SA кодам
     installed_blocks = filter_installed_blocks(all_blocks, equipment)
     
-    # Анализ возможностей кодирования из БД
+    # Анализ возможностей кодирования из БД (создаёт своё соединение)
     coding_analysis = get_available_coding_from_db(dsn, installed_blocks, equipment)
     
     return {
@@ -364,8 +366,8 @@ def filter_installed_blocks(all_blocks: list, equipment: dict) -> list:
     installed_hwel = equipment.get('installed_hwel_codes', [])
     
     if not installed_hwel:
-        # Если HWEL коды не определены из SA, возвращаем все возможные
-        return all_blocks
+        # Если HWEL коды не определены из SA, возвращаем пустой список
+        return []
     
     # Возвращаем только блоки которые реально установлены
     installed_blocks = [
@@ -373,4 +375,11 @@ def filter_installed_blocks(all_blocks: list, equipment: dict) -> list:
         if block['hwel_code'] in installed_hwel
     ]
     
-    return installed_blocks if installed_blocks else all_blocks
+    # Если из БД ничего не нашлось, создаём фейковые блоки из SA кодов
+    if not installed_blocks and installed_hwel:
+        installed_blocks = [
+            {'hwel_code': code, 'block_name': f'Block {code}', 'description': 'Detected from SA codes', 'features': {}, 'upgrade_options': []}
+            for code in installed_hwel
+        ]
+    
+    return installed_blocks
