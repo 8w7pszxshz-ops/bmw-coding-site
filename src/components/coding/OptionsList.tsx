@@ -14,10 +14,14 @@ interface OptionsListProps {
 }
 
 const optionsWithVisuals = [
-  'carplay', 'video-motion', 'fullscreen-camera', 'sport-displays',
-  'welcome-light', 'scandinavian-drl', 'dynamic-blinkers', 'angel-eyes-bright',
-  'digital-speed', 'needle-sweep', 'oil-temp', 'm-displays',
-  'comfort-access', 'windows-from-key', 'start-stop-off', 'mirrors-folding'
+  // F-series
+  'f_video', 'f_carplay', 'f_digital_speed', 'f_sport_indicators',
+  'f_rings_bright', 'f_welcome_light', 'f_autostop', 'f_comfort_open',
+  'f_m_logo', 'f_logo_change', 'f_mirror_auto_fold', 'f_auto_handbrake',
+  // G-series
+  'g_video', 'g_carplay', 'g_digital_speed', 'g_sport_displays',
+  'g_angel_bright', 'g_welcome_light', 'g_autostop', 'g_windows_close',
+  'g_needle_sweep', 'g_m_displays', 'g_mirrors_fold', 'g_comfort_trunk'
 ];
 
 export default function OptionsList({

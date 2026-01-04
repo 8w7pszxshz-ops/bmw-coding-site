@@ -11,92 +11,136 @@ interface OptionPreviewProps {
 }
 
 const serviceVisuals: Record<string, { before: string; after: string; description: string }> = {
-  // Мультимедиа
-  'carplay': {
-    before: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1617886903355-9354bb57751f?w=600&q=80',
-    description: 'Беспроводной Apple CarPlay и Android Auto появится в меню iDrive'
-  },
-  'video-motion': {
+  // F-series - Мультимедиа
+  'f_video': {
     before: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80',
     after: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=600&q=80',
-    description: 'Возможность смотреть видео на экране во время движения (только для пассажира)'
+    description: 'Просмотр видео во время движения станет доступным'
   },
-  'fullscreen-camera': {
-    before: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1485291571150-772bcfc10da5?w=600&q=80',
-    description: 'Камера заднего вида растянется на весь экран для лучшего обзора'
+  'f_carplay': {
+    before: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1617886903355-9354bb57751f?w=600&q=80',
+    description: 'Беспроводной CarPlay появится в меню iDrive'
   },
-  'sport-displays': {
-    before: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=80',
-    description: 'G-meter, давление турбины, температура масла на экране'
-  },
-  
-  // Освещение
-  'welcome-light': {
-    before: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80',
-    description: 'Подсветка под дверями создаст эффект ковровой дорожки'
-  },
-  'scandinavian-drl': {
-    before: 'https://images.unsplash.com/photo-1514866726862-0f081731e0ce?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1609709295948-17d77cb2a69b?w=600&q=80',
-    description: 'Дневные ходовые огни будут работать как в скандинавских странах'
-  },
-  'dynamic-blinkers': {
-    before: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?w=600&q=80',
-    description: 'Поворотники будут бежать волной вместо обычного мигания'
-  },
-  'angel-eyes-bright': {
-    before: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&q=80',
-    description: 'Ангельские глазки станут ярче и заметнее'
-  },
-  
-  // Приборная панель
-  'digital-speed': {
+  'f_digital_speed': {
     before: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80',
     after: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80',
-    description: 'Цифровой спидометр всегда будет виден на дисплее'
+    description: 'Цифровая скорость всегда видна на панели'
   },
-  'needle-sweep': {
-    before: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1617128034254-61a3b0befc19?w=600&q=80',
-    description: 'Стрелки приборов эффектно пробегут полный круг при запуске'
+  'f_sport_indicators': {
+    before: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=80',
+    description: 'Спортивные индикаторы производительности'
   },
-  'oil-temp': {
-    before: 'https://images.unsplash.com/photo-1563249278-1b0e9f0c2d67?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=600&q=80',
-    description: 'Температура масла двигателя появится на дисплее постоянно'
-  },
-  'm-displays': {
+  'f_m_logo': {
     before: 'https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?w=600&q=80',
     after: 'https://images.unsplash.com/photo-1603386329225-868f9b1ee6b9?w=600&q=80',
-    description: 'Спортивные M-дисплеи с доп. информацией для трека'
+    description: 'M Performance логотип на приборке'
+  },
+  'f_logo_change': {
+    before: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1617128034254-61a3b0befc19?w=600&q=80',
+    description: 'Свой логотип при запуске автомобиля'
   },
   
-  // Комфорт
-  'comfort-access': {
-    before: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80',
-    description: 'Багажник откроется от движения ноги, зеркала складываются автоматически'
+  // F-series - Освещение
+  'f_rings_bright': {
+    before: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&q=80',
+    description: 'Angel Eyes станут ярче и заметнее'
   },
-  'windows-from-key': {
-    before: 'https://images.unsplash.com/photo-1542393545-10f5cde2c810?w=600&q=80',
-    after: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80',
-    description: 'Все окна закроются удержанием кнопки закрытия на ключе'
+  'f_welcome_light': {
+    before: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80',
+    description: 'Подсветка под дверями при приветствии'
   },
-  'start-stop-off': {
+  
+  // F-series - Комфорт/Производительность
+  'f_autostop': {
     before: 'https://images.unsplash.com/photo-1569748130764-3fed0c102c59?w=600&q=80',
     after: 'https://images.unsplash.com/photo-1620125501033-c285373a6e88?w=600&q=80',
-    description: 'Система Start/Stop будет автоматически выключена при каждом запуске'
+    description: 'Start/Stop всегда выключен при запуске'
   },
-  'mirrors-folding': {
+  'f_comfort_open': {
+    before: 'https://images.unsplash.com/photo-1542393545-10f5cde2c810?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80',
+    description: 'Открытие окон с брелка удержанием'
+  },
+  'f_mirror_auto_fold': {
     before: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=80',
     after: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&q=80',
-    description: 'Зеркала можно будет сложить даже во время движения'
+    description: 'Зеркала складываются автоматически'
+  },
+  'f_auto_handbrake': {
+    before: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80',
+    description: 'Авто снятие с ручника при движении'
+  },
+  
+  // G-series - Мультимедиа
+  'g_video': {
+    before: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=600&q=80',
+    description: 'Просмотр видео во время движения'
+  },
+  'g_carplay': {
+    before: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1617886903355-9354bb57751f?w=600&q=80',
+    description: 'Беспроводной CarPlay в меню'
+  },
+  'g_digital_speed': {
+    before: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80',
+    description: 'Постоянная цифровая скорость'
+  },
+  'g_sport_displays': {
+    before: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=80',
+    description: 'Спортивные дисплеи с данными'
+  },
+  'g_needle_sweep': {
+    before: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1617128034254-61a3b0befc19?w=600&q=80',
+    description: 'Анимация стрелок при запуске'
+  },
+  'g_m_displays': {
+    before: 'https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1603386329225-868f9b1ee6b9?w=600&q=80',
+    description: 'M-режимы на панели приборов'
+  },
+  
+  // G-series - Освещение
+  'g_angel_bright': {
+    before: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&q=80',
+    description: 'Увеличенная яркость Angel Eyes'
+  },
+  'g_welcome_light': {
+    before: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80',
+    description: 'Welcome Light подсветка'
+  },
+  
+  // G-series - Комфорт
+  'g_autostop': {
+    before: 'https://images.unsplash.com/photo-1569748130764-3fed0c102c59?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1620125501033-c285373a6e88?w=600&q=80',
+    description: 'Отключение Start/Stop по умолчанию'
+  },
+  'g_windows_close': {
+    before: 'https://images.unsplash.com/photo-1542393545-10f5cde2c810?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80',
+    description: 'Закрытие окон с брелка'
+  },
+  'g_mirrors_fold': {
+    before: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&q=80',
+    description: 'Автоскладывание зеркал'
+  },
+  'g_comfort_trunk': {
+    before: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&q=80',
+    after: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80',
+    description: 'Открытие багажника ногой'
   }
 };
 
