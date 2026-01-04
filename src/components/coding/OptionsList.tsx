@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Option, categories, options, calculatePrice } from './codingData';
+import OptionPreview from './OptionPreview';
 
 interface OptionsListProps {
   selectedSeries: 'F' | 'G';
@@ -11,6 +13,13 @@ interface OptionsListProps {
   onSendConfig: () => void;
 }
 
+const optionsWithVisuals = [
+  'carplay', 'video-motion', 'fullscreen-camera', 'sport-displays',
+  'welcome-light', 'scandinavian-drl', 'dynamic-blinkers', 'angel-eyes-bright',
+  'digital-speed', 'needle-sweep', 'oil-temp', 'm-displays',
+  'comfort-access', 'windows-from-key', 'start-stop-off', 'mirrors-folding'
+];
+
 export default function OptionsList({
   selectedSeries,
   selectedOptions,
@@ -20,6 +29,8 @@ export default function OptionsList({
   onResetSeries,
   onSendConfig
 }: OptionsListProps) {
+  const [previewOption, setPreviewOption] = useState<Option | null>(null);
+  
   const filteredOptions = options.filter(
     o => o.category === activeCategory && (o.series === selectedSeries || o.series === 'both')
   );
@@ -100,7 +111,7 @@ export default function OptionsList({
               }}
             >
               <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-1">
                   <div 
                     className="p-2 rounded-lg"
                     style={{
@@ -116,13 +127,27 @@ export default function OptionsList({
                       style={{ color: isSelected ? '#81C4FF' : 'rgba(255, 255, 255, 0.6)' }}
                     />
                   </div>
-                  <div>
-                    <h3 
-                      className="font-medium text-base mb-1"
-                      style={{ color: isSelected ? '#81C4FF' : '#fff' }}
-                    >
-                      {option.name}
-                    </h3>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 
+                        className="font-medium text-base"
+                        style={{ color: isSelected ? '#81C4FF' : '#fff' }}
+                      >
+                        {option.name}
+                      </h3>
+                      {optionsWithVisuals.includes(option.id) && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setPreviewOption(option);
+                          }}
+                          className="flex items-center gap-1 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 text-xs px-2 py-1 rounded-full transition-all"
+                        >
+                          <Icon name="Image" className="w-3 h-3" />
+                          <span>Фото</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
                 
@@ -216,6 +241,18 @@ export default function OptionsList({
           </div>
         </div>
       </div>
+
+      {previewOption && (
+        <OptionPreview
+          optionId={previewOption.id}
+          optionName={previewOption.name}
+          description={previewOption.description}
+          price={previewOption.price}
+          isSelected={selectedOptions.has(previewOption.id)}
+          onToggle={() => onToggleOption(previewOption.id)}
+          onClose={() => setPreviewOption(null)}
+        />
+      )}
     </>
   );
 }

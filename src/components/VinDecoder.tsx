@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import ServicesCalculator from './ServicesCalculator';
 
 const vibrate = (pattern: number | number[] = 10) => {
   if ('vibrate' in navigator) {
@@ -315,8 +314,7 @@ export default function VinDecoder() {
 
 
 
-              {/* Калькулятор услуг */}
-              <ServicesCalculator vinData={result} />
+
             </div>
           )}
         </div>
