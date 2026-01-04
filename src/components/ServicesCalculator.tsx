@@ -426,18 +426,13 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
                         className="mt-1 w-5 h-5 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <span className="text-white font-medium text-sm">{service.service_name}</span>
                           {service.is_popular && (
                             <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-0.5 rounded-full">
                               Популярно
                             </span>
                           )}
-                        </div>
-                        <p className="text-gray-400 text-xs mb-2">{service.description}</p>
-                        <div className="flex items-center gap-3 text-xs">
-                          <span className="text-green-400 font-semibold">{service.price.toLocaleString()} ₽</span>
-                          <span className="text-gray-500">{service.duration_minutes} мин</span>
                           {serviceVisuals[service.service_code] && (
                             <button
                               onClick={(e) => {
@@ -445,12 +440,17 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
                                 vibrate(10);
                                 setPreviewService(service);
                               }}
-                              className="ml-auto flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors"
+                              className="flex items-center gap-1 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 text-xs px-2 py-1 rounded-full transition-all"
                             >
-                              <Icon name="Eye" className="w-4 h-4" />
-                              <span>Посмотреть</span>
+                              <Icon name="Image" className="w-3 h-3" />
+                              <span>Фото</span>
                             </button>
                           )}
+                        </div>
+                        <p className="text-gray-400 text-xs mb-2">{service.description}</p>
+                        <div className="flex items-center gap-3 text-xs">
+                          <span className="text-green-400 font-semibold">{service.price.toLocaleString()} ₽</span>
+                          <span className="text-gray-500">{service.duration_minutes} мин</span>
                         </div>
                       </div>
                     </label>
