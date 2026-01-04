@@ -14,14 +14,41 @@ interface OptionsListProps {
 }
 
 const optionsWithVisuals = [
-  // F-series
+  // F-series - Мультимедиа
   'f_video', 'f_carplay', 'f_digital_speed', 'f_sport_indicators',
-  'f_rings_bright', 'f_welcome_light', 'f_autostop', 'f_comfort_open',
-  'f_m_logo', 'f_logo_change', 'f_mirror_auto_fold', 'f_auto_handbrake',
-  // G-series
+  'f_m_logo', 'f_logo_change', 'f_codecs', 'f_usb_video',
+  'f_color_change', 'f_tpms_data', 'f_hifi', 'f_connected', 'f_xdrive_display',
+  // F-series - Освещение / Внешний вид
+  'f_rings_bright', 'f_welcome_light', 'f_drl_off', 'f_rear_drl',
+  'f_fog_flicker', 'f_strobe', 'f_adaptive_fog', 'f_rear_smooth', 'f_headlight_wash',
+  // F-series - Комфорт
+  'f_autostop', 'f_comfort_open', 'f_mirror_auto_fold', 'f_auto_handbrake',
+  'f_mirror_tilt', 'f_trunk_close', 'f_easy_entry', 'f_blinker_count',
+  'f_trunk_delay', 'f_trunk_smooth_close', 'f_trunk_smooth_open', 
+  'f_window_delay', 'f_mirror_heat', 'f_handle_light',
+  // F-series - Производительность
+  'f_launch', 'f_sport_mode', 'f_start_no_brake', 'f_speed_limit', 'f_coasting',
+  // F-series - Безопасность
+  'f_autolock', 'f_no_belt_gong',
+  // G-series - Мультимедиа
   'g_video', 'g_carplay', 'g_digital_speed', 'g_sport_displays',
-  'g_angel_bright', 'g_welcome_light', 'g_autostop', 'g_windows_close',
-  'g_needle_sweep', 'g_m_displays', 'g_mirrors_fold', 'g_comfort_trunk'
+  'g_needle_sweep', 'g_m_displays', 'g_accel', 'g_sport_instruments',
+  'g_led_covers', 'g_m_animation', 'g_greeting',
+  'g_tpms_temp', 'g_bowers', 'g_car_select', 'g_sounds_bmw', 'g_ringtone', 'g_bluetooth_ext',
+  'g_digital_speed_large', 'g_speedo_330', 'g_m_icon', 'g_sport_color',
+  'g_lane_assist', 'g_driving_view',
+  // G-series - Освещение / Внешний вид
+  'g_angel_bright', 'g_welcome_light', 'g_ambient', 'g_lights_off', 'g_strobe',
+  // G-series - Комфорт
+  'g_autostop', 'g_windows_close', 'g_mirrors_fold', 'g_comfort_trunk',
+  'g_mirror_tilt', 'g_trunk_close_fast', 'g_window_no_hold', 'g_easy_entry', 'g_blinker_5x',
+  'g_seat_heat_zones', 'g_wiper_count', 'g_mirror_dimming',
+  // G-series - Производительность
+  'g_sport', 'g_sport_plus', 'g_launch', 'g_exhaust',
+  'g_eco_pro', 'g_comfort_plus', 'g_dsc',
+  'g_perf_control', 'g_steering_paddle', 'g_m_pack',
+  // G-series - Безопасность
+  'g_belt_gong_off', 'g_belt_icon_off', 'g_horn_off', 'g_horn_alarm'
 ];
 
 export default function OptionsList({
