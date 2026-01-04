@@ -251,7 +251,6 @@ export default function OptionsList({
           optionId={previewOption.id}
           optionName={previewOption.name}
           description={previewOption.description}
-          price={previewOption.price}
           isSelected={selectedOptions.has(previewOption.id)}
           onToggle={() => onToggleOption(previewOption.id)}
           onClose={() => setPreviewOption(null)}

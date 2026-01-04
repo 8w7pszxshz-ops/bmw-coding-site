@@ -4,7 +4,6 @@ interface OptionPreviewProps {
   optionId: string;
   optionName: string;
   description: string;
-  price: number;
   isSelected: boolean;
   onToggle: () => void;
   onClose: () => void;
@@ -148,7 +147,6 @@ export default function OptionPreview({
   optionId,
   optionName,
   description,
-  price,
   isSelected,
   onToggle,
   onClose
@@ -218,7 +216,8 @@ export default function OptionPreview({
 
         <div className="flex items-center justify-between">
           <div className="text-gray-400 text-sm">
-            <span className="text-white font-semibold text-lg">{price.toLocaleString()} ₽</span>
+            <span className="text-white font-semibold text-lg">1500 ₽</span>
+            <span className="text-gray-500 text-xs ml-2">за опцию</span>
           </div>
           <button
             onClick={() => {
