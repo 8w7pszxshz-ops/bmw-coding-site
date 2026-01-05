@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "Test valid question",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "question": "Сколько стоит ремонт квартиры?"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "question": "string",
+        "answer": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test empty question",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "question": ""
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
