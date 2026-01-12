@@ -8,7 +8,6 @@ import ExpertTips from '@/components/ExpertTips';
 import Reviews from '@/components/Reviews';
 import QuickActions from '@/components/QuickActions';
 import ApiIntegration from '@/components/ApiIntegration';
-import VinDecoder from '@/components/VinDecoder';
 
 export default function Index() {
   return (
@@ -25,9 +24,6 @@ export default function Index() {
       </div>
       <div id="chiptuning">
         <ChipTuning />
-      </div>
-      <div id="vin-decoder">
-        <VinDecoder />
       </div>
       <div id="tips">
         <ExpertTips />

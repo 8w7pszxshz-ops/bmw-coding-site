@@ -5,7 +5,6 @@ import { MobileOnly } from '@/components/ui/responsive';
 const menuItems = [
   { id: 'services', label: 'Услуги', icon: 'Wrench' },
   { id: 'chiptuning', label: 'Чип-тюнинг', icon: 'Zap' },
-  { id: 'vin-decoder', label: 'VIN Декодер', icon: 'Car' },
   { id: 'tips', label: 'Рекомендации', icon: 'Lightbulb' },
   { id: 'offers', label: 'Акции', icon: 'Tag' },
   { id: 'reviews', label: 'Отзывы', icon: 'Star' },
