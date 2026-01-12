@@ -256,12 +256,14 @@ function SpecialOfferDesktop() {
                 {offer.description}
               </p>
               
-              {!offer.hasButton && (
+              {(offer.oldPrice || offer.newPrice) && (
                 <div className="flex items-center gap-8 mb-8">
-                  <div>
-                    <span className="text-white/40 text-sm line-through block mb-2">{offer.oldPrice}</span>
-                    <span className="font-light text-[#E7222E] text-2xl">{offer.newPrice}</span>
-                  </div>
+                  {(offer.oldPrice || offer.newPrice) && (
+                    <div>
+                      {offer.oldPrice && <span className="text-white/40 text-sm line-through block mb-2">{offer.oldPrice}</span>}
+                      {offer.newPrice && <span className="font-light text-[#E7222E] text-2xl">{offer.newPrice}</span>}
+                    </div>
+                  )}
                   {offer.discount && (
                     <div 
                       className="py-4 rounded-2xl px-[11px]"
