@@ -87,7 +87,7 @@ const offers = [
     features: [
       { icon: 'Clock', text: 'Готово за 30 минут' },
       { icon: 'Shield', text: 'Без разбора авто' },
-      { icon: 'Key', text: 'Полноценная копия' }
+      { icon: 'Key', text: 'Полноценная копия', highlight: true }
     ],
     hasButton: true,
     buttonText: 'Калькулятор',
