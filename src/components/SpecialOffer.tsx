@@ -161,7 +161,7 @@ function SpecialOfferDesktop() {
         />
         
         <div className="flex flex-col lg:flex-row" style={{ height: '500px' }}>
-          <div className="lg:w-1/2 relative overflow-hidden bg-black" style={{ height: '500px' }}>
+          <div className={offer.id === 4 ? "w-full absolute inset-0 z-0" : "lg:w-1/2 relative overflow-hidden bg-black"} style={offer.id === 4 ? {} : { height: '500px' }}>
             <img 
               src={offer.image}
               alt={offer.title}
@@ -210,8 +210,17 @@ function SpecialOfferDesktop() {
           </div>
           
           <div 
-            className="lg:w-1/2 relative p-12 flex flex-col justify-center transition-all duration-500 overflow-y-auto"
-            style={{
+            className={offer.id === 4 ? "relative p-12 flex flex-col justify-center transition-all duration-500 z-10" : "lg:w-1/2 relative p-12 flex flex-col justify-center transition-all duration-500 overflow-y-auto"}
+            style={offer.id === 4 ? {
+              height: '500px',
+              background: `
+                radial-gradient(ellipse at right, rgba(231, 34, 46, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at center, rgba(231, 34, 46, 0.1) 0%, transparent 60%),
+                linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)
+              `,
+              backdropFilter: 'blur(30px) saturate(180%)',
+              opacity: isTransitioning ? 0.3 : 1
+            } : {
               height: '500px',
               background: `
                 radial-gradient(ellipse at right, rgba(231, 34, 46, 0.15) 0%, transparent 70%),
@@ -248,38 +257,38 @@ function SpecialOfferDesktop() {
                 <span className="text-[#E7222E] text-sm font-light tracking-widest uppercase">{offer.label}</span>
               </div>
               
-              <h2 className="font-light text-white mb-4 leading-tight text-2xl">
+              <h2 className={offer.id === 4 ? "font-light text-white mb-3 leading-tight text-xl" : "font-light text-white mb-4 leading-tight text-2xl"}>
                 {offer.title}
               </h2>
               
-              <p className="text-white/80 text-lg font-light mb-8 leading-relaxed max-w-xl">
+              <p className={offer.id === 4 ? "text-white/80 text-base font-light mb-6 leading-relaxed max-w-xl" : "text-white/80 text-lg font-light mb-8 leading-relaxed max-w-xl"}>
                 {offer.description}
               </p>
               
               {(offer.oldPrice || offer.newPrice) && (
-                <div className="flex items-center gap-8 mb-8">
+                <div className={offer.id === 4 ? "flex items-center gap-4 mb-5" : "flex items-center gap-8 mb-8"}>
                   {(offer.oldPrice || offer.newPrice) && (
                     <div>
-                      {offer.oldPrice && <span className="text-white/40 text-sm line-through block mb-2">{offer.oldPrice}</span>}
-                      {offer.newPrice && <span className="font-light text-[#E7222E] text-2xl">{offer.newPrice}</span>}
+                      {offer.oldPrice && <span className={offer.id === 4 ? "text-white/40 text-xs line-through block mb-1" : "text-white/40 text-sm line-through block mb-2"}>{offer.oldPrice}</span>}
+                      {offer.newPrice && <span className={offer.id === 4 ? "font-light text-[#E7222E] text-xl" : "font-light text-[#E7222E] text-2xl"}>{offer.newPrice}</span>}
                     </div>
                   )}
                   {offer.discount && (
                     <div 
-                      className="py-4 rounded-2xl px-[11px]"
+                      className={offer.id === 4 ? "py-2 rounded-xl px-3" : "py-4 rounded-2xl px-[11px]"}
                       style={{
                         background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
                         border: '1px solid rgba(231, 34, 46, 0.5)',
                         boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                       }}
                     >
-                      <span className="text-white text-2xl font-medium">{offer.discount}</span>
+                      <span className={offer.id === 4 ? "text-white text-lg font-medium" : "text-white text-2xl font-medium"}>{offer.discount}</span>
                     </div>
                   )}
                 </div>
               )}
               
-              <div className="flex items-center gap-6 text-sm flex-wrap mb-8">
+              <div className={offer.id === 4 ? "flex items-center gap-4 text-xs flex-wrap mb-5" : "flex items-center gap-6 text-sm flex-wrap mb-8"}>
                 {offer.features.map((feature, idx) => (
                   <div 
                     key={idx} 
@@ -312,14 +321,14 @@ function SpecialOfferDesktop() {
                   href={offer.buttonLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
+                  className={offer.id === 4 ? "inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white text-sm transition-all duration-300 hover:scale-105" : "inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"}
                   style={{
                     background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
                     border: '1px solid rgba(231, 34, 46, 0.5)',
                     boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                   }}
                 >
-                  <Icon name="Send" className="w-5 h-5" />
+                  <Icon name="Calculator" className={offer.id === 4 ? "w-4 h-4" : "w-5 h-5"} />
                   <span>{offer.buttonText}</span>
                 </a>
               )}
