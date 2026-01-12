@@ -161,7 +161,7 @@ function SpecialOfferDesktop() {
         />
         
         <div className="flex flex-col lg:flex-row" style={{ height: '500px' }}>
-          <div className={offer.id === 4 ? "w-full absolute inset-0 z-0" : "lg:w-1/2 relative overflow-hidden bg-black"} style={offer.id === 4 ? {} : { height: '500px' }}>
+          <div className="lg:w-1/2 relative overflow-hidden bg-black" style={{ height: '500px' }}>
             <img 
               src={offer.image}
               alt={offer.title}
@@ -210,17 +210,8 @@ function SpecialOfferDesktop() {
           </div>
           
           <div 
-            className={offer.id === 4 ? "relative p-12 flex flex-col justify-center transition-all duration-500 z-10" : "lg:w-1/2 relative p-12 flex flex-col justify-center transition-all duration-500 overflow-y-auto"}
-            style={offer.id === 4 ? {
-              height: '500px',
-              background: `
-                radial-gradient(ellipse at right, rgba(231, 34, 46, 0.15) 0%, transparent 70%),
-                radial-gradient(ellipse at center, rgba(231, 34, 46, 0.1) 0%, transparent 60%),
-                linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)
-              `,
-              backdropFilter: 'blur(30px) saturate(180%)',
-              opacity: isTransitioning ? 0.3 : 1
-            } : {
+            className="lg:w-1/2 relative p-12 flex flex-col justify-center transition-all duration-500 overflow-y-auto"
+            style={{
               height: '500px',
               background: `
                 radial-gradient(ellipse at right, rgba(231, 34, 46, 0.15) 0%, transparent 70%),
