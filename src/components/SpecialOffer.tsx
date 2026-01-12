@@ -73,8 +73,8 @@ const offers = [
     id: 4,
     icon: 'Key',
     label: 'Специальное предложение',
-    title: 'Новый ключ BMW за 30 минут',
-    description: 'Полноценная копия для G-серии без разбора автомобиля. Без ожидания из-за границы и риска для электроники.',
+    title: 'Почему 25 000 ₽ вместо 40 000 ₽?',
+    description: 'Секрет в технологиях: ваш новый ключ BMW за 30 минут без разбора автомобиля. Мы ломаем стереотипы, предлагая полноценную копию на совершенно ином уровне.',
     oldPrice: '40 000 ₽',
     newPrice: '25 000 ₽',
     discount: '-37%',
@@ -82,7 +82,7 @@ const offers = [
     imageStyle: {
       filter: 'brightness(1.1) contrast(1.2) saturate(1.05)',
       objectPosition: 'center center',
-      transform: 'scale(1.1)',
+      transform: 'scale(0.9)',
     },
     features: [
       { icon: 'Clock', text: 'Готово за 30 минут' },

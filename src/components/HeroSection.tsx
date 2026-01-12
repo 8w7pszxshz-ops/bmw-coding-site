@@ -6,8 +6,8 @@ function HeroMobile() {
     <div className="mb-12 mt-6 px-4">
       <div className="flex items-center gap-2 mb-4">
         <div className="h-0.5 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-        <span className="text-white/40 text-[10px] tracking-[0.2em] uppercase font-light">
-          <span className="text-[#81C4FF]">Ч</span>ип-тюнинг • <span className="text-[#81C4FF]">К</span>одирование
+        <span className="text-[10px] tracking-[0.2em] uppercase font-light">
+          <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span>
         </span>
       </div>
       
@@ -43,8 +43,8 @@ function HeroDesktop() {
     <div className="mb-16 mt-8">
       <div className="flex items-center gap-3 mb-6">
         <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-        <span className="text-white/40 text-xs tracking-[0.3em] uppercase font-light">
-          <span className="text-[#81C4FF]">Ч</span>ип-тюнинг • <span className="text-[#81C4FF]">К</span>одирование • <span className="text-[#81C4FF]">Д</span>ооснащение
+        <span className="text-xs tracking-[0.3em] uppercase font-light">
+          <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Дооснащение</span>
         </span>
       </div>
       
