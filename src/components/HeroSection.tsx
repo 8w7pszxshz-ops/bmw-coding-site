@@ -6,7 +6,9 @@ function HeroMobile() {
     <div className="mb-12 mt-6 px-4">
       <div className="flex items-center gap-2 mb-4">
         <div className="h-0.5 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-        <span className="text-white/40 text-[10px] tracking-[0.2em] uppercase font-light">Чип-тюнинг • Кодирование</span>
+        <span className="text-white/40 text-[10px] tracking-[0.2em] uppercase font-light">
+          <span className="text-[#81C4FF]">Ч</span>ип-тюнинг • <span className="text-[#81C4FF]">К</span>одирование
+        </span>
       </div>
       
       <h1 className="text-5xl font-extralight text-white tracking-tight leading-none mb-3" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>
@@ -41,7 +43,9 @@ function HeroDesktop() {
     <div className="mb-16 mt-8">
       <div className="flex items-center gap-3 mb-6">
         <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-        <span className="text-white/40 text-xs tracking-[0.3em] uppercase font-light">Чип-тюнинг • Кодирование • Дооснащение</span>
+        <span className="text-white/40 text-xs tracking-[0.3em] uppercase font-light">
+          <span className="text-[#81C4FF]">Ч</span>ип-тюнинг • <span className="text-[#81C4FF]">К</span>одирование • <span className="text-[#81C4FF]">Д</span>ооснащение
+        </span>
       </div>
       
       <div className="flex items-start justify-between gap-12">
