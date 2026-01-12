@@ -73,8 +73,8 @@ const offers = [
     id: 4,
     icon: 'Key',
     label: 'Специальное предложение',
-    title: 'Почему 25 000 ₽ вместо 40 000 ₽?',
-    description: 'Секрет в технологиях: ваш новый ключ BMW за 30 минут без разбора автомобиля. Мы ломаем стереотипы, предлагая полноценную копию на совершенно ином уровне.',
+    title: 'Изготовление ключей BMW',
+    description: 'Изготовление дополнительного ключа BMW за 30 минут без разбора автомобиля. Полноценная копия с гарантией.',
     oldPrice: '40 000 ₽',
     newPrice: '25 000 ₽',
     discount: '-37%',
@@ -86,7 +86,7 @@ const offers = [
     },
     features: [
       { icon: 'Clock', text: 'Готово за 30 минут' },
-      { icon: 'Shield', text: 'Без разбора авто' },
+      { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Key', text: 'Полноценная копия', highlight: true }
     ],
     hasButton: true,
@@ -257,38 +257,38 @@ function SpecialOfferDesktop() {
                 <span className="text-[#E7222E] text-sm font-light tracking-widest uppercase">{offer.label}</span>
               </div>
               
-              <h2 className={offer.id === 4 ? "font-light text-white mb-3 leading-tight text-xl" : "font-light text-white mb-4 leading-tight text-2xl"}>
+              <h2 className="font-light text-white mb-4 leading-tight text-2xl">
                 {offer.title}
               </h2>
               
-              <p className={offer.id === 4 ? "text-white/80 text-base font-light mb-6 leading-relaxed max-w-xl" : "text-white/80 text-lg font-light mb-8 leading-relaxed max-w-xl"}>
+              <p className="text-white/80 text-lg font-light mb-8 leading-relaxed max-w-xl">
                 {offer.description}
               </p>
               
               {(offer.oldPrice || offer.newPrice) && (
-                <div className={offer.id === 4 ? "flex items-center gap-4 mb-5" : "flex items-center gap-8 mb-8"}>
+                <div className="flex items-center gap-8 mb-8">
                   {(offer.oldPrice || offer.newPrice) && (
                     <div>
-                      {offer.oldPrice && <span className={offer.id === 4 ? "text-white/40 text-xs line-through block mb-1" : "text-white/40 text-sm line-through block mb-2"}>{offer.oldPrice}</span>}
-                      {offer.newPrice && <span className={offer.id === 4 ? "font-light text-[#E7222E] text-xl" : "font-light text-[#E7222E] text-2xl"}>{offer.newPrice}</span>}
+                      {offer.oldPrice && <span className="text-white/40 text-sm line-through block mb-2">{offer.oldPrice}</span>}
+                      {offer.newPrice && <span className="font-light text-[#E7222E] text-2xl">{offer.newPrice}</span>}
                     </div>
                   )}
                   {offer.discount && (
                     <div 
-                      className={offer.id === 4 ? "py-2 rounded-xl px-3" : "py-4 rounded-2xl px-[11px]"}
+                      className="py-4 rounded-2xl px-[11px]"
                       style={{
                         background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
                         border: '1px solid rgba(231, 34, 46, 0.5)',
                         boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                       }}
                     >
-                      <span className={offer.id === 4 ? "text-white text-lg font-medium" : "text-white text-2xl font-medium"}>{offer.discount}</span>
+                      <span className="text-white text-2xl font-medium">{offer.discount}</span>
                     </div>
                   )}
                 </div>
               )}
               
-              <div className={offer.id === 4 ? "flex items-center gap-4 text-xs flex-wrap mb-5" : "flex items-center gap-6 text-sm flex-wrap mb-8"}>
+              <div className="flex items-center gap-6 text-sm flex-wrap mb-8">
                 {offer.features.map((feature, idx) => (
                   <div 
                     key={idx} 
@@ -321,14 +321,14 @@ function SpecialOfferDesktop() {
                   href={offer.buttonLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={offer.id === 4 ? "inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white text-sm transition-all duration-300 hover:scale-105" : "inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
                   style={{
                     background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
                     border: '1px solid rgba(231, 34, 46, 0.5)',
                     boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                   }}
                 >
-                  <Icon name="Calculator" className={offer.id === 4 ? "w-4 h-4" : "w-5 h-5"} />
+                  <Icon name={offer.id === 4 ? "Calculator" : "Send"} className="w-5 h-5" />
                   <span>{offer.buttonText}</span>
                 </a>
               )}
