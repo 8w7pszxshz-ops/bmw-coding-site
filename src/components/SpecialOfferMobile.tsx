@@ -50,6 +50,24 @@ const offers = [
     hasButton: true,
     buttonText: 'Записаться',
     buttonLink: 'https://t.me/Bocha_reborn'
+  },
+  {
+    id: 4,
+    icon: 'Key',
+    title: 'Ключи для BMW',
+    description: 'От копии до дилерского функционала. Ключи, которые узнают владельца',
+    oldPrice: '',
+    newPrice: '',
+    discount: '',
+    image: 'https://cdn.poehali.dev/files/key.jpg',
+    features: [
+      { icon: 'Key', text: 'Функционал' },
+      { icon: 'Shield', text: 'Гарантия' },
+      { icon: 'Users', text: 'Узнаёт' }
+    ],
+    hasButton: true,
+    buttonText: 'Калькулятор',
+    buttonLink: '#key-calculator'
   }
 ];
 
@@ -58,7 +76,7 @@ export default function SpecialOfferMobile() {
 
   return (
     <div className="mb-12">
-      <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory">
+      <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory" id="offers-scroll">
         <div className="flex gap-4 px-4 pb-2">
           {offers.map((offer) => (
             <div 
@@ -160,7 +178,13 @@ export default function SpecialOfferMobile() {
           ))}
         </div>
       </div>
-      <ScrollIndicator totalItems={offers.length} color="#E7222E" />
+      <div className="flex flex-col items-center gap-3 mt-4">
+        <ScrollIndicator totalItems={offers.length} color="#E7222E" />
+        <div className="flex items-center gap-2 text-white/50 text-xs animate-pulse">
+          <Icon name="ChevronsRight" className="w-4 h-4" />
+          <span>Листайте для просмотра всех акций</span>
+        </div>
+      </div>
     </div>
   );
 }

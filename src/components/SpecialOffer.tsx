@@ -327,7 +327,7 @@ function SpecialOfferDesktop() {
 
         <button
           onClick={handlePrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
           style={{
             background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
             border: '1px solid rgba(231, 34, 46, 0.5)',
@@ -339,7 +339,7 @@ function SpecialOfferDesktop() {
 
         <button
           onClick={handleNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
           style={{
             background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
             border: '1px solid rgba(231, 34, 46, 0.5)',
@@ -350,40 +350,47 @@ function SpecialOfferDesktop() {
         </button>
       </div>
 
-      <div className="flex items-center justify-center gap-4 mt-6">
-        <div className="flex items-center gap-2 text-white/40 text-xs">
-          <Icon name="Layers" className="w-4 h-4" />
-          <span>{currentOffer + 1} / {offers.length}</span>
-        </div>
+      <div className="flex flex-col items-center gap-3 mt-6">
+        <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center gap-2 text-white/40 text-xs">
+            <Icon name="Layers" className="w-4 h-4" />
+            <span>{currentOffer + 1} / {offers.length}</span>
+          </div>
 
-        <div className="flex gap-3">
-          {offers.map((_, idx) => (
+          <div className="flex gap-3">
+            {offers.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleDotClick(idx)}
+                className="transition-all duration-300"
+                style={{
+                  width: currentOffer === idx ? '32px' : '8px',
+                  height: '8px',
+                  borderRadius: '4px',
+                  background: currentOffer === idx 
+                    ? 'linear-gradient(90deg, #E7222E, #FF4444)' 
+                    : 'rgba(255, 255, 255, 0.2)',
+                  boxShadow: currentOffer === idx ? '0 0 12px rgba(231, 34, 46, 0.6)' : 'none'
+                }}
+              />
+            ))}
+          </div>
+
+          {!autoPlay && (
             <button
-              key={idx}
-              onClick={() => handleDotClick(idx)}
-              className="transition-all duration-300"
-              style={{
-                width: currentOffer === idx ? '32px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                background: currentOffer === idx 
-                  ? 'linear-gradient(90deg, #E7222E, #FF4444)' 
-                  : 'rgba(255, 255, 255, 0.2)',
-                boxShadow: currentOffer === idx ? '0 0 12px rgba(231, 34, 46, 0.6)' : 'none'
-              }}
-            />
-          ))}
+              onClick={() => setAutoPlay(true)}
+              className="flex items-center gap-1.5 text-white/40 text-xs hover:text-white/60 transition-colors"
+            >
+              <Icon name="Play" className="w-3.5 h-3.5" />
+              <span>Авто</span>
+            </button>
+          )}
         </div>
-
-        {!autoPlay && (
-          <button
-            onClick={() => setAutoPlay(true)}
-            className="flex items-center gap-1.5 text-white/40 text-xs hover:text-white/60 transition-colors"
-          >
-            <Icon name="Play" className="w-3.5 h-3.5" />
-            <span>Авто</span>
-          </button>
-        )}
+        
+        <div className="flex items-center gap-2 text-white/40 text-xs animate-pulse">
+          <Icon name="ChevronsRight" className="w-4 h-4" />
+          <span>Листайте стрелками для просмотра всех акций</span>
+        </div>
       </div>
     </div>
   );
