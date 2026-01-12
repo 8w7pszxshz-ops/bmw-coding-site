@@ -54,16 +54,16 @@ const offers = [
   {
     id: 4,
     icon: 'Key',
-    title: 'Ключи для BMW',
-    description: 'От копии до дилерского функционала. Ключи, которые узнают владельца',
-    oldPrice: '',
-    newPrice: '',
-    discount: '',
+    title: 'Новый ключ BMW за 25 000 ₽',
+    description: 'За 30 минут без разбора авто. Полноценная копия для G-серии',
+    oldPrice: '40 000 ₽',
+    newPrice: '25 000 ₽',
+    discount: '-37%',
     image: 'https://cdn.poehali.dev/files/key.jpg',
     features: [
-      { icon: 'Key', text: 'Функционал' },
-      { icon: 'Shield', text: 'Гарантия' },
-      { icon: 'Users', text: 'Узнаёт' }
+      { icon: 'Clock', text: '30 минут' },
+      { icon: 'Shield', text: 'Без разбора' },
+      { icon: 'Key', text: 'Копия' }
     ],
     hasButton: true,
     buttonText: 'Калькулятор',
