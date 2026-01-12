@@ -149,7 +149,7 @@ function SpecialOfferDesktop() {
           border: '1px solid rgba(231, 34, 46, 0.25)',
           boxShadow: '0 30px 90px -20px rgba(231, 34, 46, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
           background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005))',
-          minHeight: '500px'
+          height: '500px'
         }}
       >
         <div 
@@ -160,8 +160,8 @@ function SpecialOfferDesktop() {
           }}
         />
         
-        <div className="flex flex-col lg:flex-row h-full">
-          <div className="lg:w-1/2 relative overflow-hidden bg-black" style={{ minHeight: '500px' }}>
+        <div className="flex flex-col lg:flex-row" style={{ height: '500px' }}>
+          <div className="lg:w-1/2 relative overflow-hidden bg-black" style={{ height: '500px' }}>
             <img 
               src={offer.image}
               alt={offer.title}
@@ -210,9 +210,9 @@ function SpecialOfferDesktop() {
           </div>
           
           <div 
-            className="lg:w-1/2 relative p-12 flex flex-col justify-center transition-all duration-500"
+            className="lg:w-1/2 relative p-12 flex flex-col justify-center transition-all duration-500 overflow-y-auto"
             style={{
-              minHeight: '500px',
+              height: '500px',
               background: `
                 radial-gradient(ellipse at right, rgba(231, 34, 46, 0.15) 0%, transparent 70%),
                 radial-gradient(ellipse at center, rgba(231, 34, 46, 0.1) 0%, transparent 60%),
