@@ -82,7 +82,7 @@ const offers = [
     imageStyle: {
       filter: 'brightness(1.1) contrast(1.2) saturate(1.05)',
       objectPosition: 'center center',
-      transform: 'scale(0.9)',
+      transform: 'scale(1.3)',
     },
     features: [
       { icon: 'Clock', text: 'Готово за 30 минут' },
