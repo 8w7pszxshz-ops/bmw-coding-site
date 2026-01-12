@@ -1,6 +1,7 @@
 import MainLayout from '@/components/layout/MainLayout';
 import HeroSection from '@/components/HeroSection';
 import SpecialOffer from '@/components/SpecialOffer';
+import KeyCalculator from '@/components/KeyCalculator';
 import CodingPackages from '@/components/CodingPackages';
 import ChipTuning from '@/components/ChipTuning';
 import ServicesGrid from '@/components/ServicesGrid';
@@ -16,6 +17,7 @@ export default function Index() {
       <div id="offers">
         <SpecialOffer />
       </div>
+      <KeyCalculator />
       <div id="services">
         <ServicesGrid />
       </div>
