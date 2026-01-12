@@ -68,6 +68,30 @@ const offers = [
     hasButton: true,
     buttonText: 'Сделать Unlock',
     buttonLink: 'https://t.me/Bocha_reborn'
+  },
+  {
+    id: 4,
+    icon: 'Key',
+    label: 'Специальное предложение',
+    title: 'Ключи для BMW: от простой копии до полноценного дилерского функционала',
+    description: 'Не ограничивайтесь простым открытием дверей. Мы изготавливаем ключи, которые «узнают» владельца',
+    oldPrice: '',
+    newPrice: '',
+    discount: '',
+    image: 'https://cdn.poehali.dev/files/key.jpg',
+    imageStyle: {
+      filter: 'brightness(1.1) contrast(1.2) saturate(1.05)',
+      objectPosition: 'center center',
+      transform: 'scale(1.1)',
+    },
+    features: [
+      { icon: 'Key', text: 'Полный функционал' },
+      { icon: 'Shield', text: 'Гарантия' },
+      { icon: 'Users', text: 'Узнаёт владельца' }
+    ],
+    hasButton: true,
+    buttonText: 'Калькулятор',
+    buttonLink: '#key-calculator'
   }
 ];
 
