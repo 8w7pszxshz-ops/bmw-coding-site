@@ -87,23 +87,27 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
         }}
       />
       <div 
-        className="absolute top-0 left-0 right-0 h-px"
+        className="absolute top-0 left-0 right-0"
         style={{
-          background: `linear-gradient(90deg, transparent, ${service.color}60, transparent)`,
-          boxShadow: `0 0 20px ${service.color}40, 0 0 40px ${service.color}20`
+          height: '2px',
+          background: `linear-gradient(90deg, transparent 0%, ${service.color}20 20%, ${service.color}80 50%, ${service.color}20 80%, transparent 100%)`,
+          boxShadow: `0 0 30px ${service.color}60, 0 2px 20px ${service.color}40`
         }}
       />
       <div 
-        className="absolute bottom-0 left-0 right-0 h-px"
+        className="absolute bottom-0 left-0 right-0"
         style={{
-          background: `linear-gradient(90deg, transparent, ${service.color}30, transparent)`,
-          boxShadow: `0 0 10px ${service.color}20`
+          height: '1px',
+          background: `linear-gradient(90deg, transparent 0%, ${service.color}15 30%, ${service.color}40 50%, ${service.color}15 70%, transparent 100%)`,
+          boxShadow: `0 0 15px ${service.color}30`
         }}
       />
-      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+      <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
         <defs>
-          <pattern id={`pattern-${service.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <circle cx="20" cy="20" r="0.5" fill={service.color} opacity="0.3" />
+          <pattern id={`pattern-${service.id}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+            <circle cx="15" cy="15" r="1" fill={service.color} opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+            </circle>
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill={`url(#pattern-${service.id})`} />
@@ -221,23 +225,27 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
       />
 
       <div 
-        className="absolute top-0 left-0 right-0 h-px"
+        className="absolute top-0 left-0 right-0"
         style={{
-          background: `linear-gradient(90deg, transparent, ${service.color}60, transparent)`,
-          boxShadow: `0 0 20px ${service.color}40, 0 0 40px ${service.color}20`
+          height: '2px',
+          background: `linear-gradient(90deg, transparent 0%, ${service.color}20 20%, ${service.color}80 50%, ${service.color}20 80%, transparent 100%)`,
+          boxShadow: `0 0 30px ${service.color}60, 0 2px 20px ${service.color}40`
         }}
       />
       <div 
-        className="absolute bottom-0 left-0 right-0 h-px"
+        className="absolute bottom-0 left-0 right-0"
         style={{
-          background: `linear-gradient(90deg, transparent, ${service.color}30, transparent)`,
-          boxShadow: `0 0 10px ${service.color}20`
+          height: '1px',
+          background: `linear-gradient(90deg, transparent 0%, ${service.color}15 30%, ${service.color}40 50%, ${service.color}15 70%, transparent 100%)`,
+          boxShadow: `0 0 15px ${service.color}30`
         }}
       />
-      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+      <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
         <defs>
-          <pattern id={`pattern-desktop-${service.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <circle cx="20" cy="20" r="0.5" fill={service.color} opacity="0.3" />
+          <pattern id={`pattern-desktop-${service.id}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+            <circle cx="15" cy="15" r="1" fill={service.color} opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+            </circle>
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill={`url(#pattern-desktop-${service.id})`} />
