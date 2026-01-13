@@ -152,7 +152,33 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
 
           <div className="space-y-4">
             {Object.entries(categories).map(([catKey, category]) => (
-              <div key={catKey} className="bg-white/5 rounded-xl p-4 border border-white/5">
+              <div 
+                key={catKey} 
+                className="relative rounded-xl p-4 border overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(30, 30, 45, 0.6) 0%, rgba(15, 15, 25, 0.8) 100%)',
+                  borderColor: 'rgba(100, 100, 255, 0.2)',
+                  boxShadow: '0 4px 20px rgba(100, 100, 255, 0.1)'
+                }}
+              >
+                <div 
+                  className="absolute left-0 top-0 bottom-0"
+                  style={{
+                    width: '3px',
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(100, 150, 255, 0.8) 50%, transparent 100%)',
+                    boxShadow: '0 0 20px rgba(100, 150, 255, 0.6)'
+                  }}
+                />
+                <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'overlay' }}>
+                  <defs>
+                    <pattern id={`dots-${catKey}`} x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
+                      <circle cx="12.5" cy="12.5" r="0.8" fill="rgba(150, 180, 255, 0.5)">
+                        <animate attributeName="r" values="0.5;1.2;0.5" dur="4s" repeatCount="indefinite" />
+                      </circle>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#dots-${catKey})`} />
+                </svg>
                 <div className="flex items-center gap-3 mb-3">
                   <Icon name={categoryIcons[catKey] || 'Box'} className="w-5 h-5 text-blue-400" />
                   <h4 className="text-white font-medium">{category.name}</h4>
@@ -169,8 +195,27 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
                           selectedServices.has(service.service_code)
                             ? 'bg-blue-500/20 border-blue-500/50'
                             : 'bg-white/5 border-white/5 hover:bg-white/10'
-                        } border`}
+                        } border relative overflow-hidden`}
                       >
+                        {selectedServices.has(service.service_code) && (
+                          <>
+                            <div 
+                              className="absolute left-0 top-0 bottom-0"
+                              style={{
+                                width: '2px',
+                                background: 'linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.8), transparent)',
+                                boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
+                              }}
+                            />
+                            <div 
+                              className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1/2 rounded-full"
+                              style={{
+                                background: 'rgba(59, 130, 246, 0.3)',
+                                boxShadow: '0 0 15px rgba(59, 130, 246, 0.4)'
+                              }}
+                            />
+                          </>
+                        )}
                         <input
                           type="checkbox"
                           checked={selectedServices.has(service.service_code)}
@@ -216,7 +261,40 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
       </div>
 
       {selectedServices.size > 0 && (
-        <div className="bg-gradient-to-br from-green-900/20 to-emerald-900/20 backdrop-blur-xl rounded-2xl border border-green-500/20 p-6 sticky bottom-4">
+        <div 
+          className="relative backdrop-blur-xl rounded-2xl border p-6 sticky bottom-4 overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%)',
+            borderColor: 'rgba(16, 185, 129, 0.3)',
+            boxShadow: '0 10px 40px rgba(16, 185, 129, 0.2), 0 0 80px rgba(16, 185, 129, 0.1)'
+          }}
+        >
+          <div 
+            className="absolute top-0 left-0 right-0"
+            style={{
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.4) 20%, rgba(16, 185, 129, 1) 50%, rgba(16, 185, 129, 0.4) 80%, transparent 100%)',
+              boxShadow: '0 0 20px rgba(16, 185, 129, 0.6)'
+            }}
+          />
+          <div 
+            className="absolute bottom-0 left-0 right-0"
+            style={{
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent)',
+              boxShadow: '0 0 10px rgba(16, 185, 129, 0.4)'
+            }}
+          />
+          <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+            <defs>
+              <pattern id="total-pattern" x="0" y="0" width="35" height="35" patternUnits="userSpaceOnUse">
+                <circle cx="17.5" cy="17.5" r="1.2" fill="rgba(16, 185, 129, 0.7)">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite" />
+                </circle>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#total-pattern)" />
+          </svg>
           <div className="flex items-center justify-between mb-4">
             <div>
               <div className="text-white font-semibold mb-1">Итого услуг: {selectedServices.size}</div>

@@ -113,7 +113,25 @@ export default function KeyCalculator() {
                     color: selectedFKey === idx ? '#fff' : 'rgba(255, 255, 255, 0.6)'
                   }}
                 >
-                  <div className="text-xs mb-1 opacity-70">Позиция {key.position}</div>
+                  {selectedFKey === idx && (
+                    <>
+                      <div 
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
+                        style={{
+                          background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8), transparent)',
+                          boxShadow: '0 0 8px rgba(231, 34, 46, 0.6)'
+                        }}
+                      />
+                      <div 
+                        className="absolute top-1 left-1 w-2 h-2 rounded-full"
+                        style={{
+                          background: 'rgba(231, 34, 46, 0.5)',
+                          boxShadow: '0 0 10px rgba(231, 34, 46, 0.8)'
+                        }}
+                      />
+                    </>
+                  )}
+                  <div className="relative text-xs mb-1 opacity-70">Позиция {key.position}</div>
                   <div className="text-sm font-medium">{key.price.toLocaleString()} ₽</div>
                 </button>
               ))}
@@ -130,7 +148,7 @@ export default function KeyCalculator() {
             <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => setKeyType('copy')}
-                className="py-6 px-6 rounded-xl transition-all duration-300"
+                className="relative py-6 px-6 rounded-xl transition-all duration-300 overflow-hidden"
                 style={{
                   background: keyType === 'copy'
                     ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
@@ -143,7 +161,26 @@ export default function KeyCalculator() {
                     : 'none',
                 }}
               >
-                <div className="flex items-center justify-between mb-2">
+                {keyType === 'copy' && (
+                  <>
+                    <div 
+                      className="absolute top-0 right-0 w-px h-full"
+                      style={{
+                        background: 'linear-gradient(180deg, transparent, rgba(231, 34, 46, 0.6), transparent)',
+                        boxShadow: '0 0 12px rgba(231, 34, 46, 0.5)'
+                      }}
+                    />
+                    <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none">
+                      <defs>
+                        <pattern id="copy-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                          <circle cx="10" cy="10" r="0.8" fill="rgba(231, 34, 46, 0.6)" />
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#copy-dots)" />
+                    </svg>
+                  </>
+                )}
+                <div className="relative flex items-center justify-between mb-2">
                   <span className="text-lg font-light" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
                     Копия
                   </span>
@@ -156,7 +193,7 @@ export default function KeyCalculator() {
 
               <button
                 onClick={() => setKeyType('dealer')}
-                className="py-6 px-6 rounded-xl transition-all duration-300"
+                className="relative py-6 px-6 rounded-xl transition-all duration-300 overflow-hidden"
                 style={{
                   background: keyType === 'dealer'
                     ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
@@ -169,7 +206,26 @@ export default function KeyCalculator() {
                     : 'none',
                 }}
               >
-                <div className="flex items-center justify-between mb-2">
+                {keyType === 'dealer' && (
+                  <>
+                    <div 
+                      className="absolute top-0 right-0 w-px h-full"
+                      style={{
+                        background: 'linear-gradient(180deg, transparent, rgba(231, 34, 46, 0.6), transparent)',
+                        boxShadow: '0 0 12px rgba(231, 34, 46, 0.5)'
+                      }}
+                    />
+                    <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none">
+                      <defs>
+                        <pattern id="dealer-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                          <circle cx="10" cy="10" r="0.8" fill="rgba(231, 34, 46, 0.6)" />
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#dealer-dots)" />
+                    </svg>
+                  </>
+                )}
+                <div className="relative flex items-center justify-between mb-2">
                   <span className="text-lg font-light" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
                     Дилерский
                   </span>
@@ -185,12 +241,39 @@ export default function KeyCalculator() {
 
         {/* Итоговая стоимость */}
         <div 
-          className="rounded-2xl p-8 mt-8"
+          className="relative rounded-2xl p-8 mt-8 overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.15), rgba(231, 34, 46, 0.05))',
             border: '1px solid rgba(231, 34, 46, 0.3)',
+            boxShadow: '0 8px 32px rgba(231, 34, 46, 0.15)'
           }}
         >
+          <div 
+            className="absolute top-0 left-0 right-0"
+            style={{
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8) 30%, rgba(231, 34, 46, 1) 50%, rgba(231, 34, 46, 0.8) 70%, transparent)',
+              boxShadow: '0 0 25px rgba(231, 34, 46, 0.7)'
+            }}
+          />
+          <div 
+            className="absolute left-0 top-0 bottom-0"
+            style={{
+              width: '2px',
+              background: 'linear-gradient(180deg, transparent, rgba(231, 34, 46, 0.6) 50%, transparent)',
+              boxShadow: '0 0 15px rgba(231, 34, 46, 0.5)'
+            }}
+          />
+          <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
+            <defs>
+              <pattern id="final-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                <circle cx="20" cy="20" r="1" fill="rgba(231, 34, 46, 0.5)">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite" />
+                </circle>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#final-grid)" />
+          </svg>
           <div className="flex items-center justify-between">
             <div>
               <div className="text-white/60 text-sm font-light mb-1 uppercase tracking-wider">
