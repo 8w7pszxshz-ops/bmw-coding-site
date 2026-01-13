@@ -8,13 +8,22 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { City } from '@/components/CitySelector';
+import { getCityConfig } from '@/utils/cityConfig';
 
-const quickActions = [
-  { id: 'call', icon: 'Phone', label: 'Позвонить', link: 'tel:+79873573338' },
-  { id: 'telegram', icon: 'Send', label: 'Telegram', link: 'https://t.me/Bocha_reborn' },
-  { id: 'location', icon: 'MapPin', label: 'Адрес' },
-  { id: 'time', icon: 'Clock', label: 'Режим' }
-];
+interface QuickActionsProps {
+  selectedCity?: City;
+}
+
+const getQuickActions = (city: City) => {
+  const config = getCityConfig(city);
+  return [
+    { id: 'call', icon: 'Phone', label: 'Позвонить', link: `tel:${config.phone}` },
+    { id: 'telegram', icon: 'Send', label: 'Telegram', link: config.telegram },
+    { id: 'location', icon: 'MapPin', label: 'Адрес' },
+    { id: 'time', icon: 'Clock', label: 'Режим' }
+  ];
+};
 
 const schedule = [
   { day: 'Понедельник', hours: '10:00–18:00' },
@@ -26,9 +35,12 @@ const schedule = [
   { day: 'Воскресенье', hours: 'Выходной', isClosed: true }
 ];
 
-export default function QuickActions() {
+export default function QuickActions({ selectedCity = 'saratov' }: QuickActionsProps) {
   const [showLocation, setShowLocation] = useState(false);
   const [showSchedule, setShowSchedule] = useState(false);
+  
+  const quickActions = getQuickActions(selectedCity);
+  const cityConfig = getCityConfig(selectedCity);
 
   const handleActionClick = (actionId: string) => {
     if (actionId === 'location') {
@@ -160,7 +172,7 @@ export default function QuickActions() {
         
         <div className="flex items-center justify-center gap-6">
           <a 
-            href="https://t.me/Bocha_reborn"
+            href={cityConfig.telegram}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/40 hover:text-blue-400 transition-colors duration-300"
@@ -168,7 +180,7 @@ export default function QuickActions() {
             <Icon name="Send" className="w-5 h-5" />
           </a>
           <a 
-            href="tel:+79873573338"
+            href={`tel:${cityConfig.phone}`}
             className="text-white/40 hover:text-blue-400 transition-colors duration-300"
           >
             <Icon name="Phone" className="w-5 h-5" />

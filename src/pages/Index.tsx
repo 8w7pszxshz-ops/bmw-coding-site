@@ -58,7 +58,7 @@ export default function Index() {
         <ApiIntegration />
       </div>
       <div id="contact">
-        <QuickActions />
+        <QuickActions selectedCity={selectedCity} />
       </div>
     </MainLayout>
     </>
