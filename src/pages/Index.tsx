@@ -1,7 +1,6 @@
 import MainLayout from '@/components/layout/MainLayout';
 import HeroSection from '@/components/HeroSection';
 import SpecialOffer from '@/components/SpecialOffer';
-import CalculatorHub from '@/components/CalculatorHub';
 import ServicesGrid from '@/components/ServicesGrid';
 import ExpertTips from '@/components/ExpertTips';
 import Reviews from '@/components/Reviews';
@@ -15,7 +14,6 @@ export default function Index() {
       <div id="offers">
         <SpecialOffer />
       </div>
-      <CalculatorHub />
       <div id="services">
         <ServicesGrid />
       </div>
