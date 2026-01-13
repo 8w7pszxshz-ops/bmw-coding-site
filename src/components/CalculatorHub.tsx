@@ -96,8 +96,7 @@ export default function CalculatorHub() {
   return (
     <div id="calculator-hub" className="mb-16">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-light text-white mb-2">Калькуляторы и конфигураторы</h2>
-        <p className="text-white/70">Выберите услугу для расчёта стоимости</p>
+        <p className="text-xl text-white/70">Выберите услугу для расчёта стоимости</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
