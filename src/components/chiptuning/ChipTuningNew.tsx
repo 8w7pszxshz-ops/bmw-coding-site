@@ -12,27 +12,17 @@ interface ChipTuningProps {
 type Step = 'generation' | 'model' | 'engine';
 
 const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTuningProps) {
-  const [step, setStep] = useState<Step>('generation');
-  const [selectedGeneration, setSelectedGeneration] = useState<'F' | 'G' | null>(null);
+  const [step, setStep] = useState<Step>('model');
   const [selectedModel, setSelectedModel] = useState<ModelData | null>(null);
   const [selectedEngine, setSelectedEngine] = useState<ModelData['engines'][0] | null>(null);
 
-  const filteredModels = selectedGeneration 
-    ? bmwModels.filter(m => m.generation === selectedGeneration)
-    : [];
-
-  const uniqueModels = filteredModels.reduce((acc, model) => {
-    const existing = acc.find(m => m.name === model.name);
+  const uniqueModels = bmwModels.reduce((acc, model) => {
+    const existing = acc.find(m => m.name === model.name && m.series === model.series);
     if (!existing) {
       acc.push(model);
     }
     return acc;
   }, [] as ModelData[]);
-
-  const handleGenerationSelect = (gen: 'F' | 'G') => {
-    setSelectedGeneration(gen);
-    setStep('model');
-  };
 
   const handleModelSelect = (model: ModelData) => {
     setSelectedModel(model);
@@ -43,9 +33,6 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
     if (step === 'engine') {
       setSelectedEngine(null);
       setStep('model');
-    } else if (step === 'model') {
-      setSelectedModel(null);
-      setStep('generation');
     }
   };
 
@@ -59,15 +46,14 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
           <h2 className="font-light text-white text-xl">
-            {step === 'generation' && 'Выберите поколение BMW'}
-            {step === 'model' && 'Выберите модель'}
+            {step === 'model' && 'Выберите модель BMW'}
             {step === 'engine' && 'Выберите двигатель'}
           </h2>
         </div>
         <p className="text-white/60 text-xs">Цены включают полную диагностику перед работами</p>
       </div>
 
-      {step !== 'generation' && (
+      {step === 'engine' && (
         <button
           onClick={handleBack}
           className="mb-6 px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm flex items-center gap-2 mx-auto"
@@ -80,30 +66,6 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
           <Icon name="ArrowLeft" className="w-4 h-4" />
           Назад
         </button>
-      )}
-
-      {step === 'generation' && (
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { id: 'F' as const, label: 'F-серия', years: '2010-2018', icon: 'Calendar' },
-            { id: 'G' as const, label: 'G-серия', years: '2015+', icon: 'CalendarDays' }
-          ].map((gen) => (
-            <button
-              key={gen.id}
-              onClick={() => handleGenerationSelect(gen.id)}
-              className="p-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <Icon name={gen.icon as any} className="w-12 h-12 text-[#FF0040] mx-auto mb-3" />
-              <div className="text-white font-medium text-lg mb-1">{gen.label}</div>
-              <div className="text-white/50 text-xs">{gen.years}</div>
-            </button>
-          ))}
-        </div>
       )}
 
       {step === 'model' && (
@@ -215,26 +177,16 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
 });
 
 const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: ChipTuningProps) {
-  const [step, setStep] = useState<Step>('generation');
-  const [selectedGeneration, setSelectedGeneration] = useState<'F' | 'G' | null>(null);
+  const [step, setStep] = useState<Step>('model');
   const [selectedModel, setSelectedModel] = useState<ModelData | null>(null);
 
-  const filteredModels = selectedGeneration 
-    ? bmwModels.filter(m => m.generation === selectedGeneration)
-    : [];
-
-  const uniqueModels = filteredModels.reduce((acc, model) => {
-    const existing = acc.find(m => m.name === model.name);
+  const uniqueModels = bmwModels.reduce((acc, model) => {
+    const existing = acc.find(m => m.name === model.name && m.series === model.series);
     if (!existing) {
       acc.push(model);
     }
     return acc;
   }, [] as ModelData[]);
-
-  const handleGenerationSelect = (gen: 'F' | 'G') => {
-    setSelectedGeneration(gen);
-    setStep('model');
-  };
 
   const handleModelSelect = (model: ModelData) => {
     setSelectedModel(model);
@@ -245,9 +197,6 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
     if (step === 'engine') {
       setSelectedModel(null);
       setStep('model');
-    } else if (step === 'model') {
-      setSelectedGeneration(null);
-      setStep('generation');
     }
   };
 
@@ -261,15 +210,14 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
         <div className="flex items-center justify-center gap-3 mb-4">
           <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
           <h2 className="font-light text-white text-3xl">
-            {step === 'generation' && 'Выберите поколение BMW'}
-            {step === 'model' && 'Выберите модель'}
+            {step === 'model' && 'Выберите модель BMW'}
             {step === 'engine' && 'Выберите двигатель и модификацию'}
           </h2>
         </div>
         <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
       </div>
 
-      {step !== 'generation' && (
+      {step === 'engine' && (
         <button
           onClick={handleBack}
           className="mb-8 px-6 py-3 rounded-xl text-white/60 hover:text-white transition-all duration-300 flex items-center gap-2 hover:scale-105"
@@ -282,31 +230,6 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
           <Icon name="ArrowLeft" className="w-5 h-5" />
           Назад
         </button>
-      )}
-
-      {step === 'generation' && (
-        <div className="grid grid-cols-2 gap-8 max-w-3xl mx-auto">
-          {[
-            { id: 'F' as const, label: 'F-серия', years: '2010-2018', icon: 'Calendar', desc: 'Легендарное поколение' },
-            { id: 'G' as const, label: 'G-серия', years: '2015+', icon: 'CalendarDays', desc: 'Современные технологии' }
-          ].map((gen) => (
-            <button
-              key={gen.id}
-              onClick={() => handleGenerationSelect(gen.id)}
-              className="p-10 rounded-3xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_60px_rgba(231,34,46,0.5)]"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <Icon name={gen.icon as any} className="w-16 h-16 text-[#FF0040] mx-auto mb-4" />
-              <div className="text-white font-medium text-2xl mb-2">{gen.label}</div>
-              <div className="text-white/50 text-sm mb-1">{gen.years}</div>
-              <div className="text-white/40 text-xs">{gen.desc}</div>
-            </button>
-          ))}
-        </div>
       )}
 
       {step === 'model' && (
