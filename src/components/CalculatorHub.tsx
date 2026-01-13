@@ -114,13 +114,9 @@ export default function CalculatorHub() {
               >
                 {calc.id === 'key' ? (
                   <img 
-                    src="https://cdn.poehali.dev/files/key.jpg" 
+                    src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/d83ace7f-b49b-492d-99c8-f9a41104235e.jpg" 
                     alt="BMW Key"
-                    className="w-12 h-12 object-contain"
-                    style={{
-                      filter: 'brightness(1.2) contrast(1.3) drop-shadow(0 0 8px rgba(231, 34, 46, 0.5))',
-                      mixBlendMode: 'screen'
-                    }}
+                    className="w-11 h-11 object-contain"
                   />
                 ) : (
                   <Icon name={calc.icon} className="w-7 h-7" style={{ color: calc.color }} />
