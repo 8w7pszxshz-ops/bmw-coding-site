@@ -120,13 +120,20 @@ export default function CalculatorHub() {
             
             <div className="relative">
               <div 
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 relative overflow-hidden"
                 style={{
-                  background: `${calc.color}20`,
-                  border: `1px solid ${calc.color}30`
+                  background: 'linear-gradient(145deg, #1a1a1a, #000000)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.5)'
                 }}
               >
-                <Icon name={calc.icon} className="w-7 h-7" style={{ color: calc.color }} />
+                <div 
+                  className="absolute inset-0 opacity-30"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.3) 100%)'
+                  }}
+                />
+                <Icon name={calc.icon} className="w-7 h-7 relative z-10" style={{ color: calc.color }} />
               </div>
 
               <h3 className="text-xl font-light text-white mb-2">{calc.title}</h3>
