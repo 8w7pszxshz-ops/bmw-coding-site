@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import BMWKeyIcon from '@/components/ui/BMWKeyIcon';
 import KeyCalculator from './KeyCalculator';
 import CodingPackages from './CodingPackages';
 import ChipTuning from './ChipTuning';
@@ -112,7 +113,11 @@ export default function CalculatorHub() {
                   border: `1px solid ${calc.color}30`
                 }}
               >
-                <Icon name={calc.icon} className="w-7 h-7" style={{ color: calc.color }} />
+                {calc.id === 'key' ? (
+                  <BMWKeyIcon className="w-9 h-9" color={calc.color} />
+                ) : (
+                  <Icon name={calc.icon} className="w-7 h-7" style={{ color: calc.color }} />
+                )}
               </div>
 
               <h3 className="text-xl font-light text-white mb-2">{calc.title}</h3>
