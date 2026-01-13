@@ -28,7 +28,7 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
-          <h2 className="font-light text-white text-xl">Какая у вас модель BMW?</h2>
+          <h2 className="font-light text-white text-xl">Выберите серию и двигатель</h2>
         </div>
         <p className="text-white/60 text-xs">Цены включают полную диагностику перед работами</p>
       </div>
@@ -131,7 +131,7 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
-          <h2 className="font-light text-white text-3xl">Какая у вас модель BMW?</h2>
+          <h2 className="font-light text-white text-3xl">Выберите серию и двигатель BMW</h2>
         </div>
         <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
       </div>
