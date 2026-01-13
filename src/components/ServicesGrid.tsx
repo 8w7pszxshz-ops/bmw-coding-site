@@ -138,7 +138,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
           </div>
         </div>
         
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-5">
           <span 
             className="text-base font-light tracking-wide"
             style={{ color: service.color }}
@@ -264,7 +264,7 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
           </div>
         </div>
         
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-6">
           <span 
             className="text-lg font-light tracking-wide"
             style={{ color: service.color }}
