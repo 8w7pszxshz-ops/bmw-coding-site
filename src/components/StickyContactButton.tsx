@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import { MobileOnly } from '@/components/ui/responsive';
+import { City } from '@/components/CitySelector';
+import { getCityConfig } from '@/utils/cityConfig';
 
 const vibrate = (pattern: number | number[] = 10) => {
   if ('vibrate' in navigator) {
@@ -8,7 +10,11 @@ const vibrate = (pattern: number | number[] = 10) => {
   }
 };
 
-export default function StickyContactButton() {
+interface StickyContactButtonProps {
+  selectedCity: City;
+}
+
+export default function StickyContactButton({ selectedCity }: StickyContactButtonProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -39,22 +45,24 @@ export default function StickyContactButton() {
     vibrate(10);
   };
 
+  const cityConfig = getCityConfig(selectedCity);
+
   return (
     <MobileOnly>
       <div ref={containerRef} className="fixed bottom-6 right-4 z-50">
         {isExpanded && (
           <div className="absolute bottom-16 right-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl shadow-2xl p-3 mb-2 animate-in fade-in slide-in-from-bottom-4 duration-200">
             <a 
-              href="tel:+79873573338"
+              href={`tel:${cityConfig.phone}`}
               onClick={handleLinkClick}
               className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-xl transition-all active:scale-95 min-h-[44px]"
             >
               <Icon name="Phone" className="w-5 h-5 text-white" />
-              <span className="text-white font-light text-sm whitespace-nowrap">+7 (987) 357-33-38</span>
+              <span className="text-white font-light text-sm whitespace-nowrap">{cityConfig.displayPhone}</span>
             </a>
             
             <a 
-              href="https://t.me/Bocha_reborn"
+              href={cityConfig.telegram}
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleLinkClick}

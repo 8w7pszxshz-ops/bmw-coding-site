@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { MobileOnly } from '@/components/ui/responsive';
+import CitySelector, { City } from '@/components/CitySelector';
 
 const menuItems = [
   { id: 'services', label: 'Услуги', icon: 'Wrench' },
@@ -19,7 +20,12 @@ const vibrate = (pattern: number | number[] = 10) => {
   }
 };
 
-export default function BurgerMenu() {
+interface BurgerMenuProps {
+  selectedCity: City;
+  onCityChange: (city: City) => void;
+}
+
+export default function BurgerMenu({ selectedCity, onCityChange }: BurgerMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -65,6 +71,9 @@ export default function BurgerMenu() {
           />
           
           <div className="fixed top-20 right-4 z-[58] bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="p-3 border-b border-white/10">
+              <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
+            </div>
             <div className="p-2">
               {menuItems.map((item) => (
                 <button
