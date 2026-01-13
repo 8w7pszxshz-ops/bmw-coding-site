@@ -1336,3 +1336,11 @@ export const bmwModels: ModelData[] = [
     ]
   }
 ];
+
+export function getTypeColor(type: 'petrol' | 'diesel'): string {
+  return type === 'petrol' ? '#FF0040' : '#00A8E8';
+}
+
+export function getGainPercentage(before: number, after: number): number {
+  return Math.round(((after - before) / before) * 100);
+}
