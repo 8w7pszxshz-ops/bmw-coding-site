@@ -31,7 +31,7 @@ export default function ModificationCard({ mod, engineType, getPriceForCity, var
     let price = getPriceForCity(mod.price);
     
     if (selectedOptions.egs && mod.egsPrice) {
-      price += getPriceForCity(5000);
+      price += getPriceForCity(mod.egsPrice);
     }
     
     if (selectedOptions.euro2 && mod.euro2Price) {
@@ -119,10 +119,13 @@ export default function ModificationCard({ mod, engineType, getPriceForCity, var
                     onChange={(e) => setSelectedOptions(prev => ({ ...prev, egs: e.target.checked }))}
                     className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0`}
                   />
-                  <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Тюнинг АКПП</span>
+                  <div className="flex flex-col gap-0.5">
+                    <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Тюнинг АКПП</span>
+                    <span className="text-white/40 text-[9px]">(для достижения полной мощности)</span>
+                  </div>
                 </div>
                 <span className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm font-medium'}`}>
-                  +5 000 ₽
+                  +{getPriceForCity(mod.egsPrice).toLocaleString()} ₽
                 </span>
               </label>
             )}

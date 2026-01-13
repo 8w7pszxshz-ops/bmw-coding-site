@@ -75,7 +75,7 @@ export const bmwModels: ModelData[] = [
         displacement: '1.5',
         modifications: [
           { name: '114i Stage 1', powerBefore: 102, powerAfter: 225, torqueBefore: 180, torqueAfter: 330, price: 30000, egsPrice: 27000, euro2Price: 5000 },
-          { name: '116i Stage 1', powerBefore: 136, powerAfter: 225, torqueBefore: 220, torqueAfter: 330, price: 30000 }
+          { name: '116i Stage 1', powerBefore: 136, powerAfter: 225, torqueBefore: 220, torqueAfter: 330, price: 30000, egsPrice: 27000 }
         ]
       },
       {
@@ -107,7 +107,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '1.5',
         modifications: [
-          { name: '114d Stage 1', powerBefore: 95, powerAfter: 150, torqueBefore: 235, torqueAfter: 320, price: 30000, egrPrice: 15000, adbluePrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
+          { name: '114d Stage 1', powerBefore: 95, powerAfter: 150, torqueBefore: 235, torqueAfter: 320, price: 30000, egsPrice: 27000, egrPrice: 15000, adbluePrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -153,7 +153,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '120i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000, euro2Price: 5000 }
+          { name: '120i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000, egsPrice: 27000, euro2Price: 5000 }
         ]
       },
       {
@@ -169,7 +169,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M140i Stage 1', powerBefore: 340, powerAfter: 400, torqueBefore: 500, torqueAfter: 580, price: 30000, euro2Price: 5000 }
+          { name: 'M140i Stage 1', powerBefore: 340, powerAfter: 400, torqueBefore: 500, torqueAfter: 580, price: 30000, egsPrice: 27000, euro2Price: 5000 }
         ]
       },
       {
