@@ -46,6 +46,7 @@ export default function ChatGPT() {
             systemPrompt={BMW_SYSTEM_PROMPT}
             title="BMW Консультант"
             placeholder="Например: Как устранить ошибку P0300 на 320i F30?"
+            hideSettings={true}
           />
         </div>
       </div>

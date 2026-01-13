@@ -30,6 +30,7 @@ interface ChatGPTPlaygroundProps {
   systemPrompt?: string;
   title?: string;
   placeholder?: string;
+  hideSettings?: boolean;
 }
 
 // =============================================================================
@@ -116,6 +117,7 @@ export function ChatGPTPlayground({
   systemPrompt: initialSystemPrompt = "",
   title = "ChatGPT Playground",
   placeholder = "Введите сообщение...",
+  hideSettings = false,
 }: ChatGPTPlaygroundProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -187,46 +189,48 @@ export function ChatGPTPlayground({
   return (
     <div className="flex h-full bg-[#1e1e1e] text-white">
       {/* Левая панель - Настройки */}
-      <div className="w-80 border-r border-gray-700 flex flex-col">
-        <div className="p-4 border-b border-gray-700">
-          <h1 className="text-lg font-medium">{title}</h1>
-        </div>
-
-        <div className="p-4 space-y-4 flex-1 overflow-y-auto">
-          {/* Модель */}
-          <div>
-            <label className="block text-sm text-gray-400 mb-2">Модель</label>
-            <ModelDropdown
-              value={selectedModel}
-              onChange={setSelectedModel}
-              models={models}
-              loading={modelsLoading}
-            />
+      {!hideSettings && (
+        <div className="w-80 border-r border-gray-700 flex flex-col">
+          <div className="p-4 border-b border-gray-700">
+            <h1 className="text-lg font-medium">{title}</h1>
           </div>
 
-          {/* Системное сообщение */}
-          <div>
-            <label className="block text-sm text-gray-400 mb-2">Системное сообщение</label>
-            <textarea
-              value={systemPrompt}
-              onChange={(e) => setSystemPrompt(e.target.value)}
-              placeholder="Опишите поведение модели..."
-              rows={6}
-              className="w-full px-3 py-2 bg-[#2d2d2d] border border-gray-600 rounded text-sm resize-none focus:outline-none focus:border-green-500 placeholder-gray-500"
-            />
+          <div className="p-4 space-y-4 flex-1 overflow-y-auto">
+            {/* Модель */}
+            <div>
+              <label className="block text-sm text-gray-400 mb-2">Модель</label>
+              <ModelDropdown
+                value={selectedModel}
+                onChange={setSelectedModel}
+                models={models}
+                loading={modelsLoading}
+              />
+            </div>
+
+            {/* Системное сообщение */}
+            <div>
+              <label className="block text-sm text-gray-400 mb-2">Системное сообщение</label>
+              <textarea
+                value={systemPrompt}
+                onChange={(e) => setSystemPrompt(e.target.value)}
+                placeholder="Опишите поведение модели..."
+                rows={6}
+                className="w-full px-3 py-2 bg-[#2d2d2d] border border-gray-600 rounded text-sm resize-none focus:outline-none focus:border-green-500 placeholder-gray-500"
+              />
+            </div>
+          </div>
+
+          {/* Кнопка очистки */}
+          <div className="p-4 border-t border-gray-700">
+            <button
+              onClick={clearChat}
+              className="w-full px-4 py-2 text-sm text-gray-400 hover:text-white border border-gray-600 rounded hover:border-gray-500 transition-colors"
+            >
+              Очистить чат
+            </button>
           </div>
         </div>
-
-        {/* Кнопка очистки */}
-        <div className="p-4 border-t border-gray-700">
-          <button
-            onClick={clearChat}
-            className="w-full px-4 py-2 text-sm text-gray-400 hover:text-white border border-gray-600 rounded hover:border-gray-500 transition-colors"
-          >
-            Очистить чат
-          </button>
-        </div>
-      </div>
+      )}
 
       {/* Правая панель - Чат */}
       <div className="flex-1 flex flex-col">
