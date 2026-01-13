@@ -15,7 +15,7 @@ function EngineVariantCardMobile({ variant, engineType, color, index }: EngineVa
 
   return (
     <div
-      className="relative p-5 rounded-xl transition-all duration-300 animate-fade-in"
+      className="relative p-5 rounded-xl transition-all duration-300 animate-fade-in overflow-hidden"
       style={{
         background: `linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)), linear-gradient(135deg, ${color}12, ${color}06)`,
         border: `1px solid ${color}40`,
@@ -24,6 +24,32 @@ function EngineVariantCardMobile({ variant, engineType, color, index }: EngineVa
         animationDelay: `${index * 50}ms`
       }}
     >
+      <div 
+        className="absolute left-0 top-0 bottom-0"
+        style={{
+          width: '2px',
+          background: `linear-gradient(180deg, transparent 0%, ${color}40 30%, ${color}80 50%, ${color}40 70%, transparent 100%)`,
+          boxShadow: `0 0 20px ${color}50`
+        }}
+      />
+      <div 
+        className="absolute right-0 top-1/4 bottom-1/4"
+        style={{
+          width: '1px',
+          background: `linear-gradient(180deg, transparent, ${color}30, transparent)`,
+          boxShadow: `0 0 10px ${color}30`
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+        <defs>
+          <pattern id={`variant-mobile-${index}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="10" cy="10" r="0.7" fill={color} opacity="0.5">
+              <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.5s" repeatCount="indefinite" />
+            </circle>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#variant-mobile-${index})`} />
+      </svg>
       <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className="text-lg font-medium text-white mb-1">{variant.name}</h3>
@@ -142,7 +168,7 @@ function EngineVariantCardDesktop({ variant, engineType, color, index }: EngineV
 
   return (
     <div
-      className="relative p-8 rounded-2xl transition-all duration-300 hover:scale-[1.02] animate-fade-in"
+      className="relative p-8 rounded-2xl transition-all duration-300 hover:scale-[1.02] animate-fade-in overflow-hidden"
       style={{
         background: `linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)), linear-gradient(135deg, ${color}12, ${color}06)`,
         border: `1px solid ${color}40`,
@@ -151,6 +177,32 @@ function EngineVariantCardDesktop({ variant, engineType, color, index }: EngineV
         animationDelay: `${index * 50}ms`
       }}
     >
+      <div 
+        className="absolute left-0 top-0 bottom-0"
+        style={{
+          width: '3px',
+          background: `linear-gradient(180deg, transparent 0%, ${color}40 30%, ${color}80 50%, ${color}40 70%, transparent 100%)`,
+          boxShadow: `0 0 25px ${color}60, 2px 0 15px ${color}40`
+        }}
+      />
+      <div 
+        className="absolute right-0 top-1/4 bottom-1/4"
+        style={{
+          width: '1px',
+          background: `linear-gradient(180deg, transparent, ${color}40, transparent)`,
+          boxShadow: `0 0 12px ${color}30`
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+        <defs>
+          <pattern id={`variant-desktop-${index}`} x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
+            <circle cx="12.5" cy="12.5" r="1" fill={color} opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite" />
+            </circle>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#variant-desktop-${index})`} />
+      </svg>
       <div className="flex items-start justify-between mb-6">
         <div>
           <h3 className="text-2xl font-medium text-white mb-2">{variant.name}</h3>

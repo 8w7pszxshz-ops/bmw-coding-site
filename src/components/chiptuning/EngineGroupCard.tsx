@@ -33,12 +33,31 @@ function EngineGroupCardMobile({ group, index, onSelect }: EngineGroupCardProps)
       }}
     >
       <div 
-        className="absolute top-0 left-0 right-0 h-px"
+        className="absolute top-0 left-0 right-0"
         style={{
-          background: `linear-gradient(90deg, transparent, ${color}40, transparent)`,
-          boxShadow: `0 0 20px ${color}30`
+          height: '2px',
+          background: `linear-gradient(90deg, transparent 0%, ${color}30 20%, ${color}70 50%, ${color}30 80%, transparent 100%)`,
+          boxShadow: `0 0 25px ${color}50, 0 2px 15px ${color}40`
         }}
       />
+      <div 
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          height: '1px',
+          background: `linear-gradient(90deg, transparent 0%, ${color}20 30%, ${color}40 50%, ${color}20 70%, transparent 100%)`,
+          boxShadow: `0 0 12px ${color}30`
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+        <defs>
+          <pattern id={`engine-card-mobile-${index}`} x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
+            <circle cx="12.5" cy="12.5" r="0.8" fill={color} opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+            </circle>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#engine-card-mobile-${index})`} />
+      </svg>
       
       <CardContent className="p-5 relative z-10">
         <div className="mb-4">
@@ -108,12 +127,31 @@ function EngineGroupCardDesktop({ group, index, onSelect }: EngineGroupCardProps
       />
 
       <div 
-        className="absolute top-0 left-0 right-0 h-px"
+        className="absolute top-0 left-0 right-0"
         style={{
-          background: `linear-gradient(90deg, transparent, ${color}40, transparent)`,
-          boxShadow: `0 0 20px ${color}30`
+          height: '2px',
+          background: `linear-gradient(90deg, transparent 0%, ${color}30 20%, ${color}70 50%, ${color}30 80%, transparent 100%)`,
+          boxShadow: `0 0 25px ${color}50, 0 2px 15px ${color}40`
         }}
       />
+      <div 
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          height: '1px',
+          background: `linear-gradient(90deg, transparent 0%, ${color}20 30%, ${color}40 50%, ${color}20 70%, transparent 100%)`,
+          boxShadow: `0 0 12px ${color}30`
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+        <defs>
+          <pattern id={`engine-card-desktop-${index}`} x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+            <circle cx="14" cy="14" r="1" fill={color} opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+            </circle>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#engine-card-desktop-${index})`} />
+      </svg>
       
       <CardContent className="p-8 relative z-10">
         <div className="mb-6">

@@ -84,7 +84,7 @@ export default function OptionsList({
             <button
               key={option.id}
               onClick={() => onToggleOption(option.id)}
-              className="relative p-6 rounded-xl transition-all duration-300 text-left group hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
+              className="relative p-6 rounded-xl transition-all duration-300 text-left group hover:shadow-[0_0_40px_rgba(231,34,46,0.4)] overflow-hidden"
               style={{
                 background: isSelected
                   ? 'linear-gradient(135deg, rgba(129, 196, 255, 0.15), rgba(22, 88, 142, 0.15))'
@@ -99,6 +99,36 @@ export default function OptionsList({
                 backdropFilter: 'blur(10px)'
               }}
             >
+              {isSelected && (
+                <>
+                  <div 
+                    className="absolute top-0 left-0 right-0"
+                    style={{
+                      height: '2px',
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(129, 196, 255, 0.4) 20%, rgba(129, 196, 255, 0.9) 50%, rgba(129, 196, 255, 0.4) 80%, transparent 100%)',
+                      boxShadow: '0 0 20px rgba(129, 196, 255, 0.6)'
+                    }}
+                  />
+                  <div 
+                    className="absolute bottom-0 left-0 top-0"
+                    style={{
+                      width: '2px',
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(129, 196, 255, 0.5) 50%, transparent 100%)',
+                      boxShadow: '0 0 15px rgba(129, 196, 255, 0.5)'
+                    }}
+                  />
+                  <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+                    <defs>
+                      <pattern id={`option-${option.id}`} x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+                        <circle cx="11" cy="11" r="0.8" fill="rgba(129, 196, 255, 0.6)">
+                          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite" />
+                        </circle>
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill={`url(#option-${option.id})`} />
+                  </svg>
+                </>
+              )}
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3 flex-1">
                   <div 
@@ -144,13 +174,39 @@ export default function OptionsList({
       </div>
 
       <div 
-        className="sticky bottom-6 rounded-2xl p-6 backdrop-blur-xl"
+        className="relative sticky bottom-6 rounded-2xl p-6 backdrop-blur-xl overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, rgba(129, 196, 255, 0.15), rgba(22, 88, 142, 0.15))',
           border: '1px solid rgba(129, 196, 255, 0.3)',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)'
         }}
       >
+        <div 
+          className="absolute top-0 left-0 right-0"
+          style={{
+            height: '2px',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(129, 196, 255, 0.3) 20%, rgba(129, 196, 255, 0.8) 50%, rgba(129, 196, 255, 0.3) 80%, transparent 100%)',
+            boxShadow: '0 0 25px rgba(129, 196, 255, 0.5)'
+          }}
+        />
+        <div 
+          className="absolute bottom-0 left-0 right-0"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent, rgba(129, 196, 255, 0.4), transparent)',
+            boxShadow: '0 0 12px rgba(129, 196, 255, 0.3)'
+          }}
+        />
+        <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+          <defs>
+            <pattern id="summary-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+              <circle cx="15" cy="15" r="1" fill="rgba(129, 196, 255, 0.6)">
+                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+              </circle>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#summary-pattern)" />
+        </svg>
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-8">
             <div>
