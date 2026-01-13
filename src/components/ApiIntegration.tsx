@@ -49,8 +49,31 @@ export default function ApiIntegration() {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden">
-            <div className="p-6 border-b border-white/10">
+          <div 
+            className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
+            style={{
+              boxShadow: '0 8px 32px rgba(59, 130, 246, 0.1)'
+            }}
+          >
+            <div 
+              className="absolute top-0 left-0 right-0"
+              style={{
+                height: '2px',
+                background: 'linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.4) 20%, rgba(6, 182, 212, 0.8) 50%, rgba(59, 130, 246, 0.4) 80%, transparent 100%)',
+                boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)'
+              }}
+            />
+            <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+              <defs>
+                <pattern id="api-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                  <circle cx="15" cy="15" r="1" fill="rgba(59, 130, 246, 0.5)">
+                    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite" />
+                  </circle>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#api-pattern)" />
+            </svg>
+            <div className="relative p-6 border-b border-white/10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
@@ -73,13 +96,13 @@ export default function ApiIntegration() {
               </div>
             </div>
 
-            <div className="p-6 bg-gray-950/50">
+            <div className="relative p-6 bg-gray-950/50">
               <pre className="text-sm text-gray-300 font-mono overflow-x-auto">
                 <code>{integrationCode}</code>
               </pre>
             </div>
 
-            <div className="p-6 border-t border-white/10">
+            <div className="relative p-6 border-t border-white/10">
               <div className="grid sm:grid-cols-3 gap-4">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">

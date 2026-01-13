@@ -139,7 +139,40 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
       <div className="grid lg:grid-cols-2 gap-6">
         <CarVisualization hoveredService={hoveredService} />
         
-        <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 backdrop-blur-xl rounded-2xl border border-blue-500/20 p-6">
+        <div 
+          className="relative backdrop-blur-xl rounded-2xl border p-6 overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(147, 51, 234, 0.12) 100%)',
+            borderColor: 'rgba(59, 130, 246, 0.25)',
+            boxShadow: '0 8px 32px rgba(59, 130, 246, 0.15)'
+          }}
+        >
+          <div 
+            className="absolute top-0 left-0 right-0"
+            style={{
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.3) 20%, rgba(59, 130, 246, 0.9) 50%, rgba(59, 130, 246, 0.3) 80%, transparent 100%)',
+              boxShadow: '0 0 25px rgba(59, 130, 246, 0.5)'
+            }}
+          />
+          <div 
+            className="absolute right-0 top-0 bottom-0"
+            style={{
+              width: '2px',
+              background: 'linear-gradient(180deg, transparent 0%, rgba(147, 51, 234, 0.5) 50%, transparent 100%)',
+              boxShadow: '0 0 15px rgba(147, 51, 234, 0.4)'
+            }}
+          />
+          <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+            <defs>
+              <pattern id="services-bg-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                <circle cx="15" cy="15" r="1" fill="rgba(59, 130, 246, 0.5)">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.5s" repeatCount="indefinite" />
+                </circle>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#services-bg-pattern)" />
+          </svg>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
               <Icon name="ShoppingCart" className="w-5 h-5 text-white" />

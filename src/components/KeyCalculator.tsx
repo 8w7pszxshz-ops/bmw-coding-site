@@ -39,13 +39,39 @@ export default function KeyCalculator() {
   return (
     <div id="key-calculator" className="mb-16">
       <div 
-        className="rounded-3xl p-12"
+        className="relative rounded-3xl p-12 overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',
           border: '1px solid rgba(231, 34, 46, 0.25)',
           boxShadow: '0 30px 90px -20px rgba(231, 34, 46, 0.5)',
         }}
       >
+        <div 
+          className="absolute top-0 left-0 right-0"
+          style={{
+            height: '3px',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(231, 34, 46, 0.2) 15%, rgba(231, 34, 46, 0.9) 50%, rgba(231, 34, 46, 0.2) 85%, transparent 100%)',
+            boxShadow: '0 0 30px rgba(231, 34, 46, 0.6), 0 2px 20px rgba(231, 34, 46, 0.4)'
+          }}
+        />
+        <div 
+          className="absolute bottom-0 left-0 right-0"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(231, 34, 46, 0.15) 30%, rgba(231, 34, 46, 0.5) 50%, rgba(231, 34, 46, 0.15) 70%, transparent 100%)',
+            boxShadow: '0 0 15px rgba(231, 34, 46, 0.3)'
+          }}
+        />
+        <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+          <defs>
+            <pattern id="key-calc-bg" x="0" y="0" width="35" height="35" patternUnits="userSpaceOnUse">
+              <circle cx="17.5" cy="17.5" r="1.2" fill="rgba(231, 34, 46, 0.6)">
+                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+              </circle>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#key-calc-bg)" />
+        </svg>
         <div className="flex items-center gap-3 mb-6">
           <Icon name="Calculator" className="w-7 h-7 text-[#E7222E]" />
           <h2 className="text-3xl font-light text-white">Калькулятор стоимости ключа</h2>
@@ -68,7 +94,7 @@ export default function KeyCalculator() {
                   setSeries(s);
                   if (s === 'F') setSelectedFKey(0);
                 }}
-                className="flex-1 py-4 px-6 rounded-xl font-medium transition-all duration-300"
+                className="relative flex-1 py-4 px-6 rounded-xl font-medium transition-all duration-300 overflow-hidden"
                 style={{
                   background: series === s 
                     ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
@@ -82,7 +108,26 @@ export default function KeyCalculator() {
                   color: series === s ? '#fff' : 'rgba(255, 255, 255, 0.6)'
                 }}
               >
-                <div className="text-2xl font-light">Серия {s}</div>
+                {series === s && (
+                  <>
+                    <div 
+                      className="absolute top-0 left-0 right-0"
+                      style={{
+                        height: '2px',
+                        background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8), transparent)',
+                        boxShadow: '0 0 15px rgba(231, 34, 46, 0.6)'
+                      }}
+                    />
+                    <div 
+                      className="absolute bottom-1 right-1 w-2 h-2 rounded-full"
+                      style={{
+                        background: 'rgba(231, 34, 46, 0.6)',
+                        boxShadow: '0 0 12px rgba(231, 34, 46, 0.8)'
+                      }}
+                    />
+                  </>
+                )}
+                <div className="relative text-2xl font-light">Серия {s}</div>
               </button>
             ))}
           </div>
