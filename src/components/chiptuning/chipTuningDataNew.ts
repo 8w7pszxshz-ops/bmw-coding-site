@@ -884,9 +884,467 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
+          { name: 'X7 30d (заводская)', powerBefore: 249, powerAfter: 265, torqueBefore: 620, torqueAfter: 620, price: 25000 },
           { name: 'X7 30d', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 40000 },
           { name: 'X7 40d (340 hp)', powerBefore: 340, powerAfter: 440, torqueBefore: 700, torqueAfter: 840, price: 45000 },
           { name: 'M50d', powerBefore: 400, powerAfter: 460, torqueBefore: 760, torqueAfter: 840, price: 50000 }
+        ]
+      }
+    ]
+  },
+  // 4 Series F32/F33
+  {
+    name: '4 Series',
+    series: 'F3x',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N20',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '420i', powerBefore: 184, powerAfter: 260, torqueBefore: 270, torqueAfter: 440, price: 30000 },
+          { name: '428i', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 450, price: 35000 }
+        ]
+      },
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '420i (B48)', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000 },
+          { name: '430i', powerBefore: 249, powerAfter: 320, torqueBefore: 350, torqueAfter: 460, price: 35000 }
+        ]
+      },
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '435i', powerBefore: 306, powerAfter: 380, torqueBefore: 400, torqueAfter: 540, price: 40000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '440i', powerBefore: 326, powerAfter: 410, torqueBefore: 450, torqueAfter: 580, price: 40000 }
+        ]
+      },
+      {
+        code: 'S55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M4', powerBefore: 431, powerAfter: 550, torqueBefore: 550, torqueAfter: 700, price: 60000 }
+        ]
+      },
+      {
+        code: 'N47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '418d (143 hp)', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000 },
+          { name: '420d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 },
+          { name: '420d (184 hp)', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '418d (150 hp)', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000 },
+          { name: '420d (190 hp)', powerBefore: 190, powerAfter: 240, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'N47D20',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '425d', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 32000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '430d', powerBefore: 258, powerAfter: 320, torqueBefore: 560, torqueAfter: 680, price: 35000 },
+          { name: '435d', powerBefore: 313, powerAfter: 360, torqueBefore: 630, torqueAfter: 700, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // 4 Series G22/G23
+  {
+    name: '4 Series',
+    series: 'G2x',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '420i', powerBefore: 184, powerAfter: 280, torqueBefore: 300, torqueAfter: 420, price: 30000 },
+          { name: '430i', powerBefore: 258, powerAfter: 330, torqueBefore: 400, torqueAfter: 520, price: 35000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M440i (374 hp)', powerBefore: 374, powerAfter: 470, torqueBefore: 500, torqueAfter: 660, price: 45000 },
+          { name: 'M440i (387 hp)', powerBefore: 387, powerAfter: 480, torqueBefore: 500, torqueAfter: 670, price: 45000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '420d', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '430d', powerBefore: 286, powerAfter: 360, torqueBefore: 650, torqueAfter: 800, price: 35000 }
+        ]
+      }
+    ]
+  },
+  // X1 E84
+  {
+    name: 'X1',
+    series: 'E84',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N20',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '20i', powerBefore: 184, powerAfter: 260, torqueBefore: 270, torqueAfter: 440, price: 28000 },
+          { name: '28i', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 450, price: 32000 }
+        ]
+      },
+      {
+        code: 'N47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '16d', powerBefore: 116, powerAfter: 190, torqueBefore: 260, torqueAfter: 400, price: 26000 },
+          { name: '18d (143 hp)', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000 },
+          { name: '20d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 28000 },
+          { name: '20d (184 hp)', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 28000 }
+        ]
+      },
+      {
+        code: 'N47D20',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '25d', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 }
+        ]
+      }
+    ]
+  },
+  // X1 F48
+  {
+    name: 'X1',
+    series: 'F48',
+    generation: 'F',
+    engines: [
+      {
+        code: 'B38',
+        type: 'petrol',
+        displacement: '1.5',
+        modifications: [
+          { name: '18i', powerBefore: 140, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 26000 }
+        ]
+      },
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '20i', powerBefore: 192, powerAfter: 270, torqueBefore: 280, torqueAfter: 420, price: 28000 },
+          { name: '25i', powerBefore: 231, powerAfter: 280, torqueBefore: 350, torqueAfter: 430, price: 30000 }
+        ]
+      },
+      {
+        code: 'B37',
+        type: 'diesel',
+        displacement: '1.5',
+        modifications: [
+          { name: '16d', powerBefore: 116, powerAfter: 150, torqueBefore: 270, torqueAfter: 330, price: 26000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '18d', powerBefore: 150, powerAfter: 190, torqueBefore: 350, torqueAfter: 400, price: 28000 },
+          { name: '20d (190 hp)', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 28000 },
+          { name: '25d', powerBefore: 231, powerAfter: 275, torqueBefore: 450, torqueAfter: 540, price: 30000 }
+        ]
+      }
+    ]
+  },
+  // X2 F39
+  {
+    name: 'X2',
+    series: 'F39',
+    generation: 'F',
+    engines: [
+      {
+        code: 'B38',
+        type: 'petrol',
+        displacement: '1.5',
+        modifications: [
+          { name: '18i', powerBefore: 140, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 26000 }
+        ]
+      },
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '20i', powerBefore: 192, powerAfter: 270, torqueBefore: 280, torqueAfter: 420, price: 28000 },
+          { name: 'M35i', powerBefore: 306, powerAfter: 335, torqueBefore: 450, torqueAfter: 500, price: 40000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '18d', powerBefore: 150, powerAfter: 190, torqueBefore: 350, torqueAfter: 400, price: 28000 },
+          { name: '20d', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 28000 },
+          { name: '25d', powerBefore: 231, powerAfter: 275, torqueBefore: 450, torqueAfter: 540, price: 30000 }
+        ]
+      }
+    ]
+  },
+  // X4 F26
+  {
+    name: 'X4',
+    series: 'F26',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N20',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '20i', powerBefore: 184, powerAfter: 260, torqueBefore: 270, torqueAfter: 440, price: 30000 },
+          { name: '28i', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 450, price: 35000 }
+        ]
+      },
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '35i', powerBefore: 306, powerAfter: 365, torqueBefore: 400, torqueAfter: 520, price: 40000 }
+        ]
+      },
+      {
+        code: 'N47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '20d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 },
+          { name: '20d (190 hp)', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '30d', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
+          { name: '35d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // X4 G02
+  {
+    name: 'X4',
+    series: 'G02',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '20i', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000 },
+          { name: '30i (заводская)', powerBefore: 245, powerAfter: 249, torqueBefore: 350, torqueAfter: 350, price: 20000 },
+          { name: '30i (Stage 1)', powerBefore: 249, powerAfter: 270, torqueBefore: 350, torqueAfter: 420, price: 35000 },
+          { name: '30i (Stage 1.5)', powerBefore: 249, powerAfter: 300, torqueBefore: 350, torqueAfter: 450, price: 45000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M40i (360 hp)', powerBefore: 360, powerAfter: 450, torqueBefore: 500, torqueAfter: 650, price: 45000 },
+          { name: 'M40i (387 hp)', powerBefore: 387, powerAfter: 450, torqueBefore: 500, torqueAfter: 650, price: 45000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '20d', powerBefore: 190, powerAfter: 240, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '30d (265 hp)', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 35000 },
+          { name: 'M40d', powerBefore: 326, powerAfter: 400, torqueBefore: 680, torqueAfter: 820, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // X6 E71
+  {
+    name: 'X6',
+    series: 'E71',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '35i', powerBefore: 306, powerAfter: 365, torqueBefore: 400, torqueAfter: 520, price: 40000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '30d', powerBefore: 245, powerAfter: 310, torqueBefore: 540, torqueAfter: 650, price: 35000 },
+          { name: '35d', powerBefore: 286, powerAfter: 340, torqueBefore: 580, torqueAfter: 690, price: 38000 },
+          { name: '40d', powerBefore: 306, powerAfter: 360, torqueBefore: 600, torqueAfter: 700, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // X6 F16
+  {
+    name: 'X6',
+    series: 'F16',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '35i', powerBefore: 306, powerAfter: 365, torqueBefore: 400, torqueAfter: 520, price: 40000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '40i', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 600, price: 40000 }
+        ]
+      },
+      {
+        code: 'N63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: '50i', powerBefore: 450, powerAfter: 550, torqueBefore: 650, torqueAfter: 800, price: 55000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '30d', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
+          { name: '40d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // X6 G06
+  {
+    name: 'X6',
+    series: 'G06',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '40i', powerBefore: 340, powerAfter: 450, torqueBefore: 450, torqueAfter: 650, price: 45000 },
+          { name: 'M50i', powerBefore: 530, powerAfter: 680, torqueBefore: 750, torqueAfter: 900, price: 60000 }
+        ]
+      },
+      {
+        code: 'N63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: '50i', powerBefore: 462, powerAfter: 550, torqueBefore: 650, torqueAfter: 800, price: 55000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '30d (265 hp)', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 40000 },
+          { name: '40d', powerBefore: 340, powerAfter: 440, torqueBefore: 700, torqueAfter: 840, price: 45000 },
+          { name: 'M50d', powerBefore: 400, powerAfter: 460, torqueBefore: 760, torqueAfter: 840, price: 50000 }
+        ]
+      }
+    ]
+  },
+  // Z4 G29
+  {
+    name: 'Z4',
+    series: 'G29',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '20i', powerBefore: 197, powerAfter: 280, torqueBefore: 320, torqueAfter: 440, price: 30000 },
+          { name: '30i', powerBefore: 258, powerAfter: 330, torqueBefore: 400, torqueAfter: 520, price: 35000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M40i', powerBefore: 340, powerAfter: 420, torqueBefore: 500, torqueAfter: 620, price: 45000 }
         ]
       }
     ]
