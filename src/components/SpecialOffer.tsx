@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import { City } from '@/components/CitySelector';
+import { getTelegramLink } from '@/utils/cityConfig';
 
 const offers = [
   {
@@ -67,7 +69,7 @@ const offers = [
     ],
     hasButton: true,
     buttonText: 'Сделать Unlock',
-    buttonLink: 'https://t.me/Bocha_reborn'
+    buttonService: 'Unlock блока двигателя'
   },
   {
     id: 4,
@@ -97,7 +99,11 @@ const offers = [
 
 import SpecialOfferMobile from './SpecialOfferMobile';
 
-function SpecialOfferDesktop() {
+interface SpecialOfferDesktopProps {
+  selectedCity: City;
+}
+
+function SpecialOfferDesktop({ selectedCity }: SpecialOfferDesktopProps) {
   const [currentOffer, setCurrentOffer] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -310,7 +316,7 @@ function SpecialOfferDesktop() {
 
               {offer.hasButton && (
                 <a 
-                  href={offer.buttonLink}
+                  href={getTelegramLink(selectedCity, (offer as any).buttonService)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
@@ -399,11 +405,15 @@ function SpecialOfferDesktop() {
   );
 }
 
-export default function SpecialOffer() {
+interface SpecialOfferProps {
+  selectedCity?: City;
+}
+
+export default function SpecialOffer({ selectedCity = 'saratov' }: SpecialOfferProps) {
   return (
     <Adaptive
-      mobile={<SpecialOfferMobile />}
-      desktop={<SpecialOfferDesktop />}
+      mobile={<SpecialOfferMobile selectedCity={selectedCity} />}
+      desktop={<SpecialOfferDesktop selectedCity={selectedCity} />}
     />
   );
 }

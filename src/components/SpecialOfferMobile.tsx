@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import { City } from '@/components/CitySelector';
+import { getTelegramLink } from '@/utils/cityConfig';
 
 const offers = [
   {
@@ -49,7 +51,7 @@ const offers = [
     ],
     hasButton: true,
     buttonText: 'Записаться',
-    buttonLink: 'https://t.me/Bocha_reborn'
+    buttonService: 'Unlock блока двигателя'
   },
   {
     id: 4,
@@ -71,7 +73,11 @@ const offers = [
   }
 ];
 
-export default function SpecialOfferMobile() {
+interface SpecialOfferMobileProps {
+  selectedCity: City;
+}
+
+export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileProps) {
   const [currentOffer] = useState(0);
 
   return (
@@ -161,7 +167,7 @@ export default function SpecialOfferMobile() {
 
                 {offer.hasButton && (
                   <a 
-                    href={offer.buttonLink}
+                    href={(offer as any).buttonService ? getTelegramLink(selectedCity, (offer as any).buttonService) : (offer as any).buttonLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg font-medium text-white text-sm transition-all duration-300"

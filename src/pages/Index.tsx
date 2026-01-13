@@ -42,7 +42,7 @@ export default function Index() {
       <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
       <HeroSection />
       <div id="offers">
-        <SpecialOffer />
+        <SpecialOffer selectedCity={selectedCity} />
       </div>
       <CalculatorHub />
       <div id="services">
