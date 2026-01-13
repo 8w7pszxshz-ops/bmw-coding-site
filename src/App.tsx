@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
-import AIChatButton from "@/components/AIChatButton";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +16,6 @@ const App = () => {
         <Toaster />
         <Sonner />
         <ScrollToTopButton />
-        <AIChatButton />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
