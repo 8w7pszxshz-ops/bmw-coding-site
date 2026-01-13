@@ -91,11 +91,40 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
       
       <CardContent className="p-5 relative z-10">
         <div className="mb-4">
-          <Icon 
-            name={service.icon} 
-            className="w-9 h-9 transition-all duration-300"
-            style={{ color: service.color }}
-          />
+          <div 
+            className="w-11 h-11 rounded-xl flex items-center justify-center relative overflow-hidden"
+            style={{
+              background: '#000000',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.4)'
+            }}
+          >
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.15) 100%)',
+                backdropFilter: 'blur(10px)'
+              }}
+            />
+            <div 
+              className="absolute top-0 left-0 w-full h-1/3"
+              style={{
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)',
+                borderRadius: '0.75rem 0.75rem 0 0'
+              }}
+            />
+            <div 
+              className="absolute bottom-0 right-0 w-1/3 h-1/3"
+              style={{
+                background: 'radial-gradient(circle at bottom right, rgba(255,255,255,0.2) 0%, transparent 70%)'
+              }}
+            />
+            <Icon 
+              name={service.icon} 
+              className="w-5 h-5 relative z-10 transition-all duration-300"
+              style={{ color: service.color, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}
+            />
+          </div>
         </div>
         
         <h3 className="text-xl font-light text-white mb-2 tracking-tight">
@@ -212,11 +241,40 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
       
       <CardContent className="p-8 relative z-10">
         <div className="mb-6">
-          <Icon 
-            name={service.icon} 
-            className="w-12 h-12 transition-all duration-300 group-hover:scale-110"
-            style={{ color: service.color }}
-          />
+          <div 
+            className="w-14 h-14 rounded-xl flex items-center justify-center relative overflow-hidden"
+            style={{
+              background: '#000000',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.4)'
+            }}
+          >
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.15) 100%)',
+                backdropFilter: 'blur(10px)'
+              }}
+            />
+            <div 
+              className="absolute top-0 left-0 w-full h-1/3"
+              style={{
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)',
+                borderRadius: '0.75rem 0.75rem 0 0'
+              }}
+            />
+            <div 
+              className="absolute bottom-0 right-0 w-1/3 h-1/3"
+              style={{
+                background: 'radial-gradient(circle at bottom right, rgba(255,255,255,0.2) 0%, transparent 70%)'
+              }}
+            />
+            <Icon 
+              name={service.icon} 
+              className="w-7 h-7 relative z-10 transition-all duration-300 group-hover:scale-110"
+              style={{ color: service.color, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}
+            />
+          </div>
         </div>
         
         <h3 className="text-2xl font-light text-white mb-2 tracking-tight">
