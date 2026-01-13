@@ -4,7 +4,7 @@ import { City } from '@/components/CitySelector';
 
 const KeyCalculator = lazy(() => import('./KeyCalculator'));
 const CodingPackages = lazy(() => import('./CodingPackages'));
-const ChipTuning = lazy(() => import('./ChipTuning'));
+const ChipTuning = lazy(() => import('./chiptuning/ChipTuningNew'));
 
 type CalculatorType = 'key' | 'coding' | 'chiptuning' | null;
 
