@@ -1,4 +1,6 @@
 import { ChatGPTPlayground } from "@/components/extensions/chatgpt-polza/ChatGPTPlayground";
+import { useNavigate } from "react-router-dom";
+import Icon from "@/components/ui/icon";
 
 const API_URL = "https://functions.poehali.dev/df31c433-12db-4a99-ab16-3d4ab626565d";
 
@@ -27,16 +29,28 @@ const BMW_SYSTEM_PROMPT = `Ты — профессиональный консу�
 - Рекомендуй записаться на диагностику при серьезных проблемах`;
 
 export default function ChatGPT() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-black">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-6 text-center">
-          <h1 className="text-3xl font-light text-white mb-2">
-            🤖 BMW Консультант AI
-          </h1>
-          <p className="text-white/60 text-sm">
-            Задайте любой вопрос по ремонту, диагностике и обслуживанию BMW
-          </p>
+        <div className="mb-6">
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 px-4 py-2 text-white/60 hover:text-white transition-colors mb-4"
+          >
+            <Icon name="ArrowLeft" className="w-5 h-5" />
+            <span>На главную</span>
+          </button>
+          
+          <div className="text-center">
+            <h1 className="text-3xl font-light text-white mb-2">
+              🤖 BMW Консультант AI
+            </h1>
+            <p className="text-white/60 text-sm">
+              Задайте любой вопрос по ремонту, диагностике и обслуживанию BMW
+            </p>
+          </div>
         </div>
         
         <div className="max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-white/10 overflow-hidden shadow-2xl" style={{ height: 'calc(100vh - 200px)' }}>

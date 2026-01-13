@@ -9,6 +9,7 @@ import Reviews from '@/components/Reviews';
 import QuickActions from '@/components/QuickActions';
 import StickyContactButton from '@/components/StickyContactButton';
 import BurgerMenu from '@/components/BurgerMenu';
+import FloatingAIButton from '@/components/FloatingAIButton';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 
@@ -38,6 +39,7 @@ export default function Index() {
     <>
       <StickyContactButton selectedCity={selectedCity} />
       <BurgerMenu selectedCity={selectedCity} onCityChange={handleCityChange} />
+      <FloatingAIButton />
       <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
       <HeroSection />
       <div id="offers">
