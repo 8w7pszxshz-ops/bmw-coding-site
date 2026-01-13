@@ -106,13 +106,25 @@ export default function CalculatorHub() {
             
             <div className="relative">
               <div 
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 overflow-hidden"
                 style={{
                   background: `${calc.color}20`,
                   border: `1px solid ${calc.color}30`
                 }}
               >
-                <Icon name={calc.icon} className="w-7 h-7" style={{ color: calc.color }} />
+                {calc.id === 'key' ? (
+                  <img 
+                    src="https://cdn.poehali.dev/files/key.jpg" 
+                    alt="BMW Key"
+                    className="w-12 h-12 object-contain"
+                    style={{
+                      filter: 'brightness(1.2) contrast(1.3) drop-shadow(0 0 8px rgba(231, 34, 46, 0.5))',
+                      mixBlendMode: 'screen'
+                    }}
+                  />
+                ) : (
+                  <Icon name={calc.icon} className="w-7 h-7" style={{ color: calc.color }} />
+                )}
               </div>
 
               <h3 className="text-xl font-light text-white mb-2">{calc.title}</h3>
