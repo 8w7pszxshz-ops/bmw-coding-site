@@ -8,15 +8,11 @@ const services = [
   {
     id: 'carplay',
     title: 'Apple CarPlay',
-    description: 'Установка и настройка',
+    description: 'Установка и интеграция',
     icon: 'Smartphone',
     price: 'от 15 000 ₽',
     color: '#FF0040',
-    details: [
-      { title: 'Установка CarPlay', desc: 'Полная интеграция Apple CarPlay в ваш BMW' },
-      { title: 'Настройка', desc: 'Настройка под ваши предпочтения' },
-      { title: 'Гарантия', desc: 'Полная гарантия на установку' }
-    ]
+    details: 'Полная интеграция Apple CarPlay в ваш BMW. Подключение к штатной мультимедийной системе с сохранением всех функций. Беспроводное подключение iPhone. Гарантия на установку.'
   },
   {
     id: 'startstop',
