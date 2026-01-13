@@ -122,18 +122,32 @@ export default function CalculatorHub() {
               <div 
                 className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 relative overflow-hidden"
                 style={{
-                  background: 'linear-gradient(145deg, #1a1a1a, #000000)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.5)'
+                  background: '#000000',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.4)'
                 }}
               >
                 <div 
-                  className="absolute inset-0 opacity-30"
+                  className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.3) 100%)'
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.15) 100%)',
+                    backdropFilter: 'blur(10px)'
                   }}
                 />
-                <Icon name={calc.icon} className="w-7 h-7 relative z-10" style={{ color: calc.color }} />
+                <div 
+                  className="absolute top-0 left-0 w-full h-1/3"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)',
+                    borderRadius: '0.75rem 0.75rem 0 0'
+                  }}
+                />
+                <div 
+                  className="absolute bottom-0 right-0 w-1/3 h-1/3"
+                  style={{
+                    background: 'radial-gradient(circle at bottom right, rgba(255,255,255,0.2) 0%, transparent 70%)'
+                  }}
+                />
+                <Icon name={calc.icon} className="w-7 h-7 relative z-10" style={{ color: calc.color, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }} />
               </div>
 
               <h3 className="text-xl font-light text-white mb-2">{calc.title}</h3>
