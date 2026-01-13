@@ -32,28 +32,49 @@ export default function ChatGPT() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-black">
-      <div className="container mx-auto px-4 py-8">
+    <div 
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: `
+          radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 150, 255, 0.15), transparent),
+          radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 200, 255, 0.12), transparent),
+          radial-gradient(ellipse 400px 400px at 50% 50%, rgba(50, 180, 255, 0.08), transparent),
+          linear-gradient(135deg, #000000 0%, #0a0d15 50%, #000509 100%)
+        `,
+      }}
+    >
+      {/* Фоновые эффекты */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse delay-700" />
+      </div>
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="mb-6">
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 px-4 py-2 text-white/60 hover:text-white transition-colors mb-4"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-400/20 text-white/70 hover:text-white hover:border-blue-400/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] mb-6"
           >
-            <Icon name="ArrowLeft" className="w-5 h-5" />
-            <span>На главную</span>
+            <Icon name="ArrowLeft" className="w-4 h-4" />
+            <span className="text-sm font-light tracking-wide">На главную</span>
           </button>
           
           <div className="text-center">
-            <h1 className="text-3xl font-light text-white mb-2">
-              🤖 BMW Консультант AI
-            </h1>
-            <p className="text-white/60 text-sm">
+            <div className="inline-flex items-center gap-3 mb-3">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/30 flex items-center justify-center">
+                <Icon name="Bot" className="w-6 h-6 text-blue-400" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-light text-white tracking-wide">
+                BMW Консультант AI
+              </h1>
+            </div>
+            <p className="text-white/50 text-sm font-light tracking-wide">
               Задайте любой вопрос по ремонту, диагностике и обслуживанию BMW
             </p>
           </div>
         </div>
         
-        <div className="max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-white/10 overflow-hidden shadow-2xl" style={{ height: 'calc(100vh - 200px)' }}>
+        <div className="max-w-6xl mx-auto bg-gradient-to-br from-blue-500/5 to-cyan-500/5 backdrop-blur-xl rounded-2xl border border-blue-400/20 overflow-hidden shadow-[0_0_40px_rgba(59,130,246,0.15)]" style={{ height: 'calc(100vh - 220px)' }}>
           <ChatGPTPlayground
             apiUrl={API_URL}
             defaultModel="openai/gpt-4o-mini"
