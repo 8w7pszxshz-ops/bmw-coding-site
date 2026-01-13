@@ -20,6 +20,16 @@ export default function FloatingAIButton() {
 
   return (
     <DesktopOnly>
+      <style>{`
+        @keyframes glowOuter {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.8; }
+        }
+        @keyframes glowInner {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.2; }
+        }
+      `}</style>
       <button
         onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
@@ -28,12 +38,12 @@ export default function FloatingAIButton() {
         aria-label="AI Консультант"
       >
         <div className="relative">
-          {/* Пульсирующий эффект фона */}
+          {/* Внешняя пульсирующая подсветка */}
           <div 
-            className="absolute inset-0 rounded-full blur-2xl opacity-60"
+            className="absolute -inset-2 rounded-full blur-xl"
             style={{
-              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.4), rgba(6, 182, 212, 0.3))',
-              animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.6), rgba(6, 182, 212, 0.4))',
+              animation: 'glowOuter 2s ease-in-out infinite'
             }}
           />
           
@@ -43,26 +53,26 @@ export default function FloatingAIButton() {
             style={{
               background: 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(40px)',
-              boxShadow: '0 20px 50px -15px rgba(59, 130, 246, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3)',
               border: '1px solid rgba(59, 130, 246, 0.2)'
             }}
           >
-            {/* Пульсирующая подсветка границы */}
+            {/* Внутренняя пульсирующая подсветка */}
             <div 
-              className="absolute inset-0 rounded-full"
+              className="absolute inset-0 rounded-full pointer-events-none"
               style={{
-                border: '1px solid rgba(59, 130, 246, 0.5)',
-                boxShadow: '0 0 20px rgba(59, 130, 246, 0.4), inset 0 0 20px rgba(59, 130, 246, 0.1)',
-                animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.4), transparent 60%)',
+                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.3)',
+                animation: 'glowInner 2s ease-in-out infinite'
               }}
             />
             
-            {/* Внутреннее свечение при наведении */}
+            {/* Усиленное свечение при наведении */}
             <div 
-              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               style={{
-                background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.3), transparent 70%)',
-                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.2)'
+                background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.5), transparent 70%)',
+                boxShadow: 'inset 0 0 40px rgba(59, 130, 246, 0.4)'
               }}
             />
             
