@@ -6,15 +6,6 @@ import ScrollIndicator from '@/components/ScrollIndicator';
 
 const services = [
   {
-    id: 'carplay',
-    title: 'Apple CarPlay',
-    description: 'Установка и интеграция',
-    icon: 'Smartphone',
-    price: 'от 15 000 ₽',
-    color: '#FF0040',
-    details: 'Полная интеграция Apple CarPlay в штатную мультимедийную систему BMW. Беспроводное подключение iPhone. Гарантия на установку.'
-  },
-  {
     id: 'startstop',
     title: 'Отключение старт-стоп авто 2023+',
     description: 'Программное отключение',
