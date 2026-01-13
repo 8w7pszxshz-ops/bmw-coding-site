@@ -89,10 +89,25 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
       <div 
         className="absolute top-0 left-0 right-0 h-px"
         style={{
-          background: `linear-gradient(90deg, transparent, ${service.color}40, transparent)`,
-          boxShadow: `0 0 20px ${service.color}30`
+          background: `linear-gradient(90deg, transparent, ${service.color}60, transparent)`,
+          boxShadow: `0 0 20px ${service.color}40, 0 0 40px ${service.color}20`
         }}
       />
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-px"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${service.color}30, transparent)`,
+          boxShadow: `0 0 10px ${service.color}20`
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+        <defs>
+          <pattern id={`pattern-${service.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="0.5" fill={service.color} opacity="0.3" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#pattern-${service.id})`} />
+      </svg>
       
       <CardContent className="p-5 relative z-10">
         <div className="mb-4">
@@ -208,10 +223,25 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
       <div 
         className="absolute top-0 left-0 right-0 h-px"
         style={{
-          background: `linear-gradient(90deg, transparent, ${service.color}40, transparent)`,
-          boxShadow: `0 0 20px ${service.color}30`
+          background: `linear-gradient(90deg, transparent, ${service.color}60, transparent)`,
+          boxShadow: `0 0 20px ${service.color}40, 0 0 40px ${service.color}20`
         }}
       />
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-px"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${service.color}30, transparent)`,
+          boxShadow: `0 0 10px ${service.color}20`
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+        <defs>
+          <pattern id={`pattern-desktop-${service.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="0.5" fill={service.color} opacity="0.3" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#pattern-desktop-${service.id})`} />
+      </svg>
       
       <CardContent className="p-8 relative z-10">
         <div className="mb-6">
