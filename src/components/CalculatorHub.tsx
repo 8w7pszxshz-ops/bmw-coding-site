@@ -10,7 +10,7 @@ type CalculatorType = 'key' | 'coding' | 'chiptuning' | null;
 function LoadingSpinner() {
   return (
     <div className="flex items-center justify-center py-20">
-      <div className="w-12 h-12 rounded-full border-4 border-[#007AFF]/20 border-t-[#007AFF] animate-spin" />
+      <div className="w-12 h-12 rounded-full border-4 border-[#E7222E]/20 border-t-[#E7222E] animate-spin" />
     </div>
   );
 }
@@ -24,21 +24,21 @@ export default function CalculatorHub() {
       icon: 'Key',
       title: 'Изготовление ключей',
       description: 'Рассчитайте стоимость ключа для вашего BMW',
-      color: '#007AFF'
+      color: '#E7222E'
     },
     {
       id: 'coding' as CalculatorType,
       icon: 'Wrench',
       title: 'Конфигуратор опций',
       description: 'Соберите свой пакет кодировок',
-      color: '#FF9500'
+      color: '#81C4FF'
     },
     {
       id: 'chiptuning' as CalculatorType,
       icon: 'Gauge',
       title: 'Чип-тюнинг',
       description: 'Подберите программу для вашего двигателя',
-      color: '#34C759'
+      color: '#FF0040'
     }
   ];
 
