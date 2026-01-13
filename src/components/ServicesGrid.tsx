@@ -66,21 +66,35 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
     <Card
       className="group relative overflow-hidden border-0 transition-all duration-500 flex-shrink-0"
       style={{
-        background: `
-          linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-          linear-gradient(135deg, ${service.color}08, ${service.color}03)
-        `,
+        background: '#000000',
         backdropFilter: 'blur(40px)',
-        boxShadow: `
-          0 20px 50px -15px rgba(0, 0, 0, 0.5), 
-          inset 0 1px 0 rgba(255, 255, 255, 0.1),
-          0 0 0 1px ${service.color}15
-        `,
+        boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.4)',
+        border: '1px solid rgba(255, 255, 255, 0.15)',
         animationDelay: `${index * 50}ms`,
         minWidth: '280px',
         width: '280px'
       }}
     >
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.15) 100%)',
+          backdropFilter: 'blur(10px)'
+        }}
+      />
+      <div 
+        className="absolute top-0 left-0 w-full h-1/3"
+        style={{
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)',
+          borderRadius: '0.5rem 0.5rem 0 0'
+        }}
+      />
+      <div 
+        className="absolute bottom-0 right-0 w-1/3 h-1/3"
+        style={{
+          background: 'radial-gradient(circle at bottom right, rgba(255,255,255,0.2) 0%, transparent 70%)'
+        }}
+      />
       <div 
         className="absolute top-0 left-0 right-0 h-px"
         style={{
@@ -210,19 +224,33 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
     <Card
       className="group relative overflow-hidden border-0 transition-all duration-500 hover:scale-[1.02]"
       style={{
-        background: `
-          linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-          linear-gradient(135deg, ${service.color}08, ${service.color}03)
-        `,
+        background: '#000000',
         backdropFilter: 'blur(40px)',
-        boxShadow: `
-          0 30px 80px -20px rgba(0, 0, 0, 0.6), 
-          inset 0 1px 0 rgba(255, 255, 255, 0.1),
-          0 0 0 1px ${service.color}15
-        `,
+        boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.4)',
+        border: '1px solid rgba(255, 255, 255, 0.15)',
         animationDelay: `${index * 50}ms`
       }}
     >
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.15) 100%)',
+          backdropFilter: 'blur(10px)'
+        }}
+      />
+      <div 
+        className="absolute top-0 left-0 w-full h-1/3"
+        style={{
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)',
+          borderRadius: '0.5rem 0.5rem 0 0'
+        }}
+      />
+      <div 
+        className="absolute bottom-0 right-0 w-1/3 h-1/3"
+        style={{
+          background: 'radial-gradient(circle at bottom right, rgba(255,255,255,0.2) 0%, transparent 70%)'
+        }}
+      />
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
