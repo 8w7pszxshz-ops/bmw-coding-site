@@ -23,14 +23,20 @@ export const getCityConfig = (city: City): CityConfig => {
   return cityConfigs[city];
 };
 
+const cityNames: Record<City, string> = {
+  saratov: 'Саратов',
+  moscow: 'Москва'
+};
+
 export const getTelegramLink = (city: City, service?: string): string => {
   const config = getCityConfig(city);
   const baseUrl = config.telegram;
+  const cityName = cityNames[city];
   
   if (!service) {
     return baseUrl;
   }
   
-  const message = encodeURIComponent(`Здравствуйте! Интересует ${service}`);
+  const message = encodeURIComponent(`Здравствуйте! Интересует ${service}. Город: ${cityName}`);
   return `${baseUrl}?text=${message}`;
 };
