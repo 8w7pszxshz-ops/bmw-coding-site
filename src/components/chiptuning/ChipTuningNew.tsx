@@ -1,6 +1,6 @@
 import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
-import { Adaptive } from '@/components/ui/responsive';
+import { MobileOnly, DesktopOnly } from '@/components/ui/responsive';
 import { bmwModels, getTypeColor, getGainPercentage, ModelData } from './chipTuningDataNew';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { City } from '@/components/CitySelector';
@@ -433,12 +433,12 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
 export default function ChipTuningNew({ selectedCity }: ChipTuningProps) {
   return (
     <>
-      <Adaptive.Mobile>
+      <MobileOnly>
         <ChipTuningMobile selectedCity={selectedCity} />
-      </Adaptive.Mobile>
-      <Adaptive.Desktop>
+      </MobileOnly>
+      <DesktopOnly>
         <ChipTuningDesktop selectedCity={selectedCity} />
-      </Adaptive.Desktop>
+      </DesktopOnly>
     </>
   );
 }
