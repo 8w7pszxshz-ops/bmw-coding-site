@@ -8,7 +8,7 @@ const services = [
   {
     id: 'carplay',
     title: 'Apple CarPlay',
-    description: 'Установка и интеграция',
+    description: 'Установка и интеграция системы',
     icon: 'Smartphone',
     price: 'от 15 000 ₽',
     color: '#FF0040',
