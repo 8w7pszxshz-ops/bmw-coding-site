@@ -165,6 +165,7 @@ function SpecialOfferDesktop() {
             <img 
               src={offer.image}
               alt={offer.title}
+              loading="lazy"
               className="w-full h-full object-cover transition-all duration-500"
               style={{
                 ...offer.imageStyle,

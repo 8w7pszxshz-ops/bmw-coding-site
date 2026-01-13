@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import Icon from '@/components/ui/icon';
-import KeyCalculator from './KeyCalculator';
-import CodingPackages from './CodingPackages';
-import ChipTuning from './ChipTuning';
+
+const KeyCalculator = lazy(() => import('./KeyCalculator'));
+const CodingPackages = lazy(() => import('./CodingPackages'));
+const ChipTuning = lazy(() => import('./ChipTuning'));
 
 type CalculatorType = 'key' | 'coding' | 'chiptuning' | null;
+
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center py-20">
+      <div className="w-12 h-12 rounded-full border-4 border-[#E7222E]/20 border-t-[#E7222E] animate-spin" />
+    </div>
+  );
+}
 
 export default function CalculatorHub() {
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
@@ -43,7 +52,9 @@ export default function CalculatorHub() {
           <Icon name="ChevronLeft" className="w-5 h-5" />
           <span>Вернуться к выбору</span>
         </button>
-        <KeyCalculator />
+        <Suspense fallback={<LoadingSpinner />}>
+          <KeyCalculator />
+        </Suspense>
       </div>
     );
   }
@@ -58,7 +69,9 @@ export default function CalculatorHub() {
           <Icon name="ChevronLeft" className="w-5 h-5" />
           <span>Вернуться к выбору</span>
         </button>
-        <CodingPackages />
+        <Suspense fallback={<LoadingSpinner />}>
+          <CodingPackages />
+        </Suspense>
       </div>
     );
   }
@@ -73,7 +86,9 @@ export default function CalculatorHub() {
           <Icon name="ChevronLeft" className="w-5 h-5" />
           <span>Вернуться к выбору</span>
         </button>
-        <ChipTuning />
+        <Suspense fallback={<LoadingSpinner />}>
+          <ChipTuning />
+        </Suspense>
       </div>
     );
   }

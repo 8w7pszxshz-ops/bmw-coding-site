@@ -102,6 +102,7 @@ export default function SpecialOfferMobile() {
                 <img 
                   src={offer.image}
                   alt={offer.title}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                   style={{
                     filter: 'brightness(1.2) contrast(1.2)',

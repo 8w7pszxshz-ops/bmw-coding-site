@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 import SeriesSelector from './coding/SeriesSelector';
 import OptionsList from './coding/OptionsList';
 import { options, calculatePrice } from './coding/codingData';
 
-function CodingPackagesMobile() {
+const CodingPackagesMobile = memo(function CodingPackagesMobile() {
   const [selectedSeries, setSelectedSeries] = useState<'F' | 'G' | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
@@ -77,9 +77,9 @@ function CodingPackagesMobile() {
       )}
     </div>
   );
-}
+});
 
-function CodingPackagesDesktop() {
+const CodingPackagesDesktop = memo(function CodingPackagesDesktop() {
   const [selectedSeries, setSelectedSeries] = useState<'F' | 'G' | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
@@ -153,13 +153,13 @@ function CodingPackagesDesktop() {
 
     </div>
   );
-}
+});
 
-export default function CodingPackages() {
+export default memo(function CodingPackages() {
   return (
     <Adaptive
       mobile={<CodingPackagesMobile />}
       desktop={<CodingPackagesDesktop />}
     />
   );
-}
+});););

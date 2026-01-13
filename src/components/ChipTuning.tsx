@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 import { EngineGroup, engineGroups, getTypeColor } from './chiptuning/chipTuningData';
@@ -7,7 +7,7 @@ import EngineGroupCard from './chiptuning/EngineGroupCard';
 import EngineVariantCard from './chiptuning/EngineVariantCard';
 import ScrollIndicator from '@/components/ScrollIndicator';
 
-function ChipTuningMobile() {
+const ChipTuningMobile = memo(function ChipTuningMobile() {
   const [selectedGroup, setSelectedGroup] = useState<EngineGroup | null>(null);
   const [generationFilter, setGenerationFilter] = useState<'all' | 'F' | 'G'>('all');
   const [typeFilter, setTypeFilter] = useState<'all' | 'petrol' | 'diesel'>('all');
@@ -107,9 +107,9 @@ function ChipTuningMobile() {
       )}
     </div>
   );
-}
+});
 
-function ChipTuningDesktop() {
+const ChipTuningDesktop = memo(function ChipTuningDesktop() {
   const [selectedGroup, setSelectedGroup] = useState<EngineGroup | null>(null);
   const [generationFilter, setGenerationFilter] = useState<'all' | 'F' | 'G'>('all');
   const [typeFilter, setTypeFilter] = useState<'all' | 'petrol' | 'diesel'>('all');
@@ -209,13 +209,15 @@ function ChipTuningDesktop() {
       )}
     </div>
   );
-}
+});
 
-export default function ChipTuning() {
+const ChipTuning = memo(function ChipTuning() {
   return (
     <Adaptive
       mobile={<ChipTuningMobile />}
       desktop={<ChipTuningDesktop />}
     />
   );
-}
+});
+
+export default ChipTuning;
