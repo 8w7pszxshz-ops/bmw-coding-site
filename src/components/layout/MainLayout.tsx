@@ -1,12 +1,16 @@
 import { ReactNode } from 'react';
 import BackgroundEffects from './BackgroundEffects';
 import NavigationBar from './NavigationBar';
+import { City } from '@/components/CitySelector';
 
 interface MainLayoutProps {
   children: ReactNode;
+  selectedCity: City;
+  onCityChange: (city: City) => void;
+  showCityPulse: boolean;
 }
 
-export default function MainLayout({ children }: MainLayoutProps) {
+export default function MainLayout({ children, selectedCity, onCityChange, showCityPulse }: MainLayoutProps) {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       <div 
@@ -21,7 +25,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         }}
       >
         <BackgroundEffects />
-        <NavigationBar />
+        <NavigationBar selectedCity={selectedCity} onCityChange={onCityChange} showCityPulse={showCityPulse} />
         
         <div className="container mx-auto px-4 md:px-6 pt-20 md:pt-24 pb-20 md:pb-32">
           {children}

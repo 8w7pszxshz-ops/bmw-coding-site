@@ -27,11 +27,11 @@ export default function CitySelector({ onCityChange, selectedCity }: CitySelecto
     <div className="relative inline-block">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 text-white hover:border-blue-400/40 transition-all duration-300"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/10 border-2 border-blue-400/40 text-white hover:border-blue-400/60 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]"
       >
         <Icon name={currentCity?.icon as any} className="w-4 h-4 text-blue-400" />
-        <span className="text-sm font-light">{currentCity?.name}</span>
-        <Icon name="ChevronDown" className={`w-4 h-4 text-white/60 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="text-sm font-medium">{currentCity?.name}</span>
+        <Icon name="ChevronDown" className={`w-4 h-4 text-blue-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (

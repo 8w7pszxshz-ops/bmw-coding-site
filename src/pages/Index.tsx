@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import HeroSection from '@/components/HeroSection';
 import SpecialOffer from '@/components/SpecialOffer';
@@ -7,10 +8,38 @@ import ExpertTips from '@/components/ExpertTips';
 import Reviews from '@/components/Reviews';
 import QuickActions from '@/components/QuickActions';
 import ApiIntegration from '@/components/ApiIntegration';
+import StickyContactButton from '@/components/StickyContactButton';
+import BurgerMenu from '@/components/BurgerMenu';
+import { City } from '@/components/CitySelector';
+import { detectCityByGeolocation } from '@/utils/geolocation';
 
 export default function Index() {
+  const [selectedCity, setSelectedCity] = useState<City>('saratov');
+  const [showCityPulse, setShowCityPulse] = useState(false);
+
+  useEffect(() => {
+    const initCity = async () => {
+      const result = await detectCityByGeolocation();
+      if (result.detected && result.city) {
+        setSelectedCity(result.city);
+      } else {
+        setShowCityPulse(true);
+        setTimeout(() => setShowCityPulse(false), 5000);
+      }
+    };
+    initCity();
+  }, []);
+
+  const handleCityChange = (city: City) => {
+    setSelectedCity(city);
+    setShowCityPulse(false);
+  };
+
   return (
-    <MainLayout>
+    <>
+      <StickyContactButton selectedCity={selectedCity} />
+      <BurgerMenu selectedCity={selectedCity} onCityChange={handleCityChange} />
+      <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
       <HeroSection />
       <div id="offers">
         <SpecialOffer />
@@ -32,5 +61,6 @@ export default function Index() {
         <QuickActions />
       </div>
     </MainLayout>
+    </>
   );
 }
