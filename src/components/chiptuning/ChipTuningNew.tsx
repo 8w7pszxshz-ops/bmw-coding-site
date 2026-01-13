@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useMemo } from 'react';
 import Icon from '@/components/ui/icon';
 import { MobileOnly, DesktopOnly } from '@/components/ui/responsive';
 import { bmwModels, getTypeColor, getGainPercentage, ModelData } from './chipTuningDataNew';
@@ -150,54 +150,170 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
               </div>
 
               <div className="space-y-3">
-                {engine.modifications.map((mod, midx) => (
-                  <div
-                    key={midx}
-                    className="p-4 rounded-xl"
-                    style={{
-                      background: 'rgba(0, 0, 0, 0.2)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)'
-                    }}
-                  >
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="text-white font-medium">{mod.name}</div>
-                      <div className="text-[#FF0040] font-bold text-lg">
-                        {getPriceForCity(mod.price).toLocaleString()} ₽
-                      </div>
-                    </div>
+                {engine.modifications.map((mod, midx) => {
+                  const ModificationCard = () => {
+                    const [selectedOptions, setSelectedOptions] = useState<{
+                      egs: boolean;
+                      egr: boolean;
+                      scr: boolean;
+                      dpf: boolean;
+                      flaps: boolean;
+                    }>({
+                      egs: false,
+                      egr: false,
+                      scr: false,
+                      dpf: false,
+                      flaps: false
+                    });
 
-                    <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div>
-                        <div className="text-white/50 mb-1">Мощность</div>
-                        <div className="text-white">
-                          {mod.powerBefore} → <span className="text-[#FF0040] font-bold">{mod.powerAfter} л.с.</span>
-                        </div>
-                        <div className="text-green-400 text-[10px]">+{getGainPercentage(mod.powerBefore, mod.powerAfter)}%</div>
-                      </div>
-                      <div>
-                        <div className="text-white/50 mb-1">Крутящий момент</div>
-                        <div className="text-white">
-                          {mod.torqueBefore} → <span className="text-[#FF0040] font-bold">{mod.torqueAfter} Нм</span>
-                        </div>
-                        <div className="text-green-400 text-[10px]">+{getGainPercentage(mod.torqueBefore, mod.torqueAfter)}%</div>
-                      </div>
-                    </div>
+                    const totalPrice = useMemo(() => {
+                      let price = getPriceForCity(mod.price);
+                      if (selectedOptions.egs && mod.egsPrice) price += getPriceForCity(mod.egsPrice);
+                      if (selectedOptions.egr && mod.egrPrice) price += getPriceForCity(mod.egrPrice);
+                      if (selectedOptions.scr && mod.scrPrice) price += getPriceForCity(mod.scrPrice);
+                      if (selectedOptions.dpf && mod.dpfPrice) price += getPriceForCity(mod.dpfPrice);
+                      if (selectedOptions.flaps && mod.flapsPrice) price += getPriceForCity(mod.flapsPrice);
+                      return price;
+                    }, [selectedOptions]);
 
-                    <a
-                      href={`https://t.me/bmw_tuning_spb`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 w-full py-2.5 px-4 rounded-lg text-white font-medium text-sm flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
-                      style={{
-                        background: `linear-gradient(135deg, ${getTypeColor(engine.type)}, ${getTypeColor(engine.type)}CC)`,
-                        boxShadow: `0 8px 32px ${getTypeColor(engine.type)}40`
-                      }}
-                    >
-                      <Icon name="MessageCircle" className="w-4 h-4" />
-                      Записаться
-                    </a>
-                  </div>
-                ))}
+                    const hasOptions = mod.egsPrice || mod.egrPrice || mod.scrPrice || mod.dpfPrice || mod.flapsPrice;
+
+                    return (
+                      <div
+                        className="p-4 rounded-xl"
+                        style={{
+                          background: 'rgba(0, 0, 0, 0.2)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}
+                      >
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="text-white font-medium">{mod.name}</div>
+                          <div className="text-right">
+                            <div className="text-[#FF0040] font-bold text-lg">
+                              {totalPrice.toLocaleString()} ₽
+                            </div>
+                            {hasOptions && totalPrice > getPriceForCity(mod.price) && (
+                              <div className="text-white/40 text-xs line-through">
+                                {getPriceForCity(mod.price).toLocaleString()} ₽
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3 text-xs mb-3">
+                          <div>
+                            <div className="text-white/50 mb-1">Мощность</div>
+                            <div className="text-white">
+                              {mod.powerBefore} → <span className="text-[#FF0040] font-bold">{mod.powerAfter} л.с.</span>
+                            </div>
+                            <div className="text-green-400 text-[10px]">+{getGainPercentage(mod.powerBefore, mod.powerAfter)}%</div>
+                          </div>
+                          <div>
+                            <div className="text-white/50 mb-1">Крутящий момент</div>
+                            <div className="text-white">
+                              {mod.torqueBefore} → <span className="text-[#FF0040] font-bold">{mod.torqueAfter} Нм</span>
+                            </div>
+                            <div className="text-green-400 text-[10px]">+{getGainPercentage(mod.torqueBefore, mod.torqueAfter)}%</div>
+                          </div>
+                        </div>
+
+                        {hasOptions && (
+                          <div className="mb-3 p-3 rounded-lg" style={{ background: 'rgba(0, 0, 0, 0.3)' }}>
+                            <div className="text-white/60 text-xs mb-2 font-medium">Дополнительные опции:</div>
+                            <div className="space-y-2">
+                              {mod.egsPrice && (
+                                <label className="flex items-center justify-between cursor-pointer">
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.egs}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, egs: e.target.checked }))}
+                                      className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-xs">Тюнинг АКПП</span>
+                                  </div>
+                                  <span className="text-white/60 text-xs">+{getPriceForCity(mod.egsPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.egrPrice && (
+                                <label className="flex items-center justify-between cursor-pointer">
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.egr}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, egr: e.target.checked }))}
+                                      className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-xs">Удаление EGR</span>
+                                  </div>
+                                  <span className="text-white/60 text-xs">+{getPriceForCity(mod.egrPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.scrPrice && (
+                                <label className="flex items-center justify-between cursor-pointer">
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.scr}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, scr: e.target.checked }))}
+                                      className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-xs">Удаление SCR</span>
+                                  </div>
+                                  <span className="text-white/60 text-xs">+{getPriceForCity(mod.scrPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.dpfPrice && (
+                                <label className="flex items-center justify-between cursor-pointer">
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.dpf}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, dpf: e.target.checked }))}
+                                      className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-xs">Удаление DPF</span>
+                                  </div>
+                                  <span className="text-white/60 text-xs">+{getPriceForCity(mod.dpfPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.flapsPrice && (
+                                <label className="flex items-center justify-between cursor-pointer">
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.flaps}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, flaps: e.target.checked }))}
+                                      className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-xs">Удаление заслонок</span>
+                                  </div>
+                                  <span className="text-white/60 text-xs">+{getPriceForCity(mod.flapsPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        <a
+                          href={`https://t.me/bmw_tuning_spb`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 w-full py-2.5 px-4 rounded-lg text-white font-medium text-sm flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
+                          style={{
+                            background: `linear-gradient(135deg, ${getTypeColor(engine.type)}, ${getTypeColor(engine.type)}CC)`,
+                            boxShadow: `0 8px 32px ${getTypeColor(engine.type)}40`
+                          }}
+                        >
+                          <Icon name="MessageCircle" className="w-4 h-4" />
+                          Записаться
+                        </a>
+                      </div>
+                    );
+                  };
+
+                  return <ModificationCard key={midx} />;
+                })}
               </div>
             </div>
           ))}
@@ -336,54 +452,170 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
               </div>
 
               <div className="space-y-4">
-                {engine.modifications.map((mod, midx) => (
-                  <div
-                    key={midx}
-                    className="p-5 rounded-xl"
-                    style={{
-                      background: 'rgba(0, 0, 0, 0.3)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)'
-                    }}
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="text-white font-medium text-lg">{mod.name}</div>
-                      <div className="text-[#FF0040] font-bold text-2xl">
-                        {getPriceForCity(mod.price).toLocaleString()} ₽
-                      </div>
-                    </div>
+                {engine.modifications.map((mod, midx) => {
+                  const ModificationCard = () => {
+                    const [selectedOptions, setSelectedOptions] = useState<{
+                      egs: boolean;
+                      egr: boolean;
+                      scr: boolean;
+                      dpf: boolean;
+                      flaps: boolean;
+                    }>({
+                      egs: false,
+                      egr: false,
+                      scr: false,
+                      dpf: false,
+                      flaps: false
+                    });
 
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <div className="text-white/50 text-sm mb-2">Мощность</div>
-                        <div className="text-white text-base">
-                          {mod.powerBefore} → <span className="text-[#FF0040] font-bold">{mod.powerAfter} л.с.</span>
-                        </div>
-                        <div className="text-green-400 text-sm mt-1">+{getGainPercentage(mod.powerBefore, mod.powerAfter)}%</div>
-                      </div>
-                      <div>
-                        <div className="text-white/50 text-sm mb-2">Крутящий момент</div>
-                        <div className="text-white text-base">
-                          {mod.torqueBefore} → <span className="text-[#FF0040] font-bold">{mod.torqueAfter} Нм</span>
-                        </div>
-                        <div className="text-green-400 text-sm mt-1">+{getGainPercentage(mod.torqueBefore, mod.torqueAfter)}%</div>
-                      </div>
-                    </div>
+                    const totalPrice = useMemo(() => {
+                      let price = getPriceForCity(mod.price);
+                      if (selectedOptions.egs && mod.egsPrice) price += getPriceForCity(mod.egsPrice);
+                      if (selectedOptions.egr && mod.egrPrice) price += getPriceForCity(mod.egrPrice);
+                      if (selectedOptions.scr && mod.scrPrice) price += getPriceForCity(mod.scrPrice);
+                      if (selectedOptions.dpf && mod.dpfPrice) price += getPriceForCity(mod.dpfPrice);
+                      if (selectedOptions.flaps && mod.flapsPrice) price += getPriceForCity(mod.flapsPrice);
+                      return price;
+                    }, [selectedOptions]);
 
-                    <a
-                      href={`https://t.me/bmw_tuning_spb`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-3 px-6 rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
-                      style={{
-                        background: `linear-gradient(135deg, ${getTypeColor(engine.type)}, ${getTypeColor(engine.type)}CC)`,
-                        boxShadow: `0 8px 32px ${getTypeColor(engine.type)}40`
-                      }}
-                    >
-                      <Icon name="MessageCircle" className="w-5 h-5" />
-                      Записаться на чип-тюнинг
-                    </a>
-                  </div>
-                ))}
+                    const hasOptions = mod.egsPrice || mod.egrPrice || mod.scrPrice || mod.dpfPrice || mod.flapsPrice;
+
+                    return (
+                      <div
+                        className="p-5 rounded-xl"
+                        style={{
+                          background: 'rgba(0, 0, 0, 0.3)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}
+                      >
+                        <div className="flex justify-between items-start mb-4">
+                          <div className="text-white font-medium text-lg">{mod.name}</div>
+                          <div className="text-right">
+                            <div className="text-[#FF0040] font-bold text-2xl">
+                              {totalPrice.toLocaleString()} ₽
+                            </div>
+                            {hasOptions && totalPrice > getPriceForCity(mod.price) && (
+                              <div className="text-white/40 text-sm line-through">
+                                {getPriceForCity(mod.price).toLocaleString()} ₽
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mb-4">
+                          <div>
+                            <div className="text-white/50 text-sm mb-2">Мощность</div>
+                            <div className="text-white text-base">
+                              {mod.powerBefore} → <span className="text-[#FF0040] font-bold">{mod.powerAfter} л.с.</span>
+                            </div>
+                            <div className="text-green-400 text-sm mt-1">+{getGainPercentage(mod.powerBefore, mod.powerAfter)}%</div>
+                          </div>
+                          <div>
+                            <div className="text-white/50 text-sm mb-2">Крутящий момент</div>
+                            <div className="text-white text-base">
+                              {mod.torqueBefore} → <span className="text-[#FF0040] font-bold">{mod.torqueAfter} Нм</span>
+                            </div>
+                            <div className="text-green-400 text-sm mt-1">+{getGainPercentage(mod.torqueBefore, mod.torqueAfter)}%</div>
+                          </div>
+                        </div>
+
+                        {hasOptions && (
+                          <div className="mb-4 p-4 rounded-lg" style={{ background: 'rgba(0, 0, 0, 0.3)' }}>
+                            <div className="text-white/70 text-sm mb-3 font-medium">Дополнительные опции:</div>
+                            <div className="grid grid-cols-1 gap-3">
+                              {mod.egsPrice && (
+                                <label className="flex items-center justify-between cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+                                  <div className="flex items-center gap-3">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.egs}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, egs: e.target.checked }))}
+                                      className="w-5 h-5 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-sm">Тюнинг АКПП</span>
+                                  </div>
+                                  <span className="text-white/60 text-sm font-medium">+{getPriceForCity(mod.egsPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.egrPrice && (
+                                <label className="flex items-center justify-between cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+                                  <div className="flex items-center gap-3">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.egr}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, egr: e.target.checked }))}
+                                      className="w-5 h-5 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-sm">Удаление EGR</span>
+                                  </div>
+                                  <span className="text-white/60 text-sm font-medium">+{getPriceForCity(mod.egrPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.scrPrice && (
+                                <label className="flex items-center justify-between cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+                                  <div className="flex items-center gap-3">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.scr}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, scr: e.target.checked }))}
+                                      className="w-5 h-5 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-sm">Удаление SCR</span>
+                                  </div>
+                                  <span className="text-white/60 text-sm font-medium">+{getPriceForCity(mod.scrPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.dpfPrice && (
+                                <label className="flex items-center justify-between cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+                                  <div className="flex items-center gap-3">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.dpf}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, dpf: e.target.checked }))}
+                                      className="w-5 h-5 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-sm">Удаление DPF</span>
+                                  </div>
+                                  <span className="text-white/60 text-sm font-medium">+{getPriceForCity(mod.dpfPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                              {mod.flapsPrice && (
+                                <label className="flex items-center justify-between cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+                                  <div className="flex items-center gap-3">
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedOptions.flaps}
+                                      onChange={(e) => setSelectedOptions(prev => ({ ...prev, flaps: e.target.checked }))}
+                                      className="w-5 h-5 rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0"
+                                    />
+                                    <span className="text-white text-sm">Удаление заслонок</span>
+                                  </div>
+                                  <span className="text-white/60 text-sm font-medium">+{getPriceForCity(mod.flapsPrice).toLocaleString()} ₽</span>
+                                </label>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        <a
+                          href={`https://t.me/bmw_tuning_spb`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full py-3 px-6 rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
+                          style={{
+                            background: `linear-gradient(135deg, ${getTypeColor(engine.type)}, ${getTypeColor(engine.type)}CC)`,
+                            boxShadow: `0 8px 32px ${getTypeColor(engine.type)}40`
+                          }}
+                        >
+                          <Icon name="MessageCircle" className="w-5 h-5" />
+                          Записаться на чип-тюнинг
+                        </a>
+                      </div>
+                    );
+                  };
+
+                  return <ModificationCard key={midx} />;
+                })}
               </div>
             </div>
           ))}

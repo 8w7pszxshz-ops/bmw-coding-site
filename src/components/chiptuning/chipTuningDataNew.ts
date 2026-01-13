@@ -5,7 +5,11 @@ export interface EngineModification {
   torqueBefore: number;
   torqueAfter: number;
   price: number;
-  egsPrice?: number; // Цена тюнинга коробки передач
+  egsPrice?: number; // Цена тюнинга коробки передач (АКПП)
+  egrPrice?: number; // Удаление EGR (только дизель)
+  scrPrice?: number; // Удаление SCR (только дизель)
+  dpfPrice?: number; // Удаление DPF (только дизель)
+  flapsPrice?: number; // Удаление заслонок впускного коллектора (только дизель)
 }
 
 export interface ModelData {
@@ -32,8 +36,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: '135i N54 Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 8000 },
-          { name: '1M 3.0i Biturbo Stage 1', powerBefore: 340, powerAfter: 375, torqueBefore: 500, torqueAfter: 560, price: 28000, egsPrice: 8000 }
+          { name: '135i N54 Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 27000 },
+          { name: '1M 3.0i Biturbo Stage 1', powerBefore: 340, powerAfter: 375, torqueBefore: 500, torqueAfter: 560, price: 28000, egsPrice: 27000 }
         ]
       },
       {
@@ -41,11 +45,11 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '116d Stage 1', powerBefore: 115, powerAfter: 180, torqueBefore: 260, torqueAfter: 400, price: 28000, egsPrice: 8000 },
-          { name: '118d (136 hp) Stage 1', powerBefore: 136, powerAfter: 180, torqueBefore: 300, torqueAfter: 400, price: 28000, egsPrice: 8000 },
-          { name: '118d (143 hp) Stage 1', powerBefore: 143, powerAfter: 180, torqueBefore: 300, torqueAfter: 400, price: 28000, egsPrice: 8000 },
-          { name: '120d (163 hp) Stage 1', powerBefore: 163, powerAfter: 210, torqueBefore: 350, torqueAfter: 420, price: 28000, egsPrice: 8000 },
-          { name: '120d (177 hp) Stage 1', powerBefore: 177, powerAfter: 210, torqueBefore: 350, torqueAfter: 420, price: 28000 }
+          { name: '116d Stage 1', powerBefore: 115, powerAfter: 180, torqueBefore: 260, torqueAfter: 400, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '118d (136 hp) Stage 1', powerBefore: 136, powerAfter: 180, torqueBefore: 300, torqueAfter: 400, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '118d (143 hp) Stage 1', powerBefore: 143, powerAfter: 180, torqueBefore: 300, torqueAfter: 400, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '120d (163 hp) Stage 1', powerBefore: 163, powerAfter: 210, torqueBefore: 350, torqueAfter: 420, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '120d (177 hp) Stage 1', powerBefore: 177, powerAfter: 210, torqueBefore: 350, torqueAfter: 420, price: 28000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -53,7 +57,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '123d Stage 1', powerBefore: 204, powerAfter: 245, torqueBefore: 400, torqueAfter: 450, price: 28000 }
+          { name: '123d Stage 1', powerBefore: 204, powerAfter: 245, torqueBefore: 400, torqueAfter: 450, price: 28000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -69,7 +73,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '1.5',
         modifications: [
-          { name: '114i Stage 1', powerBefore: 102, powerAfter: 225, torqueBefore: 180, torqueAfter: 330, price: 30000, egsPrice: 8000 },
+          { name: '114i Stage 1', powerBefore: 102, powerAfter: 225, torqueBefore: 180, torqueAfter: 330, price: 30000, egsPrice: 27000 },
           { name: '116i Stage 1', powerBefore: 136, powerAfter: 225, torqueBefore: 220, torqueAfter: 330, price: 30000 }
         ]
       },
@@ -102,7 +106,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '1.5',
         modifications: [
-          { name: '114d Stage 1', powerBefore: 95, powerAfter: 150, torqueBefore: 235, torqueAfter: 320, price: 30000 }
+          { name: '114d Stage 1', powerBefore: 95, powerAfter: 150, torqueBefore: 235, torqueAfter: 320, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -110,11 +114,11 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '116d N47D20 Stage 1', powerBefore: 116, powerAfter: 190, torqueBefore: 260, torqueAfter: 400, price: 30000, egsPrice: 8000 },
-          { name: '118d (136 hp) Stage 1', powerBefore: 136, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 8000 },
-          { name: '118d (143 hp) Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 8000 },
-          { name: '120d (163 hp) Stage 1', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000, egsPrice: 8000 },
-          { name: '120d (184 hp) Stage 1', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 }
+          { name: '116d N47D20 Stage 1', powerBefore: 116, powerAfter: 190, torqueBefore: 260, torqueAfter: 400, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '118d (136 hp) Stage 1', powerBefore: 136, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '118d (143 hp) Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '120d (163 hp) Stage 1', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '120d (184 hp) Stage 1', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -122,8 +126,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '125d (211 hp) Stage 1', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000, egsPrice: 8000 },
-          { name: '125d (218 hp) Stage 1', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 }
+          { name: '125d (211 hp) Stage 1', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '125d (218 hp) Stage 1', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -139,7 +143,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '1.5',
         modifications: [
-          { name: '116i Stage 1', powerBefore: 109, powerAfter: 170, torqueBefore: 180, torqueAfter: 280, price: 30000, egsPrice: 8000 },
+          { name: '116i Stage 1', powerBefore: 109, powerAfter: 170, torqueBefore: 180, torqueAfter: 280, price: 30000, egsPrice: 27000 },
           { name: '118i Stage 1', powerBefore: 136, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 30000 }
         ]
       },
@@ -172,8 +176,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '1.5',
         modifications: [
-          { name: '114d Stage 1', powerBefore: 95, powerAfter: 150, torqueBefore: 220, torqueAfter: 330, price: 30000, egsPrice: 8000 },
-          { name: '116d Stage 1', powerBefore: 116, powerAfter: 150, torqueBefore: 270, torqueAfter: 330, price: 30000 }
+          { name: '114d Stage 1', powerBefore: 95, powerAfter: 150, torqueBefore: 220, torqueAfter: 330, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '116d Stage 1', powerBefore: 116, powerAfter: 150, torqueBefore: 270, torqueAfter: 330, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -181,11 +185,11 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '118d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 8000 },
-          { name: '120d (163 hp) Stage 1', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000, egsPrice: 8000 },
-          { name: '120d (190 hp) Stage 1', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000, egsPrice: 8000 },
-          { name: '125d (211 hp) Stage 1', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000, egsPrice: 8000 },
-          { name: '125d (224 hp) Stage 1', powerBefore: 224, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 }
+          { name: '118d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '120d (163 hp) Stage 1', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '120d (190 hp) Stage 1', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '125d (211 hp) Stage 1', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '125d (224 hp) Stage 1', powerBefore: 224, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -217,7 +221,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '1.5',
         modifications: [
-          { name: '116d Stage 1', powerBefore: 116, powerAfter: 150, torqueBefore: 270, torqueAfter: 330, price: 30000 }
+          { name: '116d Stage 1', powerBefore: 116, powerAfter: 150, torqueBefore: 270, torqueAfter: 330, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -225,8 +229,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '118d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 350, torqueAfter: 400, price: 30000, egsPrice: 8000 },
-          { name: '120d Stage 1', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+          { name: '118d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 350, torqueAfter: 400, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '120d Stage 1', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -258,7 +262,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M235i Stage 1', powerBefore: 326, powerAfter: 380, torqueBefore: 450, torqueAfter: 520, price: 26000, egsPrice: 8000 },
+          { name: 'M235i Stage 1', powerBefore: 326, powerAfter: 380, torqueBefore: 450, torqueAfter: 520, price: 26000, egsPrice: 27000 },
           { name: 'M2 Competition Stage 1', powerBefore: 410, powerAfter: 480, torqueBefore: 550, torqueAfter: 650, price: 28000 }
         ]
       },
@@ -267,9 +271,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '218d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 26000, egsPrice: 8000 },
-          { name: '220d Stage 1', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 26000, egsPrice: 8000 },
-          { name: '225d Stage 1', powerBefore: 224, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 26000 }
+          { name: '218d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 26000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '220d Stage 1', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 26000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '225d Stage 1', powerBefore: 224, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 26000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -285,8 +289,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '220i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 300, torqueAfter: 420, price: 30000, egsPrice: 8000 },
-          { name: '230i Stage 1', powerBefore: 245, powerAfter: 330, torqueBefore: 400, torqueAfter: 480, price: 30000, egsPrice: 8000 },
+          { name: '220i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 300, torqueAfter: 420, price: 30000, egsPrice: 27000 },
+          { name: '230i Stage 1', powerBefore: 245, powerAfter: 330, torqueBefore: 400, torqueAfter: 480, price: 30000, egsPrice: 27000 },
           { name: 'M240i Stage 1', powerBefore: 374, powerAfter: 430, torqueBefore: 500, torqueAfter: 600, price: 35000 }
         ]
       },
@@ -303,8 +307,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '218d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: '220d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000 }
+          { name: '218d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '220d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -328,7 +332,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '320i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 8000 },
+          { name: '320i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 27000 },
           { name: '328i Stage 1', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 430, price: 28000 }
         ]
       },
@@ -345,7 +349,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: '335i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 8000 },
+          { name: '335i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 27000 },
           { name: '340i Stage 1', powerBefore: 326, powerAfter: 400, torqueBefore: 450, torqueAfter: 550, price: 28000 }
         ]
       },
@@ -354,7 +358,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M3 Stage 1', powerBefore: 431, powerAfter: 530, torqueBefore: 550, torqueAfter: 680, price: 35000, egsPrice: 8000 },
+          { name: 'M3 Stage 1', powerBefore: 431, powerAfter: 530, torqueBefore: 550, torqueAfter: 680, price: 35000, egsPrice: 27000 },
           { name: 'M3 Competition Stage 1', powerBefore: 450, powerAfter: 550, torqueBefore: 550, torqueAfter: 680, price: 35000 }
         ]
       },
@@ -363,10 +367,10 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '318d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 8000 },
-          { name: '320d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 28000, egsPrice: 8000 },
-          { name: '325d Stage 1', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 530, price: 28000, egsPrice: 8000 },
-          { name: '330d Stage 1', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 28000 }
+          { name: '318d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '320d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '325d Stage 1', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 530, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '330d Stage 1', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 28000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -382,10 +386,10 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '318i Stage 1', powerBefore: 156, powerAfter: 230, torqueBefore: 250, torqueAfter: 380, price: 30000, egsPrice: 8000 },
-          { name: '320i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 300, torqueAfter: 420, price: 30000, egsPrice: 8000 },
+          { name: '318i Stage 1', powerBefore: 156, powerAfter: 230, torqueBefore: 250, torqueAfter: 380, price: 30000, egsPrice: 27000 },
+          { name: '320i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 300, torqueAfter: 420, price: 30000, egsPrice: 27000 },
           { name: '330i (заводская)', powerBefore: 252, powerAfter: 258, torqueBefore: 400, torqueAfter: 400, price: 20000 },
-          { name: '330i Stage 1', powerBefore: 258, powerAfter: 350, torqueBefore: 400, torqueAfter: 510, price: 30000, egsPrice: 8000 },
+          { name: '330i Stage 1', powerBefore: 258, powerAfter: 350, torqueBefore: 400, torqueAfter: 510, price: 30000, egsPrice: 27000 },
           { name: 'M340i Stage 1', powerBefore: 374, powerAfter: 430, torqueBefore: 500, torqueAfter: 600, price: 35000 }
         ]
       },
@@ -402,7 +406,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M3 Stage 1', powerBefore: 480, powerAfter: 600, torqueBefore: 550, torqueAfter: 750, price: 40000, egsPrice: 8000 },
+          { name: 'M3 Stage 1', powerBefore: 480, powerAfter: 600, torqueBefore: 550, torqueAfter: 750, price: 40000, egsPrice: 27000 },
           { name: 'M3 Competition Stage 1', powerBefore: 510, powerAfter: 630, torqueBefore: 650, torqueAfter: 800, price: 40000 }
         ]
       },
@@ -411,9 +415,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '318d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: '320d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 8000 },
-          { name: '330d Stage 1', powerBefore: 286, powerAfter: 350, torqueBefore: 650, torqueAfter: 750, price: 30000 }
+          { name: '318d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '320d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '330d Stage 1', powerBefore: 286, powerAfter: 350, torqueBefore: 650, torqueAfter: 750, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -429,7 +433,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '420i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 8000 },
+          { name: '420i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 27000 },
           { name: '428i Stage 1', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 430, price: 28000 }
         ]
       },
@@ -446,7 +450,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: '435i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 8000 },
+          { name: '435i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 27000 },
           { name: '440i Stage 1', powerBefore: 326, powerAfter: 400, torqueBefore: 450, torqueAfter: 550, price: 28000 }
         ]
       },
@@ -455,7 +459,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M4 Stage 1', powerBefore: 431, powerAfter: 530, torqueBefore: 550, torqueAfter: 680, price: 35000, egsPrice: 8000 },
+          { name: 'M4 Stage 1', powerBefore: 431, powerAfter: 530, torqueBefore: 550, torqueAfter: 680, price: 35000, egsPrice: 27000 },
           { name: 'M4 Competition Stage 1', powerBefore: 450, powerAfter: 550, torqueBefore: 550, torqueAfter: 680, price: 35000 }
         ]
       },
@@ -464,10 +468,10 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '418d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 8000 },
-          { name: '420d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 8000 },
-          { name: '425d Stage 1', powerBefore: 224, powerAfter: 280, torqueBefore: 450, torqueAfter: 540, price: 28000, egsPrice: 8000 },
-          { name: '430d Stage 1', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 28000 }
+          { name: '418d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '420d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '425d Stage 1', powerBefore: 224, powerAfter: 280, torqueBefore: 450, torqueAfter: 540, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '430d Stage 1', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 28000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -483,8 +487,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '420i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 300, torqueAfter: 420, price: 30000, egsPrice: 8000 },
-          { name: '430i Stage 1', powerBefore: 245, powerAfter: 330, torqueBefore: 400, torqueAfter: 480, price: 30000, egsPrice: 8000 },
+          { name: '420i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 300, torqueAfter: 420, price: 30000, egsPrice: 27000 },
+          { name: '430i Stage 1', powerBefore: 245, powerAfter: 330, torqueBefore: 400, torqueAfter: 480, price: 30000, egsPrice: 27000 },
           { name: 'M440i Stage 1', powerBefore: 374, powerAfter: 430, torqueBefore: 500, torqueAfter: 600, price: 35000 }
         ]
       },
@@ -493,7 +497,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M4 Stage 1', powerBefore: 480, powerAfter: 600, torqueBefore: 550, torqueAfter: 750, price: 40000, egsPrice: 8000 },
+          { name: 'M4 Stage 1', powerBefore: 480, powerAfter: 600, torqueBefore: 550, torqueAfter: 750, price: 40000, egsPrice: 27000 },
           { name: 'M4 Competition Stage 1', powerBefore: 510, powerAfter: 630, torqueBefore: 650, torqueAfter: 800, price: 40000 }
         ]
       },
@@ -502,8 +506,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '420d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 8000 },
-          { name: '430d Stage 1', powerBefore: 286, powerAfter: 350, torqueBefore: 650, torqueAfter: 750, price: 30000 }
+          { name: '420d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '430d Stage 1', powerBefore: 286, powerAfter: 350, torqueBefore: 650, torqueAfter: 750, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -519,7 +523,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '520i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 32000, egsPrice: 8000 },
+          { name: '520i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 32000, egsPrice: 27000 },
           { name: '528i Stage 1', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 430, price: 32000 }
         ]
       },
@@ -536,7 +540,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: '535i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 8000 },
+          { name: '535i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 27000 },
           { name: '540i Stage 1', powerBefore: 340, powerAfter: 410, torqueBefore: 450, torqueAfter: 570, price: 32000 }
         ]
       },
@@ -553,7 +557,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '4.4',
         modifications: [
-          { name: 'M5 Stage 1', powerBefore: 560, powerAfter: 680, torqueBefore: 680, torqueAfter: 850, price: 42000, egsPrice: 8000 },
+          { name: 'M5 Stage 1', powerBefore: 560, powerAfter: 680, torqueBefore: 680, torqueAfter: 850, price: 42000, egsPrice: 27000 },
           { name: 'M5 Competition Stage 1', powerBefore: 575, powerAfter: 700, torqueBefore: 750, torqueAfter: 900, price: 42000 }
         ]
       },
@@ -562,9 +566,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '518d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 32000, egsPrice: 8000 },
-          { name: '520d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 8000 },
-          { name: '525d Stage 1', powerBefore: 218, powerAfter: 280, torqueBefore: 450, torqueAfter: 540, price: 32000 }
+          { name: '518d Stage 1', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '520d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '525d Stage 1', powerBefore: 218, powerAfter: 280, torqueBefore: 450, torqueAfter: 540, price: 32000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -572,8 +576,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '530d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 32000, egsPrice: 8000 },
-          { name: '535d Stage 1', powerBefore: 313, powerAfter: 380, torqueBefore: 630, torqueAfter: 750, price: 32000 }
+          { name: '530d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '535d Stage 1', powerBefore: 313, powerAfter: 380, torqueBefore: 630, torqueAfter: 750, price: 32000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -589,8 +593,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '520i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 35000, egsPrice: 8000 },
-          { name: '530i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 35000, egsPrice: 8000 },
+          { name: '520i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 35000, egsPrice: 27000 },
+          { name: '530i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 35000, egsPrice: 27000 },
           { name: 'M550i Stage 1', powerBefore: 530, powerAfter: 620, torqueBefore: 750, torqueAfter: 870, price: 40000 }
         ]
       },
@@ -607,7 +611,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '4.4',
         modifications: [
-          { name: 'M5 Stage 1', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 45000, egsPrice: 8000 },
+          { name: 'M5 Stage 1', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 45000, egsPrice: 27000 },
           { name: 'M5 Competition Stage 1', powerBefore: 625, powerAfter: 780, torqueBefore: 750, torqueAfter: 950, price: 45000 }
         ]
       },
@@ -616,8 +620,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '520d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 35000, egsPrice: 8000 },
-          { name: '530d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 35000 }
+          { name: '520d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 35000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '530d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 35000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -625,8 +629,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '540d Stage 1', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 830, price: 35000, egsPrice: 8000 },
-          { name: 'M550d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 38000 }
+          { name: '540d Stage 1', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 830, price: 35000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'M550d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 38000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -658,7 +662,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '4.4',
         modifications: [
-          { name: 'M6 Stage 1', powerBefore: 560, powerAfter: 680, torqueBefore: 680, torqueAfter: 850, price: 42000, egsPrice: 8000 },
+          { name: 'M6 Stage 1', powerBefore: 560, powerAfter: 680, torqueBefore: 680, torqueAfter: 850, price: 42000, egsPrice: 27000 },
           { name: 'M6 Competition Stage 1', powerBefore: 575, powerAfter: 700, torqueBefore: 750, torqueAfter: 900, price: 42000 }
         ]
       },
@@ -667,7 +671,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '640d Stage 1', powerBefore: 313, powerAfter: 380, torqueBefore: 630, torqueAfter: 750, price: 34000 }
+          { name: '640d Stage 1', powerBefore: 313, powerAfter: 380, torqueBefore: 630, torqueAfter: 750, price: 34000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -691,7 +695,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '4.4',
         modifications: [
-          { name: '750i Stage 1', powerBefore: 449, powerAfter: 550, torqueBefore: 650, torqueAfter: 780, price: 42000, egsPrice: 8000 },
+          { name: '750i Stage 1', powerBefore: 449, powerAfter: 550, torqueBefore: 650, torqueAfter: 780, price: 42000, egsPrice: 27000 },
           { name: '750i xDrive Stage 1', powerBefore: 449, powerAfter: 550, torqueBefore: 650, torqueAfter: 780, price: 42000 }
         ]
       },
@@ -708,8 +712,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '730d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 36000 },
-          { name: '740d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 36000 }
+          { name: '730d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 36000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '740d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 36000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -751,8 +755,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '730d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 38000, egsPrice: 8000 },
-          { name: '740d Stage 1', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 830, price: 38000 }
+          { name: '730d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 38000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '740d Stage 1', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 830, price: 38000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -768,7 +772,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 8000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 27000 },
           { name: 'xDrive28i Stage 1', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 430, price: 28000 }
         ]
       },
@@ -777,10 +781,10 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive18d Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 8000 },
-          { name: 'xDrive18d Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 8000 },
-          { name: 'sDrive20d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 28000, egsPrice: 8000 },
-          { name: 'xDrive20d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 28000 }
+          { name: 'sDrive18d Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive18d Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'sDrive20d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 28000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive20d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 28000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -796,7 +800,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '1.5',
         modifications: [
-          { name: 'sDrive18i Stage 1', powerBefore: 136, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 30000, egsPrice: 8000 },
+          { name: 'sDrive18i Stage 1', powerBefore: 136, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 30000, egsPrice: 27000 },
           { name: 'xDrive18i Stage 1', powerBefore: 136, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 30000 }
         ]
       },
@@ -805,8 +809,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 8000 },
+          { name: 'sDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000 },
           { name: 'xDrive25i Stage 1', powerBefore: 231, powerAfter: 310, torqueBefore: 350, torqueAfter: 460, price: 30000 }
         ]
       },
@@ -815,11 +819,11 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: 'sDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive25d Stage 1', powerBefore: 231, powerAfter: 290, torqueBefore: 450, torqueAfter: 560, price: 30000 }
+          { name: 'sDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'sDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive25d Stage 1', powerBefore: 231, powerAfter: 290, torqueBefore: 450, torqueAfter: 560, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -835,8 +839,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20i Stage 1', powerBefore: 204, powerAfter: 290, torqueBefore: 300, torqueAfter: 440, price: 32000, egsPrice: 8000 },
-          { name: 'xDrive23i Stage 1', powerBefore: 218, powerAfter: 300, torqueBefore: 360, torqueAfter: 470, price: 32000, egsPrice: 8000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 204, powerAfter: 290, torqueBefore: 300, torqueAfter: 440, price: 32000, egsPrice: 27000 },
+          { name: 'xDrive23i Stage 1', powerBefore: 218, powerAfter: 300, torqueBefore: 360, torqueAfter: 470, price: 32000, egsPrice: 27000 },
           { name: 'xDrive28i Stage 1', powerBefore: 245, powerAfter: 330, torqueBefore: 400, torqueAfter: 480, price: 32000 }
         ]
       },
@@ -845,10 +849,10 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 32000, egsPrice: 8000 },
-          { name: 'xDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 32000, egsPrice: 8000 },
-          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 8000 },
-          { name: 'xDrive23d Stage 1', powerBefore: 211, powerAfter: 280, torqueBefore: 430, torqueAfter: 550, price: 32000 }
+          { name: 'sDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive23d Stage 1', powerBefore: 211, powerAfter: 280, torqueBefore: 430, torqueAfter: 550, price: 32000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -872,8 +876,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 8000 },
+          { name: 'sDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000 },
           { name: 'M35i Stage 1', powerBefore: 306, powerAfter: 360, torqueBefore: 450, torqueAfter: 530, price: 35000 }
         ]
       },
@@ -882,10 +886,10 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 8000 },
-          { name: 'sDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000 }
+          { name: 'sDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive18d Stage 1', powerBefore: 150, powerAfter: 200, torqueBefore: 350, torqueAfter: 430, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'sDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -901,7 +905,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000, egsPrice: 8000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000, egsPrice: 27000 },
           { name: 'xDrive28i Stage 1', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 430, price: 30000 }
         ]
       },
@@ -918,8 +922,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive18d Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive20d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 30000 }
+          { name: 'xDrive18d Stage 1', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive20d Stage 1', powerBefore: 184, powerAfter: 240, torqueBefore: 380, torqueAfter: 480, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -927,7 +931,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 30000, egsPrice: 8000 },
+          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 30000, egsPrice: 27000 },
           { name: 'xDrive35d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 30000 }
         ]
       }
@@ -944,8 +948,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 32000, egsPrice: 8000 },
-          { name: 'xDrive30i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 32000, egsPrice: 8000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 32000, egsPrice: 27000 },
+          { name: 'xDrive30i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 32000, egsPrice: 27000 },
           { name: 'M40i Stage 1', powerBefore: 360, powerAfter: 420, torqueBefore: 500, torqueAfter: 600, price: 36000 }
         ]
       },
@@ -962,7 +966,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 8000 },
+          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 27000 },
           { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 32000 }
         ]
       },
@@ -971,7 +975,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'M40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 36000 }
+          { name: 'M40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 36000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -987,7 +991,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000, egsPrice: 8000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000, egsPrice: 27000 },
           { name: 'xDrive28i Stage 1', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 430, price: 30000 }
         ]
       },
@@ -1004,7 +1008,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000 }
+          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -1012,8 +1016,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 30000, egsPrice: 8000 },
-          { name: 'xDrive35d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 30000 }
+          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 30000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive35d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 30000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1029,8 +1033,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 32000, egsPrice: 8000 },
-          { name: 'xDrive30i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 32000, egsPrice: 8000 },
+          { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 32000, egsPrice: 27000 },
+          { name: 'xDrive30i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 32000, egsPrice: 27000 },
           { name: 'M40i Stage 1', powerBefore: 360, powerAfter: 420, torqueBefore: 500, torqueAfter: 600, price: 36000 }
         ]
       },
@@ -1047,7 +1051,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 8000 },
+          { name: 'xDrive20d Stage 1', powerBefore: 190, powerAfter: 250, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 27000 },
           { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 32000 }
         ]
       },
@@ -1056,7 +1060,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'M40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 36000 }
+          { name: 'M40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 36000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1080,7 +1084,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive35i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 8000 },
+          { name: 'xDrive35i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 32000, egsPrice: 27000 },
           { name: 'xDrive40e Stage 1', powerBefore: 313, powerAfter: 380, torqueBefore: 450, torqueAfter: 530, price: 32000 }
         ]
       },
@@ -1105,7 +1109,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive25d Stage 1', powerBefore: 218, powerAfter: 280, torqueBefore: 450, torqueAfter: 540, price: 32000 }
+          { name: 'xDrive25d Stage 1', powerBefore: 218, powerAfter: 280, torqueBefore: 450, torqueAfter: 540, price: 32000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -1113,9 +1117,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 32000, egsPrice: 8000 },
-          { name: 'xDrive40d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 32000, egsPrice: 8000 },
-          { name: 'M50d Stage 1', powerBefore: 381, powerAfter: 460, torqueBefore: 740, torqueAfter: 900, price: 36000 }
+          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive40d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 32000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'M50d Stage 1', powerBefore: 381, powerAfter: 460, torqueBefore: 740, torqueAfter: 900, price: 36000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1139,7 +1143,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive40i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 35000, egsPrice: 8000 },
+          { name: 'xDrive40i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 35000, egsPrice: 27000 },
           { name: 'M50i Stage 1', powerBefore: 530, powerAfter: 620, torqueBefore: 750, torqueAfter: 870, price: 40000 }
         ]
       },
@@ -1157,7 +1161,7 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'xDrive25d Stage 1', powerBefore: 231, powerAfter: 290, torqueBefore: 450, torqueAfter: 560, price: 35000 }
+          { name: 'xDrive25d Stage 1', powerBefore: 231, powerAfter: 290, torqueBefore: 450, torqueAfter: 560, price: 35000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       },
       {
@@ -1165,9 +1169,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 35000, egsPrice: 8000 },
-          { name: 'xDrive40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 35000, egsPrice: 8000 },
-          { name: 'M50d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 40000 }
+          { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 35000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 35000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'M50d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 40000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1207,9 +1211,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 34000, egsPrice: 8000 },
-          { name: 'xDrive40d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 34000, egsPrice: 8000 },
-          { name: 'M50d Stage 1', powerBefore: 381, powerAfter: 460, torqueBefore: 740, torqueAfter: 900, price: 38000 }
+          { name: 'xDrive30d Stage 1', powerBefore: 258, powerAfter: 330, torqueBefore: 560, torqueAfter: 680, price: 34000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive40d Stage 1', powerBefore: 313, powerAfter: 390, torqueBefore: 630, torqueAfter: 770, price: 34000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'M50d Stage 1', powerBefore: 381, powerAfter: 460, torqueBefore: 740, torqueAfter: 900, price: 38000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1234,7 +1238,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '4.4',
         modifications: [
-          { name: 'X6 M Stage 1', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 50000, egsPrice: 8000 },
+          { name: 'X6 M Stage 1', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 50000, egsPrice: 27000 },
           { name: 'X6 M Competition Stage 1', powerBefore: 625, powerAfter: 780, torqueBefore: 750, torqueAfter: 950, price: 50000 }
         ]
       },
@@ -1243,9 +1247,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 36000 },
-          { name: 'xDrive40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 36000 },
-          { name: 'M50d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 42000 }
+          { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 36000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 36000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'M50d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 42000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1261,7 +1265,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive40i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 38000, egsPrice: 8000 },
+          { name: 'xDrive40i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 38000, egsPrice: 27000 },
           { name: 'M50i Stage 1', powerBefore: 530, powerAfter: 620, torqueBefore: 750, torqueAfter: 870, price: 44000 }
         ]
       },
@@ -1278,9 +1282,9 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 38000, egsPrice: 8000 },
-          { name: 'xDrive40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 38000, egsPrice: 8000 },
-          { name: 'M50d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 44000 }
+          { name: 'xDrive30d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 38000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'xDrive40d Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 850, price: 38000, egsPrice: 27000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: 'M50d Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 44000, egrPrice: 15000, scrPrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1296,7 +1300,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 8000 },
+          { name: 'sDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000, egsPrice: 27000 },
           { name: 'sDrive28i Stage 1', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 430, price: 28000 }
         ]
       },
@@ -1305,7 +1309,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'sDrive35i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 8000 },
+          { name: 'sDrive35i Stage 1', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 28000, egsPrice: 27000 },
           { name: 'sDrive35is Stage 1', powerBefore: 340, powerAfter: 410, torqueBefore: 450, torqueAfter: 550, price: 28000 }
         ]
       }
@@ -1322,7 +1326,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: 'sDrive20i Stage 1', powerBefore: 197, powerAfter: 280, torqueBefore: 320, torqueAfter: 430, price: 30000, egsPrice: 8000 },
+          { name: 'sDrive20i Stage 1', powerBefore: 197, powerAfter: 280, torqueBefore: 320, torqueAfter: 430, price: 30000, egsPrice: 27000 },
           { name: 'sDrive30i Stage 1', powerBefore: 258, powerAfter: 350, torqueBefore: 400, torqueAfter: 510, price: 30000 }
         ]
       },
