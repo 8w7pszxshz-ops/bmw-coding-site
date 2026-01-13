@@ -9,30 +9,36 @@ interface ChipTuningProps {
   selectedCity: City;
 }
 
-type Step = 'generation' | 'model' | 'engine';
+type Step = 'series' | 'body' | 'engine';
 
 const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTuningProps) {
-  const [step, setStep] = useState<Step>('model');
-  const [selectedModel, setSelectedModel] = useState<ModelData | null>(null);
-  const [selectedEngine, setSelectedEngine] = useState<ModelData['engines'][0] | null>(null);
+  const [step, setStep] = useState<Step>('series');
+  const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
+  const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
 
-  const uniqueModels = bmwModels.reduce((acc, model) => {
-    const existing = acc.find(m => m.name === model.name && m.series === model.series);
-    if (!existing) {
-      acc.push(model);
-    }
-    return acc;
-  }, [] as ModelData[]);
+  const uniqueSeries = Array.from(new Set(bmwModels.map(m => m.name)));
+  
+  const bodiesForSeries = selectedSeries 
+    ? bmwModels.filter(m => m.name === selectedSeries)
+    : [];
 
-  const handleModelSelect = (model: ModelData) => {
-    setSelectedModel(model);
+  const handleSeriesSelect = (series: string) => {
+    setSelectedSeries(series);
+    setStep('body');
+  };
+
+  const handleBodySelect = (body: ModelData) => {
+    setSelectedBody(body);
     setStep('engine');
   };
 
   const handleBack = () => {
     if (step === 'engine') {
-      setSelectedEngine(null);
-      setStep('model');
+      setSelectedBody(null);
+      setStep('body');
+    } else if (step === 'body') {
+      setSelectedSeries(null);
+      setStep('series');
     }
   };
 
@@ -46,14 +52,15 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
           <h2 className="font-light text-white text-xl">
-            {step === 'model' && 'Выберите модель BMW'}
+            {step === 'series' && 'Выберите серию BMW'}
+            {step === 'body' && 'Выберите кузов'}
             {step === 'engine' && 'Выберите двигатель'}
           </h2>
         </div>
         <p className="text-white/60 text-xs">Цены включают полную диагностику перед работами</p>
       </div>
 
-      {step === 'engine' && (
+      {step !== 'series' && (
         <button
           onClick={handleBack}
           className="mb-6 px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm flex items-center gap-2 mx-auto"
@@ -68,14 +75,14 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
         </button>
       )}
 
-      {step === 'model' && (
+      {step === 'series' && (
         <>
           <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory">
             <div className="flex gap-4 px-4 pb-2">
-              {uniqueModels.map((model) => (
+              {uniqueSeries.map((series) => (
                 <button
-                  key={model.series}
-                  onClick={() => handleModelSelect(model)}
+                  key={series}
+                  onClick={() => handleSeriesSelect(series)}
                   className="snap-center min-w-[160px] p-5 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
@@ -84,19 +91,43 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                   }}
                 >
                   <Icon name="Car" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
-                  <div className="text-white font-medium text-base mb-1">{model.name}</div>
-                  <div className="text-white/50 text-xs">{model.series}</div>
+                  <div className="text-white font-medium text-base">{series}</div>
                 </button>
               ))}
             </div>
           </div>
-          <ScrollIndicator totalItems={uniqueModels.length} color="#FF6B35" />
+          <ScrollIndicator totalItems={uniqueSeries.length} color="#FF6B35" />
         </>
       )}
 
-      {step === 'engine' && selectedModel && (
+      {step === 'body' && (
+        <>
+          <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory">
+            <div className="flex gap-4 px-4 pb-2">
+              {bodiesForSeries.map((body) => (
+                <button
+                  key={body.series}
+                  onClick={() => handleBodySelect(body)}
+                  className="snap-center min-w-[160px] p-5 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  <Icon name="SquareGanttChart" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
+                  <div className="text-white font-medium text-base">{body.series}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+          <ScrollIndicator totalItems={bodiesForSeries.length} color="#FF6B35" />
+        </>
+      )}
+
+      {step === 'engine' && selectedBody && (
         <div className="space-y-4">
-          {selectedModel.engines.map((engine, idx) => (
+          {selectedBody.engines.map((engine, idx) => (
             <div
               key={idx}
               className="p-5 rounded-2xl"
@@ -177,26 +208,33 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
 });
 
 const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: ChipTuningProps) {
-  const [step, setStep] = useState<Step>('model');
-  const [selectedModel, setSelectedModel] = useState<ModelData | null>(null);
+  const [step, setStep] = useState<Step>('series');
+  const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
+  const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
 
-  const uniqueModels = bmwModels.reduce((acc, model) => {
-    const existing = acc.find(m => m.name === model.name && m.series === model.series);
-    if (!existing) {
-      acc.push(model);
-    }
-    return acc;
-  }, [] as ModelData[]);
+  const uniqueSeries = Array.from(new Set(bmwModels.map(m => m.name)));
+  
+  const bodiesForSeries = selectedSeries 
+    ? bmwModels.filter(m => m.name === selectedSeries)
+    : [];
 
-  const handleModelSelect = (model: ModelData) => {
-    setSelectedModel(model);
+  const handleSeriesSelect = (series: string) => {
+    setSelectedSeries(series);
+    setStep('body');
+  };
+
+  const handleBodySelect = (body: ModelData) => {
+    setSelectedBody(body);
     setStep('engine');
   };
 
   const handleBack = () => {
     if (step === 'engine') {
-      setSelectedModel(null);
-      setStep('model');
+      setSelectedBody(null);
+      setStep('body');
+    } else if (step === 'body') {
+      setSelectedSeries(null);
+      setStep('series');
     }
   };
 
@@ -210,14 +248,15 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
         <div className="flex items-center justify-center gap-3 mb-4">
           <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
           <h2 className="font-light text-white text-3xl">
-            {step === 'model' && 'Выберите модель BMW'}
+            {step === 'series' && 'Выберите серию BMW'}
+            {step === 'body' && 'Выберите кузов'}
             {step === 'engine' && 'Выберите двигатель и модификацию'}
           </h2>
         </div>
         <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
       </div>
 
-      {step === 'engine' && (
+      {step !== 'series' && (
         <button
           onClick={handleBack}
           className="mb-8 px-6 py-3 rounded-xl text-white/60 hover:text-white transition-all duration-300 flex items-center gap-2 hover:scale-105"
@@ -232,12 +271,12 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
         </button>
       )}
 
-      {step === 'model' && (
+      {step === 'series' && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {uniqueModels.map((model) => (
+          {uniqueSeries.map((series) => (
             <button
-              key={model.series}
-              onClick={() => handleModelSelect(model)}
+              key={series}
+              onClick={() => handleSeriesSelect(series)}
               className="p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(231,34,46,0.4)]"
               style={{
                 background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
@@ -246,16 +285,35 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
               }}
             >
               <Icon name="Car" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
-              <div className="text-white font-medium text-xl mb-1">{model.name}</div>
-              <div className="text-white/50 text-sm">{model.series}</div>
+              <div className="text-white font-medium text-xl">{series}</div>
             </button>
           ))}
         </div>
       )}
 
-      {step === 'engine' && selectedModel && (
+      {step === 'body' && (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {bodiesForSeries.map((body) => (
+            <button
+              key={body.series}
+              onClick={() => handleBodySelect(body)}
+              className="p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(231,34,46,0.4)]"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              <Icon name="SquareGanttChart" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
+              <div className="text-white font-medium text-xl">{body.series}</div>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {step === 'engine' && selectedBody && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {selectedModel.engines.map((engine, idx) => (
+          {selectedBody.engines.map((engine, idx) => (
             <div
               key={idx}
               className="p-6 rounded-2xl"
