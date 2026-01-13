@@ -68,11 +68,15 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
       style={{
         background: 'rgba(0, 0, 0, 0.6)',
         backdropFilter: 'blur(40px)',
-        boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
         animationDelay: `${index * 50}ms`,
         minWidth: '280px',
-        width: '280px'
+        width: '280px',
+        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
+        maskComposite: 'intersect',
+        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
+        WebkitMaskComposite: 'source-in'
       }}
     >
       <div 
@@ -184,9 +188,13 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
       style={{
         background: 'rgba(0, 0, 0, 0.6)',
         backdropFilter: 'blur(40px)',
-        boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.6)',
+        boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
-        animationDelay: `${index * 50}ms`
+        animationDelay: `${index * 50}ms`,
+        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
+        maskComposite: 'intersect',
+        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
+        WebkitMaskComposite: 'source-in'
       }}
     >
       <div 
