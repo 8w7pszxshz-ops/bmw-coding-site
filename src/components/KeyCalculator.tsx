@@ -13,7 +13,6 @@ const fSeriesKeys: FSeriesKey[] = [
   { position: 3, price: 15000 },
   { position: 3, price: 18000 },
   { position: 3, price: 20000 },
-  { position: 3, price: 21000 },
   { position: 3, price: 22000 },
 ];
 
@@ -26,8 +25,11 @@ export default function KeyCalculator() {
     if (series === 'F') {
       return fSeriesKeys[selectedFKey].price;
     }
-    if (series === 'G' || series === 'U') {
+    if (series === 'G') {
       return keyType === 'copy' ? 25000 : 40000;
+    }
+    if (series === 'U') {
+      return 25000;
     }
     return 0;
   };
@@ -92,7 +94,7 @@ export default function KeyCalculator() {
             <label className="block text-white/80 text-sm font-light mb-3 uppercase tracking-wider">
               Выберите позицию
             </label>
-            <div className="grid grid-cols-5 gap-3">
+            <div className="grid grid-cols-4 gap-3">
               {fSeriesKeys.map((key, idx) => (
                 <button
                   key={idx}
@@ -119,8 +121,8 @@ export default function KeyCalculator() {
           </div>
         )}
 
-        {/* G и U серии - тип ключа */}
-        {(series === 'G' || series === 'U') && (
+        {/* G серия - тип ключа */}
+        {series === 'G' && (
           <div className="mb-8">
             <label className="block text-white/80 text-sm font-light mb-3 uppercase tracking-wider">
               Тип ключа
