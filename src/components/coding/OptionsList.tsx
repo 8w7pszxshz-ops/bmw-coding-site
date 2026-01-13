@@ -57,7 +57,7 @@ export default function OptionsList({
           <button
             key={cat.id}
             onClick={() => onCategoryChange(cat.id)}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 whitespace-nowrap hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
+            className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 whitespace-nowrap group overflow-hidden"
             style={{
               background: activeCategory === cat.id
                 ? 'linear-gradient(135deg, #81C4FF, #16588E)'
@@ -71,8 +71,15 @@ export default function OptionsList({
               backdropFilter: 'blur(10px)'
             }}
           >
-            <Icon name={cat.icon as any} className="w-5 h-5" />
-            <span>{cat.name}</span>
+            <div 
+              className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background: 'radial-gradient(circle at center, rgba(129, 196, 255, 0.3), transparent 70%)',
+                boxShadow: '0 0 50px rgba(129, 196, 255, 0.5)'
+              }}
+            />
+            <Icon name={cat.icon as any} className="relative w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+            <span className="relative">{cat.name}</span>
           </button>
         ))}
       </div>
@@ -84,7 +91,7 @@ export default function OptionsList({
             <button
               key={option.id}
               onClick={() => onToggleOption(option.id)}
-              className="relative p-6 rounded-xl transition-all duration-300 text-left group hover:shadow-[0_0_40px_rgba(231,34,46,0.4)] overflow-hidden"
+              className="relative p-6 rounded-xl transition-all duration-300 text-left group hover:scale-[1.02] overflow-hidden"
               style={{
                 background: isSelected
                   ? 'linear-gradient(135deg, rgba(129, 196, 255, 0.15), rgba(22, 88, 142, 0.15))'
@@ -99,6 +106,20 @@ export default function OptionsList({
                 backdropFilter: 'blur(10px)'
               }}
             >
+              <div 
+                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle at center, rgba(129, 196, 255, 0.15), transparent 70%)',
+                  boxShadow: '0 0 60px rgba(129, 196, 255, 0.4), inset 0 0 40px rgba(129, 196, 255, 0.2)'
+                }}
+              />
+              <div 
+                className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, rgba(129, 196, 255, 0.8), transparent)',
+                  boxShadow: '0 0 30px rgba(129, 196, 255, 0.8), 0 2px 20px rgba(129, 196, 255, 0.6)'
+                }}
+              />
               {isSelected && (
                 <>
                   <div 
@@ -132,7 +153,7 @@ export default function OptionsList({
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3 flex-1">
                   <div 
-                    className="p-2 rounded-lg"
+                    className="p-2 rounded-lg transition-all duration-300 group-hover:scale-110"
                     style={{
                       background: isSelected
                         ? 'linear-gradient(135deg, rgba(129, 196, 255, 0.3), rgba(22, 88, 142, 0.2))'
@@ -142,7 +163,7 @@ export default function OptionsList({
                   >
                     <Icon 
                       name={option.icon as any} 
-                      className="w-5 h-5"
+                      className="w-5 h-5 transition-all duration-300 group-hover:scale-110"
                       style={{ color: isSelected ? '#81C4FF' : 'rgba(255, 255, 255, 0.6)' }}
                     />
                   </div>

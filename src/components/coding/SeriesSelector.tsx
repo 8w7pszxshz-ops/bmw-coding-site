@@ -34,20 +34,47 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
             }}
           >
             <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none"
               style={{
-                background: `radial-gradient(circle at center, ${series.color}15, transparent 70%)`,
-                mixBlendMode: 'screen'
+                background: `radial-gradient(circle at center, ${series.color}25, transparent 70%)`,
+                mixBlendMode: 'screen',
+                boxShadow: `inset 0 0 80px ${series.color}40, 0 0 60px ${series.color}30`
               }}
             />
 
             <div 
-              className="absolute top-0 left-0 right-0 h-px"
+              className="absolute top-0 left-0 right-0"
               style={{
-                background: `linear-gradient(90deg, transparent, ${series.color}40, transparent)`,
-                boxShadow: `0 0 20px ${series.color}30`
+                height: '2px',
+                background: `linear-gradient(90deg, transparent 0%, ${series.color}40 20%, ${series.color}80 50%, ${series.color}40 80%, transparent 100%)`,
+                boxShadow: `0 0 30px ${series.color}60, 0 2px 20px ${series.color}50`
               }}
             />
+            <div 
+              className="absolute bottom-0 left-0 right-0"
+              style={{
+                height: '1px',
+                background: `linear-gradient(90deg, transparent, ${series.color}40, transparent)`,
+                boxShadow: `0 0 15px ${series.color}40`
+              }}
+            />
+            <div 
+              className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background: `linear-gradient(90deg, transparent, ${series.color}, transparent)`,
+                boxShadow: `0 0 40px ${series.color}, 0 0 60px ${series.color}`
+              }}
+            />
+            <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none group-hover:opacity-40 transition-opacity duration-500" style={{ mixBlendMode: 'screen' }}>
+              <defs>
+                <pattern id={`series-${series.id}`} x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <circle cx="14" cy="14" r="1" fill={series.color} opacity="0.6">
+                    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                  </circle>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill={`url(#series-${series.id})`} />
+            </svg>
             
             <CardContent className="p-8 relative z-10 text-center">
               <div 
