@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { City } from '@/components/CitySelector';
-import { getCityConfig } from '@/utils/cityConfig';
+import { getCityConfig, getTelegramLink } from '@/utils/cityConfig';
 
 interface QuickActionsProps {
   selectedCity?: City;
@@ -19,7 +19,7 @@ const getQuickActions = (city: City) => {
   const config = getCityConfig(city);
   return [
     { id: 'call', icon: 'Phone', label: 'Позвонить', link: `tel:${config.phone}` },
-    { id: 'telegram', icon: 'Send', label: 'Telegram', link: config.telegram },
+    { id: 'telegram', icon: 'Send', label: 'Telegram', link: getTelegramLink(city, 'запись на обслуживание') },
     { id: 'location', icon: 'MapPin', label: 'Адрес' },
     { id: 'time', icon: 'Clock', label: 'Режим' }
   ];
@@ -172,7 +172,7 @@ export default function QuickActions({ selectedCity = 'saratov' }: QuickActionsP
         
         <div className="flex items-center justify-center gap-6">
           <a 
-            href={cityConfig.telegram}
+            href={getTelegramLink(selectedCity, 'общий вопрос')}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/40 hover:text-blue-400 transition-colors duration-300"

@@ -3,6 +3,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import { City } from '@/components/CitySelector';
+import { getTelegramLink } from '@/utils/cityConfig';
 
 const services = [
   {
@@ -61,7 +63,7 @@ const services = [
   }
 ];
 
-function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
+function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity }: any) {
   return (
     <Card
       className="group relative overflow-hidden border-0 transition-all duration-500 flex-shrink-0"
@@ -182,7 +184,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
         </div>
         
         <a
-          href="https://t.me/Bocha_reborn"
+          href={getTelegramLink(selectedCity, service.title)}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-lg transition-all duration-300"
@@ -200,7 +202,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
   );
 }
 
-function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
+function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity }: any) {
   return (
     <Card
       className="group relative overflow-hidden border-0 transition-all duration-500 hover:scale-[1.02]"
@@ -320,7 +322,7 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
         </div>
         
         <a
-          href="https://t.me/Bocha_reborn"
+          href={getTelegramLink(selectedCity, service.title)}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
@@ -338,7 +340,11 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
   );
 }
 
-export default function ServicesGrid() {
+interface ServicesGridProps {
+  selectedCity?: City;
+}
+
+export default function ServicesGrid({ selectedCity = 'saratov' }: ServicesGridProps) {
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
   return (
@@ -354,6 +360,7 @@ export default function ServicesGrid() {
                     index={index}
                     isSelected={selectedService === service.id}
                     onToggle={() => setSelectedService(selectedService === service.id ? null : service.id)}
+                    selectedCity={selectedCity}
                   />
                 </div>
               ))}
@@ -371,6 +378,7 @@ export default function ServicesGrid() {
               index={index}
               isSelected={selectedService === service.id}
               onToggle={() => setSelectedService(selectedService === service.id ? null : service.id)}
+              selectedCity={selectedCity}
             />
           ))}
         </div>

@@ -22,3 +22,15 @@ export const cityConfigs: Record<City, CityConfig> = {
 export const getCityConfig = (city: City): CityConfig => {
   return cityConfigs[city];
 };
+
+export const getTelegramLink = (city: City, service?: string): string => {
+  const config = getCityConfig(city);
+  const baseUrl = config.telegram;
+  
+  if (!service) {
+    return baseUrl;
+  }
+  
+  const message = encodeURIComponent(`Здравствуйте! Интересует ${service}`);
+  return `${baseUrl}?text=${message}`;
+};

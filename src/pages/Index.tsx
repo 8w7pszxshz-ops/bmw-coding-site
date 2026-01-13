@@ -46,7 +46,7 @@ export default function Index() {
       </div>
       <CalculatorHub />
       <div id="services">
-        <ServicesGrid />
+        <ServicesGrid selectedCity={selectedCity} />
       </div>
       <div id="tips">
         <ExpertTips />

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import { MobileOnly } from '@/components/ui/responsive';
 import { City } from '@/components/CitySelector';
+import { getTelegramLink } from '@/utils/cityConfig';
 import { getCityConfig } from '@/utils/cityConfig';
 
 const vibrate = (pattern: number | number[] = 10) => {
@@ -62,7 +63,7 @@ export default function StickyContactButton({ selectedCity }: StickyContactButto
             </a>
             
             <a 
-              href={cityConfig.telegram}
+              href={getTelegramLink(selectedCity, 'консультация')}
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleLinkClick}
