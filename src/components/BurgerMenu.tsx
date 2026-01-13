@@ -4,14 +4,13 @@ import { MobileOnly } from '@/components/ui/responsive';
 import CitySelector, { City } from '@/components/CitySelector';
 
 const menuItems = [
-  { id: 'services', label: 'Услуги', icon: 'Wrench' },
-  { id: 'chiptuning', label: 'Чип-тюнинг', icon: 'Zap' },
-  { id: 'tips', label: 'Рекомендации', icon: 'Lightbulb' },
-  { id: 'offers', label: 'Акции', icon: 'Tag' },
-  { id: 'reviews', label: 'Отзывы', icon: 'Star' },
-  { id: 'packages', label: 'Пакеты', icon: 'Package' },
-  { id: 'api', label: 'API Интеграция', icon: 'Code' },
-  { id: 'contact', label: 'Контакты', icon: 'MapPin' },
+  { id: 'services', label: 'Услуги', icon: 'Wrench', type: 'scroll' },
+  { id: 'chiptuning', label: 'Чип-тюнинг', icon: 'Zap', type: 'scroll' },
+  { id: 'tips', label: 'Рекомендации', icon: 'Lightbulb', type: 'scroll' },
+  { id: 'offers', label: 'Акции', icon: 'Tag', type: 'scroll' },
+  { id: 'reviews', label: 'Отзывы', icon: 'Star', type: 'scroll' },
+  { id: 'chatgpt', label: 'AI Консультант', icon: 'Bot', type: 'link' },
+  { id: 'contact', label: 'Контакты', icon: 'MapPin', type: 'scroll' },
 ];
 
 const vibrate = (pattern: number | number[] = 10) => {
@@ -33,19 +32,24 @@ export default function BurgerMenu({ selectedCity, onCityChange }: BurgerMenuPro
     setIsOpen(!isOpen);
   };
 
-  const scrollToSection = (id: string) => {
+  const handleMenuClick = (item: typeof menuItems[0]) => {
     vibrate(10);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - offset;
+    setIsOpen(false);
+    
+    if (item.type === 'link') {
+      window.location.href = `/${item.id}`;
+    } else {
+      const element = document.getElementById(item.id);
+      if (element) {
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setIsOpen(false);
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
     }
   };
 
@@ -78,7 +82,7 @@ export default function BurgerMenu({ selectedCity, onCityChange }: BurgerMenuPro
               {menuItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => handleMenuClick(item)}
                   className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-xl transition-all active:scale-95 min-h-[44px]"
                 >
                   <Icon name={item.icon} className="w-5 h-5 text-blue-400" />
