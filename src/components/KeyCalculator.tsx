@@ -29,7 +29,7 @@ export default function KeyCalculator() {
       return keyType === 'copy' ? 25000 : 40000;
     }
     if (series === 'U') {
-      return 25000;
+      return 50000;
     }
     return 0;
   };
