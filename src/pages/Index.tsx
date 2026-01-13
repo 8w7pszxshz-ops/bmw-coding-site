@@ -7,7 +7,6 @@ import ServicesGrid from '@/components/ServicesGrid';
 import ExpertTips from '@/components/ExpertTips';
 import Reviews from '@/components/Reviews';
 import QuickActions from '@/components/QuickActions';
-import ApiIntegration from '@/components/ApiIntegration';
 import StickyContactButton from '@/components/StickyContactButton';
 import BurgerMenu from '@/components/BurgerMenu';
 import { City } from '@/components/CitySelector';
@@ -53,9 +52,6 @@ export default function Index() {
       </div>
       <div id="reviews">
         <Reviews />
-      </div>
-      <div id="api">
-        <ApiIntegration />
       </div>
       <div id="contact">
         <QuickActions selectedCity={selectedCity} />
