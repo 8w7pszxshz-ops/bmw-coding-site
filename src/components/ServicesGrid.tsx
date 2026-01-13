@@ -7,7 +7,7 @@ import ScrollIndicator from '@/components/ScrollIndicator';
 const services = [
   {
     id: 'carplay',
-    title: 'Apple CarPlay',
+    title: 'Установка сертификата для активации Apple CarPlay',
     description: 'Установка и интеграция системы',
     icon: 'Smartphone',
     price: 'от 15 000 ₽',
