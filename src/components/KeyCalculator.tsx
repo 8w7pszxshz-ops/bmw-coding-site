@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import { getTelegramLink } from '@/utils/cityConfig';
+import { City } from '@/components/CitySelector';
 
 type SeriesType = 'F' | 'G' | 'U';
 type KeyType = 'copy' | 'dealer';
@@ -16,7 +18,11 @@ const fSeriesKeys: FSeriesKey[] = [
   { position: 3, price: 22000 },
 ];
 
-export default function KeyCalculator() {
+interface KeyCalculatorProps {
+  selectedCity: City;
+}
+
+export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
   const [series, setSeries] = useState<SeriesType>('G');
   const [keyType, setKeyType] = useState<KeyType>('copy');
   const [selectedFKey, setSelectedFKey] = useState<number>(0);
@@ -329,7 +335,7 @@ export default function KeyCalculator() {
               </div>
             </div>
             <a
-              href="https://t.me/Bocha_reborn"
+              href={getTelegramLink(selectedCity, `изготовление ключа BMW`)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"

@@ -4,8 +4,14 @@ import { Adaptive } from '@/components/ui/responsive';
 import SeriesSelector from './coding/SeriesSelector';
 import OptionsList from './coding/OptionsList';
 import { options, calculatePrice } from './coding/codingData';
+import { getTelegramLink } from '@/utils/cityConfig';
+import { City } from '@/components/CitySelector';
 
-const CodingPackagesMobile = memo(function CodingPackagesMobile() {
+interface CodingPackagesProps {
+  selectedCity: City;
+}
+
+const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }: CodingPackagesProps) {
   const [selectedSeries, setSelectedSeries] = useState<'F' | 'G' | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
@@ -38,8 +44,9 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile() {
     }
     message += `Итого: ${pricing.total.toLocaleString('ru-RU')} ₽`;
     
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://t.me/Bocha_reborn?text=${encodedMessage}`, '_blank');
+    const url = getTelegramLink(selectedCity, `кодирование BMW ${selectedSeries}-series`);
+    const separator = url.includes('?') ? '&' : '?';
+    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleSeriesChange = (series: 'F' | 'G') => {
@@ -79,7 +86,7 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile() {
   );
 });
 
-const CodingPackagesDesktop = memo(function CodingPackagesDesktop() {
+const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity }: CodingPackagesProps) {
   const [selectedSeries, setSelectedSeries] = useState<'F' | 'G' | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
@@ -112,8 +119,9 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop() {
     }
     message += `Итого: ${pricing.total.toLocaleString('ru-RU')} ₽`;
     
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://t.me/Bocha_reborn?text=${encodedMessage}`, '_blank');
+    const url = getTelegramLink(selectedCity, `кодирование BMW ${selectedSeries}-series`);
+    const separator = url.includes('?') ? '&' : '?';
+    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleSeriesChange = (series: 'F' | 'G') => {
@@ -155,11 +163,11 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop() {
   );
 });
 
-export default memo(function CodingPackages() {
+export default memo(function CodingPackages({ selectedCity }: CodingPackagesProps) {
   return (
     <Adaptive
-      mobile={<CodingPackagesMobile />}
-      desktop={<CodingPackagesDesktop />}
+      mobile={<CodingPackagesMobile selectedCity={selectedCity} />}
+      desktop={<CodingPackagesDesktop selectedCity={selectedCity} />}
     />
   );
 });

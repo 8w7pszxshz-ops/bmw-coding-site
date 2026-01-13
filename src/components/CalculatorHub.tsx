@@ -1,5 +1,6 @@
 import { useState, lazy, Suspense } from 'react';
 import Icon from '@/components/ui/icon';
+import { City } from '@/components/CitySelector';
 
 const KeyCalculator = lazy(() => import('./KeyCalculator'));
 const CodingPackages = lazy(() => import('./CodingPackages'));
@@ -15,7 +16,11 @@ function LoadingSpinner() {
   );
 }
 
-export default function CalculatorHub() {
+interface CalculatorHubProps {
+  selectedCity: City;
+}
+
+export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
 
   const calculators = [
@@ -53,7 +58,7 @@ export default function CalculatorHub() {
           <span>Вернуться к выбору</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
-          <KeyCalculator />
+          <KeyCalculator selectedCity={selectedCity} />
         </Suspense>
       </div>
     );
@@ -70,7 +75,7 @@ export default function CalculatorHub() {
           <span>Вернуться к выбору</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
-          <CodingPackages />
+          <CodingPackages selectedCity={selectedCity} />
         </Suspense>
       </div>
     );
@@ -87,7 +92,7 @@ export default function CalculatorHub() {
           <span>Вернуться к выбору</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
-          <ChipTuning />
+          <ChipTuning selectedCity={selectedCity} />
         </Suspense>
       </div>
     );

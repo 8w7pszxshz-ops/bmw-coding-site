@@ -1,15 +1,18 @@
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 import { EngineVariant, getGainPercentage } from './chipTuningData';
+import { getTelegramLink } from '@/utils/cityConfig';
+import { City } from '@/components/CitySelector';
 
 interface EngineVariantCardProps {
   variant: EngineVariant;
   engineType: 'petrol' | 'diesel';
   color: string;
   index: number;
+  selectedCity: City;
 }
 
-function EngineVariantCardMobile({ variant, engineType, color, index }: EngineVariantCardProps) {
+function EngineVariantCardMobile({ variant, engineType, color, index, selectedCity }: EngineVariantCardProps) {
   const powerGain = getGainPercentage(variant.powerBefore, variant.powerAfter);
   const torqueGain = getGainPercentage(variant.torqueBefore, variant.torqueAfter);
 
@@ -145,7 +148,7 @@ function EngineVariantCardMobile({ variant, engineType, color, index }: EngineVa
           </div>
         </div>
         <a
-          href="https://t.me/Bocha_reborn"
+          href={getTelegramLink(selectedCity, `чип-тюнинг ${variant.name}`)}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-white text-xs transition-all duration-300"
@@ -162,7 +165,7 @@ function EngineVariantCardMobile({ variant, engineType, color, index }: EngineVa
   );
 }
 
-function EngineVariantCardDesktop({ variant, engineType, color, index }: EngineVariantCardProps) {
+function EngineVariantCardDesktop({ variant, engineType, color, index, selectedCity }: EngineVariantCardProps) {
   const powerGain = getGainPercentage(variant.powerBefore, variant.powerAfter);
   const torqueGain = getGainPercentage(variant.torqueBefore, variant.torqueAfter);
 
@@ -298,7 +301,7 @@ function EngineVariantCardDesktop({ variant, engineType, color, index }: EngineV
           </div>
         </div>
         <a
-          href="https://t.me/Bocha_reborn"
+          href={getTelegramLink(selectedCity, `чип-тюнинг ${variant.name}`)}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"

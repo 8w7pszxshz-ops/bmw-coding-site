@@ -6,8 +6,13 @@ import ChipTuningFilters from './chiptuning/ChipTuningFilters';
 import EngineGroupCard from './chiptuning/EngineGroupCard';
 import EngineVariantCard from './chiptuning/EngineVariantCard';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import { City } from '@/components/CitySelector';
 
-const ChipTuningMobile = memo(function ChipTuningMobile() {
+interface ChipTuningProps {
+  selectedCity: City;
+}
+
+const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTuningProps) {
   const [selectedGroup, setSelectedGroup] = useState<EngineGroup | null>(null);
   const [generationFilter, setGenerationFilter] = useState<'all' | 'F' | 'G'>('all');
   const [typeFilter, setTypeFilter] = useState<'all' | 'petrol' | 'diesel'>('all');
@@ -84,6 +89,7 @@ const ChipTuningMobile = memo(function ChipTuningMobile() {
                 engineType={selectedGroup.type}
                 color={getTypeColor(selectedGroup.type)}
                 index={idx}
+                selectedCity={selectedCity}
               />
             ))}
           </div>
@@ -109,7 +115,7 @@ const ChipTuningMobile = memo(function ChipTuningMobile() {
   );
 });
 
-const ChipTuningDesktop = memo(function ChipTuningDesktop() {
+const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: ChipTuningProps) {
   const [selectedGroup, setSelectedGroup] = useState<EngineGroup | null>(null);
   const [generationFilter, setGenerationFilter] = useState<'all' | 'F' | 'G'>('all');
   const [typeFilter, setTypeFilter] = useState<'all' | 'petrol' | 'diesel'>('all');
@@ -185,6 +191,7 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop() {
                 engineType={selectedGroup.type}
                 color={getTypeColor(selectedGroup.type)}
                 index={idx}
+                selectedCity={selectedCity}
               />
             ))}
           </div>
@@ -211,11 +218,11 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop() {
   );
 });
 
-const ChipTuning = memo(function ChipTuning() {
+const ChipTuning = memo(function ChipTuning({ selectedCity }: ChipTuningProps) {
   return (
     <Adaptive
-      mobile={<ChipTuningMobile />}
-      desktop={<ChipTuningDesktop />}
+      mobile={<ChipTuningMobile selectedCity={selectedCity} />}
+      desktop={<ChipTuningDesktop selectedCity={selectedCity} />}
     />
   );
 });

@@ -3,6 +3,8 @@ import Icon from '@/components/ui/icon';
 import CarVisualization from './services/CarVisualization';
 import ServicePreviewModal from './services/ServicePreviewModal';
 import { categoryIcons, serviceVisuals } from './services/ServiceVisualData';
+import { getTelegramLink } from '@/utils/cityConfig';
+import { City } from '@/components/CitySelector';
 
 const vibrate = (pattern: number | number[] = 10) => {
   if ('vibrate' in navigator) {
@@ -31,9 +33,10 @@ interface Category {
 
 interface CalculatorProps {
   vinData: any;
+  selectedCity: City;
 }
 
-export default function ServicesCalculator({ vinData }: CalculatorProps) {
+export default function ServicesCalculator({ vinData, selectedCity }: CalculatorProps) {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Record<string, Category>>({});
   const [selectedServices, setSelectedServices] = useState<Set<string>>(new Set());
@@ -374,8 +377,9 @@ export default function ServicesCalculator({ vinData }: CalculatorProps) {
                 
                 const message = `🚗 *Заказ с VIN Decoder*\n\n*VIN:* ${vinData.vin}\n*Авто:* ${vinData.vehicle.manufacturer} ${vinData.vehicle.series} (${vinData.vehicle.year})\n\n*Выбранные услуги:*\n${services}\n\n*Итого:* ${finalPrice.toLocaleString()} ₽${discount > 0 ? ` (скидка ${discount}%)` : ''}\n*Время работы:* ~${Math.round(totalDuration / 60)} ч`;
                 
-                const encodedMessage = encodeURIComponent(message);
-                window.open(`https://t.me/bochaservice?text=${encodedMessage}`, '_blank');
+                const url = getTelegramLink(selectedCity, 'услуги по VIN');
+                const separator = url.includes('?') ? '&' : '?';
+                window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
               }}
               className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-xl font-semibold transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
             >

@@ -44,7 +44,7 @@ export default function Index() {
       <div id="offers">
         <SpecialOffer selectedCity={selectedCity} />
       </div>
-      <CalculatorHub />
+      <CalculatorHub selectedCity={selectedCity} />
       <div id="services">
         <ServicesGrid selectedCity={selectedCity} />
       </div>
