@@ -20,34 +20,19 @@ export interface ModelData {
 }
 
 export const bmwModels: ModelData[] = [
-  // 1 Series F2x
+  // 1 Series E8x
   {
     name: '1 Series',
-    series: 'F2x',
+    series: 'E8x',
     generation: 'F',
     engines: [
       {
-        code: 'N13',
-        type: 'petrol',
-        displacement: '1.6',
-        modifications: [
-          { name: '116i', powerBefore: 136, powerAfter: 180, torqueBefore: 220, torqueAfter: 280, price: 25000 }
-        ]
-      },
-      {
-        code: 'N13/B16',
-        type: 'petrol',
-        displacement: '1.6',
-        modifications: [
-          { name: '118i', powerBefore: 170, powerAfter: 220, torqueBefore: 250, torqueAfter: 320, price: 28000 }
-        ]
-      },
-      {
-        code: 'N55',
+        code: 'N54',
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M135i', powerBefore: 320, powerAfter: 400, torqueBefore: 450, torqueAfter: 580, price: 40000 }
+          { name: '135i N54', powerBefore: 306, powerAfter: 370, torqueBefore: 400, torqueAfter: 500, price: 30000 },
+          { name: '1M 3.0i Biturbo', powerBefore: 340, powerAfter: 375, torqueBefore: 500, torqueAfter: 560, price: 30000 }
         ]
       },
       {
@@ -55,7 +40,80 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '120d', powerBefore: 184, powerAfter: 230, torqueBefore: 380, torqueAfter: 460, price: 30000 }
+          { name: '116d', powerBefore: 115, powerAfter: 180, torqueBefore: 260, torqueAfter: 400, price: 25000 },
+          { name: '118d (136 hp)', powerBefore: 136, powerAfter: 180, torqueBefore: 300, torqueAfter: 400, price: 25000 },
+          { name: '118d (143 hp)', powerBefore: 143, powerAfter: 180, torqueBefore: 300, torqueAfter: 400, price: 25000 },
+          { name: '120d (163 hp)', powerBefore: 163, powerAfter: 210, torqueBefore: 350, torqueAfter: 420, price: 27000 },
+          { name: '120d (177 hp)', powerBefore: 177, powerAfter: 210, torqueBefore: 350, torqueAfter: 420, price: 27000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '123d', powerBefore: 204, powerAfter: 245, torqueBefore: 400, torqueAfter: 450, price: 28000 }
+        ]
+      }
+    ]
+  },
+  // 1 Series F2x
+  {
+    name: '1 Series',
+    series: 'F2x',
+    generation: 'F',
+    engines: [
+      {
+        code: 'B38',
+        type: 'petrol',
+        displacement: '1.5',
+        modifications: [
+          { name: '114i', powerBefore: 102, powerAfter: 225, torqueBefore: 180, torqueAfter: 330, price: 25000 },
+          { name: '116i', powerBefore: 136, powerAfter: 225, torqueBefore: 220, torqueAfter: 330, price: 25000 }
+        ]
+      },
+      {
+        code: 'N13/B16',
+        type: 'petrol',
+        displacement: '1.6',
+        modifications: [
+          { name: '118i', powerBefore: 170, powerAfter: 225, torqueBefore: 250, torqueAfter: 330, price: 26000 }
+        ]
+      },
+      {
+        code: 'N20',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '125i', powerBefore: 218, powerAfter: 260, torqueBefore: 310, torqueAfter: 440, price: 28000 }
+        ]
+      },
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M135i', powerBefore: 320, powerAfter: 365, torqueBefore: 450, torqueAfter: 520, price: 35000 }
+        ]
+      },
+      {
+        code: 'B37',
+        type: 'diesel',
+        displacement: '1.5',
+        modifications: [
+          { name: '114d', powerBefore: 95, powerAfter: 150, torqueBefore: 235, torqueAfter: 320, price: 24000 }
+        ]
+      },
+      {
+        code: 'N47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '116d N47D20', powerBefore: 116, powerAfter: 190, torqueBefore: 260, torqueAfter: 400, price: 25000 },
+          { name: '118d (136 hp)', powerBefore: 136, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 26000 },
+          { name: '118d (143 hp)', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 26000 },
+          { name: '120d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 28000 },
+          { name: '120d (184 hp)', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 28000 }
         ]
       },
       {
@@ -63,7 +121,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '125d', powerBefore: 218, powerAfter: 260, torqueBefore: 450, torqueAfter: 540, price: 32000 }
+          { name: '125d (211 hp)', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 },
+          { name: '125d (218 hp)', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 }
         ]
       }
     ]
@@ -79,8 +138,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '1.5',
         modifications: [
-          { name: '116i', powerBefore: 109, powerAfter: 150, torqueBefore: 180, torqueAfter: 240, price: 24000 },
-          { name: '118i', powerBefore: 136, powerAfter: 180, torqueBefore: 220, torqueAfter: 280, price: 26000 }
+          { name: '116i', powerBefore: 109, powerAfter: 170, torqueBefore: 180, torqueAfter: 280, price: 24000 },
+          { name: '118i', powerBefore: 136, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 26000 }
         ]
       },
       {
@@ -88,7 +147,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '120i', powerBefore: 184, powerAfter: 240, torqueBefore: 270, torqueAfter: 360, price: 28000 }
+          { name: '120i', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 28000 }
         ]
       },
       {
@@ -96,7 +155,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M135i', powerBefore: 326, powerAfter: 400, torqueBefore: 450, torqueAfter: 580, price: 40000 }
+          { name: 'M135i', powerBefore: 326, powerAfter: 380, torqueBefore: 450, torqueAfter: 520, price: 35000 }
         ]
       },
       {
@@ -104,7 +163,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'M140i', powerBefore: 340, powerAfter: 420, torqueBefore: 500, torqueAfter: 620, price: 42000 }
+          { name: 'M140i', powerBefore: 340, powerAfter: 400, torqueBefore: 500, torqueAfter: 580, price: 37000 }
         ]
       },
       {
@@ -112,8 +171,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '1.5',
         modifications: [
-          { name: '114d', powerBefore: 95, powerAfter: 135, torqueBefore: 220, torqueAfter: 290, price: 22000 },
-          { name: '116d', powerBefore: 116, powerAfter: 160, torqueBefore: 270, torqueAfter: 340, price: 24000 }
+          { name: '114d', powerBefore: 95, powerAfter: 150, torqueBefore: 220, torqueAfter: 330, price: 24000 },
+          { name: '116d', powerBefore: 116, powerAfter: 150, torqueBefore: 270, torqueAfter: 330, price: 25000 }
         ]
       },
       {
@@ -121,11 +180,11 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '118d', powerBefore: 150, powerAfter: 200, torqueBefore: 320, torqueAfter: 410, price: 28000 },
-          { name: '120d (163 hp)', powerBefore: 163, powerAfter: 210, torqueBefore: 380, torqueAfter: 460, price: 30000 },
-          { name: '120d (190 hp)', powerBefore: 190, powerAfter: 240, torqueBefore: 400, torqueAfter: 490, price: 30000 },
-          { name: '125d (211 hp)', powerBefore: 211, powerAfter: 260, torqueBefore: 450, torqueAfter: 540, price: 32000 },
-          { name: '125d (224 hp)', powerBefore: 224, powerAfter: 270, torqueBefore: 450, torqueAfter: 550, price: 32000 }
+          { name: '118d', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 26000 },
+          { name: '120d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 28000 },
+          { name: '120d (190 hp)', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 440, price: 28000 },
+          { name: '125d (211 hp)', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 },
+          { name: '125d (224 hp)', powerBefore: 224, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 }
         ]
       }
     ]
