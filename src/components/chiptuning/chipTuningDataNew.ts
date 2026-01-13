@@ -1348,6 +1348,448 @@ export const bmwModels: ModelData[] = [
         ]
       }
     ]
+  },
+  // 6 Series F12/F13
+  {
+    name: '6 Series',
+    series: 'F1x',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '640i', powerBefore: 320, powerAfter: 380, torqueBefore: 450, torqueAfter: 540, price: 40000 }
+        ]
+      },
+      {
+        code: 'N63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: '650i', powerBefore: 450, powerAfter: 550, torqueBefore: 650, torqueAfter: 800, price: 55000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '640d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // 6 Series G32 Gran Turismo
+  {
+    name: '6 Series GT',
+    series: 'G32',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '630i', powerBefore: 258, powerAfter: 330, torqueBefore: 400, torqueAfter: 520, price: 35000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '640i', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 600, price: 45000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '630d', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 40000 },
+          { name: '640d', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 820, price: 45000 }
+        ]
+      }
+    ]
+  },
+  // 7 Series F01/F02
+  {
+    name: '7 Series',
+    series: 'F0x',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '740i', powerBefore: 326, powerAfter: 380, torqueBefore: 450, torqueAfter: 540, price: 45000 }
+        ]
+      },
+      {
+        code: 'N63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: '750i', powerBefore: 450, powerAfter: 550, torqueBefore: 650, torqueAfter: 800, price: 60000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '730d (245 hp)', powerBefore: 245, powerAfter: 310, torqueBefore: 540, torqueAfter: 650, price: 40000 },
+          { name: '730d (258 hp)', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 40000 },
+          { name: '740d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 45000 },
+          { name: '750d', powerBefore: 381, powerAfter: 430, torqueBefore: 740, torqueAfter: 820, price: 55000 }
+        ]
+      }
+    ]
+  },
+  // 7 Series G11/G12
+  {
+    name: '7 Series',
+    series: 'G1x',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '730i', powerBefore: 258, powerAfter: 330, torqueBefore: 400, torqueAfter: 520, price: 40000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '740i', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 600, price: 45000 },
+          { name: 'M760i', powerBefore: 585, powerAfter: 700, torqueBefore: 850, torqueAfter: 1000, price: 80000 }
+        ]
+      },
+      {
+        code: 'N63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: '750i', powerBefore: 450, powerAfter: 550, torqueBefore: 650, torqueAfter: 800, price: 60000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '730d', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 40000 },
+          { name: '740d', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 820, price: 45000 },
+          { name: 'M750d', powerBefore: 400, powerAfter: 460, torqueBefore: 760, torqueAfter: 840, price: 55000 }
+        ]
+      }
+    ]
+  },
+  // 7 Series G70
+  {
+    name: '7 Series',
+    series: 'G70',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '740i', powerBefore: 380, powerAfter: 470, torqueBefore: 540, torqueAfter: 660, price: 50000 },
+          { name: 'M760i', powerBefore: 544, powerAfter: 650, torqueBefore: 750, torqueAfter: 880, price: 80000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '740d', powerBefore: 300, powerAfter: 380, torqueBefore: 670, torqueAfter: 820, price: 45000 }
+        ]
+      }
+    ]
+  },
+  // 8 Series G14/G15
+  {
+    name: '8 Series',
+    series: 'G1x',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '840i', powerBefore: 340, powerAfter: 420, torqueBefore: 500, torqueAfter: 620, price: 50000 }
+        ]
+      },
+      {
+        code: 'N63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: '850i', powerBefore: 530, powerAfter: 650, torqueBefore: 750, torqueAfter: 900, price: 65000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '840d', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 820, price: 45000 }
+        ]
+      }
+    ]
+  },
+  // M2 F87
+  {
+    name: 'M2',
+    series: 'F87',
+    generation: 'F',
+    engines: [
+      {
+        code: 'N55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M2', powerBefore: 370, powerAfter: 430, torqueBefore: 465, torqueAfter: 560, price: 50000 }
+        ]
+      },
+      {
+        code: 'S55',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M2 Competition', powerBefore: 410, powerAfter: 520, torqueBefore: 550, torqueAfter: 680, price: 60000 }
+        ]
+      }
+    ]
+  },
+  // M2 G87
+  {
+    name: 'M2',
+    series: 'G87',
+    generation: 'G',
+    engines: [
+      {
+        code: 'S58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M2', powerBefore: 460, powerAfter: 580, torqueBefore: 550, torqueAfter: 750, price: 65000 }
+        ]
+      }
+    ]
+  },
+  // M3 G80
+  {
+    name: 'M3',
+    series: 'G80',
+    generation: 'G',
+    engines: [
+      {
+        code: 'S58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M3 (480 hp)', powerBefore: 480, powerAfter: 600, torqueBefore: 550, torqueAfter: 780, price: 70000 },
+          { name: 'M3 Competition', powerBefore: 510, powerAfter: 630, torqueBefore: 650, torqueAfter: 850, price: 75000 }
+        ]
+      }
+    ]
+  },
+  // M4 G82
+  {
+    name: 'M4',
+    series: 'G82',
+    generation: 'G',
+    engines: [
+      {
+        code: 'S58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M4 (480 hp)', powerBefore: 480, powerAfter: 600, torqueBefore: 550, torqueAfter: 780, price: 70000 },
+          { name: 'M4 Competition', powerBefore: 510, powerAfter: 630, torqueBefore: 650, torqueAfter: 850, price: 75000 }
+        ]
+      }
+    ]
+  },
+  // M5 F10
+  {
+    name: 'M5',
+    series: 'F10',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'M5 (560 hp)', powerBefore: 560, powerAfter: 680, torqueBefore: 680, torqueAfter: 850, price: 75000 },
+          { name: 'M5 Competition', powerBefore: 575, powerAfter: 700, torqueBefore: 750, torqueAfter: 900, price: 80000 }
+        ]
+      }
+    ]
+  },
+  // M5 F90
+  {
+    name: 'M5',
+    series: 'F90',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'M5', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 80000 },
+          { name: 'M5 Competition', powerBefore: 625, powerAfter: 780, torqueBefore: 750, torqueAfter: 970, price: 85000 }
+        ]
+      }
+    ]
+  },
+  // M8 G15
+  {
+    name: 'M8',
+    series: 'G15',
+    generation: 'G',
+    engines: [
+      {
+        code: 'S63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'M8', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 85000 },
+          { name: 'M8 Competition', powerBefore: 625, powerAfter: 780, torqueBefore: 750, torqueAfter: 970, price: 90000 }
+        ]
+      }
+    ]
+  },
+  // X3M F97
+  {
+    name: 'X3M',
+    series: 'F97',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'X3M', powerBefore: 480, powerAfter: 600, torqueBefore: 600, torqueAfter: 780, price: 70000 },
+          { name: 'X3M Competition', powerBefore: 510, powerAfter: 630, torqueBefore: 600, torqueAfter: 850, price: 75000 }
+        ]
+      }
+    ]
+  },
+  // X4M F98
+  {
+    name: 'X4M',
+    series: 'F98',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'X4M', powerBefore: 480, powerAfter: 600, torqueBefore: 600, torqueAfter: 780, price: 70000 },
+          { name: 'X4M Competition', powerBefore: 510, powerAfter: 630, torqueBefore: 600, torqueAfter: 850, price: 75000 }
+        ]
+      }
+    ]
+  },
+  // X5M F85
+  {
+    name: 'X5M',
+    series: 'F85',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'X5M', powerBefore: 575, powerAfter: 700, torqueBefore: 750, torqueAfter: 900, price: 80000 }
+        ]
+      }
+    ]
+  },
+  // X5M F95
+  {
+    name: 'X5M',
+    series: 'F95',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'X5M', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 85000 },
+          { name: 'X5M Competition', powerBefore: 625, powerAfter: 780, torqueBefore: 750, torqueAfter: 970, price: 90000 }
+        ]
+      }
+    ]
+  },
+  // X6M F86
+  {
+    name: 'X6M',
+    series: 'F86',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'X6M', powerBefore: 575, powerAfter: 700, torqueBefore: 750, torqueAfter: 900, price: 80000 }
+        ]
+      }
+    ]
+  },
+  // X6M F96
+  {
+    name: 'X6M',
+    series: 'F96',
+    generation: 'F',
+    engines: [
+      {
+        code: 'S63',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'X6M', powerBefore: 600, powerAfter: 750, torqueBefore: 750, torqueAfter: 950, price: 85000 },
+          { name: 'X6M Competition', powerBefore: 625, powerAfter: 780, torqueBefore: 750, torqueAfter: 970, price: 90000 }
+        ]
+      }
+    ]
+  },
+  // XM G09
+  {
+    name: 'XM',
+    series: 'G09',
+    generation: 'G',
+    engines: [
+      {
+        code: 'S68',
+        type: 'petrol',
+        displacement: '4.4',
+        modifications: [
+          { name: 'XM', powerBefore: 653, powerAfter: 780, torqueBefore: 800, torqueAfter: 1000, price: 95000 },
+          { name: 'XM Label Red', powerBefore: 748, powerAfter: 850, torqueBefore: 1000, torqueAfter: 1150, price: 110000 }
+        ]
+      }
+    ]
   }
 ];
 
