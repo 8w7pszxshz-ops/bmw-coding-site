@@ -13,29 +13,51 @@ interface ModificationCardProps {
 export default function ModificationCard({ mod, engineType, getPriceForCity, variant = 'mobile' }: ModificationCardProps) {
   const [selectedOptions, setSelectedOptions] = useState<{
     egs: boolean;
+    euro2: boolean;
     egr: boolean;
-    scr: boolean;
+    adblue: boolean;
     dpf: boolean;
     flaps: boolean;
   }>({
     egs: false,
+    euro2: false,
     egr: false,
-    scr: false,
+    adblue: false,
     dpf: false,
     flaps: false
   });
 
   const totalPrice = useMemo(() => {
     let price = getPriceForCity(mod.price);
-    if (selectedOptions.egs && mod.egsPrice) price += getPriceForCity(mod.egsPrice);
-    if (selectedOptions.egr && mod.egrPrice) price += getPriceForCity(mod.egrPrice);
-    if (selectedOptions.scr && mod.scrPrice) price += getPriceForCity(mod.scrPrice);
-    if (selectedOptions.dpf && mod.dpfPrice) price += getPriceForCity(mod.dpfPrice);
-    if (selectedOptions.flaps && mod.flapsPrice) price += getPriceForCity(mod.flapsPrice);
+    
+    if (selectedOptions.egs && mod.egsPrice) {
+      price += getPriceForCity(5000);
+    }
+    
+    if (selectedOptions.euro2 && mod.euro2Price) {
+      price += getPriceForCity(5000);
+    }
+    
+    if (selectedOptions.egr && mod.egrPrice) {
+      price += getPriceForCity(5000);
+    }
+    
+    if (selectedOptions.adblue && mod.adbluePrice) {
+      price += getPriceForCity(20000);
+    }
+    
+    if (selectedOptions.dpf && mod.dpfPrice) {
+      price += getPriceForCity(5000);
+    }
+    
+    if (selectedOptions.flaps && mod.flapsPrice) {
+      price += getPriceForCity(5000);
+    }
+    
     return price;
   }, [selectedOptions, mod, getPriceForCity]);
 
-  const hasOptions = mod.egsPrice || mod.egrPrice || mod.scrPrice || mod.dpfPrice || mod.flapsPrice;
+  const hasOptions = mod.egsPrice || mod.euro2Price || mod.egrPrice || mod.adbluePrice || mod.dpfPrice || mod.flapsPrice;
 
   const isMobile = variant === 'mobile';
 
@@ -100,7 +122,23 @@ export default function ModificationCard({ mod, engineType, getPriceForCity, var
                   <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Тюнинг АКПП</span>
                 </div>
                 <span className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm font-medium'}`}>
-                  +{getPriceForCity(mod.egsPrice).toLocaleString()} ₽
+                  +5 000 ₽
+                </span>
+              </label>
+            )}
+            {mod.euro2Price && (
+              <label className={`flex items-center justify-between cursor-pointer ${isMobile ? '' : 'hover:bg-white/5 p-2 rounded transition-colors'}`}>
+                <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
+                  <input
+                    type="checkbox"
+                    checked={selectedOptions.euro2}
+                    onChange={(e) => setSelectedOptions(prev => ({ ...prev, euro2: e.target.checked }))}
+                    className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0`}
+                  />
+                  <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Отключение Euro 2</span>
+                </div>
+                <span className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm font-medium'}`}>
+                  +5 000 ₽
                 </span>
               </label>
             )}
@@ -116,23 +154,23 @@ export default function ModificationCard({ mod, engineType, getPriceForCity, var
                   <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Удаление EGR</span>
                 </div>
                 <span className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm font-medium'}`}>
-                  +{getPriceForCity(mod.egrPrice).toLocaleString()} ₽
+                  +5 000 ₽
                 </span>
               </label>
             )}
-            {mod.scrPrice && (
+            {mod.adbluePrice && (
               <label className={`flex items-center justify-between cursor-pointer ${isMobile ? '' : 'hover:bg-white/5 p-2 rounded transition-colors'}`}>
                 <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
                   <input
                     type="checkbox"
-                    checked={selectedOptions.scr}
-                    onChange={(e) => setSelectedOptions(prev => ({ ...prev, scr: e.target.checked }))}
+                    checked={selectedOptions.adblue}
+                    onChange={(e) => setSelectedOptions(prev => ({ ...prev, adblue: e.target.checked }))}
                     className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} rounded border-white/20 bg-white/5 text-[#FF0040] focus:ring-[#FF0040] focus:ring-offset-0`}
                   />
-                  <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Удаление SCR</span>
+                  <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Удаление Adblue</span>
                 </div>
                 <span className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm font-medium'}`}>
-                  +{getPriceForCity(mod.scrPrice).toLocaleString()} ₽
+                  +20 000 ₽
                 </span>
               </label>
             )}
@@ -148,7 +186,7 @@ export default function ModificationCard({ mod, engineType, getPriceForCity, var
                   <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Удаление DPF</span>
                 </div>
                 <span className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm font-medium'}`}>
-                  +{getPriceForCity(mod.dpfPrice).toLocaleString()} ₽
+                  +5 000 ₽
                 </span>
               </label>
             )}
@@ -164,7 +202,7 @@ export default function ModificationCard({ mod, engineType, getPriceForCity, var
                   <span className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Удаление заслонок</span>
                 </div>
                 <span className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm font-medium'}`}>
-                  +{getPriceForCity(mod.flapsPrice).toLocaleString()} ₽
+                  +5 000 ₽
                 </span>
               </label>
             )}
