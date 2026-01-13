@@ -13,9 +13,9 @@ export const cityConfigs: Record<City, CityConfig> = {
     displayPhone: '+7 (987) 357-33-38'
   },
   moscow: {
-    phone: '+79999999999',
+    phone: '+79297775525',
     telegram: 'https://t.me/Bocha_reborn_msk',
-    displayPhone: '+7 (999) 999-99-99'
+    displayPhone: '+7 (929) 777-55-25'
   }
 };
 
