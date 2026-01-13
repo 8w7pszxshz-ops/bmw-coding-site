@@ -76,7 +76,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
       }}
     >
       <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 opacity-30 group-hover:opacity-100 transition-opacity duration-500"
         style={{
           background: `radial-gradient(circle at center, ${service.color}40, transparent 70%)`,
           boxShadow: `inset 0 0 60px ${service.color}30`
@@ -190,7 +190,7 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
       }}
     >
       <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        className="absolute inset-0 opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
           background: `radial-gradient(circle at center, ${service.color}40, transparent 70%)`,
           boxShadow: `inset 0 0 60px ${service.color}30`
