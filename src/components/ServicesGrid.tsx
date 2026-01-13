@@ -109,11 +109,12 @@ function ServiceCardMobile({ service, index, isSelected, onToggle }: any) {
           className="overflow-hidden transition-all duration-500"
           style={{
             maxHeight: isSelected ? '500px' : '0',
-            opacity: isSelected ? 1 : 0
+            opacity: isSelected ? 1 : 0,
+            marginBottom: isSelected ? '12px' : '0'
           }}
         >
           <div 
-            className="mb-3 p-3 rounded-lg space-y-2"
+            className="p-3 rounded-lg space-y-2"
             style={{
               background: `linear-gradient(135deg, ${service.color}10, ${service.color}05)`,
               border: `1px solid ${service.color}20`
@@ -234,11 +235,12 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle }: any) {
           className="overflow-hidden transition-all duration-500"
           style={{
             maxHeight: isSelected ? '500px' : '0',
-            opacity: isSelected ? 1 : 0
+            opacity: isSelected ? 1 : 0,
+            marginBottom: isSelected ? '16px' : '0'
           }}
         >
           <div 
-            className="mb-4 p-4 rounded-xl space-y-3"
+            className="p-4 rounded-xl space-y-3"
             style={{
               background: `linear-gradient(135deg, ${service.color}10, ${service.color}05)`,
               border: `1px solid ${service.color}20`
