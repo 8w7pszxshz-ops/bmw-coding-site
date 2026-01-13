@@ -20,7 +20,7 @@ export interface ModelData {
 }
 
 export const bmwModels: ModelData[] = [
-  // 1 Series E8x
+  // 1 Series E8x (2004-2013)
   {
     name: '1 Series',
     series: 'E8x',
@@ -57,7 +57,7 @@ export const bmwModels: ModelData[] = [
       }
     ]
   },
-  // 1 Series F2x
+  // 1 Series F2x (2011-2015)
   {
     name: '1 Series',
     series: 'F2x',
@@ -127,7 +127,7 @@ export const bmwModels: ModelData[] = [
       }
     ]
   },
-  // 1 Series F2x LCI
+  // 1 Series F2x LCI (2015-2019)
   {
     name: '1 Series',
     series: 'F2x LCI',
@@ -185,6 +185,47 @@ export const bmwModels: ModelData[] = [
           { name: '120d (190 hp)', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 },
           { name: '125d (211 hp)', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 },
           { name: '125d (224 hp)', powerBefore: 224, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 30000 }
+        ]
+      }
+    ]
+  },
+  // 1 Series F4x
+  {
+    name: '1 Series',
+    series: 'F4x',
+    generation: 'F',
+    engines: [
+      {
+        code: 'B38',
+        type: 'petrol',
+        displacement: '1.5',
+        modifications: [
+          { name: '118i', powerBefore: 136, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 30000 }
+        ]
+      },
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: 'M135i', powerBefore: 306, powerAfter: 335, torqueBefore: 450, torqueAfter: 500, price: 40000 }
+        ]
+      },
+      {
+        code: 'B37',
+        type: 'diesel',
+        displacement: '1.5',
+        modifications: [
+          { name: '116d', powerBefore: 116, powerAfter: 150, torqueBefore: 270, torqueAfter: 330, price: 30000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '118d', powerBefore: 150, powerAfter: 190, torqueBefore: 350, torqueAfter: 400, price: 30000 },
+          { name: '120d', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 }
         ]
       }
     ]
@@ -261,6 +302,71 @@ export const bmwModels: ModelData[] = [
       }
     ]
   },
+  // 2 Series Gran Coupe F44
+  {
+    name: '2 Series GC',
+    series: 'F44',
+    generation: 'F',
+    engines: [
+      {
+        code: 'B38',
+        type: 'petrol',
+        displacement: '1.5',
+        modifications: [
+          { name: '218i', powerBefore: 140, powerAfter: 170, torqueBefore: 220, torqueAfter: 280, price: 30000 }
+        ]
+      },
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: 'M235i', powerBefore: 306, powerAfter: 335, torqueBefore: 450, torqueAfter: 500, price: 40000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '220d', powerBefore: 190, powerAfter: 240, torqueBefore: 400, torqueAfter: 480, price: 30000 }
+        ]
+      }
+    ]
+  },
+  // 2 Series G42
+  {
+    name: '2 Series',
+    series: 'G42',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '220i', powerBefore: 184, powerAfter: 280, torqueBefore: 300, torqueAfter: 420, price: 30000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M240i', powerBefore: 374, powerAfter: 420, torqueBefore: 500, torqueAfter: 650, price: 45000 },
+          { name: 'M240i M Special', powerBefore: 387, powerAfter: 450, torqueBefore: 500, torqueAfter: 650, price: 45000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '220d', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      }
+    ]
+  },
   // 3 Series F3x
   {
     name: '3 Series',
@@ -312,7 +418,19 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '320d', powerBefore: 184, powerAfter: 230, torqueBefore: 380, torqueAfter: 470, price: 30000 }
+          { name: '316d', powerBefore: 116, powerAfter: 190, torqueBefore: 260, torqueAfter: 400, price: 28000 },
+          { name: '318d (136 hp)', powerBefore: 136, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000 },
+          { name: '318d (143 hp)', powerBefore: 143, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000 },
+          { name: '320d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 },
+          { name: '320d (184 hp)', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 }
+        ]
+      },
+      {
+        code: 'N47D20',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '325d', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 32000 }
         ]
       },
       {
@@ -320,7 +438,8 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '330d', powerBefore: 258, powerAfter: 320, torqueBefore: 560, torqueAfter: 680, price: 35000 }
+          { name: '330d', powerBefore: 258, powerAfter: 320, torqueBefore: 560, torqueAfter: 680, price: 35000 },
+          { name: '335d', powerBefore: 313, powerAfter: 360, torqueBefore: 630, torqueAfter: 700, price: 40000 }
         ]
       }
     ]
@@ -345,7 +464,7 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '320i', powerBefore: 184, powerAfter: 250, torqueBefore: 270, torqueAfter: 360, price: 30000 },
+          { name: '320i', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000 },
           { name: '330i', powerBefore: 249, powerAfter: 320, torqueBefore: 350, torqueAfter: 460, price: 35000 }
         ]
       },
@@ -362,7 +481,25 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
+          { name: '318d', powerBefore: 150, powerAfter: 190, torqueBefore: 320, torqueAfter: 400, price: 28000 },
           { name: '320d', powerBefore: 190, powerAfter: 240, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'N47D20',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '325d (211 hp)', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 32000 },
+          { name: '325d (218 hp)', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 32000 }
+        ]
+      },
+      {
+        code: 'N57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '335d', powerBefore: 313, powerAfter: 360, torqueBefore: 630, torqueAfter: 700, price: 40000 }
         ]
       }
     ]
@@ -434,6 +571,14 @@ export const bmwModels: ModelData[] = [
         ]
       },
       {
+        code: 'N20B20',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '528i', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 450, price: 35000 }
+        ]
+      },
+      {
         code: 'N55',
         type: 'petrol',
         displacement: '3.0',
@@ -446,7 +591,22 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: '520d', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 }
+          { name: '518d (136 hp)', powerBefore: 136, powerAfter: 220, torqueBefore: 360, torqueAfter: 440, price: 28000 },
+          { name: '518d (143 hp)', powerBefore: 143, powerAfter: 220, torqueBefore: 360, torqueAfter: 440, price: 28000 },
+          { name: '518d (150 hp)', powerBefore: 150, powerAfter: 220, torqueBefore: 360, torqueAfter: 440, price: 28000 },
+          { name: '520d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 },
+          { name: '520d (184 hp)', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 },
+          { name: '520d (190 hp)', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'N47D20',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '525d (204 hp)', powerBefore: 204, powerAfter: 300, torqueBefore: 450, torqueAfter: 620, price: 32000 },
+          { name: '525d (211 hp)', powerBefore: 211, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 32000 },
+          { name: '525d (218 hp)', powerBefore: 218, powerAfter: 270, torqueBefore: 450, torqueAfter: 500, price: 32000 }
         ]
       },
       {
@@ -454,7 +614,56 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: '530d', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 }
+          { name: '530d (245 hp)', powerBefore: 245, powerAfter: 310, torqueBefore: 540, torqueAfter: 650, price: 35000 },
+          { name: '530d (258 hp)', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
+          { name: '535d', powerBefore: 306, powerAfter: 360, torqueBefore: 600, torqueAfter: 700, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // 5 Series G30
+  {
+    name: '5 Series',
+    series: 'G30',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '520i', powerBefore: 184, powerAfter: 280, torqueBefore: 290, torqueAfter: 440, price: 30000 },
+          { name: '530i (249 hp)', powerBefore: 249, powerAfter: 280, torqueBefore: 350, torqueAfter: 440, price: 35000 },
+          { name: '530i (252 hp)', powerBefore: 252, powerAfter: 290, torqueBefore: 350, torqueAfter: 460, price: 35000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: '540i', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 600, price: 40000 },
+          { name: 'M550i', powerBefore: 530, powerAfter: 680, torqueBefore: 750, torqueAfter: 910, price: 60000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '520d', powerBefore: 190, powerAfter: 240, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '530d (249 hp)', powerBefore: 249, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 35000 },
+          { name: '530d (265 hp)', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 35000 },
+          { name: '530d (286 hp)', powerBefore: 286, powerAfter: 360, torqueBefore: 650, torqueAfter: 800, price: 35000 },
+          { name: '540d', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 820, price: 40000 },
+          { name: 'M550d', powerBefore: 400, powerAfter: 460, torqueBefore: 760, torqueAfter: 840, price: 50000 }
         ]
       }
     ]
@@ -474,6 +683,14 @@ export const bmwModels: ModelData[] = [
         ]
       },
       {
+        code: 'N20B20',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: 'X3 28i', powerBefore: 245, powerAfter: 310, torqueBefore: 350, torqueAfter: 450, price: 35000 }
+        ]
+      },
+      {
         code: 'N55',
         type: 'petrol',
         displacement: '3.0',
@@ -486,7 +703,12 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '2.0',
         modifications: [
-          { name: 'X3 20d', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 }
+          { name: 'X3 18d (136 hp)', powerBefore: 136, powerAfter: 220, torqueBefore: 320, torqueAfter: 440, price: 28000 },
+          { name: 'X3 18d (143 hp)', powerBefore: 143, powerAfter: 220, torqueBefore: 320, torqueAfter: 440, price: 28000 },
+          { name: 'X3 18d (150 hp)', powerBefore: 150, powerAfter: 220, torqueBefore: 320, torqueAfter: 440, price: 28000 },
+          { name: 'X3 20d (163 hp)', powerBefore: 163, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 },
+          { name: 'X3 20d (184 hp)', powerBefore: 184, powerAfter: 220, torqueBefore: 380, torqueAfter: 440, price: 30000 },
+          { name: 'X3 20d (190 hp)', powerBefore: 190, powerAfter: 230, torqueBefore: 400, torqueAfter: 490, price: 30000 }
         ]
       },
       {
@@ -494,7 +716,57 @@ export const bmwModels: ModelData[] = [
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'X3 35d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 35000 }
+          { name: 'X3 30d (211 hp)', powerBefore: 211, powerAfter: 300, torqueBefore: 500, torqueAfter: 620, price: 35000 },
+          { name: 'X3 30d (245 hp)', powerBefore: 245, powerAfter: 300, torqueBefore: 540, torqueAfter: 620, price: 35000 },
+          { name: 'X3 30d (249 hp)', powerBefore: 249, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
+          { name: 'X3 30d (258 hp)', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
+          { name: 'X3 35d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 40000 }
+        ]
+      }
+    ]
+  },
+  // X3 G01
+  {
+    name: 'X3',
+    series: 'G01',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '20i', powerBefore: 184, powerAfter: 270, torqueBefore: 270, torqueAfter: 420, price: 30000 },
+          { name: '30i', powerBefore: 249, powerAfter: 270, torqueBefore: 350, torqueAfter: 420, price: 35000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M40i (360 hp)', powerBefore: 360, powerAfter: 450, torqueBefore: 500, torqueAfter: 650, price: 45000 },
+          { name: 'M40i (387 hp)', powerBefore: 387, powerAfter: 450, torqueBefore: 500, torqueAfter: 650, price: 45000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '20d', powerBefore: 190, powerAfter: 240, torqueBefore: 400, torqueAfter: 490, price: 30000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '30d (249 hp)', powerBefore: 249, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 35000 },
+          { name: '30d (265 hp)', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 35000 },
+          { name: '30d (286 hp)', powerBefore: 286, powerAfter: 360, torqueBefore: 650, torqueAfter: 800, price: 35000 },
+          { name: 'M40d (326 hp)', powerBefore: 326, powerAfter: 400, torqueBefore: 680, torqueAfter: 820, price: 40000 },
+          { name: 'M40d (340 hp)', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 820, price: 40000 }
         ]
       }
     ]
@@ -514,12 +786,70 @@ export const bmwModels: ModelData[] = [
         ]
       },
       {
+        code: 'N47D20',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '25d (218 hp)', powerBefore: 218, powerAfter: 310, torqueBefore: 500, torqueAfter: 650, price: 32000 },
+          { name: '25d (231 hp)', powerBefore: 231, powerAfter: 270, torqueBefore: 500, torqueAfter: 550, price: 32000 }
+        ]
+      },
+      {
         code: 'N57',
         type: 'diesel',
         displacement: '3.0',
         modifications: [
-          { name: 'X5 30d', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
-          { name: 'X5 40d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 35000 }
+          { name: 'X5 30d (249 hp)', powerBefore: 249, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
+          { name: 'X5 30d (258 hp)', powerBefore: 258, powerAfter: 310, torqueBefore: 560, torqueAfter: 650, price: 35000 },
+          { name: 'X5 40d', powerBefore: 313, powerAfter: 375, torqueBefore: 630, torqueAfter: 730, price: 40000 },
+          { name: 'X5 50d', powerBefore: 381, powerAfter: 420, torqueBefore: 740, torqueAfter: 800, price: 50000 }
+        ]
+      }
+    ]
+  },
+  // X5 G05
+  {
+    name: 'X5',
+    series: 'G05',
+    generation: 'G',
+    engines: [
+      {
+        code: 'B48',
+        type: 'petrol',
+        displacement: '2.0',
+        modifications: [
+          { name: '40i (340 hp)', powerBefore: 340, powerAfter: 450, torqueBefore: 450, torqueAfter: 650, price: 40000 },
+          { name: '40i (381 hp)', powerBefore: 381, powerAfter: 440, torqueBefore: 540, torqueAfter: 640, price: 45000 }
+        ]
+      },
+      {
+        code: 'B58',
+        type: 'petrol',
+        displacement: '3.0',
+        modifications: [
+          { name: 'M50i', powerBefore: 530, powerAfter: 680, torqueBefore: 750, torqueAfter: 900, price: 60000 },
+          { name: 'M60i', powerBefore: 530, powerAfter: 650, torqueBefore: 750, torqueAfter: 880, price: 65000 }
+        ]
+      },
+      {
+        code: 'B47',
+        type: 'diesel',
+        displacement: '2.0',
+        modifications: [
+          { name: '25d', powerBefore: 231, powerAfter: 275, torqueBefore: 500, torqueAfter: 580, price: 32000 }
+        ]
+      },
+      {
+        code: 'B57',
+        type: 'diesel',
+        displacement: '3.0',
+        modifications: [
+          { name: '30d (249 hp)', powerBefore: 249, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 35000 },
+          { name: '30d (265 hp)', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 35000 },
+          { name: '30d (286 hp)', powerBefore: 286, powerAfter: 360, torqueBefore: 650, torqueAfter: 800, price: 35000 },
+          { name: '30d (298 hp)', powerBefore: 298, powerAfter: 370, torqueBefore: 670, torqueAfter: 820, price: 38000 },
+          { name: '40d (340 hp)', powerBefore: 340, powerAfter: 420, torqueBefore: 700, torqueAfter: 840, price: 40000 },
+          { name: 'M50d', powerBefore: 400, powerAfter: 460, torqueBefore: 760, torqueAfter: 840, price: 50000 }
         ]
       }
     ]
@@ -535,7 +865,10 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: 'X7 40i', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 600, price: 45000 }
+          { name: 'X7 40i (340 hp)', powerBefore: 340, powerAfter: 450, torqueBefore: 450, torqueAfter: 650, price: 45000 },
+          { name: 'X7 40i (380 hp)', powerBefore: 380, powerAfter: 450, torqueBefore: 520, torqueAfter: 650, price: 45000 },
+          { name: 'M50i', powerBefore: 530, powerAfter: 680, torqueBefore: 750, torqueAfter: 900, price: 60000 },
+          { name: '60i', powerBefore: 530, powerAfter: 670, torqueBefore: 750, torqueAfter: 880, price: 65000 }
         ]
       },
       {
@@ -552,7 +885,8 @@ export const bmwModels: ModelData[] = [
         displacement: '3.0',
         modifications: [
           { name: 'X7 30d', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 770, price: 40000 },
-          { name: 'X7 40d', powerBefore: 340, powerAfter: 400, torqueBefore: 700, torqueAfter: 800, price: 45000 }
+          { name: 'X7 40d (340 hp)', powerBefore: 340, powerAfter: 440, torqueBefore: 700, torqueAfter: 840, price: 45000 },
+          { name: 'M50d', powerBefore: 400, powerAfter: 460, torqueBefore: 760, torqueAfter: 840, price: 50000 }
         ]
       }
     ]
