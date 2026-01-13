@@ -5,7 +5,7 @@ const KeyCalculator = lazy(() => import('./KeyCalculator'));
 const CodingPackages = lazy(() => import('./CodingPackages'));
 const ChipTuning = lazy(() => import('./ChipTuning'));
 
-type CalculatorType = 'key' | 'coding' | 'chiptuning' | null;
+type CalculatorType = 'strobes' | 'startstop' | 'carplay' | 'awd' | null;
 
 function LoadingSpinner() {
   return (
@@ -20,29 +20,36 @@ export default function CalculatorHub() {
 
   const calculators = [
     {
-      id: 'key' as CalculatorType,
-      icon: 'Key',
-      title: 'Изготовление ключей',
-      description: 'Рассчитайте стоимость ключа для вашего BMW',
+      id: 'carplay' as CalculatorType,
+      icon: 'Smartphone',
+      title: 'Apple CarPlay',
+      description: 'Установка и настройка CarPlay для вашего BMW',
       color: '#E7222E'
     },
     {
-      id: 'coding' as CalculatorType,
-      icon: 'Wrench',
-      title: 'Конфигуратор опций',
-      description: 'Соберите свой пакет кодировок',
+      id: 'startstop' as CalculatorType,
+      icon: 'Power',
+      title: 'Отключение старт-стоп авто 2023+',
+      description: 'Программное отключение системы Start-Stop',
       color: '#81C4FF'
     },
     {
-      id: 'chiptuning' as CalculatorType,
-      icon: 'Gauge',
-      title: 'Чип-тюнинг',
-      description: 'Подберите программу для вашего двигателя',
+      id: 'strobes' as CalculatorType,
+      icon: 'Zap',
+      title: 'Установка импульсных световых спецсигналов (стробоскопов)',
+      description: 'Профессиональная установка стробоскопов',
       color: '#FF0040'
+    },
+    {
+      id: 'awd' as CalculatorType,
+      icon: 'Settings',
+      title: 'Отключение переднего привода с кнопки',
+      description: 'Дооснащение системой управления полным приводом',
+      color: '#FFA500'
     }
   ];
 
-  if (activeCalculator === 'key') {
+  if (activeCalculator === 'carplay') {
     return (
       <div className="mb-16">
         <button
@@ -59,7 +66,7 @@ export default function CalculatorHub() {
     );
   }
 
-  if (activeCalculator === 'coding') {
+  if (activeCalculator === 'startstop') {
     return (
       <div className="mb-16">
         <button
@@ -76,7 +83,7 @@ export default function CalculatorHub() {
     );
   }
 
-  if (activeCalculator === 'chiptuning') {
+  if (activeCalculator === 'strobes') {
     return (
       <div className="mb-16">
         <button
@@ -93,6 +100,23 @@ export default function CalculatorHub() {
     );
   }
 
+  if (activeCalculator === 'awd') {
+    return (
+      <div className="mb-16">
+        <button
+          onClick={() => setActiveCalculator(null)}
+          className="mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors"
+        >
+          <Icon name="ChevronLeft" className="w-5 h-5" />
+          <span>Вернуться к выбору</span>
+        </button>
+        <Suspense fallback={<LoadingSpinner />}>
+          <CodingPackages />
+        </Suspense>
+      </div>
+    );
+  }
+
   return (
     <div id="calculator-hub" className="mb-16">
       <div className="text-center mb-8">
@@ -100,7 +124,7 @@ export default function CalculatorHub() {
         <p className="text-white/70">Выберите услугу для расчёта стоимости</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {calculators.map((calc) => (
           <button
             key={calc.id}
