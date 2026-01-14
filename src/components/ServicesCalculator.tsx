@@ -218,9 +218,9 @@ export default function ServicesCalculator({ vinData, selectedCity }: Calculator
                 <div className="flex items-center gap-3 mb-3">
                   <div className="relative group">
                     <Icon name={categoryIcons[catKey] || 'Box'} className="w-6 h-6 md:w-5 md:h-5 text-blue-400" />
-                    <div className="md:hidden absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-active:opacity-100 transition-opacity pointer-events-none z-10">
+                    <div className="md:hidden absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-1.5 bg-gradient-to-br from-blue-600 to-cyan-600 text-white text-xs font-medium rounded-lg whitespace-nowrap opacity-0 group-active:opacity-100 transition-opacity pointer-events-none z-10 border border-blue-400/30 shadow-[0_8px_24px_rgba(59,130,246,0.5)]">
                       {category.name}
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-cyan-600" />
                     </div>
                   </div>
                   <h4 className="text-white font-medium hidden md:block">{category.name}</h4>
