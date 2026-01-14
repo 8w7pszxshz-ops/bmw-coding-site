@@ -223,7 +223,7 @@ function SpecialOfferDesktop({ selectedCity }: SpecialOfferDesktopProps) {
           </div>
           
           <div 
-            className="lg:w-1/2 relative p-12 flex flex-col justify-center transition-all duration-500 overflow-y-auto"
+            className="lg:w-1/2 relative p-12 flex flex-col transition-all duration-500"
             style={{
               height: '500px',
               background: `
@@ -255,87 +255,89 @@ function SpecialOfferDesktop({ selectedCity }: SpecialOfferDesktopProps) {
               }}
             />
             
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-4">
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="flex items-center gap-3 mb-6 h-8">
                 <Icon name={offer.icon as any} className="w-6 h-6 text-[#E7222E]" />
                 <span className="text-[#E7222E] text-sm font-light tracking-widest uppercase">{offer.label}</span>
               </div>
               
-              <h2 className={offer.id === 4 ? "font-light text-white mb-2 leading-tight text-xl" : "font-light text-white mb-4 leading-tight text-2xl"}>
+              <h2 className="font-light text-white mb-6 leading-tight text-2xl h-[4rem] line-clamp-2">
                 {offer.title}
               </h2>
               
-              <p className={offer.id === 4 ? "text-white/80 text-base font-light mb-5 leading-relaxed max-w-xl" : "text-white/80 text-lg font-light mb-8 leading-relaxed max-w-xl"}>
+              <p className="text-white/80 text-base font-light mb-6 leading-relaxed h-[4.5rem] line-clamp-3">
                 {offer.description}
               </p>
               
-              {(offer.oldPrice || offer.newPrice) && (
-                <div className={offer.id === 4 ? "flex items-center gap-4 mb-5" : "flex items-center gap-8 mb-8"}>
-                  {(offer.oldPrice || offer.newPrice) && (
-                    <div>
-                      {offer.oldPrice && <span className={offer.id === 4 ? "text-white/40 text-xs line-through block mb-1" : "text-white/40 text-sm line-through block mb-2"}>{offer.oldPrice}</span>}
-                      {offer.newPrice && <span className={offer.id === 4 ? "font-light text-[#E7222E] text-xl" : "font-light text-[#E7222E] text-2xl"}>{offer.newPrice}</span>}
-                    </div>
-                  )}
-                  {offer.discount && (
-                    <div 
-                      className={offer.id === 4 ? "py-2 rounded-xl px-3" : "py-4 rounded-2xl px-[11px]"}
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
-                        border: '1px solid rgba(231, 34, 46, 0.5)',
-                        boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-                      }}
-                    >
-                      <span className={offer.id === 4 ? "text-white text-lg font-medium" : "text-white text-2xl font-medium"}>{offer.discount}</span>
-                    </div>
-                  )}
-                </div>
-              )}
-              
-              <div className={offer.id === 4 ? "flex items-center gap-4 text-xs flex-wrap mb-5" : "flex items-center gap-6 text-sm flex-wrap mb-8"}>
-                {offer.features.map((feature, idx) => (
-                  <div 
-                    key={idx} 
-                    className="flex items-center gap-2"
-                    style={feature.highlight ? {
-                      padding: '8px 16px',
-                      borderRadius: '12px',
-                      background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.2), rgba(231, 34, 46, 0.1))',
-                      border: '1px solid rgba(231, 34, 46, 0.4)',
-                      boxShadow: '0 4px 20px rgba(231, 34, 46, 0.3)'
-                    } : {}}
-                  >
-                    <Icon 
-                      name={feature.icon as any} 
-                      className="w-4 h-4"
-                      style={{ color: feature.highlight ? '#E7222E' : 'rgba(255, 255, 255, 0.6)' }}
-                    />
-                    <span style={{ 
-                      color: feature.highlight ? '#E7222E' : 'rgba(255, 255, 255, 0.6)',
-                      fontWeight: feature.highlight ? '500' : 'normal'
-                    }}>
-                      {feature.text}
-                    </span>
+              <div className="mt-auto">
+                {(offer.oldPrice || offer.newPrice) && (
+                  <div className="flex items-center gap-6 mb-6">
+                    {(offer.oldPrice || offer.newPrice) && (
+                      <div>
+                        {offer.oldPrice && <span className="text-white/40 text-sm line-through block mb-2">{offer.oldPrice}</span>}
+                        {offer.newPrice && <span className="font-light text-[#E7222E] text-2xl">{offer.newPrice}</span>}
+                      </div>
+                    )}
+                    {offer.discount && (
+                      <div 
+                        className="py-3 rounded-2xl px-4"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
+                          border: '1px solid rgba(231, 34, 46, 0.5)',
+                          boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                        }}
+                      >
+                        <span className="text-white text-xl font-medium">{offer.discount}</span>
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
+                )}
+                
+                <div className="flex items-center gap-5 text-sm flex-wrap mb-6">
+                  {offer.features.map((feature, idx) => (
+                    <div 
+                      key={idx} 
+                      className="flex items-center gap-2"
+                      style={feature.highlight ? {
+                        padding: '8px 16px',
+                        borderRadius: '12px',
+                        background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.2), rgba(231, 34, 46, 0.1))',
+                        border: '1px solid rgba(231, 34, 46, 0.4)',
+                        boxShadow: '0 4px 20px rgba(231, 34, 46, 0.3)'
+                      } : {}}
+                    >
+                      <Icon 
+                        name={feature.icon as any} 
+                        className="w-4 h-4"
+                        style={{ color: feature.highlight ? '#E7222E' : 'rgba(255, 255, 255, 0.6)' }}
+                      />
+                      <span style={{ 
+                        color: feature.highlight ? '#E7222E' : 'rgba(255, 255, 255, 0.6)',
+                        fontWeight: feature.highlight ? '500' : 'normal'
+                      }}>
+                        {feature.text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
 
-              {offer.hasButton && (
-                <a 
-                  href={getTelegramLink(selectedCity, (offer as any).buttonService)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
-                    border: '1px solid rgba(231, 34, 46, 0.5)',
-                    boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-                  }}
-                >
-                  <Icon name={offer.id === 4 ? "Calculator" : "Send"} className="w-5 h-5" />
-                  <span>{offer.buttonText}</span>
-                </a>
-              )}
+                {offer.hasButton && (
+                  <a 
+                    href={getTelegramLink(selectedCity, (offer as any).buttonService)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
+                      border: '1px solid rgba(231, 34, 46, 0.5)',
+                      boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                    }}
+                  >
+                    <Icon name={offer.id === 4 ? "Calculator" : "Send"} className="w-5 h-5" />
+                    <span>{offer.buttonText}</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
