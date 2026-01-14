@@ -125,40 +125,13 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           />
         </div>
         
-        <h3 className="text-base font-light text-white mb-1.5 tracking-tight leading-snug h-[3rem] line-clamp-2">
+        <h3 className="text-base font-light text-white mb-2 tracking-tight leading-snug h-[3rem] line-clamp-2">
           {service.title}
         </h3>
-        <p className="text-[11px] text-white/70 font-light h-[2rem] line-clamp-2">
-          {service.description}
-        </p>
         
-        {isSelected && (
-          <div className="mb-2">
-            <div 
-              className="p-2.5 rounded-lg space-y-1.5"
-              style={{
-                background: `linear-gradient(135deg, ${service.color}10, ${service.color}05)`,
-                border: `1px solid ${service.color}20`
-              }}
-            >
-              {Array.isArray(service.details) ? (
-                service.details.map((item, idx) => (
-                  <div key={idx} className="flex gap-1.5">
-                    <div className="flex-shrink-0 w-1 h-1 rounded-full mt-1.5" style={{ backgroundColor: service.color }} />
-                    <div className="flex-1">
-                      <div className="text-[11px] font-medium text-white/90 mb-0.5">{item.title}</div>
-                      <div className="text-[10px] text-white/60 font-light leading-relaxed">{item.desc}</div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-[11px] text-white/70 font-light leading-relaxed">
-                  {service.details}
-                </p>
-              )}
-            </div>
-          </div>
-        )}
+        <p className="text-[11px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {service.details}
+        </p>
         
         <div className="mt-auto">
           <div className="flex items-center justify-between mb-3">
@@ -270,40 +243,13 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
           />
         </div>
         
-        <h3 className="text-2xl font-light text-white mb-2 tracking-tight h-[4rem] line-clamp-2">
+        <h3 className="text-2xl font-light text-white mb-3 tracking-tight h-[4rem] line-clamp-2">
           {service.title}
         </h3>
-        <p className="text-sm text-white/40 font-light h-[3rem] line-clamp-2">
-          {service.description}
-        </p>
         
-        {isSelected && (
-          <div className="mb-4">
-            <div 
-              className="p-4 rounded-xl space-y-3"
-              style={{
-                background: `linear-gradient(135deg, ${service.color}10, ${service.color}05)`,
-                border: `1px solid ${service.color}20`
-              }}
-            >
-              {Array.isArray(service.details) ? (
-                service.details.map((item, idx) => (
-                  <div key={idx} className="flex gap-3">
-                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-2" style={{ backgroundColor: service.color }} />
-                    <div className="flex-1">
-                      <div className="text-sm font-medium text-white/90 mb-1">{item.title}</div>
-                      <div className="text-xs text-white/60 font-light leading-relaxed">{item.desc}</div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-sm text-white/70 font-light leading-relaxed">
-                  {service.details}
-                </p>
-              )}
-            </div>
-          </div>
-        )}
+        <p className="text-sm text-white/40 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {service.details}
+        </p>
         
         <div className="mt-auto">
           <div className="flex items-center justify-between mb-6">

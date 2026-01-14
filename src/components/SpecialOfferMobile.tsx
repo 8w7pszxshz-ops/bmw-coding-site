@@ -138,7 +138,7 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
                   {offer.title}
                 </h3>
                 
-                <p className="text-white/70 text-xs font-light mb-4 leading-relaxed h-[2.5rem] line-clamp-2">
+                <p className="text-white/70 text-xs font-light leading-relaxed h-[2.5rem] line-clamp-2" style={{ marginBottom: offer.id === 3 ? '6rem' : '1rem' }}>
                   {offer.description}
                 </p>
                 
