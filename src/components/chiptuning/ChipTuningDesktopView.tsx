@@ -87,7 +87,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                 backdropFilter: 'blur(10px)'
               }}
             >
-              <Icon name="Car" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
+              <Icon name="Waypoints" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
               <div className="text-white font-medium text-xl">{series}</div>
             </button>
           ))}
@@ -107,7 +107,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                 backdropFilter: 'blur(10px)'
               }}
             >
-              <Icon name="SquareGanttChart" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
+              <Icon name="Box" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
               <div className="text-white font-medium text-xl">{body.series}</div>
             </button>
           ))}

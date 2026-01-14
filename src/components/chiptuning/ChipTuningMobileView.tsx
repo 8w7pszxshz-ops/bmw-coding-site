@@ -90,7 +90,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
                     backdropFilter: 'blur(10px)'
                   }}
                 >
-                  <Icon name="Car" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
+                  <Icon name="Waypoints" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
                   <div className="text-white font-medium text-base">{series}</div>
                 </button>
               ))}
@@ -115,7 +115,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
                     backdropFilter: 'blur(10px)'
                   }}
                 >
-                  <Icon name="SquareGanttChart" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
+                  <Icon name="Box" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
                   <div className="text-white font-medium text-base">{body.series}</div>
                 </button>
               ))}

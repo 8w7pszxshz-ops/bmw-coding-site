@@ -57,7 +57,7 @@ export default function OptionsList({
           <button
             key={cat.id}
             onClick={() => onCategoryChange(cat.id)}
-            className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 whitespace-nowrap group overflow-hidden"
+            className="relative flex items-center gap-2 px-3 py-3 md:px-6 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 whitespace-nowrap group overflow-hidden"
             style={{
               background: activeCategory === cat.id
                 ? 'linear-gradient(135deg, #81C4FF, #16588E)'
@@ -78,8 +78,14 @@ export default function OptionsList({
                 boxShadow: '0 0 50px rgba(129, 196, 255, 0.5)'
               }}
             />
-            <Icon name={cat.icon as any} className="relative w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-            <span className="relative">{cat.name}</span>
+            <div className="relative group/tooltip">
+              <Icon name={cat.icon as any} className="w-6 h-6 md:w-5 md:h-5 transition-transform duration-300 group-hover:scale-110" />
+              <div className="md:hidden absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-1.5 bg-gradient-to-br from-blue-600 to-cyan-600 text-white text-xs font-medium rounded-lg whitespace-nowrap opacity-0 group-active/tooltip:opacity-100 transition-opacity pointer-events-none z-10 border border-blue-400/30 shadow-[0_8px_24px_rgba(59,130,246,0.5)]">
+                {cat.name}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-cyan-600" />
+              </div>
+            </div>
+            <span className="relative hidden md:inline">{cat.name}</span>
           </button>
         ))}
       </div>
