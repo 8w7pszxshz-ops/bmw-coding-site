@@ -35,7 +35,7 @@ const offers = [
     icon: 'AlertTriangle',
     label: 'Специальное предложение',
     title: 'Удаление ошибки экстренного вызова',
-    description: 'Программное удаление ошибки "Система экстренного вызова недоступна" вместо дорогостоящего ремонта блока.',
+    description: 'Программное удаление ошибки ошибки "Система экстренного вызова недоступна" вместо дорогостоящего ремонта блока.',
     oldPrice: '20 000 ₽',
     newPrice: '5 000 ₽',
     discount: '-75%',
@@ -265,7 +265,7 @@ function SpecialOfferDesktop({ selectedCity }: SpecialOfferDesktopProps) {
                 {offer.title}
               </h2>
               
-              <p className="text-white/80 text-base font-light mb-6 leading-relaxed h-[4.5rem] line-clamp-3">
+              <p className="text-white/80 text-base font-light leading-relaxed line-clamp-3" style={{ height: offer.id === 3 ? '6rem' : '4.5rem', marginBottom: offer.id === 3 ? '2rem' : '1.5rem' }}>
                 {offer.description}
               </p>
               

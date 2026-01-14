@@ -75,7 +75,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
         animationDelay: `${index * 50}ms`,
         minWidth: '260px',
         width: '260px',
-        height: isSelected ? 'auto' : '300px',
+        height: isSelected ? 'auto' : '260px',
         maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
         maskComposite: 'intersect',
         WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
@@ -128,7 +128,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
         <h3 className="text-base font-light text-white mb-1.5 tracking-tight leading-snug h-[3rem] line-clamp-2">
           {service.title}
         </h3>
-        <p className="text-[11px] text-white/70 font-light mb-3 h-[2rem] line-clamp-2">
+        <p className="text-[11px] text-white/70 font-light h-[2rem] line-clamp-2">
           {service.description}
         </p>
         
@@ -173,12 +173,16 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
                 e.stopPropagation();
                 onToggle();
               }}
-              className="transition-all duration-300"
+              className="p-1.5 rounded-lg transition-all duration-300 hover:bg-white/10"
+              style={{
+                background: isSelected ? `${service.color}20` : 'transparent'
+              }}
             >
               <Icon 
                 name="ChevronDown" 
-                className="w-3.5 h-3.5 text-white/30 transition-all duration-300"
+                className="w-4 h-4 transition-all duration-300"
                 style={{
+                  color: service.color,
                   transform: isSelected ? 'rotate(180deg)' : 'rotate(0deg)'
                 }}
               />
@@ -215,7 +219,7 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
         boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
         animationDelay: `${index * 50}ms`,
-        minHeight: isSelected ? 'auto' : '450px',
+        minHeight: isSelected ? 'auto' : '400px',
         maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
         maskComposite: 'intersect',
         WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
@@ -269,7 +273,7 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
         <h3 className="text-2xl font-light text-white mb-2 tracking-tight h-[4rem] line-clamp-2">
           {service.title}
         </h3>
-        <p className="text-sm text-white/40 font-light mb-4 h-[3rem] line-clamp-2">
+        <p className="text-sm text-white/40 font-light h-[3rem] line-clamp-2">
           {service.description}
         </p>
         
@@ -314,12 +318,16 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
                 e.stopPropagation();
                 onToggle();
               }}
-              className="transition-all duration-300"
+              className="p-2 rounded-lg transition-all duration-300 hover:bg-white/10"
+              style={{
+                background: isSelected ? `${service.color}20` : 'transparent'
+              }}
             >
               <Icon 
                 name="ChevronDown" 
-                className="w-5 h-5 text-white/30 transition-all duration-300 hover:text-white/60"
+                className="w-5 h-5 transition-all duration-300"
                 style={{
+                  color: service.color,
                   transform: isSelected ? 'rotate(180deg)' : 'rotate(0deg)'
                 }}
               />

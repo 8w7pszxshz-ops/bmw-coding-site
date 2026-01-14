@@ -26,8 +26,8 @@ const offers = [
   {
     id: 2,
     icon: 'AlertTriangle',
-    title: 'Удаление ошибки вызова',
-    description: 'Программное удаление без замены блока',
+    title: 'Удаление ошибки экстренного вызова',
+    description: 'Программное удаление ошибки без замены блока',
     oldPrice: '20 000 ₽',
     newPrice: '5 000 ₽',
     discount: '-75%',
@@ -129,7 +129,7 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
                 />
               </div>
               
-              <div className="p-5 flex flex-col" style={{ minHeight: '280px' }}>
+              <div className="p-5 flex flex-col" style={{ minHeight: offer.id === 3 ? '320px' : '280px' }}>
                 <div className="flex items-center gap-2 mb-3 h-6">
                   <Icon name={offer.icon as any} className="w-5 h-5 text-[#E7222E]" />
                 </div>
