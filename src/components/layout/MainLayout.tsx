@@ -24,6 +24,16 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
           `,
         }}
       >
+        <div 
+          className="absolute inset-0 opacity-0 animate-marble-flow pointer-events-none"
+          style={{
+            backgroundImage: 'url(https://cdn.poehali.dev/files/mram.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            mixBlendMode: 'soft-light',
+            filter: 'sepia(0.3) saturate(1.2) hue-rotate(15deg)',
+          }}
+        />
         <BackgroundEffects />
         <NavigationBar selectedCity={selectedCity} onCityChange={onCityChange} showCityPulse={showCityPulse} />
         
