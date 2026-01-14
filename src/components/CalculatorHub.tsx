@@ -83,7 +83,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
 
   if (activeCalculator === 'chiptuning') {
     return (
-      <div className="mb-12 md:mb-16">
+      <div id="chiptuning" className="mb-12 md:mb-16">
         <button
           onClick={() => setActiveCalculator(null)}
           className="mb-4 md:mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors px-4 md:px-0"
@@ -108,6 +108,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
         {calculators.map((calc) => (
           <button
             key={calc.id}
+            id={calc.id}
             onClick={() => setActiveCalculator(calc.id)}
             className="group relative rounded-2xl p-5 md:p-8 text-left transition-all duration-300 hover:scale-105"
             style={{
