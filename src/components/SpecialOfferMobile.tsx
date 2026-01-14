@@ -75,7 +75,7 @@ const offers = [
     ],
     hasButton: true,
     buttonText: 'Купить',
-    buttonLink: '#key-calculator'
+    buttonService: 'Новый ключ BMW'
   }
 ];
 
