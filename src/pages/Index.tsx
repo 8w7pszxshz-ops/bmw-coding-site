@@ -38,7 +38,7 @@ export default function Index() {
   return (
     <>
       <StickyContactButton selectedCity={selectedCity} />
-      <BurgerMenu selectedCity={selectedCity} onCityChange={handleCityChange} />
+      <BurgerMenu />
       <FloatingAIButton />
       <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
       <HeroSection />

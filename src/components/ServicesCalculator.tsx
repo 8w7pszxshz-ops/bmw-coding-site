@@ -216,8 +216,8 @@ export default function ServicesCalculator({ vinData, selectedCity }: Calculator
                   <rect width="100%" height="100%" fill={`url(#dots-${catKey})`} />
                 </svg>
                 <div className="flex items-center gap-3 mb-3">
-                  <Icon name={categoryIcons[catKey] || 'Box'} className="w-5 h-5 text-blue-400" />
-                  <h4 className="text-white font-medium">{category.name}</h4>
+                  <Icon name={categoryIcons[catKey] || 'Box'} className="w-6 h-6 md:w-5 md:h-5 text-blue-400" />
+                  <h4 className="text-white font-medium hidden md:block">{category.name}</h4>
                   <span className="text-gray-400 text-sm">({category.total_services})</span>
                 </div>
 
