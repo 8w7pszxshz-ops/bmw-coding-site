@@ -46,16 +46,16 @@ function ExpertTipsMobile() {
   }, [autoPlay]);
 
   return (
-    <div className="mb-12 px-4">
-      <div className="text-center mb-6">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <Icon name="Lightbulb" className="w-6 h-6 text-[#FFD700]" />
-          <h2 className="font-light text-white text-xl">Советы экспертов</h2>
+    <div className="mb-8 px-4">
+      <div className="text-center mb-4">
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <Icon name="Lightbulb" className="w-5 h-5 text-[#FFD700]" />
+          <h2 className="font-light text-white text-lg">Советы экспертов</h2>
         </div>
       </div>
 
       <div 
-        className="rounded-2xl p-5"
+        className="rounded-2xl p-4"
         style={{
           border: '1px solid rgba(255, 215, 0, 0.2)',
           boxShadow: '0 20px 50px -20px rgba(255, 215, 0, 0.3)',
@@ -63,63 +63,63 @@ function ExpertTipsMobile() {
         }}
       >
         <div 
-          className="h-0.5 -mx-5 -mt-5 mb-4"
+          className="h-0.5 -mx-4 -mt-4 mb-3"
           style={{
             background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
             boxShadow: '0 0 20px rgba(255, 215, 0, 0.4)'
           }}
         />
 
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-2 mb-3">
           <div 
-            className="p-2 rounded-lg"
+            className="p-1.5 rounded-lg"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1))',
               border: '1px solid rgba(255, 215, 0, 0.3)'
             }}
           >
-            <Icon name={tip.icon as any} className="w-5 h-5 text-[#FFD700]" />
+            <Icon name={tip.icon as any} className="w-4 h-4 text-[#FFD700]" />
           </div>
-          <h3 className="font-light text-white text-base">{tip.title}</h3>
+          <h3 className="font-light text-white text-sm leading-tight">{tip.title}</h3>
         </div>
 
-        <p className="text-white/80 text-sm font-light mb-4 leading-relaxed">
+        <p className="text-white/80 text-xs font-light mb-3 leading-relaxed">
           {tip.description}
         </p>
 
         {tip.tips && (
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {tip.tips.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-2">
-                <Icon name="Check" className="w-4 h-4 text-[#FFD700] mt-0.5 flex-shrink-0" />
-                <span className="text-white/70 text-xs">{item}</span>
+              <div key={idx} className="flex items-start gap-1.5">
+                <Icon name="Check" className="w-3 h-3 text-[#FFD700] mt-0.5 flex-shrink-0" />
+                <span className="text-white/70 text-[11px] leading-tight">{item}</span>
               </div>
             ))}
           </div>
         )}
 
         {tip.issues && (
-          <div className="space-y-3 mt-3">
+          <div className="space-y-2 mt-2">
             {tip.issues.map((issue, idx) => (
               <div 
                 key={idx}
-                className="p-3 rounded-lg"
+                className="p-2.5 rounded-lg"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01))',
                   border: '1px solid rgba(255, 215, 0, 0.2)'
                 }}
               >
-                <div className="flex items-center gap-2 mb-1.5">
+                <div className="flex items-center gap-1.5 mb-1">
                   <Icon name="AlertTriangle" className="w-3 h-3 text-[#FFD700]" />
-                  <h4 className="text-[#FFD700] font-medium text-xs">{issue.title}</h4>
+                  <h4 className="text-[#FFD700] font-medium text-[11px]">{issue.title}</h4>
                 </div>
-                <p className="text-white/70 text-xs leading-relaxed">{issue.text}</p>
+                <p className="text-white/70 text-[11px] leading-relaxed">{issue.text}</p>
               </div>
             ))}
           </div>
         )}
 
-        <div className="flex items-center justify-center gap-2 mt-5">
+        <div className="flex items-center justify-center gap-2 mt-4">
           {tips.map((_, idx) => (
             <button
               key={idx}
@@ -129,7 +129,7 @@ function ExpertTipsMobile() {
               }}
               className="transition-all duration-300"
               style={{
-                width: currentTip === idx ? '24px' : '6px',
+                width: currentTip === idx ? '20px' : '6px',
                 height: '6px',
                 borderRadius: '3px',
                 background: currentTip === idx 

@@ -49,13 +49,13 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
 
   if (activeCalculator === 'key') {
     return (
-      <div className="mb-16">
+      <div className="mb-12 md:mb-16">
         <button
           onClick={() => setActiveCalculator(null)}
-          className="mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors"
+          className="mb-4 md:mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors px-4 md:px-0"
         >
-          <Icon name="ChevronLeft" className="w-5 h-5" />
-          <span>Вернуться к выбору</span>
+          <Icon name="ChevronLeft" className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="text-sm md:text-base">Назад</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
           <KeyCalculator selectedCity={selectedCity} />
@@ -66,13 +66,13 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
 
   if (activeCalculator === 'coding') {
     return (
-      <div className="mb-16">
+      <div className="mb-12 md:mb-16">
         <button
           onClick={() => setActiveCalculator(null)}
-          className="mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors"
+          className="mb-4 md:mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors px-4 md:px-0"
         >
-          <Icon name="ChevronLeft" className="w-5 h-5" />
-          <span>Вернуться к выбору</span>
+          <Icon name="ChevronLeft" className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="text-sm md:text-base">Назад</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
           <CodingPackages selectedCity={selectedCity} />
@@ -83,13 +83,13 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
 
   if (activeCalculator === 'chiptuning') {
     return (
-      <div className="mb-16">
+      <div className="mb-12 md:mb-16">
         <button
           onClick={() => setActiveCalculator(null)}
-          className="mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors"
+          className="mb-4 md:mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors px-4 md:px-0"
         >
-          <Icon name="ChevronLeft" className="w-5 h-5" />
-          <span>Вернуться к выбору</span>
+          <Icon name="ChevronLeft" className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="text-sm md:text-base">Назад</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
           <ChipTuning selectedCity={selectedCity} />
@@ -99,17 +99,17 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   }
 
   return (
-    <div id="calculator-hub" className="mb-16">
-      <div className="text-center mb-8">
-        <p className="text-xl text-white/70">Выберите услугу для расчёта стоимости</p>
+    <div id="calculator-hub" className="mb-12 md:mb-16">
+      <div className="text-center mb-6 md:mb-8 px-4">
+        <p className="text-base md:text-xl text-white/70">Выберите услугу для расчёта стоимости</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 px-4 md:px-0">
         {calculators.map((calc) => (
           <button
             key={calc.id}
             onClick={() => setActiveCalculator(calc.id)}
-            className="group relative rounded-2xl p-8 text-left transition-all duration-300 hover:scale-105"
+            className="group relative rounded-2xl p-5 md:p-8 text-left transition-all duration-300 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',
               border: `1px solid ${calc.color}40`,
@@ -154,7 +154,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
             
             <div className="relative">
               <div 
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 relative overflow-hidden"
+                className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center mb-3 md:mb-4 relative overflow-hidden"
                 style={{
                   background: '#000000',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -181,15 +181,15 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
                     background: 'radial-gradient(circle at bottom right, rgba(255,255,255,0.2) 0%, transparent 70%)'
                   }}
                 />
-                <Icon name={calc.icon} className="w-7 h-7 relative z-10" style={{ color: calc.color, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }} />
+                <Icon name={calc.icon} className="w-6 h-6 md:w-7 md:h-7 relative z-10" style={{ color: calc.color, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }} />
               </div>
 
-              <h3 className="text-xl font-light text-white mb-2">{calc.title}</h3>
-              <p className="text-white/60 text-sm mb-4">{calc.description}</p>
+              <h3 className="text-base md:text-xl font-light text-white mb-1.5 md:mb-2">{calc.title}</h3>
+              <p className="text-white/60 text-xs md:text-sm mb-3 md:mb-4">{calc.description}</p>
 
               <div className="flex items-center gap-2 text-white/80 group-hover:gap-3 transition-all">
-                <span className="text-sm">Открыть</span>
-                <Icon name="ArrowRight" className="w-4 h-4" />
+                <span className="text-xs md:text-sm">Открыть</span>
+                <Icon name="ArrowRight" className="w-3 h-3 md:w-4 md:h-4" />
               </div>
             </div>
           </button>

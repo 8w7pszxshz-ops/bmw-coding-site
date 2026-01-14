@@ -60,15 +60,15 @@ export default function QuickActions({ selectedCity = 'saratov' }: QuickActionsP
           boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
         }}
       >
-        <CardContent className="p-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <CardContent className="p-6 md:p-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
             {quickActions.map((action) => {
               const Element = action.link ? 'a' : 'button';
               return (
               <Element
                 key={action.id}
                 {...(action.link ? { href: action.link, target: action.id === 'telegram' ? '_blank' : undefined, rel: action.id === 'telegram' ? 'noopener noreferrer' : undefined } : { onClick: () => handleActionClick(action.id) })}
-                className="group flex flex-col items-center gap-4 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_40px_rgba(231,34,46,0.4)] min-h-[120px] min-w-[120px]"
+                className="group flex flex-col items-center gap-2 md:gap-4 p-4 md:p-6 rounded-2xl transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_40px_rgba(231,34,46,0.4)] min-h-[100px] md:min-h-[120px]"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -77,7 +77,7 @@ export default function QuickActions({ selectedCity = 'saratov' }: QuickActionsP
                 }}
               >
                 <div 
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                  className="w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                   style={{
                     background: 'linear-gradient(135deg, rgba(100, 200, 255, 0.2), rgba(0, 150, 255, 0.1))',
                     boxShadow: '0 10px 30px -10px rgba(100, 200, 255, 0.3)'
@@ -85,10 +85,10 @@ export default function QuickActions({ selectedCity = 'saratov' }: QuickActionsP
                 >
                   <Icon 
                     name={action.icon as any}
-                    className="w-8 h-8 text-blue-400"
+                    className="w-6 h-6 md:w-8 md:h-8 text-blue-400"
                   />
                 </div>
-                <span className="text-base text-white/80 font-light">{action.label}</span>
+                <span className="text-xs md:text-base text-white/80 font-light text-center">{action.label}</span>
               </Element>
             )})}
           </div>

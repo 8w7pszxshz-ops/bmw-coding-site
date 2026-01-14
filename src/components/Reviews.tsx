@@ -74,9 +74,9 @@ const renderStars = (rating: number) => {
 
 function ReviewsMobile() {
   return (
-    <div className="mb-12">
-      <div className="flex items-center justify-between mb-6 px-4">
-        <h2 className="text-xl font-light text-white tracking-tight">Отзывы клиентов</h2>
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-4 px-4">
+        <h2 className="text-lg font-light text-white tracking-tight">Отзывы клиентов</h2>
         <a
           href="https://yandex.ru/maps/org/reborn_technologies/70103871083/reviews/"
           target="_blank"
@@ -88,7 +88,7 @@ function ReviewsMobile() {
       </div>
 
       <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory">
-        <div className="flex gap-4 px-4 pb-2">
+        <div className="flex gap-3 px-4 pb-2">
           {reviews.map((review) => (
             <div key={review.id} className="snap-center">
               <Card
@@ -97,18 +97,18 @@ function ReviewsMobile() {
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02))',
                   backdropFilter: 'blur(40px)',
                   boxShadow: '0 20px 50px -20px rgba(0, 0, 0, 0.5)',
-                  minWidth: '280px',
-                  width: '280px'
+                  minWidth: '260px',
+                  width: '260px'
                 }}
               >
-                <CardContent className="p-5">
-                  <div className="flex items-center justify-between mb-3">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
                     <div>
-                      <div className="text-white font-medium text-sm mb-1">{review.author}</div>
+                      <div className="text-white font-medium text-xs mb-1">{review.author}</div>
                       <div className="flex gap-0.5">{renderStars(review.rating)}</div>
                     </div>
                   </div>
-                  <p className="text-white/70 text-xs leading-relaxed line-clamp-5">
+                  <p className="text-white/70 text-[11px] leading-relaxed line-clamp-5">
                     {review.text}
                   </p>
                 </CardContent>

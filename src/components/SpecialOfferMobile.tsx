@@ -18,7 +18,10 @@ const offers = [
       { icon: 'Clock', text: '1 час' },
       { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Gift', text: 'CarPlay' }
-    ]
+    ],
+    hasButton: true,
+    buttonText: 'Оформить',
+    buttonService: 'Российские карты навигации'
   },
   {
     id: 2,
@@ -33,7 +36,10 @@ const offers = [
       { icon: 'Clock', text: '30 мин' },
       { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Check', text: 'Без ремонта' }
-    ]
+    ],
+    hasButton: true,
+    buttonText: 'Оформить',
+    buttonService: 'Удаление ошибки экстренного вызова'
   },
   {
     id: 3,
@@ -68,7 +74,7 @@ const offers = [
       { icon: 'Key', text: 'Копия' }
     ],
     hasButton: true,
-    buttonText: 'Калькулятор',
+    buttonText: 'Купить',
     buttonLink: '#key-calculator'
   }
 ];
