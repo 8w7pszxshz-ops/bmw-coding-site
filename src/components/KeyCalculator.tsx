@@ -45,7 +45,7 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
   return (
     <div id="key-calculator" className="mb-16">
       <div 
-        className="relative rounded-3xl p-12 overflow-hidden"
+        className="relative rounded-3xl p-6 md:p-12 overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',
           border: '1px solid rgba(231, 34, 46, 0.25)',
@@ -78,21 +78,21 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
           </defs>
           <rect width="100%" height="100%" fill="url(#key-calc-bg)" />
         </svg>
-        <div className="flex items-center gap-3 mb-6">
-          <Icon name="Calculator" className="w-7 h-7 text-[#E7222E]" />
-          <h2 className="text-3xl font-light text-white">Калькулятор стоимости ключа</h2>
+        <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+          <Icon name="Calculator" className="w-5 h-5 md:w-7 md:h-7 text-[#E7222E]" />
+          <h2 className="text-xl md:text-3xl font-light text-white">Калькулятор стоимости ключа</h2>
         </div>
 
-        <p className="text-white/70 text-lg mb-8 font-light">
+        <p className="text-white/70 text-sm md:text-lg mb-6 md:mb-8 font-light">
           Рассчитайте стоимость изготовления ключа для вашего BMW
         </p>
 
         {/* Выбор серии */}
-        <div className="mb-8">
-          <label className="block text-white/80 text-sm font-light mb-3 uppercase tracking-wider">
+        <div className="mb-6 md:mb-8">
+          <label className="block text-white/80 text-xs md:text-sm font-light mb-2 md:mb-3 uppercase tracking-wider">
             Серия автомобиля
           </label>
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4">
             {(['F', 'G', 'U'] as SeriesType[]).map((s) => (
               <button
                 key={s}
@@ -100,7 +100,7 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                   setSeries(s);
                   if (s === 'F') setSelectedFKey(0);
                 }}
-                className="relative flex-1 py-4 px-6 rounded-xl font-medium transition-all duration-300 overflow-hidden"
+                className="relative flex-1 py-3 px-3 md:py-4 md:px-6 rounded-xl font-medium transition-all duration-300 overflow-hidden"
                 style={{
                   background: series === s 
                     ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
@@ -133,7 +133,7 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                     />
                   </>
                 )}
-                <div className="relative text-2xl font-light">Серия {s}</div>
+                <div className="relative text-base md:text-2xl font-light">Серия {s}</div>
               </button>
             ))}
           </div>
@@ -141,16 +141,16 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
 
         {/* F серия - выбор позиции */}
         {series === 'F' && (
-          <div className="mb-8">
-            <label className="block text-white/80 text-sm font-light mb-3 uppercase tracking-wider">
+          <div className="mb-6 md:mb-8">
+            <label className="block text-white/80 text-xs md:text-sm font-light mb-2 md:mb-3 uppercase tracking-wider">
               Выберите позицию
             </label>
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
               {fSeriesKeys.map((key, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedFKey(idx)}
-                  className="py-3 px-4 rounded-lg font-medium transition-all duration-300"
+                  className="py-2 px-2 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300"
                   style={{
                     background: selectedFKey === idx
                       ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
@@ -182,8 +182,8 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                       />
                     </>
                   )}
-                  <div className="relative text-xs mb-1 opacity-70">Позиция {key.position}</div>
-                  <div className="text-sm font-medium">{key.price.toLocaleString()} ₽</div>
+                  <div className="relative text-[10px] md:text-xs mb-0.5 md:mb-1 opacity-70">Поз. {key.position}</div>
+                  <div className="text-xs md:text-sm font-medium">{key.price.toLocaleString()} ₽</div>
                 </button>
               ))}
             </div>
@@ -192,14 +192,14 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
 
         {/* G серия - тип ключа */}
         {series === 'G' && (
-          <div className="mb-8">
-            <label className="block text-white/80 text-sm font-light mb-3 uppercase tracking-wider">
+          <div className="mb-6 md:mb-8">
+            <label className="block text-white/80 text-xs md:text-sm font-light mb-2 md:mb-3 uppercase tracking-wider">
               Тип ключа
             </label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <button
                 onClick={() => setKeyType('copy')}
-                className="relative py-6 px-6 rounded-xl transition-all duration-300 overflow-hidden"
+                className="relative py-4 px-4 md:py-6 md:px-6 rounded-xl transition-all duration-300 overflow-hidden"
                 style={{
                   background: keyType === 'copy'
                     ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
@@ -231,20 +231,20 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                     </svg>
                   </>
                 )}
-                <div className="relative flex items-center justify-between mb-2">
-                  <span className="text-lg font-light" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                <div className="relative flex items-center justify-between mb-1 md:mb-2">
+                  <span className="text-sm md:text-lg font-light" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
                     Копия
                   </span>
-                  <Icon name="Key" className="w-5 h-5" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.4)' }} />
+                  <Icon name="Key" className="w-4 h-4 md:w-5 md:h-5" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.4)' }} />
                 </div>
-                <div className="text-2xl font-medium" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                <div className="text-lg md:text-2xl font-medium" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
                   25 000 ₽
                 </div>
               </button>
 
               <button
                 onClick={() => setKeyType('dealer')}
-                className="relative py-6 px-6 rounded-xl transition-all duration-300 overflow-hidden"
+                className="relative py-4 px-4 md:py-6 md:px-6 rounded-xl transition-all duration-300 overflow-hidden"
                 style={{
                   background: keyType === 'dealer'
                     ? 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))'
@@ -276,13 +276,13 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                     </svg>
                   </>
                 )}
-                <div className="relative flex items-center justify-between mb-2">
-                  <span className="text-lg font-light" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                <div className="relative flex items-center justify-between mb-1 md:mb-2">
+                  <span className="text-sm md:text-lg font-light" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
                     Дилерский
                   </span>
-                  <Icon name="Award" className="w-5 h-5" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.4)' }} />
+                  <Icon name="Award" className="w-4 h-4 md:w-5 md:h-5" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.4)' }} />
                 </div>
-                <div className="text-2xl font-medium" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                <div className="text-lg md:text-2xl font-medium" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
                   40 000 ₽
                 </div>
               </button>
@@ -292,7 +292,7 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
 
         {/* Итоговая стоимость */}
         <div 
-          className="relative rounded-2xl p-8 mt-8 overflow-hidden"
+          className="relative rounded-2xl p-4 md:p-8 mt-6 md:mt-8 overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.15), rgba(231, 34, 46, 0.05))',
             border: '1px solid rgba(231, 34, 46, 0.3)',
@@ -325,27 +325,29 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
             </defs>
             <rect width="100%" height="100%" fill="url(#final-grid)" />
           </svg>
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-white/60 text-sm font-light mb-1 uppercase tracking-wider">
-                Итоговая стоимость
-              </div>
-              <div className="text-white text-4xl font-light">
-                {price.toLocaleString()} ₽
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-white/60 text-xs md:text-sm font-light mb-1 uppercase tracking-wider">
+                  Итоговая стоимость
+                </div>
+                <div className="text-white text-2xl md:text-4xl font-light">
+                  {price.toLocaleString()} ₽
+                </div>
               </div>
             </div>
             <a
               href={getTelegramLink(selectedCity, `изготовление ключа BMW`)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-xl text-sm md:text-base font-medium text-white transition-all duration-300 hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
                 border: '1px solid rgba(231, 34, 46, 0.5)',
                 boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4)',
               }}
             >
-              <Icon name="Send" className="w-5 h-5" />
+              <Icon name="Send" className="w-4 h-4 md:w-5 md:h-5" />
               <span>Заказать</span>
             </a>
           </div>
