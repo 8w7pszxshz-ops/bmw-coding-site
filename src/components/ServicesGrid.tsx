@@ -75,6 +75,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
         animationDelay: `${index * 50}ms`,
         minWidth: '260px',
         width: '260px',
+        height: isSelected ? 'auto' : '300px',
         maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
         maskComposite: 'intersect',
         WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
@@ -115,8 +116,8 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
         <rect width="100%" height="100%" fill={`url(#pattern-${service.id})`} />
       </svg>
       
-      <CardContent className="p-4 relative z-10">
-        <div className="mb-3">
+      <CardContent className="p-4 relative z-10 flex flex-col h-full">
+        <div className="mb-3 h-7">
           <Icon 
             name={service.icon} 
             className="w-7 h-7 transition-all duration-300"
@@ -124,10 +125,10 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           />
         </div>
         
-        <h3 className="text-base font-light text-white mb-1.5 tracking-tight leading-snug">
+        <h3 className="text-base font-light text-white mb-1.5 tracking-tight leading-snug h-[3rem] line-clamp-2">
           {service.title}
         </h3>
-        <p className="text-[11px] text-white/70 font-light" style={{ marginBottom: isSelected ? '10px' : '16px' }}>
+        <p className="text-[11px] text-white/70 font-light mb-3 h-[2rem] line-clamp-2">
           {service.description}
         </p>
         
@@ -159,44 +160,46 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           </div>
         )}
         
-        <div className="flex items-center justify-between mb-3">
-          <span 
-            className="text-sm font-light tracking-wide"
-            style={{ color: service.color }}
-          >
-            {service.price}
-          </span>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggle();
-            }}
-            className="transition-all duration-300"
-          >
-            <Icon 
-              name="ChevronDown" 
-              className="w-3.5 h-3.5 text-white/30 transition-all duration-300"
-              style={{
-                transform: isSelected ? 'rotate(180deg)' : 'rotate(0deg)'
+        <div className="mt-auto">
+          <div className="flex items-center justify-between mb-3">
+            <span 
+              className="text-sm font-light tracking-wide"
+              style={{ color: service.color }}
+            >
+              {service.price}
+            </span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggle();
               }}
-            />
-          </button>
+              className="transition-all duration-300"
+            >
+              <Icon 
+                name="ChevronDown" 
+                className="w-3.5 h-3.5 text-white/30 transition-all duration-300"
+                style={{
+                  transform: isSelected ? 'rotate(180deg)' : 'rotate(0deg)'
+                }}
+              />
+            </button>
+          </div>
+          
+          <a
+            href={getTelegramLink(selectedCity, service.title)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg transition-all duration-300"
+            style={{
+              background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
+              border: `1px solid ${service.color}30`,
+              color: service.color
+            }}
+          >
+            <span className="text-xs font-light">Записаться</span>
+            <Icon name="ArrowRight" className="w-4 h-4" />
+          </a>
         </div>
-        
-        <a
-          href={getTelegramLink(selectedCity, service.title)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg transition-all duration-300"
-          style={{
-            background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
-            border: `1px solid ${service.color}30`,
-            color: service.color
-          }}
-        >
-          <span className="text-xs font-light">Записаться</span>
-          <Icon name="ArrowRight" className="w-4 h-4" />
-        </a>
       </CardContent>
     </Card>
   );
@@ -212,6 +215,7 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
         boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
         animationDelay: `${index * 50}ms`,
+        minHeight: isSelected ? 'auto' : '450px',
         maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
         maskComposite: 'intersect',
         WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
@@ -253,8 +257,8 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
         <rect width="100%" height="100%" fill={`url(#pattern-desktop-${service.id})`} />
       </svg>
       
-      <CardContent className="p-8 relative z-10">
-        <div className="mb-6">
+      <CardContent className="p-8 relative z-10 flex flex-col h-full">
+        <div className="mb-6 h-12">
           <Icon 
             name={service.icon} 
             className="w-12 h-12 transition-all duration-300 group-hover:scale-110"
@@ -262,10 +266,10 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
           />
         </div>
         
-        <h3 className="text-2xl font-light text-white mb-2 tracking-tight">
+        <h3 className="text-2xl font-light text-white mb-2 tracking-tight h-[4rem] line-clamp-2">
           {service.title}
         </h3>
-        <p className="text-sm text-white/40 font-light" style={{ marginBottom: isSelected ? '16px' : '24px' }}>
+        <p className="text-sm text-white/40 font-light mb-4 h-[3rem] line-clamp-2">
           {service.description}
         </p>
         
@@ -297,44 +301,46 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
           </div>
         )}
         
-        <div className="flex items-center justify-between mb-6">
-          <span 
-            className="text-lg font-light tracking-wide"
-            style={{ color: service.color }}
-          >
-            {service.price}
-          </span>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggle();
-            }}
-            className="transition-all duration-300"
-          >
-            <Icon 
-              name="ChevronDown" 
-              className="w-5 h-5 text-white/30 transition-all duration-300 hover:text-white/60"
-              style={{
-                transform: isSelected ? 'rotate(180deg)' : 'rotate(0deg)'
+        <div className="mt-auto">
+          <div className="flex items-center justify-between mb-6">
+            <span 
+              className="text-lg font-light tracking-wide"
+              style={{ color: service.color }}
+            >
+              {service.price}
+            </span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggle();
               }}
-            />
-          </button>
+              className="transition-all duration-300"
+            >
+              <Icon 
+                name="ChevronDown" 
+                className="w-5 h-5 text-white/30 transition-all duration-300 hover:text-white/60"
+                style={{
+                  transform: isSelected ? 'rotate(180deg)' : 'rotate(0deg)'
+                }}
+              />
+            </button>
+          </div>
+          
+          <a
+            href={getTelegramLink(selectedCity, service.title)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
+            style={{
+              background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
+              border: `1px solid ${service.color}30`,
+              color: service.color
+            }}
+          >
+            <span className="text-sm font-light">Записаться</span>
+            <Icon name="ArrowRight" className="w-5 h-5" />
+          </a>
         </div>
-        
-        <a
-          href={getTelegramLink(selectedCity, service.title)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
-          style={{
-            background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
-            border: `1px solid ${service.color}30`,
-            color: service.color
-          }}
-        >
-          <span className="text-sm font-light">Записаться</span>
-          <Icon name="ArrowRight" className="w-5 h-5" />
-        </a>
       </CardContent>
     </Card>
   );
