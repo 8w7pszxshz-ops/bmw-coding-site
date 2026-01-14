@@ -129,7 +129,7 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
                 />
               </div>
               
-              <div className="p-5 flex flex-col" style={{ minHeight: offer.id === 3 ? '320px' : '280px' }}>
+              <div className="p-5 flex flex-col" style={{ minHeight: '280px' }}>
                 <div className="flex items-center gap-2 mb-3 h-6">
                   <Icon name={offer.icon as any} className="w-5 h-5 text-[#E7222E]" />
                 </div>
@@ -138,7 +138,7 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
                   {offer.title}
                 </h3>
                 
-                <p className="text-white/70 text-xs font-light leading-relaxed h-[2.5rem] line-clamp-2" style={{ marginBottom: offer.id === 3 ? '6rem' : '1rem' }}>
+                <p className="text-white/70 text-xs font-light leading-relaxed h-[2.5rem] line-clamp-2 mb-4">
                   {offer.description}
                 </p>
                 

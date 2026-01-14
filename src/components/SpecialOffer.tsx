@@ -265,7 +265,7 @@ function SpecialOfferDesktop({ selectedCity }: SpecialOfferDesktopProps) {
                 {offer.title}
               </h2>
               
-              <p className="text-white/80 text-base font-light leading-relaxed line-clamp-3" style={{ height: offer.id === 3 ? '6rem' : '4.5rem', marginBottom: offer.id === 3 ? '2rem' : '1.5rem' }}>
+              <p className="text-white/80 text-base font-light leading-relaxed line-clamp-3" style={{ height: '4.5rem', marginBottom: '1.5rem' }}>
                 {offer.description}
               </p>
               
