@@ -9,8 +9,7 @@ interface CitySelectorProps {
 }
 
 const cities = [
-  { id: 'saratov' as City, name: 'Саратов', icon: 'MapPin' },
-  { id: 'moscow' as City, name: 'Москва', icon: 'Building2' }
+  { id: 'saratov' as City, name: 'Саратов', icon: 'MapPin' }
 ];
 
 export default function CitySelector({ onCityChange, selectedCity }: CitySelectorProps) {

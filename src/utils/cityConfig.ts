@@ -9,13 +9,13 @@ interface CityConfig {
 export const cityConfigs: Record<City, CityConfig> = {
   saratov: {
     phone: '+79873573338',
-    telegram: 'https://t.me/Bocha_reborn',
+    telegram: 'https://t.me/bocha_reborn',
     displayPhone: '+7 (987) 357-33-38'
   },
   moscow: {
     phone: '+79297775525',
-    telegram: 'https://t.me/sannya_dirtysoul',
-    displayPhone: '+7 (929) 777-55-25'
+    telegram: 'https://t.me/bocha_reborn',
+    displayPhone: '+7 (987) 357-33-38'
   }
 };
 
@@ -25,7 +25,7 @@ export const getCityConfig = (city: City): CityConfig => {
 
 const cityNames: Record<City, string> = {
   saratov: 'Саратов',
-  moscow: 'Москва'
+  moscow: 'Саратов'
 };
 
 export const getTelegramLink = (city: City, service?: string): string => {

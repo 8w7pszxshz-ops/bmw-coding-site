@@ -73,8 +73,8 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
         boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
         animationDelay: `${index * 50}ms`,
-        minWidth: '280px',
-        width: '280px',
+        minWidth: '260px',
+        width: '260px',
         maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
         maskComposite: 'intersect',
         WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%), linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0.95) 100%)',
@@ -115,26 +115,26 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
         <rect width="100%" height="100%" fill={`url(#pattern-${service.id})`} />
       </svg>
       
-      <CardContent className="p-5 relative z-10">
-        <div className="mb-4">
+      <CardContent className="p-4 relative z-10">
+        <div className="mb-3">
           <Icon 
             name={service.icon} 
-            className="w-9 h-9 transition-all duration-300"
+            className="w-7 h-7 transition-all duration-300"
             style={{ color: service.color }}
           />
         </div>
         
-        <h3 className="text-xl font-light text-white mb-2 tracking-tight">
+        <h3 className="text-base font-light text-white mb-1.5 tracking-tight leading-snug">
           {service.title}
         </h3>
-        <p className="text-xs text-white/70 font-light" style={{ marginBottom: isSelected ? '12px' : '20px' }}>
+        <p className="text-[11px] text-white/70 font-light" style={{ marginBottom: isSelected ? '10px' : '16px' }}>
           {service.description}
         </p>
         
         {isSelected && (
-          <div className="mb-3">
+          <div className="mb-2">
             <div 
-              className="p-3 rounded-lg space-y-2"
+              className="p-2.5 rounded-lg space-y-1.5"
               style={{
                 background: `linear-gradient(135deg, ${service.color}10, ${service.color}05)`,
                 border: `1px solid ${service.color}20`
@@ -142,16 +142,16 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
             >
               {Array.isArray(service.details) ? (
                 service.details.map((item, idx) => (
-                  <div key={idx} className="flex gap-2">
+                  <div key={idx} className="flex gap-1.5">
                     <div className="flex-shrink-0 w-1 h-1 rounded-full mt-1.5" style={{ backgroundColor: service.color }} />
                     <div className="flex-1">
-                      <div className="text-xs font-medium text-white/90 mb-0.5">{item.title}</div>
+                      <div className="text-[11px] font-medium text-white/90 mb-0.5">{item.title}</div>
                       <div className="text-[10px] text-white/60 font-light leading-relaxed">{item.desc}</div>
                     </div>
                   </div>
                 ))
               ) : (
-                <p className="text-xs text-white/70 font-light leading-relaxed">
+                <p className="text-[11px] text-white/70 font-light leading-relaxed">
                   {service.details}
                 </p>
               )}
@@ -159,9 +159,9 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           </div>
         )}
         
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mb-3">
           <span 
-            className="text-base font-light tracking-wide"
+            className="text-sm font-light tracking-wide"
             style={{ color: service.color }}
           >
             {service.price}
@@ -175,7 +175,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           >
             <Icon 
               name="ChevronDown" 
-              className="w-4 h-4 text-white/30 transition-all duration-300"
+              className="w-3.5 h-3.5 text-white/30 transition-all duration-300"
               style={{
                 transform: isSelected ? 'rotate(180deg)' : 'rotate(0deg)'
               }}
@@ -187,14 +187,14 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           href={getTelegramLink(selectedCity, service.title)}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-lg transition-all duration-300"
+          className="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg transition-all duration-300"
           style={{
             background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
             border: `1px solid ${service.color}30`,
             color: service.color
           }}
         >
-          <span className="text-sm font-light">Записаться</span>
+          <span className="text-xs font-light">Записаться</span>
           <Icon name="ArrowRight" className="w-4 h-4" />
         </a>
       </CardContent>

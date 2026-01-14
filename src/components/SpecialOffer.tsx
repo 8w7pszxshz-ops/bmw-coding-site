@@ -25,7 +25,10 @@ const offers = [
       { icon: 'Clock', text: 'Установка 1 час' },
       { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Gift', text: 'Apple CarPlay бесплатно', highlight: true }
-    ]
+    ],
+    hasButton: true,
+    buttonText: 'Оформить',
+    buttonService: 'Российские карты навигации'
   },
   {
     id: 2,
@@ -45,7 +48,10 @@ const offers = [
       { icon: 'Clock', text: 'Работа 30 минут' },
       { icon: 'Shield', text: 'Гарантия' },
       { icon: 'Check', text: 'Без замены блока' }
-    ]
+    ],
+    hasButton: true,
+    buttonText: 'Оформить',
+    buttonService: 'Удаление ошибки экстренного вызова'
   },
   {
     id: 3,
@@ -92,7 +98,7 @@ const offers = [
       { icon: 'Key', text: 'Полноценная копия', highlight: true }
     ],
     hasButton: true,
-    buttonText: 'Калькулятор',
+    buttonText: 'Купить',
     buttonLink: '#key-calculator'
   }
 ];
