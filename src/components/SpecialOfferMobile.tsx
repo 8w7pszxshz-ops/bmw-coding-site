@@ -129,8 +129,8 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
                 />
               </div>
               
-              <div className="p-5 flex flex-col" style={{ minHeight: '280px' }}>
-                <div className="flex items-center gap-2 mb-3 h-6">
+              <div className="p-5 flex flex-col h-full">
+                <div className="flex items-center gap-2 mb-3">
                   <Icon name={offer.icon as any} className="w-5 h-5 text-[#E7222E]" />
                 </div>
                 
@@ -142,55 +142,55 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
                   {offer.description}
                 </p>
                 
-                <div className="mt-auto">
-                  {(offer.oldPrice || offer.newPrice) && (
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        {offer.oldPrice && <span className="text-white/40 text-xs line-through">{offer.oldPrice}</span>}
-                        {offer.newPrice && <span className="font-light text-[#E7222E] text-lg">{offer.newPrice}</span>}
-                      </div>
-                      {offer.discount && (
-                        <div 
-                          className="px-3 py-1 rounded-lg"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
-                            boxShadow: '0 4px 20px rgba(231, 34, 46, 0.3)'
-                          }}
-                        >
-                          <span className="text-white text-sm font-medium">{offer.discount}</span>
-                        </div>
-                      )}
+                {(offer.oldPrice || offer.newPrice) ? (
+                  <div className="flex items-center justify-between mb-3 h-[2rem]">
+                    <div className="flex items-center gap-3">
+                      {offer.oldPrice && <span className="text-white/40 text-xs line-through">{offer.oldPrice}</span>}
+                      {offer.newPrice && <span className="font-light text-[#E7222E] text-lg">{offer.newPrice}</span>}
                     </div>
-                  )}
-                  
-                  <div className="flex items-center gap-3 text-xs mb-4">
-                    {offer.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center gap-1.5">
-                        <Icon 
-                          name={feature.icon as any} 
-                          className="w-3 h-3 text-white/60"
-                        />
-                        <span className="text-white/60">{feature.text}</span>
+                    {offer.discount && (
+                      <div 
+                        className="px-3 py-1 rounded-lg"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
+                          boxShadow: '0 4px 20px rgba(231, 34, 46, 0.3)'
+                        }}
+                      >
+                        <span className="text-white text-sm font-medium">{offer.discount}</span>
                       </div>
-                    ))}
+                    )}
                   </div>
-
-                  {offer.hasButton && (
-                    <a 
-                      href={(offer as any).buttonService ? getTelegramLink(selectedCity, (offer as any).buttonService) : (offer as any).buttonLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg font-medium text-white text-sm transition-all duration-300"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
-                        boxShadow: '0 8px 24px rgba(231, 34, 46, 0.4)'
-                      }}
-                    >
-                      <Icon name="Send" className="w-4 h-4" />
-                      <span>{offer.buttonText}</span>
-                    </a>
-                  )}
+                ) : (
+                  <div className="h-[2rem] mb-3" />
+                )}
+                
+                <div className="flex items-center gap-3 text-xs mb-4 h-[1.5rem]">
+                  {offer.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-1.5">
+                      <Icon 
+                        name={feature.icon as any} 
+                        className="w-3 h-3 text-white/60"
+                      />
+                      <span className="text-white/60">{feature.text}</span>
+                    </div>
+                  ))}
                 </div>
+
+                {offer.hasButton && (
+                  <a 
+                    href={(offer as any).buttonService ? getTelegramLink(selectedCity, (offer as any).buttonService) : (offer as any).buttonLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg font-medium text-white text-sm transition-all duration-300"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))',
+                      boxShadow: '0 8px 24px rgba(231, 34, 46, 0.4)'
+                    }}
+                  >
+                    <Icon name="Send" className="w-4 h-4" />
+                    <span>{offer.buttonText}</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}
