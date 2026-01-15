@@ -51,7 +51,7 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         <BackgroundEffects />
         <NavigationBar selectedCity={selectedCity} onCityChange={onCityChange} showCityPulse={showCityPulse} />
         
-        <div className="container mx-auto px-4 md:px-6 pt-20 md:pt-24 pb-20 md:pb-32 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 pt-16 md:pt-20 pb-16 md:pb-24 relative z-10">
           {children}
         </div>
       </div>

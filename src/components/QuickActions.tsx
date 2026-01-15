@@ -53,11 +53,11 @@ export default function QuickActions({ selectedCity = 'saratov' }: QuickActionsP
   return (
     <>
       <Card
-        className="border-0 overflow-hidden max-w-4xl mx-auto"
+        className="border-0 overflow-hidden max-w-3xl mx-auto"
         style={{
           background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02))',
           backdropFilter: 'blur(30px)',
-          boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
+          boxShadow: '0 20px 60px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
         }}
       >
         <CardContent className="p-6 md:p-12">

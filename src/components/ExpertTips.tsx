@@ -46,16 +46,16 @@ function ExpertTipsMobile() {
   }, [autoPlay]);
 
   return (
-    <div className="mb-8 px-4">
-      <div className="text-center mb-4">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <Icon name="Lightbulb" className="w-5 h-5 text-[#FFD700]" />
-          <h2 className="font-light text-white text-lg">Советы экспертов</h2>
+    <div className="mb-6 px-4">
+      <div className="text-center mb-3">
+        <div className="flex items-center justify-center gap-2 mb-1.5">
+          <Icon name="Lightbulb" className="w-4 h-4 text-[#FFD700]" />
+          <h2 className="font-light text-white text-base">Советы экспертов</h2>
         </div>
       </div>
 
       <div 
-        className="rounded-2xl p-4"
+        className="rounded-xl p-3"
         style={{
           border: '1px solid rgba(255, 215, 0, 0.2)',
           boxShadow: '0 20px 50px -20px rgba(255, 215, 0, 0.3)',
