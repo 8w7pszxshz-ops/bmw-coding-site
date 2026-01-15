@@ -79,7 +79,7 @@ def get_data_from_db() -> List[Dict[str, Any]]:
         conn.close()
 
 def import_csv_data(rows: list) -> Dict[str, Any]:
-    """Импортирует данные из CSV в базу"""
+    """Импортирует данные из CSV в базу (новый формат с русскими названиями)"""
     conn = get_db_connection()
     cur = conn.cursor()
     stats = {"imported": 0, "errors": []}
@@ -87,38 +87,52 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
     try:
         for row in rows:
             try:
-                # Извлечение данных из CSV
-                model_name = row.get('model_name', '').strip()
-                series = row.get('series', '').strip()
-                body_type = row.get('body_type', '').strip()
-                engine_code = row.get('engine_code', '').strip()
-                article_code = row.get('article_code', '').strip()
+                # Новый формат CSV:
+                # Модель, Компания прошивки, Stage 1 крутящий момент, Stage 1 мощность,
+                # Stage 2 крутящий момент, Stage 2 мощность, Stage 3 крутящий момент, Stage 3 мощность
                 
-                # Стоковые характеристики (Stage 3)
-                stock_power = int(row.get('stock_power', 0))
-                stock_torque = int(row.get('stock_torque', 0))
+                model_full = row.get('Модель', '').strip()
+                company = row.get('Компания прошивки', 'Reborn Technologies').strip()
+                
+                # Парсинг модели: "2-Series F2x 220i" -> series="2-series", body="F2x", engine="220i"
+                parts = model_full.split()
+                if len(parts) < 3:
+                    stats['errors'].append(f"Invalid model format: {model_full}")
+                    continue
+                    
+                series = parts[0]  # "2-Series"
+                body_type = parts[1]  # "F2x"
+                engine_code = ' '.join(parts[2:])  # "220i" или "220i → 228i"
+                
+                # Stage 3 (стоковые характеристики)
+                stock_power = int(row.get('Stage 3 мощность', 0))
+                stock_torque = int(row.get('Stage 3 крутящий момент', 0))
                 
                 # Stage 1
-                stage1_power = int(row.get('stage1_power', 0))
-                stage1_torque = int(row.get('stage1_torque', 0))
-                stage1_price = int(row.get('stage1_price', 30000))
+                stage1_power = int(row.get('Stage 1 мощность', 0))
+                stage1_torque = int(row.get('Stage 1 крутящий момент', 0))
+                stage1_price = 30000  # Базовая цена по умолчанию
                 
                 # Stage 2 (опционально)
-                stage2_power = row.get('stage2_power')
-                stage2_torque = row.get('stage2_torque')
+                stage2_power_str = row.get('Stage 2 мощность', '').strip()
+                stage2_torque_str = row.get('Stage 2 крутящий момент', '').strip()
                 
-                if stage2_power:
-                    stage2_power = int(stage2_power)
-                if stage2_torque:
-                    stage2_torque = int(stage2_torque)
+                stage2_power = int(stage2_power_str) if stage2_power_str else None
+                stage2_torque = int(stage2_torque_str) if stage2_torque_str else None
                 
-                # Статус и конверсия
-                status = int(row.get('status', 1))
-                conversion_type = row.get('conversion_type', '').strip() or None
-                conversion_price = row.get('conversion_price')
+                # Определение конверсии (если в названии есть стрелка →)
+                conversion_type = None
+                conversion_price = None
+                if '→' in engine_code:
+                    parts_conv = engine_code.split('→')
+                    target = parts_conv[-1].strip()
+                    conversion_type = f"Заводская прошивка {target}"
+                    conversion_price = stage1_price
                 
-                if conversion_price:
-                    conversion_price = int(conversion_price)
+                # Генерация полей для базы
+                model_name = model_full
+                article_code = model_full
+                status = 1
                 
                 # Вставка или обновление
                 cur.execute("""
