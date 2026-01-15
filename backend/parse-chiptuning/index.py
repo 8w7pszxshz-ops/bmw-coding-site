@@ -230,7 +230,9 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
             except Exception as e:
                 # Добавляем подробную информацию об ошибке
                 row_preview = row.get('Наименование', 'unknown')[:50]
-                stats['errors'].append(f"Строка '{row_preview}': {str(e)}")
+                error_msg = f"Строка '{row_preview}': {str(e)}"
+                stats['errors'].append(error_msg)
+                print(f"ERROR: {error_msg}")  # Логируем в Cloud Functions
                 continue
         
         conn.commit()
