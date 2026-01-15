@@ -38,7 +38,7 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         />
         
         <div 
-          className="absolute inset-0 opacity-[0.12]"
+          className="absolute inset-0 opacity-50"
           style={{
             backgroundImage: 'url(https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/3c496751-7454-4202-9376-e92a9c07ff7a.jpg)',
             backgroundSize: 'cover',
