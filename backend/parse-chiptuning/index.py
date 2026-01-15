@@ -94,10 +94,17 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 import re
                 
                 model_full = row.get('Наименование', '').strip()
-                company = row.get('Компания', 'Reborn Technologies').strip()
+                company_raw = row.get('Компания', 'Reborn Technologies').strip()
+                
+                # Убираем "St.1", "St.2" из компании (Reborn Technologies St.1 → Reborn Technologies)
+                company = re.sub(r'\s+St\.\d+$', '', company_raw).strip()
                 
                 if not model_full:
                     stats['errors'].append("Пустое наименование")
+                    continue
+                
+                # Пропускаем строки-заголовки (если наименование = "BMW" без модели)
+                if model_full == "BMW" or not model_full.startswith("BMW"):
                     continue
                 
                 # Парсинг наименования: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
