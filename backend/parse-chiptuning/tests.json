@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "Get chiptuning data",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
