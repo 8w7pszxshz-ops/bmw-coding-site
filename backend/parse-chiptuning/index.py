@@ -291,6 +291,83 @@ def populate_db_from_parser(limit: int = 50) -> Dict[str, Any]:
         cur.close()
         conn.close()
 
+def import_csv_data(rows: list) -> Dict[str, Any]:
+    """Импортирует данные из CSV в базу"""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    stats = {"models": 0, "engines": 0, "modifications": 0, "errors": []}
+    
+    try:
+        for row in rows:
+            try:
+                # Извлечение данных из CSV строки
+                model_name = row.get('model_name', '')
+                series = row.get('series', '')
+                generation = row.get('generation', 'F')
+                engine_code = row.get('engine_code', '')
+                engine_type = row.get('engine_type', 'petrol')
+                displacement = row.get('displacement', '2.0')
+                mod_name = row.get('mod_name', '')
+                stage = row.get('stage', 'Stage 1')
+                
+                # Преобразование числовых значений
+                power_before = int(row.get('power_before', 0))
+                power_after = int(row.get('power_after', 0))
+                torque_before = int(row.get('torque_before', 0))
+                torque_after = int(row.get('torque_after', 0))
+                price = int(row.get('price', 30000))
+                
+                # Определение sort_order из series
+                series_match = re.search(r'(\d+)', series)
+                sort_order = int(series_match.group(1)) if series_match else 0
+                
+                # Вставка модели
+                cur.execute("""
+                    INSERT INTO bmw_models (name, series, generation, sort_order)
+                    VALUES (%s, %s, %s, %s)
+                    ON CONFLICT (series) DO UPDATE 
+                    SET name = EXCLUDED.name, generation = EXCLUDED.generation
+                    RETURNING id
+                """, (model_name, series, generation, sort_order))
+                model_id = cur.fetchone()[0]
+                stats['models'] += 1
+                
+                # Вставка двигателя
+                cur.execute("""
+                    INSERT INTO bmw_engines (model_id, code, type, displacement, sort_order)
+                    VALUES (%s, %s, %s, %s, %s)
+                    ON CONFLICT (model_id, code) DO UPDATE
+                    SET type = EXCLUDED.type, displacement = EXCLUDED.displacement
+                    RETURNING id
+                """, (model_id, engine_code, engine_type, displacement, power_before))
+                engine_id = cur.fetchone()[0]
+                stats['engines'] += 1
+                
+                # Вставка модификации
+                cur.execute("""
+                    INSERT INTO bmw_modifications (
+                        engine_id, name, stage, 
+                        power_before, power_after,
+                        torque_before, torque_after, price
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                """, (engine_id, mod_name, stage, power_before, power_after, torque_before, torque_after, price))
+                stats['modifications'] += 1
+                
+            except Exception as e:
+                stats['errors'].append(f"Row error: {str(e)}")
+                continue
+        
+        conn.commit()
+        return stats
+        
+    except Exception as e:
+        conn.rollback()
+        stats['errors'].append(f"Transaction error: {str(e)}")
+        return stats
+    finally:
+        cur.close()
+        conn.close()
+
 def handler(event: dict, context) -> dict:
     '''API для работы с базой данных чип-тюнинга BMW'''
     
@@ -301,7 +378,7 @@ def handler(event: dict, context) -> dict:
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type'
             },
             'body': ''
@@ -332,6 +409,29 @@ def handler(event: dict, context) -> dict:
                         'Access-Control-Allow-Origin': '*'
                     },
                     'body': json.dumps(data, ensure_ascii=False)
+                }
+        except Exception as e:
+            return {
+                'statusCode': 500,
+                'headers': {'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'error': str(e)}, ensure_ascii=False)
+            }
+    
+    if method == 'POST':
+        try:
+            body = json.loads(event.get('body', '{}'))
+            action = body.get('action')
+            
+            if action == 'import_csv':
+                csv_data = body.get('data', [])
+                stats = import_csv_data(csv_data)
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps(stats, ensure_ascii=False)
                 }
         except Exception as e:
             return {

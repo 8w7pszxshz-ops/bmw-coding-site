@@ -31,6 +31,8 @@ export default function ChipTuningAdmin() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<Partial<Modification>>({});
   const [filter, setFilter] = useState('');
+  const [uploadStatus, setUploadStatus] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const handleAuth = () => {
     if (password === ADMIN_PASSWORD) {
@@ -115,6 +117,81 @@ export default function ChipTuningAdmin() {
     }
   };
 
+  const handleCSVUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadStatus('Чтение файла...');
+
+    try {
+      const text = await file.text();
+      const lines = text.split('\n').filter(line => line.trim());
+      
+      if (lines.length < 2) {
+        setUploadStatus('❌ Файл пустой или не содержит данных');
+        return;
+      }
+
+      // Парсинг CSV
+      const headers = lines[0].split(',').map(h => h.trim());
+      const rows = lines.slice(1).map(line => {
+        const values = line.split(',').map(v => v.trim());
+        const obj: any = {};
+        headers.forEach((header, idx) => {
+          obj[header] = values[idx];
+        });
+        return obj;
+      });
+
+      setUploadStatus(`Загрузка ${rows.length} записей в базу данных...`);
+
+      // Отправка в backend
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'import_csv', data: rows })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setUploadStatus(`✅ Успешно загружено: ${result.models} моделей, ${result.engines} двигателей, ${result.modifications} модификаций`);
+        await loadData();
+        setTimeout(() => setUploadStatus(''), 5000);
+      } else {
+        setUploadStatus(`❌ Ошибка: ${result.error}`);
+      }
+    } catch (error) {
+      setUploadStatus(`❌ Ошибка загрузки: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setUploading(false);
+      event.target.value = '';
+    }
+  };
+
+  const handleExportCSV = () => {
+    const headers = [
+      'model_name', 'series', 'generation', 'engine_code', 'engine_type', 'displacement',
+      'mod_name', 'stage', 'power_before', 'power_after', 'torque_before', 'torque_after', 'price'
+    ];
+    
+    const csvContent = [
+      headers.join(','),
+      ...filteredMods.map(mod => 
+        headers.map(h => mod[h as keyof Modification]).join(',')
+      )
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `chiptuning_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  };
+
   const filteredMods = modifications.filter(m => 
     m.model_name.toLowerCase().includes(filter.toLowerCase()) ||
     m.series.toLowerCase().includes(filter.toLowerCase()) ||
@@ -173,31 +250,70 @@ export default function ChipTuningAdmin() {
       }}
     >
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <Icon name="Settings" className="w-8 h-8 text-[#FF0040]" />
             <h1 className="text-3xl font-light text-white">Админка Чип-тюнинга BMW</h1>
           </div>
-          <button
-            onClick={handleRefresh}
-            disabled={loading}
-            className="px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 flex items-center gap-2"
-            style={{
-              background: 'linear-gradient(135deg, #FF0040, #E7222E)'
-            }}
-          >
-            {loading ? (
-              <>
-                <div className="w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
-                Обновление...
-              </>
-            ) : (
-              <>
-                <Icon name="RefreshCw" className="w-5 h-5" />
-                Обновить из парсера
-              </>
-            )}
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={handleExportCSV}
+              className="px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+              style={{
+                background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(0, 170, 204, 0.8))'
+              }}
+            >
+              <Icon name="Download" className="w-5 h-5" />
+              Экспорт CSV
+            </button>
+            <label
+              className="px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2 cursor-pointer"
+              style={{
+                background: uploading 
+                  ? 'linear-gradient(135deg, rgba(255, 107, 53, 0.5), rgba(204, 85, 42, 0.5))'
+                  : 'linear-gradient(135deg, rgba(255, 107, 53, 0.8), rgba(204, 85, 42, 0.8))'
+              }}
+            >
+              {uploading ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+                  Загрузка...
+                </>
+              ) : (
+                <>
+                  <Icon name="Upload" className="w-5 h-5" />
+                  Импорт CSV
+                  <input
+                    type="file"
+                    accept=".csv"
+                    onChange={handleCSVUpload}
+                    disabled={uploading}
+                    className="hidden"
+                  />
+                </>
+              )}
+            </label>
+            <button
+              onClick={handleRefresh}
+              disabled={loading}
+              className="px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 flex items-center gap-2"
+              style={{
+                background: 'linear-gradient(135deg, #FF0040, #E7222E)'
+              }}
+            >
+              {loading ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+                  Обновление...
+                </>
+              ) : (
+                <>
+                  <Icon name="RefreshCw" className="w-5 h-5" />
+                  Обновить из парсера
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
         <div className="mb-6">
@@ -210,8 +326,22 @@ export default function ChipTuningAdmin() {
           />
         </div>
 
-        <div className="text-white/60 mb-4">
-          Найдено записей: {filteredMods.length}
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-white/60">
+            Найдено записей: {filteredMods.length}
+          </div>
+          {uploadStatus && (
+            <div className="text-sm px-4 py-2 rounded-lg" style={{
+              background: uploadStatus.includes('✅') 
+                ? 'rgba(0, 212, 255, 0.2)' 
+                : uploadStatus.includes('❌') 
+                  ? 'rgba(255, 0, 64, 0.2)'
+                  : 'rgba(255, 255, 255, 0.1)',
+              color: 'white'
+            }}>
+              {uploadStatus}
+            </div>
+          )}
         </div>
 
         <div className="overflow-x-auto">
