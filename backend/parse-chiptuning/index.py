@@ -100,6 +100,10 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 model_full = row.get('Наименование', '').strip()
                 company_raw = row.get('Компания', 'Reborn Technologies').strip()
                 
+                # Пропускаем Sedox-Performance (загружаем только Reborn Technologies)
+                if 'Sedox' in company_raw or 'sedox' in company_raw.lower():
+                    continue
+                
                 # Убираем "St.1", "St.2" из компании (Reborn Technologies St.1 → Reborn Technologies)
                 company = re.sub(r'\s+St\.\d+$', '', company_raw).strip()
                 
