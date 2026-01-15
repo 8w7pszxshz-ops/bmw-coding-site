@@ -444,7 +444,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '430i Stage 1', powerBefore: 252, powerAfter: 330, torqueBefore: 350, torqueAfter: 480, price: 28000, euro2Price: 5000 }
+          { name: '430i Stage 1', powerBefore: 252, powerAfter: 330, torqueBefore: 350, torqueAfter: 480, price: 28000, euro2Price: 5000 },
+          { name: '430e (Hybrid) Stage 1', powerBefore: 252, powerAfter: 320, torqueBefore: 420, torqueAfter: 510, price: 30000, euro2Price: 5000 }
         ]
       },
       {
@@ -818,6 +819,7 @@ export const bmwModels: ModelData[] = [
         modifications: [
           { name: 'sDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000, euro2Price: 5000 },
           { name: 'xDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000, euro2Price: 5000 },
+          { name: 'xDrive25e (Hybrid) Stage 1', powerBefore: 220, powerAfter: 280, torqueBefore: 385, torqueAfter: 470, price: 32000, euro2Price: 5000 },
           { name: 'xDrive25i Stage 1', powerBefore: 231, powerAfter: 310, torqueBefore: 350, torqueAfter: 460, price: 30000, euro2Price: 5000 }
         ]
       },
@@ -885,6 +887,7 @@ export const bmwModels: ModelData[] = [
         modifications: [
           { name: 'sDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000, euro2Price: 5000 },
           { name: 'xDrive20i Stage 1', powerBefore: 192, powerAfter: 280, torqueBefore: 280, torqueAfter: 430, price: 30000, egsPrice: 27000, euro2Price: 5000 },
+          { name: 'xDrive25e (Hybrid) Stage 1', powerBefore: 220, powerAfter: 280, torqueBefore: 385, torqueAfter: 470, price: 32000, euro2Price: 5000 },
           { name: 'M35i Stage 1', powerBefore: 306, powerAfter: 360, torqueBefore: 450, torqueAfter: 530, price: 35000, euro2Price: 5000 }
         ]
       },
@@ -957,6 +960,7 @@ export const bmwModels: ModelData[] = [
         modifications: [
           { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 32000, egsPrice: 27000, euro2Price: 5000 },
           { name: 'xDrive30i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 32000, egsPrice: 27000, euro2Price: 5000 },
+          { name: 'xDrive30e (Hybrid) Stage 1', powerBefore: 292, powerAfter: 360, torqueBefore: 420, torqueAfter: 530, price: 34000, euro2Price: 5000 },
           { name: 'M40i Stage 1', powerBefore: 360, powerAfter: 420, torqueBefore: 500, torqueAfter: 600, price: 36000, euro2Price: 5000 }
         ]
       },
@@ -1042,6 +1046,7 @@ export const bmwModels: ModelData[] = [
         modifications: [
           { name: 'xDrive20i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 32000, egsPrice: 27000, euro2Price: 5000 },
           { name: 'xDrive30i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 32000, egsPrice: 27000, euro2Price: 5000 },
+          { name: 'xDrive30e (Hybrid) Stage 1', powerBefore: 292, powerAfter: 360, torqueBefore: 420, torqueAfter: 530, price: 34000, euro2Price: 5000 },
           { name: 'M40i Stage 1', powerBefore: 360, powerAfter: 420, torqueBefore: 500, torqueAfter: 600, price: 36000, euro2Price: 5000 }
         ]
       },
@@ -1238,6 +1243,7 @@ export const bmwModels: ModelData[] = [
         displacement: '3.0',
         modifications: [
           { name: 'xDrive40i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 36000, euro2Price: 5000 },
+          { name: 'xDrive45e (Hybrid) Stage 1', powerBefore: 394, powerAfter: 480, torqueBefore: 600, torqueAfter: 750, price: 39000, euro2Price: 5000 },
           { name: 'M50i Stage 1', powerBefore: 530, powerAfter: 620, torqueBefore: 750, torqueAfter: 870, price: 42000, euro2Price: 5000 }
         ]
       },
