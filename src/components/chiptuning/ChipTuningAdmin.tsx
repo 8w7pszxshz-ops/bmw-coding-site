@@ -13,7 +13,7 @@ export default function ChipTuningAdmin() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<Partial<ChipTuningRecord>>({});
   const [filter, setFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'visible' | 'hidden'>('visible');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'visible' | 'hidden'>('all');
   const [uploadStatus, setUploadStatus] = useState('');
   const [uploading, setUploading] = useState(false);
 
@@ -219,8 +219,7 @@ export default function ChipTuningAdmin() {
   };
 
   const handleExportCSV = () => {
-    // Новый формат: Наименование, Компания, Stage 1 (крутящий момент), Stage 1 (мощность),
-    // Статус, Stage 2 (мощность), Stage 2 (крутящий момент), цена
+    // Экспортируем ВСЕ записи (не только отфильтрованные)
     const headers = [
       'Наименование',
       'Компания',
@@ -232,7 +231,7 @@ export default function ChipTuningAdmin() {
       'цена'
     ];
     
-    const rows = filteredRecords.map(record => {
+    const rows = records.map(record => {
       // Формируем наименование: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
       const modelName = `BMW ${record.series} ${record.body_type} ${record.engine_code} ${record.stock_power} л.с. ${record.stock_torque} Нм`;
       
@@ -353,9 +352,9 @@ export default function ChipTuningAdmin() {
             onChange={(e) => setStatusFilter(e.target.value as 'all' | 'visible' | 'hidden')}
             className="px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
           >
+            <option value="all">Все записи</option>
             <option value="visible">Видимые (статус 1)</option>
             <option value="hidden">Скрытые (статус 0)</option>
-            <option value="all">Все записи</option>
           </select>
         </div>
 
