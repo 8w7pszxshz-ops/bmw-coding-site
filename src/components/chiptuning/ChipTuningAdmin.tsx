@@ -16,6 +16,7 @@ export default function ChipTuningAdmin() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'visible' | 'hidden'>('all');
   const [uploadStatus, setUploadStatus] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [lastImportErrors, setLastImportErrors] = useState<string[]>([]);
 
   const handleAuth = () => {
     if (password === ADMIN_PASSWORD) {
@@ -202,9 +203,12 @@ export default function ChipTuningAdmin() {
         
         setUploadStatus(statusMsg);
         
-        // Показываем ВСЕ ошибки в консоли
+        // Сохраняем ошибки для скачивания отчёта
         if (result.errors?.length > 0) {
+          setLastImportErrors(result.errors);
           console.warn(`Ошибки импорта (всего ${result.errors.length}):`, result.errors);
+        } else {
+          setLastImportErrors([]);
         }
         
         await loadData();
@@ -218,6 +222,29 @@ export default function ChipTuningAdmin() {
       setUploading(false);
       event.target.value = '';
     }
+  };
+
+  const handleDownloadErrorReport = () => {
+    if (lastImportErrors.length === 0) {
+      alert('Нет ошибок для скачивания');
+      return;
+    }
+
+    const reportContent = [
+      `Отчёт об ошибках импорта CSV`,
+      `Дата: ${new Date().toLocaleString('ru-RU')}`,
+      `Всего ошибок: ${lastImportErrors.length}`,
+      '',
+      '=' .repeat(80),
+      '',
+      ...lastImportErrors.map((err, idx) => `${idx + 1}. ${err}`)
+    ].join('\n');
+
+    const blob = new Blob([reportContent], { type: 'text/plain;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `import_errors_${new Date().toISOString().split('T')[0]}.txt`;
+    link.click();
   };
 
   const handleExportCSV = () => {
@@ -304,6 +331,18 @@ export default function ChipTuningAdmin() {
             <h1 className="text-3xl font-light text-white">Админка Чип-тюнинга BMW</h1>
           </div>
           <div className="flex gap-3">
+            {lastImportErrors.length > 0 && (
+              <button
+                onClick={handleDownloadErrorReport}
+                className="px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 107, 53, 0.8), rgba(204, 85, 42, 0.8))'
+                }}
+              >
+                <Icon name="AlertTriangle" className="w-5 h-5" />
+                Скачать отчёт ({lastImportErrors.length} ошибок)
+              </button>
+            )}
             <button
               onClick={handleExportCSV}
               className="px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
