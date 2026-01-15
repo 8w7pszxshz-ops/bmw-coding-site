@@ -28,7 +28,11 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 stage1_torque,
                 stage1_price,
                 stage2_power,
-                stage2_torque
+                stage2_torque,
+                status,
+                conversion_type,
+                conversion_target_power,
+                conversion_price
             FROM bmw_chiptuning
             ORDER BY series, body_type, engine_code
         """)
@@ -47,6 +51,10 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 'body_type': row['body_type'],
                 'engine_code': row['engine_code'],
                 'article_code': row['article_code'],
+                'status': row['status'],
+                'conversion_type': row['conversion_type'],
+                'conversion_target_power': row['conversion_target_power'],
+                'conversion_price': row['conversion_price'],
                 'stock': {
                     'power': row['stock_power'],
                     'torque': row['stock_torque']
@@ -106,14 +114,26 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 if stage2_torque:
                     stage2_torque = int(stage2_torque)
                 
+                # Статус и конверсия
+                status = int(row.get('status', 1))
+                conversion_type = row.get('conversion_type', '').strip() or None
+                conversion_target_power = row.get('conversion_target_power')
+                conversion_price = row.get('conversion_price')
+                
+                if conversion_target_power:
+                    conversion_target_power = int(conversion_target_power)
+                if conversion_price:
+                    conversion_price = int(conversion_price)
+                
                 # Вставка или обновление
                 cur.execute("""
                     INSERT INTO bmw_chiptuning (
                         model_name, series, body_type, engine_code, article_code,
                         stock_power, stock_torque,
                         stage1_power, stage1_torque, stage1_price,
-                        stage2_power, stage2_torque
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        stage2_power, stage2_torque,
+                        status, conversion_type, conversion_target_power, conversion_price
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (series, body_type, engine_code) 
                     DO UPDATE SET
                         model_name = EXCLUDED.model_name,
@@ -125,12 +145,17 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                         stage1_price = EXCLUDED.stage1_price,
                         stage2_power = EXCLUDED.stage2_power,
                         stage2_torque = EXCLUDED.stage2_torque,
+                        status = EXCLUDED.status,
+                        conversion_type = EXCLUDED.conversion_type,
+                        conversion_target_power = EXCLUDED.conversion_target_power,
+                        conversion_price = EXCLUDED.conversion_price,
                         updated_at = CURRENT_TIMESTAMP
                 """, (
                     model_name, series, body_type, engine_code, article_code,
                     stock_power, stock_torque,
                     stage1_power, stage1_torque, stage1_price,
-                    stage2_power, stage2_torque
+                    stage2_power, stage2_torque,
+                    status, conversion_type, conversion_target_power, conversion_price
                 ))
                 stats['imported'] += 1
                 
@@ -189,6 +214,10 @@ def update_record(record_id: int, data: dict) -> Dict[str, Any]:
                 stage1_price = %s,
                 stage2_power = %s,
                 stage2_torque = %s,
+                status = %s,
+                conversion_type = %s,
+                conversion_target_power = %s,
+                conversion_price = %s,
                 updated_at = CURRENT_TIMESTAMP
             WHERE id = %s
         """, (
@@ -204,6 +233,10 @@ def update_record(record_id: int, data: dict) -> Dict[str, Any]:
             data.get('stage1_price'),
             data.get('stage2_power'),
             data.get('stage2_torque'),
+            data.get('status', 1),
+            data.get('conversion_type'),
+            data.get('conversion_target_power'),
+            data.get('conversion_price'),
             record_id
         ))
         conn.commit()

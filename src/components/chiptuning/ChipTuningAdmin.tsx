@@ -18,6 +18,10 @@ interface ChipTuningRecord {
   stage1_price: number;
   stage2_power: number | null;
   stage2_torque: number | null;
+  status: number;
+  conversion_type: string | null;
+  conversion_target_power: number | null;
+  conversion_price: number | null;
 }
 
 export default function ChipTuningAdmin() {
@@ -61,7 +65,11 @@ export default function ChipTuningAdmin() {
         stage1_torque: item.stage1.torque,
         stage1_price: item.stage1.price,
         stage2_power: item.stage2?.power || null,
-        stage2_torque: item.stage2?.torque || null
+        stage2_torque: item.stage2?.torque || null,
+        status: item.status,
+        conversion_type: item.conversion_type || null,
+        conversion_target_power: item.conversion_target_power || null,
+        conversion_price: item.conversion_price || null
       }));
       
       setRecords(flatList);
@@ -105,7 +113,11 @@ export default function ChipTuningAdmin() {
             stage1_torque: editForm.stage1_torque,
             stage1_price: editForm.stage1_price,
             stage2_power: editForm.stage2_power,
-            stage2_torque: editForm.stage2_torque
+            stage2_torque: editForm.stage2_torque,
+            status: editForm.status,
+            conversion_type: editForm.conversion_type,
+            conversion_target_power: editForm.conversion_target_power,
+            conversion_price: editForm.conversion_price
           }
         })
       });
@@ -220,7 +232,8 @@ export default function ChipTuningAdmin() {
       'model_name', 'series', 'body_type', 'engine_code', 'article_code',
       'stock_power', 'stock_torque',
       'stage1_power', 'stage1_torque', 'stage1_price',
-      'stage2_power', 'stage2_torque'
+      'stage2_power', 'stage2_torque',
+      'status', 'conversion_type', 'conversion_target_power', 'conversion_price'
     ];
     
     const csvContent = [
@@ -295,7 +308,7 @@ export default function ChipTuningAdmin() {
         background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.98), rgba(20, 20, 30, 0.98))'
       }}
     >
-      <div className="max-w-[1800px] mx-auto">
+      <div className="max-w-[1900px] mx-auto">
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <Icon name="Settings" className="w-8 h-8 text-[#FF0040]" />
@@ -371,22 +384,26 @@ export default function ChipTuningAdmin() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-white text-sm">
+          <table className="w-full text-white text-xs">
             <thead>
               <tr className="border-b border-white/10">
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Модель</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Серия</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Кузов</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Двигатель</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Артикул</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Сток л.с.</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Сток Нм</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.1 л.с.</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.1 Нм</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.1 Цена</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.2 л.с.</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.2 Нм</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Действия</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">ID</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Модель</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Серия</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Кузов</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Двиг.</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Сток л.с.</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Сток Нм</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.1 л.с.</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.1 Нм</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.1 ₽</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.2 л.с.</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.2 Нм</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Статус</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Перепрошивка</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Конв. л.с.</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Конв. ₽</th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Действия</th>
               </tr>
             </thead>
             <tbody>
@@ -394,7 +411,8 @@ export default function ChipTuningAdmin() {
                 <tr key={record.id} className="border-b border-white/5 hover:bg-white/5">
                   {editingId === record.id ? (
                     <>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2 text-white/40">{record.id}</td>
+                      <td className="px-2 py-2">
                         <input
                           type="text"
                           value={editForm.model_name || ''}
@@ -402,7 +420,7 @@ export default function ChipTuningAdmin() {
                           className="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="text"
                           value={editForm.series || ''}
@@ -410,7 +428,7 @@ export default function ChipTuningAdmin() {
                           className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="text"
                           value={editForm.body_type || ''}
@@ -418,23 +436,15 @@ export default function ChipTuningAdmin() {
                           className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="text"
                           value={editForm.engine_code || ''}
                           onChange={(e) => setEditForm({...editForm, engine_code: e.target.value})}
-                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
-                        <input
-                          type="text"
-                          value={editForm.article_code || ''}
-                          onChange={(e) => setEditForm({...editForm, article_code: e.target.value})}
-                          className="w-32 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
-                        />
-                      </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           value={editForm.stock_power || 0}
@@ -442,7 +452,7 @@ export default function ChipTuningAdmin() {
                           className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           value={editForm.stock_torque || 0}
@@ -450,7 +460,7 @@ export default function ChipTuningAdmin() {
                           className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           value={editForm.stage1_power || 0}
@@ -458,7 +468,7 @@ export default function ChipTuningAdmin() {
                           className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           value={editForm.stage1_torque || 0}
@@ -466,7 +476,7 @@ export default function ChipTuningAdmin() {
                           className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           value={editForm.stage1_price || 0}
@@ -474,7 +484,7 @@ export default function ChipTuningAdmin() {
                           className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           value={editForm.stage2_power || ''}
@@ -483,7 +493,7 @@ export default function ChipTuningAdmin() {
                           placeholder="-"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           value={editForm.stage2_torque || ''}
@@ -492,7 +502,44 @@ export default function ChipTuningAdmin() {
                           placeholder="-"
                         />
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
+                        <select
+                          value={editForm.status ?? 1}
+                          onChange={(e) => setEditForm({...editForm, status: parseInt(e.target.value)})}
+                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                        >
+                          <option value={1}>✅ Вкл</option>
+                          <option value={0}>❌ Выкл</option>
+                        </select>
+                      </td>
+                      <td className="px-2 py-2">
+                        <input
+                          type="text"
+                          value={editForm.conversion_type || ''}
+                          onChange={(e) => setEditForm({...editForm, conversion_type: e.target.value || null})}
+                          className="w-32 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                          placeholder="220i → 228i"
+                        />
+                      </td>
+                      <td className="px-2 py-2">
+                        <input
+                          type="number"
+                          value={editForm.conversion_target_power || ''}
+                          onChange={(e) => setEditForm({...editForm, conversion_target_power: e.target.value ? parseInt(e.target.value) : null})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                          placeholder="-"
+                        />
+                      </td>
+                      <td className="px-2 py-2">
+                        <input
+                          type="number"
+                          value={editForm.conversion_price || ''}
+                          onChange={(e) => setEditForm({...editForm, conversion_price: e.target.value ? parseInt(e.target.value) : null})}
+                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                          placeholder="-"
+                        />
+                      </td>
+                      <td className="px-2 py-2">
                         <div className="flex gap-1">
                           <button
                             onClick={handleSave}
@@ -511,19 +558,35 @@ export default function ChipTuningAdmin() {
                     </>
                   ) : (
                     <>
-                      <td className="px-3 py-2">{record.model_name}</td>
-                      <td className="px-3 py-2">{record.series}</td>
-                      <td className="px-3 py-2">{record.body_type}</td>
-                      <td className="px-3 py-2">{record.engine_code}</td>
-                      <td className="px-3 py-2 text-white/60">{record.article_code}</td>
-                      <td className="px-3 py-2 text-white/60">{record.stock_power}</td>
-                      <td className="px-3 py-2 text-white/60">{record.stock_torque}</td>
-                      <td className="px-3 py-2 font-medium text-green-400">{record.stage1_power}</td>
-                      <td className="px-3 py-2 font-medium text-green-400">{record.stage1_torque}</td>
-                      <td className="px-3 py-2">{record.stage1_price.toLocaleString()} ₽</td>
-                      <td className="px-3 py-2 font-medium text-blue-400">{record.stage2_power || '-'}</td>
-                      <td className="px-3 py-2 font-medium text-blue-400">{record.stage2_torque || '-'}</td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2 text-white/40">{record.id}</td>
+                      <td className="px-2 py-2">{record.model_name}</td>
+                      <td className="px-2 py-2">{record.series}</td>
+                      <td className="px-2 py-2">{record.body_type}</td>
+                      <td className="px-2 py-2">{record.engine_code}</td>
+                      <td className="px-2 py-2 text-white/60">{record.stock_power}</td>
+                      <td className="px-2 py-2 text-white/60">{record.stock_torque}</td>
+                      <td className="px-2 py-2 font-medium text-green-400">{record.stage1_power}</td>
+                      <td className="px-2 py-2 font-medium text-green-400">{record.stage1_torque}</td>
+                      <td className="px-2 py-2">{record.stage1_price.toLocaleString()}</td>
+                      <td className="px-2 py-2 font-medium text-blue-400">{record.stage2_power || '-'}</td>
+                      <td className="px-2 py-2 font-medium text-blue-400">{record.stage2_torque || '-'}</td>
+                      <td className="px-2 py-2">
+                        {record.status === 1 ? (
+                          <span className="text-green-400">✅ Вкл</span>
+                        ) : (
+                          <span className="text-red-400">❌ Выкл</span>
+                        )}
+                      </td>
+                      <td className="px-2 py-2 text-purple-400">
+                        {record.conversion_type || '-'}
+                      </td>
+                      <td className="px-2 py-2 text-purple-400 font-medium">
+                        {record.conversion_target_power || '-'}
+                      </td>
+                      <td className="px-2 py-2 text-purple-400">
+                        {record.conversion_price ? record.conversion_price.toLocaleString() : '-'}
+                      </td>
+                      <td className="px-2 py-2">
                         <div className="flex gap-1">
                           <button
                             onClick={() => handleEdit(record)}
