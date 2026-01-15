@@ -117,12 +117,11 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 company = re.sub(r'\s+St\.\d+$', '', company_raw).strip()
                 
                 if not model_full:
-                    stats['errors'].append("Пустое наименование")
-                    continue
+                    continue  # Пустые строки пропускаем БЕЗ ошибки
                 
                 # Пропускаем строки-заголовки (если наименование = "BMW" без модели)
                 if model_full == "BMW" or not model_full.startswith("BMW"):
-                    continue
+                    continue  # Заголовки пропускаем БЕЗ ошибки
                 
                 # Парсинг наименования: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
                 # Ищем последние два числа - это сток мощность и момент
@@ -137,18 +136,55 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 # Убираем стоковые характеристики из названия для парсинга модели
                 model_clean = model_full[:stock_match.start()].strip()
                 
-                # Парсинг модели: "BMW 1-series E8x 116d" -> series="1-series", body="E8x", engine="116d"
+                # Парсинг модели с гибким форматом
+                # Варианты:
+                # 1. "BMW 1-series E8x 116d" -> series="1-series", body="E8x", engine="116d"
+                # 2. "BMW M5 F90" -> series="M5", body="F90", engine="M5"
+                # 3. "BMW 520d G60" -> series="5-series", body="G60", engine="520d"
+                # 4. "BMW 530e G30 LCI" -> series="5-series", body="G30 LCI", engine="530e"
+                
                 parts = model_clean.replace('BMW ', '').split()
-                if len(parts) < 3:
-                    stats['errors'].append(f"Неверный формат модели: {model_clean}")
+                
+                # Если только 2 части (например "M5 F90" или "520d G60")
+                if len(parts) == 2:
+                    # Определяем что есть что по паттернам
+                    first_part = parts[0]
+                    second_part = parts[1]
+                    
+                    # Если первая часть = M-модель (M2, M3, M5, etc)
+                    if re.match(r'^M\d+$', first_part):
+                        series = f"{first_part}"
+                        body_type = second_part
+                        engine_code = first_part
+                    # Если первая часть = engine_code (520d, 530i, etc)
+                    elif re.match(r'^\d{3}[a-z]+', first_part):
+                        # Извлекаем серию из engine_code (520d -> 5-series)
+                        series_num = first_part[0]  # "5" из "520d"
+                        series = f"{series_num}-series"
+                        body_type = second_part
+                        engine_code = first_part
+                    else:
+                        stats['errors'].append(f"[SKIP] Неверный формат (2 части): {model_clean}")
+                        continue
+                
+                # Если 3+ части (стандартный формат)
+                elif len(parts) >= 3:
+                    series = parts[0]  # "1-series"
+                    
+                    # Проверяем LCI/Rest в следующих частях
+                    if len(parts) >= 4 and (parts[2].upper() == 'LCI' or parts[2].lower() == 'rest'):
+                        body_type = f"{parts[1]} {parts[2]}"  # "G30 LCI"
+                        engine_code = ' '.join(parts[3:]) if len(parts) > 3 else parts[0]
+                    else:
+                        body_type = parts[1]  # "E8x"
+                        engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
+                
+                else:
+                    stats['errors'].append(f"[SKIP] Неверный формат (< 2 частей): {model_clean}")
                     continue
                 
-                series = parts[0]  # "1-series"
-                body_type = parts[1]  # "E8x" или "F30 LCI"
-                engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
-                
                 # Определяем рестайлинг по наличию LCI или Rest в body_type
-                is_restyling = 'LCI' in body_type or 'Rest' in body_type or 'rest' in body_type.lower()
+                is_restyling = 'LCI' in body_type.upper() or 'REST' in body_type.upper()
                 
                 # Stage 1 - извлекаем числа из "400 Нм", "180 л.с."
                 stage1_torque_str = row.get('Stage 1 (крутящий момент)', '').strip()
@@ -164,8 +200,8 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 stage1_power = int(stage1_power_match.group(1)) if stage1_power_match else 0
                 stage1_price = int(stage1_price_match.group(1)) if stage1_price_match else 30000
                 
+                # Если нет Stage 1 данных - пропускаем БЕЗ ошибки
                 if not stage1_torque or not stage1_power:
-                    stats['errors'].append(f"Не найдены Stage 1 показатели в: {model_full}")
                     continue
                 
                 # Stage 2 (опционально) - тоже извлекаем числа
