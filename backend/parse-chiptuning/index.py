@@ -41,81 +41,84 @@ def parse_modification_links(model_url: str) -> List[str]:
     return sorted(set(links))
 
 def parse_mod_page(url: str) -> List[Dict[str, Any]]:
-    soup = get_soup(url)
+    try:
+        soup = get_soup(url)
 
-    title = soup.find("h1")
-    title_text = title.get_text(strip=True) if title else ""
-    parts = title_text.split()
-    model = " ".join(parts[:3]) if len(parts) >= 3 else title_text
-    modification = parts[3] if len(parts) >= 4 else ""
+        title = soup.find("h1")
+        title_text = title.get_text(strip=True) if title else ""
+        
+        title_match = re.search(r"BMW\s+(.+?)\s+(\S+)\s+(\d+)\s+(?:л\.с\.|hp)\s+(\d+)\s+(?:Нм|Nm)", title_text, re.IGNORECASE)
+        if not title_match:
+            return []
+        
+        series = title_match.group(1).strip()
+        modification = title_match.group(2).strip()
+        model = f"BMW {series}"
+        engine_hp_stock = int(title_match.group(3))
+        engine_nm_stock = int(title_match.group(4))
 
-    engine_hp_stock = None
-    engine_nm_stock = None
-    for t in soup.stripped_strings:
-        if "л.с." in t and "Нм" in t:
-            nums = [s for s in t.replace("л.с.", "").replace("Нм", "").replace(">", " ").split() if s.isdigit()]
-            if len(nums) >= 2:
-                engine_hp_stock = int(nums[0])
-                engine_nm_stock = int(nums[1])
+        rows = []
+        
+        content_divs = soup.find_all(["div", "section"])
+
+        for block in content_divs:
+            text = " ".join(block.get_text(" ", strip=True).split())
+            
+            if len(text) < 100 or len(text) > 3000 or "руб" not in text:
+                continue
+
+            stage_match = re.search(r"(Reborn Technologies St\.[\d,]+|Stage\s*[\d,]+)", text, re.IGNORECASE)
+            if not stage_match:
+                continue
+            
+            stage = stage_match.group(1).replace("Reborn Technologies ", "").replace("  ", " ")
+            
+            stage_idx = text.find(stage)
+            stage_text = text[stage_idx:stage_idx+800]
+            
+            all_powers = re.findall(r"(\d+)\s*(?:л\.с\.|hp)", stage_text, re.IGNORECASE)
+            all_torques = re.findall(r"(\d+)\s*(?:Нм|Nm)", stage_text, re.IGNORECASE)
+            
+            if len(all_powers) < 1 or len(all_torques) < 1:
+                continue
+            
+            hp_values = sorted([int(p) for p in all_powers if int(p) > 50], reverse=True)
+            nm_values = sorted([int(t) for t in all_torques if int(t) > 100], reverse=True)
+            
+            hp_after = hp_values[0] if hp_values and hp_values[0] > engine_hp_stock else None
+            nm_after = nm_values[0] if nm_values and nm_values[0] > engine_nm_stock else None
+            
+            if not hp_after or not nm_after:
+                continue
+
+            price_match = re.search(r"(\d{2}[\d\s]{1,})\s*руб", stage_text)
+            price = 30000
+            if price_match:
+                price_str = price_match.group(1).replace(" ", "").strip()
+                if price_str.isdigit() and 10000 <= int(price_str) <= 500000:
+                    price = int(price_str)
+
+            rows.append({
+                "model": model,
+                "modification": modification,
+                "engine_hp_stock": engine_hp_stock,
+                "engine_nm_stock": engine_nm_stock,
+                "stage": stage,
+                "hp_after": hp_after,
+                "nm_after": nm_after,
+                "price": price,
+                "hp_gain": hp_after - engine_hp_stock,
+                "nm_gain": nm_after - engine_nm_stock,
+                "url": url
+            })
+            
+            if len(rows) >= 3:
                 break
 
-    rows = []
-
-    for block in soup.find_all(["table", "div"]):
-        text = " ".join(block.get_text(" ", strip=True).split())
-        if "руб" not in text:
-            continue
-
-        stage = None
-        for key in ["Reborn Technologies St.1,5", "Reborn Technologies St.1", "Reborn Technologies St.2",
-                    "Stage 1,5", "Stage 1", "Stage 2"]:
-            if key in text:
-                stage = key
-                break
-
-        if not stage:
-            continue
-
-        pairs = re.findall(r"(\d+)\s*л\.с\.\s*(\d+)\s*Нм", text)
-        if not pairs:
-            continue
-
-        hp_stock_local, nm_stock_local = pairs[0]
-        hp_after, nm_after = pairs[-1]
-
-        hp_stock_local = int(hp_stock_local)
-        nm_stock_local = int(nm_stock_local)
-        hp_after = int(hp_after)
-        nm_after = int(nm_after)
-
-        if engine_hp_stock is None:
-            engine_hp_stock = hp_stock_local
-        if engine_nm_stock is None:
-            engine_nm_stock = nm_stock_local
-
-        hp_gain = hp_after - engine_hp_stock
-        nm_gain = nm_after - engine_nm_stock
-
-        price_match = re.search(r"(\d[\d\s]*)\s*руб", text)
-        price = None
-        if price_match:
-            price = int(price_match.group(1).replace(" ", ""))
-
-        rows.append({
-            "model": model,
-            "modification": modification,
-            "engine_hp_stock": engine_hp_stock,
-            "engine_nm_stock": engine_nm_stock,
-            "stage": stage,
-            "hp_after": hp_after,
-            "nm_after": nm_after,
-            "price": price,
-            "hp_gain": hp_gain,
-            "nm_gain": nm_gain,
-            "url": url
-        })
-
-    return rows
+        return rows
+    except Exception as e:
+        print(f"Error parsing {url}: {e}")
+        return []
 
 def handler(event: dict, context) -> dict:
     '''API для парсинга данных чип-тюнинга BMW с reborn.tech'''
