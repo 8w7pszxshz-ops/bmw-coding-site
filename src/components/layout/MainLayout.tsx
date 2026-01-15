@@ -25,46 +25,84 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0 animate-water-droplets-1" style={{
-            background: `
-              radial-gradient(circle 3px at 15% 20%, rgba(100, 200, 255, 0.5), transparent),
-              radial-gradient(circle 2px at 45% 35%, rgba(100, 200, 255, 0.4), transparent),
-              radial-gradient(circle 4px at 75% 15%, rgba(100, 200, 255, 0.6), transparent),
-              radial-gradient(circle 2px at 25% 60%, rgba(100, 200, 255, 0.3), transparent),
-              radial-gradient(circle 3px at 85% 45%, rgba(100, 200, 255, 0.5), transparent),
-              radial-gradient(circle 2px at 55% 75%, rgba(100, 200, 255, 0.4), transparent),
-              radial-gradient(circle 3px at 10% 85%, rgba(100, 200, 255, 0.5), transparent),
-              radial-gradient(circle 4px at 65% 90%, rgba(100, 200, 255, 0.6), transparent)
-            `,
-            mixBlendMode: 'screen',
+          <div className="absolute w-1 animate-rain-drop-1" style={{
+            left: '15%',
+            top: '-50px',
+            height: '80px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.6) 20%, rgba(100, 200, 255, 0.8) 50%, rgba(100, 200, 255, 0.4) 80%, transparent)',
+            boxShadow: '0 0 8px rgba(100, 200, 255, 0.5)',
             filter: 'blur(1px)',
+            borderRadius: '50%',
           }} />
           
-          <div className="absolute inset-0 animate-water-droplets-2" style={{
-            background: `
-              radial-gradient(circle 2px at 30% 10%, rgba(100, 200, 255, 0.4), transparent),
-              radial-gradient(circle 3px at 60% 25%, rgba(100, 200, 255, 0.5), transparent),
-              radial-gradient(circle 2px at 90% 40%, rgba(100, 200, 255, 0.3), transparent),
-              radial-gradient(circle 4px at 40% 55%, rgba(100, 200, 255, 0.6), transparent),
-              radial-gradient(circle 2px at 70% 70%, rgba(100, 200, 255, 0.4), transparent),
-              radial-gradient(circle 3px at 20% 80%, rgba(100, 200, 255, 0.5), transparent),
-              radial-gradient(circle 2px at 80% 95%, rgba(100, 200, 255, 0.3), transparent)
-            `,
-            mixBlendMode: 'screen',
-            filter: 'blur(1px)',
+          <div className="absolute w-0.5 animate-rain-drop-2" style={{
+            left: '35%',
+            top: '-30px',
+            height: '60px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.5) 20%, rgba(100, 200, 255, 0.7) 50%, rgba(100, 200, 255, 0.3) 80%, transparent)',
+            boxShadow: '0 0 6px rgba(100, 200, 255, 0.4)',
+            filter: 'blur(0.5px)',
+            borderRadius: '50%',
           }} />
           
-          <div className="absolute inset-0 animate-water-droplets-3" style={{
-            background: `
-              radial-gradient(circle 3px at 50% 5%, rgba(100, 200, 255, 0.5), transparent),
-              radial-gradient(circle 2px at 5% 30%, rgba(100, 200, 255, 0.3), transparent),
-              radial-gradient(circle 4px at 35% 45%, rgba(100, 200, 255, 0.6), transparent),
-              radial-gradient(circle 2px at 95% 60%, rgba(100, 200, 255, 0.4), transparent),
-              radial-gradient(circle 3px at 50% 80%, rgba(100, 200, 255, 0.5), transparent),
-              radial-gradient(circle 2px at 15% 95%, rgba(100, 200, 255, 0.3), transparent)
-            `,
-            mixBlendMode: 'screen',
+          <div className="absolute w-1 animate-rain-drop-3" style={{
+            left: '60%',
+            top: '-70px',
+            height: '90px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.7) 20%, rgba(100, 200, 255, 0.9) 50%, rgba(100, 200, 255, 0.5) 80%, transparent)',
+            boxShadow: '0 0 10px rgba(100, 200, 255, 0.6)',
             filter: 'blur(1px)',
+            borderRadius: '50%',
+          }} />
+          
+          <div className="absolute w-0.5 animate-rain-drop-4" style={{
+            left: '80%',
+            top: '-40px',
+            height: '70px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.6) 20%, rgba(100, 200, 255, 0.8) 50%, rgba(100, 200, 255, 0.4) 80%, transparent)',
+            boxShadow: '0 0 7px rgba(100, 200, 255, 0.5)',
+            filter: 'blur(1px)',
+            borderRadius: '50%',
+          }} />
+          
+          <div className="absolute w-0.5 animate-rain-drop-5" style={{
+            left: '25%',
+            top: '-35px',
+            height: '55px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.5) 20%, rgba(100, 200, 255, 0.7) 50%, rgba(100, 200, 255, 0.3) 80%, transparent)',
+            boxShadow: '0 0 5px rgba(100, 200, 255, 0.4)',
+            filter: 'blur(0.5px)',
+            borderRadius: '50%',
+          }} />
+          
+          <div className="absolute w-1 animate-rain-drop-6" style={{
+            left: '50%',
+            top: '-60px',
+            height: '85px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.65) 20%, rgba(100, 200, 255, 0.85) 50%, rgba(100, 200, 255, 0.45) 80%, transparent)',
+            boxShadow: '0 0 9px rgba(100, 200, 255, 0.55)',
+            filter: 'blur(1px)',
+            borderRadius: '50%',
+          }} />
+          
+          <div className="absolute w-0.5 animate-rain-drop-7" style={{
+            left: '70%',
+            top: '-45px',
+            height: '65px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.55) 20%, rgba(100, 200, 255, 0.75) 50%, rgba(100, 200, 255, 0.35) 80%, transparent)',
+            boxShadow: '0 0 6px rgba(100, 200, 255, 0.45)',
+            filter: 'blur(0.5px)',
+            borderRadius: '50%',
+          }} />
+          
+          <div className="absolute w-1 animate-rain-drop-8" style={{
+            left: '90%',
+            top: '-55px',
+            height: '75px',
+            background: 'linear-gradient(180deg, transparent, rgba(100, 200, 255, 0.6) 20%, rgba(100, 200, 255, 0.8) 50%, rgba(100, 200, 255, 0.4) 80%, transparent)',
+            boxShadow: '0 0 8px rgba(100, 200, 255, 0.5)',
+            filter: 'blur(1px)',
+            borderRadius: '50%',
           }} />
         </div>
         <BackgroundEffects />

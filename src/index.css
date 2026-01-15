@@ -287,75 +287,91 @@
     }
   }
 
-  @keyframes waterDroplets1 {
-    0%,
+  @keyframes rainDrop1 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.8;
+    }
     100% {
-      opacity: 0;
-    }
-    10% {
-      opacity: 0.3;
-    }
-    25% {
-      opacity: 0;
-    }
-    40% {
-      opacity: 0.5;
-    }
-    55% {
-      opacity: 0;
-    }
-    70% {
-      opacity: 0.4;
-    }
-    85% {
+      transform: translateY(100vh);
       opacity: 0;
     }
   }
 
-  @keyframes waterDroplets2 {
-    0%,
+  @keyframes rainDrop2 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.7;
+    }
     100% {
-      opacity: 0;
-    }
-    15% {
-      opacity: 0.4;
-    }
-    30% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.6;
-    }
-    65% {
-      opacity: 0;
-    }
-    80% {
-      opacity: 0.3;
-    }
-    95% {
+      transform: translateY(100vh);
       opacity: 0;
     }
   }
 
-  @keyframes waterDroplets3 {
-    0%,
+  @keyframes rainDrop3 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.9;
+    }
     100% {
+      transform: translateY(100vh);
       opacity: 0;
     }
-    20% {
-      opacity: 0.5;
+  }
+
+  @keyframes rainDrop4 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.75;
     }
-    35% {
+    100% {
+      transform: translateY(100vh);
       opacity: 0;
     }
-    55% {
-      opacity: 0.4;
+  }
+
+  @keyframes rainDrop5 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.65;
     }
-    70% {
+    100% {
+      transform: translateY(100vh);
       opacity: 0;
     }
-    85% {
-      opacity: 0.6;
+  }
+
+  @keyframes rainDrop6 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes rainDrop7 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes rainDrop8 {
+    0% {
+      transform: translateY(0);
+      opacity: 0.75;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
     }
   }
 
@@ -367,16 +383,36 @@
     animation: slideIn 0.6s ease-out forwards;
   }
 
-  .animate-water-droplets-1 {
-    animation: waterDroplets1 8s ease-in-out infinite;
+  .animate-rain-drop-1 {
+    animation: rainDrop1 8s linear infinite;
   }
 
-  .animate-water-droplets-2 {
-    animation: waterDroplets2 10s ease-in-out infinite 2s;
+  .animate-rain-drop-2 {
+    animation: rainDrop2 6s linear infinite 1s;
   }
 
-  .animate-water-droplets-3 {
-    animation: waterDroplets3 12s ease-in-out infinite 4s;
+  .animate-rain-drop-3 {
+    animation: rainDrop3 10s linear infinite 2s;
+  }
+
+  .animate-rain-drop-4 {
+    animation: rainDrop4 7s linear infinite 3s;
+  }
+
+  .animate-rain-drop-5 {
+    animation: rainDrop5 5s linear infinite 0.5s;
+  }
+
+  .animate-rain-drop-6 {
+    animation: rainDrop6 9s linear infinite 1.5s;
+  }
+
+  .animate-rain-drop-7 {
+    animation: rainDrop7 6.5s linear infinite 2.5s;
+  }
+
+  .animate-rain-drop-8 {
+    animation: rainDrop8 7.5s linear infinite 4s;
   }
 
   .scrollbar-hide {
