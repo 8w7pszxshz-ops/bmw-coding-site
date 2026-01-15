@@ -87,18 +87,21 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
     try:
         for row in rows:
             try:
-                # Формат Excel: A=Наименование, B=Компания, C=Статус, D=St1 момент, E=St1 мощность, 
-                # F=Цена, I=St2 мощность, J=St2 момент
-                # Из колонки A парсим: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
+                # Формат CSV: Наименование, Компания, Stage 1 (крутящий момент), Stage 1 (мощность),
+                # Статус, Stage 2 (мощность), Stage 2 (крутящий момент), цена
+                # Из "Наименование" парсим: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
+                
+                import re
                 
                 model_full = row.get('Наименование', '').strip()
-                company = row.get('Наименование артикула', 'Reborn Technologies').strip()
+                company = row.get('Компания', 'Reborn Technologies').strip()
+                
+                if not model_full:
+                    stats['errors'].append("Пустое наименование")
+                    continue
                 
                 # Парсинг наименования: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
                 # Ищем последние два числа - это сток мощность и момент
-                import re
-                
-                # Поиск "XXX л.с. YYY Нм" в конце строки
                 stock_match = re.search(r'(\d+)\s*л\.с\.\s*(\d+)\s*Нм', model_full)
                 if not stock_match:
                     stats['errors'].append(f"Не найдены стоковые характеристики в: {model_full}")
@@ -121,11 +124,11 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
                 
                 # Stage 1
-                stage1_torque_str = row.get('Stage 1 (крутящий)', '').strip()
+                stage1_torque_str = row.get('Stage 1 (крутящий момент)', '').strip()
                 stage1_power_str = row.get('Stage 1 (мощность)', '').strip()
-                stage1_price_str = row.get('Stage 3 (мощность)', '').strip()  # Цена в колонке F
+                stage1_price_str = row.get('цена', '').strip()
                 
-                # Убираем единицы измерения
+                # Убираем единицы измерения и лишние символы
                 stage1_torque = int(re.sub(r'[^\d]', '', stage1_torque_str)) if stage1_torque_str else 0
                 stage1_power = int(re.sub(r'[^\d]', '', stage1_power_str)) if stage1_power_str else 0
                 stage1_price = int(re.sub(r'[^\d]', '', stage1_price_str)) if stage1_price_str else 30000
@@ -138,7 +141,7 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 stage2_torque = int(re.sub(r'[^\d]', '', stage2_torque_str)) if stage2_torque_str else None
                 
                 # Статус (0 = скрыт, 1 = показывать)
-                status_str = row.get('Код артикула', '1').strip()
+                status_str = row.get('Статус', '1').strip()
                 status = int(status_str) if status_str and status_str.isdigit() else 1
                 
                 # Определение конверсии (если в названии есть стрелка →)
