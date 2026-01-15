@@ -169,6 +169,7 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 }
             
             models_dict[series]['engines'][engine_key]['modifications'].append({
+                'id': row['mod_id'],
                 'name': row['mod_name'],
                 'stage': row['stage'],
                 'powerBefore': row['power_before'],
@@ -291,6 +292,62 @@ def populate_db_from_parser(limit: int = 50) -> Dict[str, Any]:
         cur.close()
         conn.close()
 
+def delete_modification(mod_id: int) -> Dict[str, Any]:
+    """Удаляет модификацию по ID"""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    try:
+        cur.execute("DELETE FROM bmw_modifications WHERE id = %s", (mod_id,))
+        conn.commit()
+        
+        if cur.rowcount > 0:
+            return {"success": True, "message": f"Modification {mod_id} deleted"}
+        else:
+            return {"success": False, "error": "Modification not found"}
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    finally:
+        cur.close()
+        conn.close()
+
+def update_modification(mod_id: int, data: dict) -> Dict[str, Any]:
+    """Обновляет данные модификации"""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    try:
+        cur.execute("""
+            UPDATE bmw_modifications
+            SET name = %s, stage = %s,
+                power_before = %s, power_after = %s,
+                torque_before = %s, torque_after = %s,
+                price = %s
+            WHERE id = %s
+        """, (
+            data.get('mod_name'),
+            data.get('stage'),
+            data.get('power_before'),
+            data.get('power_after'),
+            data.get('torque_before'),
+            data.get('torque_after'),
+            data.get('price'),
+            mod_id
+        ))
+        conn.commit()
+        
+        if cur.rowcount > 0:
+            return {"success": True, "message": f"Modification {mod_id} updated"}
+        else:
+            return {"success": False, "error": "Modification not found"}
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    finally:
+        cur.close()
+        conn.close()
+
 def import_csv_data(rows: list) -> Dict[str, Any]:
     """Импортирует данные из CSV в базу"""
     conn = get_db_connection()
@@ -378,7 +435,7 @@ def handler(event: dict, context) -> dict:
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type'
             },
             'body': ''
@@ -433,6 +490,46 @@ def handler(event: dict, context) -> dict:
                     },
                     'body': json.dumps(stats, ensure_ascii=False)
                 }
+            elif action == 'update':
+                mod_id = body.get('id')
+                mod_data = body.get('data')
+                result = update_modification(mod_id, mod_data)
+                return {
+                    'statusCode': 200 if result.get('success') else 400,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps(result, ensure_ascii=False)
+                }
+        except Exception as e:
+            return {
+                'statusCode': 500,
+                'headers': {'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'error': str(e)}, ensure_ascii=False)
+            }
+    
+    if method == 'DELETE':
+        try:
+            query_params = event.get('queryStringParameters') or {}
+            mod_id = query_params.get('id')
+            
+            if not mod_id:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Missing id parameter'}, ensure_ascii=False)
+                }
+            
+            result = delete_modification(int(mod_id))
+            return {
+                'statusCode': 200 if result.get('success') else 400,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps(result, ensure_ascii=False)
+            }
         except Exception as e:
             return {
                 'statusCode': 500,

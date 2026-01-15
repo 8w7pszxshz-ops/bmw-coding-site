@@ -91,18 +91,89 @@ export default function ChipTuningAdmin() {
     setEditForm(mod);
   };
 
-  const handleSave = () => {
-    // TODO: Создать API endpoint для обновления данных
-    setModifications(prev => 
-      prev.map(m => m.id === editingId ? { ...m, ...editForm } : m)
-    );
-    setEditingId(null);
-    setEditForm({});
+  const handleSave = async () => {
+    if (!editForm.mod_id) {
+      alert('Невозможно сохранить: отсутствует ID модификации');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'update',
+          id: editForm.mod_id,
+          data: {
+            mod_name: editForm.mod_name,
+            stage: editForm.stage,
+            power_before: editForm.power_before,
+            power_after: editForm.power_after,
+            torque_before: editForm.torque_before,
+            torque_after: editForm.torque_after,
+            price: editForm.price
+          }
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setModifications(prev => 
+          prev.map(m => m.id === editingId ? { ...m, ...editForm } : m)
+        );
+        setUploadStatus('✅ Изменения сохранены');
+        setTimeout(() => setUploadStatus(''), 3000);
+      } else {
+        setUploadStatus(`❌ Ошибка: ${result.error}`);
+      }
+    } catch (error) {
+      setUploadStatus(`❌ Ошибка сохранения: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setLoading(false);
+      setEditingId(null);
+      setEditForm({});
+    }
   };
 
   const handleCancel = () => {
     setEditingId(null);
     setEditForm({});
+  };
+
+  const handleDelete = async (mod: Modification) => {
+    if (!mod.mod_id) {
+      alert('Невозможно удалить: отсутствует ID модификации');
+      return;
+    }
+
+    if (!confirm(`Удалить модификацию "${mod.mod_name}"?`)) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}?id=${mod.mod_id}`, {
+        method: 'DELETE'
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setModifications(prev => prev.filter(m => m.id !== mod.id));
+        setUploadStatus('✅ Запись удалена');
+        setTimeout(() => setUploadStatus(''), 3000);
+      } else {
+        setUploadStatus(`❌ Ошибка: ${result.error}`);
+      }
+    } catch (error) {
+      setUploadStatus(`❌ Ошибка удаления: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleRefresh = async () => {
@@ -470,12 +541,22 @@ export default function ChipTuningAdmin() {
                       <td className="px-4 py-3 text-sm font-medium text-green-400">{mod.torque_after}</td>
                       <td className="px-4 py-3 text-sm">{mod.price.toLocaleString()} ₽</td>
                       <td className="px-4 py-3">
-                        <button
-                          onClick={() => handleEdit(mod)}
-                          className="p-1 rounded hover:bg-[#FF0040]/20"
-                        >
-                          <Icon name="Pencil" className="w-4 h-4 text-[#FF0040]" />
-                        </button>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleEdit(mod)}
+                            className="p-1 rounded hover:bg-[#FF0040]/20"
+                            title="Редактировать"
+                          >
+                            <Icon name="Pencil" className="w-4 h-4 text-[#FF0040]" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(mod)}
+                            className="p-1 rounded hover:bg-red-500/20"
+                            title="Удалить"
+                          >
+                            <Icon name="Trash2" className="w-4 h-4 text-red-400" />
+                          </button>
+                        </div>
                       </td>
                     </>
                   )}
