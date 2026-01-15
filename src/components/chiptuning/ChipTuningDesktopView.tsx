@@ -3,6 +3,12 @@ import Icon from '@/components/ui/icon';
 import { bmwModels, getTypeColor, ModelData } from './chipTuningDataNew';
 import { City } from '@/components/CitySelector';
 import ModificationCard from './ModificationCard';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface ChipTuningDesktopViewProps {
   selectedCity: City;
@@ -47,17 +53,55 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
 
   return (
     <div className="mb-16">
-      <div className="text-center mb-12">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
-          <h2 className="font-light text-white text-3xl">
-            {step === 'series' && 'Выберите серию BMW'}
-            {step === 'body' && 'Выберите кузов'}
-            {step === 'engine' && 'Выберите двигатель и модификацию'}
-          </h2>
+      <Dialog open={step === 'series'} onOpenChange={(open) => !open && setStep('series')}>
+        <DialogContent 
+          className="border-0 max-w-4xl"
+          style={{
+            background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
+            backdropFilter: 'blur(40px)',
+            boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center justify-center gap-3">
+              <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
+              <span className="font-light text-3xl">Выберите серию BMW</span>
+            </DialogTitle>
+          </DialogHeader>
+          <p className="text-white/60 text-sm text-center mb-6">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+            {uniqueSeries.map((series) => (
+              <button
+                key={series}
+                onClick={() => handleSeriesSelect(series)}
+                className="p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(231,34,46,0.4)]"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backdropFilter: 'blur(10px)'
+                }}
+              >
+                <Icon name="Waypoints" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
+                <div className="text-white font-medium text-xl">{series}</div>
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {step !== 'series' && (
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
+            <h2 className="font-light text-white text-3xl">
+              {step === 'body' && 'Выберите кузов'}
+              {step === 'engine' && 'Выберите двигатель и модификацию'}
+            </h2>
+          </div>
+          <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
         </div>
-        <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
-      </div>
+      )}
 
       {step !== 'series' && (
         <button
@@ -72,26 +116,6 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
           <Icon name="ArrowLeft" className="w-5 h-5" />
           Назад
         </button>
-      )}
-
-      {step === 'series' && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {uniqueSeries.map((series) => (
-            <button
-              key={series}
-              onClick={() => handleSeriesSelect(series)}
-              className="p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(231,34,46,0.4)]"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <Icon name="Waypoints" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
-              <div className="text-white font-medium text-xl">{series}</div>
-            </button>
-          ))}
-        </div>
       )}
 
       {step === 'body' && (
