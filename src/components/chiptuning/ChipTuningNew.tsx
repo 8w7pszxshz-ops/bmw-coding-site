@@ -2,6 +2,7 @@ import { MobileOnly, DesktopOnly } from '@/components/ui/responsive';
 import { City } from '@/components/CitySelector';
 import ChipTuningMobileView from './ChipTuningMobileView';
 import ChipTuningDesktopView from './ChipTuningDesktopView';
+import UpdateDataButton from './UpdateDataButton';
 
 interface ChipTuningProps {
   selectedCity: City;
@@ -16,6 +17,7 @@ export default function ChipTuningNew({ selectedCity }: ChipTuningProps) {
       <DesktopOnly>
         <ChipTuningDesktopView selectedCity={selectedCity} />
       </DesktopOnly>
+      <UpdateDataButton />
     </>
   );
 }
