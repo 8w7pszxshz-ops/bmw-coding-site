@@ -18,4 +18,5 @@ export interface ChipTuningRecord {
   status: number;
   conversion_type: string | null;
   conversion_price: number | null;
+  stage_type: string;
 }

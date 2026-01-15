@@ -49,7 +49,8 @@ export default function ChipTuningAdmin() {
         stage2_torque: item.stage2?.torque || null,
         status: item.status,
         conversion_type: item.conversion_type || null,
-        conversion_price: item.conversion_price || null
+        conversion_price: item.conversion_price || null,
+        stage_type: item.stage_type || 'St.1'
       }));
       
       setRecords(flatList);
@@ -96,7 +97,8 @@ export default function ChipTuningAdmin() {
             stage2_torque: editForm.stage2_torque,
             status: editForm.status,
             conversion_type: editForm.conversion_type,
-            conversion_price: editForm.conversion_price
+            conversion_price: editForm.conversion_price,
+            stage_type: editForm.stage_type
           }
         })
       });
@@ -235,9 +237,12 @@ export default function ChipTuningAdmin() {
       // Формируем наименование: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
       const modelName = `BMW ${record.series} ${record.body_type} ${record.engine_code} ${record.stock_power} л.с. ${record.stock_torque} Нм`;
       
+      // Компания с stage_type: "Reborn Technologies St.1"
+      const company = `Reborn Technologies ${record.stage_type || 'St.1'}`;
+      
       return [
         modelName,
-        'Reborn Technologies',
+        company,
         `${record.stage1_torque} Нм`,
         `${record.stage1_power} л.с.`,
         record.status,

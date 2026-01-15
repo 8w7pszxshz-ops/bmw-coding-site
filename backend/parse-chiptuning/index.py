@@ -31,9 +31,10 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 stage2_torque,
                 status,
                 conversion_type,
-                conversion_price
+                conversion_price,
+                stage_type
             FROM bmw_chiptuning
-            ORDER BY series, body_type, engine_code
+            ORDER BY series, body_type, engine_code, stage_type
         """)
         
         rows = cur.fetchall()
@@ -53,6 +54,7 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 'status': row['status'],
                 'conversion_type': row['conversion_type'],
                 'conversion_price': row['conversion_price'],
+                'stage_type': row.get('stage_type', 'St.1'),
                 'stock': {
                     'power': row['stock_power'],
                     'torque': row['stock_torque']
@@ -104,7 +106,11 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 if 'Sedox' in company_raw or 'sedox' in company_raw.lower():
                     continue
                 
-                # Убираем "St.1", "St.2" из компании (Reborn Technologies St.1 → Reborn Technologies)
+                # Извлекаем stage_type из компании ("Reborn Technologies St.1" → "St.1")
+                stage_match = re.search(r'St\.(\d+)$', company_raw)
+                stage_type = f"St.{stage_match.group(1)}" if stage_match else 'St.1'
+                
+                # Убираем "St.1", "St.2" из компании для хранения
                 company = re.sub(r'\s+St\.\d+$', '', company_raw).strip()
                 
                 if not model_full:
@@ -138,22 +144,38 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 body_type = parts[1]  # "E8x"
                 engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
                 
-                # Stage 1
+                # Stage 1 - извлекаем числа из "400 Нм", "180 л.с."
                 stage1_torque_str = row.get('Stage 1 (крутящий момент)', '').strip()
                 stage1_power_str = row.get('Stage 1 (мощность)', '').strip()
                 stage1_price_str = row.get('цена', '').strip()
                 
-                # Убираем единицы измерения и лишние символы
-                stage1_torque = int(re.sub(r'[^\d]', '', stage1_torque_str)) if stage1_torque_str else 0
-                stage1_power = int(re.sub(r'[^\d]', '', stage1_power_str)) if stage1_power_str else 0
-                stage1_price = int(re.sub(r'[^\d]', '', stage1_price_str)) if stage1_price_str else 30000
+                # Извлекаем только цифры
+                stage1_torque_match = re.search(r'(\d+)', stage1_torque_str)
+                stage1_power_match = re.search(r'(\d+)', stage1_power_str)
+                stage1_price_match = re.search(r'(\d+)', stage1_price_str)
                 
-                # Stage 2 (опционально)
+                stage1_torque = int(stage1_torque_match.group(1)) if stage1_torque_match else 0
+                stage1_power = int(stage1_power_match.group(1)) if stage1_power_match else 0
+                stage1_price = int(stage1_price_match.group(1)) if stage1_price_match else 30000
+                
+                if not stage1_torque or not stage1_power:
+                    stats['errors'].append(f"Не найдены Stage 1 показатели в: {model_full}")
+                    continue
+                
+                # Stage 2 (опционально) - тоже извлекаем числа
                 stage2_power_str = row.get('Stage 2 (мощность)', '').strip()
                 stage2_torque_str = row.get('Stage 2 (крутящий момент)', '').strip()
                 
-                stage2_power = int(re.sub(r'[^\d]', '', stage2_power_str)) if stage2_power_str else None
-                stage2_torque = int(re.sub(r'[^\d]', '', stage2_torque_str)) if stage2_torque_str else None
+                stage2_power = None
+                stage2_torque = None
+                
+                if stage2_power_str:
+                    stage2_power_match = re.search(r'(\d+)', stage2_power_str)
+                    stage2_power = int(stage2_power_match.group(1)) if stage2_power_match else None
+                
+                if stage2_torque_str:
+                    stage2_torque_match = re.search(r'(\d+)', stage2_torque_str)
+                    stage2_torque = int(stage2_torque_match.group(1)) if stage2_torque_match else None
                 
                 # Статус (0 = скрыт, 1 = показывать)
                 status_str = row.get('Статус', '1').strip()
@@ -172,16 +194,16 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 model_name = model_full
                 article_code = model_full
                 
-                # Вставка или обновление
+                # Вставка или обновление (теперь с stage_type)
                 cur.execute("""
                     INSERT INTO bmw_chiptuning (
                         model_name, series, body_type, engine_code, article_code,
                         stock_power, stock_torque,
                         stage1_power, stage1_torque, stage1_price,
                         stage2_power, stage2_torque,
-                        status, conversion_type, conversion_price
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (series, body_type, engine_code) 
+                        status, conversion_type, conversion_price, stage_type
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (series, body_type, engine_code, stage_type) 
                     DO UPDATE SET
                         model_name = EXCLUDED.model_name,
                         article_code = EXCLUDED.article_code,
@@ -201,7 +223,7 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                     stock_power, stock_torque,
                     stage1_power, stage1_torque, stage1_price,
                     stage2_power, stage2_torque,
-                    status, conversion_type, conversion_price
+                    status, conversion_type, conversion_price, stage_type
                 ))
                 stats['imported'] += 1
                 
@@ -288,6 +310,7 @@ def update_record(record_id: int, data: dict) -> Dict[str, Any]:
                 status = %s,
                 conversion_type = %s,
                 conversion_price = %s,
+                stage_type = %s,
                 updated_at = CURRENT_TIMESTAMP
             WHERE id = %s
         """, (
@@ -306,6 +329,7 @@ def update_record(record_id: int, data: dict) -> Dict[str, Any]:
             data.get('status', 1),
             data.get('conversion_type'),
             data.get('conversion_price'),
+            data.get('stage_type', 'St.1'),
             record_id
         ))
         conn.commit()

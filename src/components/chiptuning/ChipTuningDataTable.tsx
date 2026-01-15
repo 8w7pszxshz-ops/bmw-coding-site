@@ -32,6 +32,7 @@ export default function ChipTuningDataTable({
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Серия</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Кузов</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Двиг.</th>
+            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Stage</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Сток л.с.</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Сток Нм</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.1 л.с.</th>
@@ -80,6 +81,14 @@ export default function ChipTuningDataTable({
                       type="text"
                       value={editForm.engine_code || ''}
                       onChange={(e) => setEditForm({...editForm, engine_code: e.target.value})}
+                      className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                    />
+                  </td>
+                  <td className="px-2 py-2">
+                    <input
+                      type="text"
+                      value={editForm.stage_type || 'St.1'}
+                      onChange={(e) => setEditForm({...editForm, stage_type: e.target.value})}
                       className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                     />
                   </td>
@@ -193,6 +202,11 @@ export default function ChipTuningDataTable({
                   <td className="px-2 py-2">{record.series}</td>
                   <td className="px-2 py-2">{record.body_type}</td>
                   <td className="px-2 py-2">{record.engine_code}</td>
+                  <td className="px-2 py-2">
+                    <span className="px-2 py-1 rounded text-xs font-medium" style={{background: 'rgba(255, 0, 64, 0.2)', color: '#FF0040'}}>
+                      {record.stage_type || 'St.1'}
+                    </span>
+                  </td>
                   <td className="px-2 py-2 text-white/60">{record.stock_power}</td>
                   <td className="px-2 py-2 text-white/60">{record.stock_torque}</td>
                   <td className="px-2 py-2 font-medium text-green-400">{record.stage1_power}</td>
