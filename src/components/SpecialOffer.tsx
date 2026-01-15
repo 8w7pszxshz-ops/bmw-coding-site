@@ -27,7 +27,7 @@ const offers = [
       { icon: 'Gift', text: 'Apple CarPlay бесплатно', highlight: true }
     ],
     hasButton: true,
-    buttonText: 'Оформить',
+    buttonText: 'Сделать',
     buttonService: 'Российские карты навигации'
   },
   {
@@ -50,7 +50,7 @@ const offers = [
       { icon: 'Check', text: 'Без замены блока' }
     ],
     hasButton: true,
-    buttonText: 'Оформить',
+    buttonText: 'Сделать',
     buttonService: 'Удаление ошибки экстренного вызова'
   },
   {
