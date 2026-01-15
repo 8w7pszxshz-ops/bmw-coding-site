@@ -6,7 +6,7 @@ function HeroMobile() {
     <div className="mb-6 mt-3 px-4">
       <div className="flex items-center gap-2 mb-2">
         <div className="h-0.5 w-5 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-        <span className="text-[8px] tracking-[0.15em] uppercase font-light">
+        <span className="text-[9px] tracking-[0.15em] uppercase font-light">
           <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span>
         </span>
       </div>
@@ -28,7 +28,7 @@ function HeroMobile() {
           <Icon name="ShieldCheck" className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
           <div>
             <div className="text-white/90 font-light text-xs mb-0.5">Без экспериментов</div>
-            <div className="text-white/75 text-[10px] font-light leading-relaxed">
+            <div className="text-white/75 text-[11px] font-light leading-relaxed">
               Только рабочие решения
             </div>
           </div>
@@ -43,7 +43,7 @@ function HeroDesktop() {
     <div className="mb-10 mt-6">
       <div className="flex items-center gap-2.5 mb-4">
         <div className="h-0.5 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-        <span className="text-[10px] tracking-[0.25em] uppercase font-light">
+        <span className="text-xs tracking-[0.25em] uppercase font-light">
           <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Дооснащение</span>
         </span>
       </div>

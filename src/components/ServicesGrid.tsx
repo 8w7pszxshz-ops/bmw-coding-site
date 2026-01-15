@@ -125,18 +125,18 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           />
         </div>
         
-        <h3 className="text-[11px] font-light text-white mb-1.5 tracking-tight leading-tight h-[2rem] line-clamp-2">
+        <h3 className="text-xs font-light text-white mb-1.5 tracking-tight leading-tight h-[2rem] line-clamp-2">
           {service.title}
         </h3>
         
-        <p className="text-[8px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        <p className="text-[9px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
           {service.details}
         </p>
         
         <div className="mt-auto">
           <div className="flex items-center justify-between mb-2">
             <span 
-              className="text-[10px] font-light tracking-wide"
+              className="text-[10px] font-medium tracking-wide"
               style={{ color: service.color }}
             >
               {service.price}
@@ -173,7 +173,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
               color: service.color
             }}
           >
-            <span className="text-[9px] font-light">Записаться</span>
+            <span className="text-[10px] font-medium">Записаться</span>
             <Icon name="ArrowRight" className="w-3 h-3" />
           </a>
         </div>
@@ -243,18 +243,18 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
           />
         </div>
         
-        <h3 className="text-base font-light text-white mb-2 tracking-tight h-[2.7rem] line-clamp-2">
+        <h3 className="text-lg font-light text-white mb-2 tracking-tight h-[2.7rem] line-clamp-2">
           {service.title}
         </h3>
         
-        <p className="text-[10px] text-white/40 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        <p className="text-xs text-white/40 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
           {service.details}
         </p>
         
         <div className="mt-auto">
           <div className="flex items-center justify-between mb-4">
             <span 
-              className="text-xs font-light tracking-wide"
+              className="text-sm font-medium tracking-wide"
               style={{ color: service.color }}
             >
               {service.price}
@@ -291,8 +291,8 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
               color: service.color
             }}
           >
-            <span className="text-[10px] font-light">Записаться</span>
-            <Icon name="ArrowRight" className="w-3.5 h-3.5" />
+            <span className="text-xs font-medium">Записаться</span>
+            <Icon name="ArrowRight" className="w-4 h-4" />
           </a>
         </div>
       </CardContent>
