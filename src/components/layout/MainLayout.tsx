@@ -31,16 +31,26 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
           {children}
         </div>
 
-        <div 
-          className="fixed inset-0 pointer-events-none z-50 animate-water-shimmer"
-          style={{
-            backgroundImage: 'url(https://cdn.poehali.dev/files/капли.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.25,
-            mixBlendMode: 'overlay',
-          }}
-        />
+        <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'url(https://cdn.poehali.dev/files/капли.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.3,
+              mixBlendMode: 'overlay',
+            }}
+          />
+          <div 
+            className="absolute inset-0 animate-light-sweep"
+            style={{
+              background: 'linear-gradient(135deg, transparent 0%, transparent 30%, rgba(100, 200, 255, 0.6) 50%, transparent 70%, transparent 100%)',
+              backgroundSize: '200% 200%',
+              mixBlendMode: 'screen',
+            }}
+          />
+        </div>
       </div>
     </div>
   );

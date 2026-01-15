@@ -375,38 +375,33 @@
     }
   }
 
-  @keyframes waterShimmer {
+  @keyframes lightSweep {
     0% {
-      opacity: 0.25;
-      transform: scale(1);
+      background-position: -200% -200%;
+      opacity: 0;
     }
-    15% {
-      opacity: 0.35;
-      transform: scale(1.01);
+    10% {
+      opacity: 0.3;
     }
-    30% {
-      opacity: 0.22;
-      transform: scale(0.99);
+    25% {
+      background-position: -100% -100%;
+      opacity: 0.7;
     }
-    45% {
-      opacity: 0.4;
-      transform: scale(1.02);
+    40% {
+      background-position: 0% 0%;
+      opacity: 1;
     }
-    60% {
+    55% {
+      background-position: 100% 100%;
+      opacity: 0.6;
+    }
+    70% {
+      background-position: 200% 200%;
       opacity: 0.2;
-      transform: scale(0.98);
-    }
-    75% {
-      opacity: 0.38;
-      transform: scale(1.01);
-    }
-    90% {
-      opacity: 0.23;
-      transform: scale(0.99);
     }
     100% {
-      opacity: 0.25;
-      transform: scale(1);
+      background-position: 300% 300%;
+      opacity: 0;
     }
   }
 
@@ -414,8 +409,8 @@
     animation: fadeIn 0.5s ease-out forwards;
   }
 
-  .animate-water-shimmer {
-    animation: waterShimmer 6s ease-in-out infinite;
+  .animate-light-sweep {
+    animation: lightSweep 12s ease-in-out infinite;
   }
 
   .animate-slide-in {
