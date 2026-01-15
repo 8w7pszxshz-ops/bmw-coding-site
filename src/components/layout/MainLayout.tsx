@@ -24,45 +24,48 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
           `,
         }}
       >
-        <div className="absolute inset-0 pointer-events-none">
-          <div 
-            className="absolute inset-0 opacity-0 animate-marble-flow-1"
-            style={{
-              backgroundImage: 'url(https://cdn.poehali.dev/files/mram.jpg)',
-              backgroundSize: '150%',
-              backgroundPosition: '20% 30%',
-              mixBlendMode: 'screen',
-              filter: 'brightness(0.4) contrast(1.8) saturate(2) hue-rotate(35deg)',
-            }}
-          />
-          <div 
-            className="absolute inset-0 opacity-0 animate-marble-flow-2"
-            style={{
-              backgroundImage: 'url(https://cdn.poehali.dev/files/mram.jpg)',
-              backgroundSize: '120%',
-              backgroundPosition: '70% 60%',
-              mixBlendMode: 'overlay',
-              filter: 'brightness(0.6) contrast(2) saturate(1.8) hue-rotate(45deg) sepia(0.5)',
-            }}
-          />
-          <div 
-            className="absolute inset-0 opacity-0 animate-gold-shimmer"
-            style={{
-              background: 'radial-gradient(ellipse 1200px 800px at var(--shimmer-x, 30%) var(--shimmer-y, 40%), rgba(255, 215, 0, 0.15) 0%, rgba(255, 223, 128, 0.08) 30%, transparent 60%)',
-              mixBlendMode: 'screen',
-            }}
-          />
-          <div 
-            className="absolute inset-0 opacity-0 animate-marble-glow"
-            style={{
-              background: `
-                radial-gradient(circle 800px at 25% 35%, rgba(255, 215, 0, 0.12), transparent 50%),
-                radial-gradient(circle 600px at 75% 65%, rgba(255, 223, 186, 0.08), transparent 50%),
-                radial-gradient(circle 400px at 50% 80%, rgba(255, 200, 100, 0.06), transparent 50%)
-              `,
-              mixBlendMode: 'soft-light',
-            }}
-          />
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute inset-0 animate-water-droplets-1" style={{
+            background: `
+              radial-gradient(circle 3px at 15% 20%, rgba(100, 200, 255, 0.5), transparent),
+              radial-gradient(circle 2px at 45% 35%, rgba(100, 200, 255, 0.4), transparent),
+              radial-gradient(circle 4px at 75% 15%, rgba(100, 200, 255, 0.6), transparent),
+              radial-gradient(circle 2px at 25% 60%, rgba(100, 200, 255, 0.3), transparent),
+              radial-gradient(circle 3px at 85% 45%, rgba(100, 200, 255, 0.5), transparent),
+              radial-gradient(circle 2px at 55% 75%, rgba(100, 200, 255, 0.4), transparent),
+              radial-gradient(circle 3px at 10% 85%, rgba(100, 200, 255, 0.5), transparent),
+              radial-gradient(circle 4px at 65% 90%, rgba(100, 200, 255, 0.6), transparent)
+            `,
+            mixBlendMode: 'screen',
+            filter: 'blur(1px)',
+          }} />
+          
+          <div className="absolute inset-0 animate-water-droplets-2" style={{
+            background: `
+              radial-gradient(circle 2px at 30% 10%, rgba(100, 200, 255, 0.4), transparent),
+              radial-gradient(circle 3px at 60% 25%, rgba(100, 200, 255, 0.5), transparent),
+              radial-gradient(circle 2px at 90% 40%, rgba(100, 200, 255, 0.3), transparent),
+              radial-gradient(circle 4px at 40% 55%, rgba(100, 200, 255, 0.6), transparent),
+              radial-gradient(circle 2px at 70% 70%, rgba(100, 200, 255, 0.4), transparent),
+              radial-gradient(circle 3px at 20% 80%, rgba(100, 200, 255, 0.5), transparent),
+              radial-gradient(circle 2px at 80% 95%, rgba(100, 200, 255, 0.3), transparent)
+            `,
+            mixBlendMode: 'screen',
+            filter: 'blur(1px)',
+          }} />
+          
+          <div className="absolute inset-0 animate-water-droplets-3" style={{
+            background: `
+              radial-gradient(circle 3px at 50% 5%, rgba(100, 200, 255, 0.5), transparent),
+              radial-gradient(circle 2px at 5% 30%, rgba(100, 200, 255, 0.3), transparent),
+              radial-gradient(circle 4px at 35% 45%, rgba(100, 200, 255, 0.6), transparent),
+              radial-gradient(circle 2px at 95% 60%, rgba(100, 200, 255, 0.4), transparent),
+              radial-gradient(circle 3px at 50% 80%, rgba(100, 200, 255, 0.5), transparent),
+              radial-gradient(circle 2px at 15% 95%, rgba(100, 200, 255, 0.3), transparent)
+            `,
+            mixBlendMode: 'screen',
+            filter: 'blur(1px)',
+          }} />
         </div>
         <BackgroundEffects />
         <NavigationBar selectedCity={selectedCity} onCityChange={onCityChange} showCityPulse={showCityPulse} />
