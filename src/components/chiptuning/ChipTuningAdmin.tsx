@@ -206,19 +206,38 @@ export default function ChipTuningAdmin() {
   };
 
   const handleExportCSV = () => {
+    // Новый формат: Наименование, Компания, Stage 1 (крутящий момент), Stage 1 (мощность),
+    // Статус, Stage 2 (мощность), Stage 2 (крутящий момент), цена
     const headers = [
-      'model_name', 'series', 'body_type', 'engine_code', 'article_code',
-      'stock_power', 'stock_torque',
-      'stage1_power', 'stage1_torque', 'stage1_price',
-      'stage2_power', 'stage2_torque',
-      'status', 'conversion_type', 'conversion_price'
+      'Наименование',
+      'Компания',
+      'Stage 1 (крутящий момент)',
+      'Stage 1 (мощность)',
+      'Статус',
+      'Stage 2 (мощность)',
+      'Stage 2 (крутящий момент)',
+      'цена'
     ];
+    
+    const rows = filteredRecords.map(record => {
+      // Формируем наименование: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
+      const modelName = `BMW ${record.series} ${record.body_type} ${record.engine_code} ${record.stock_power} л.с. ${record.stock_torque} Нм`;
+      
+      return [
+        modelName,
+        'Reborn Technologies',
+        `${record.stage1_torque} Нм`,
+        `${record.stage1_power} л.с.`,
+        record.status,
+        record.stage2_power ? `${record.stage2_power} л.с.` : '',
+        record.stage2_torque ? `${record.stage2_torque} Нм` : '',
+        record.stage1_price
+      ];
+    });
     
     const csvContent = [
       headers.join(','),
-      ...filteredRecords.map(record => 
-        headers.map(h => record[h as keyof ChipTuningRecord] ?? '').join(',')
-      )
+      ...rows.map(row => row.join(','))
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
