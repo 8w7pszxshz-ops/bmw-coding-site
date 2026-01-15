@@ -125,9 +125,10 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 
                 # Парсинг наименования: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
                 # Ищем последние два числа - это сток мощность и момент
-                stock_match = re.search(r'(\d+)\s*л\.с\.\s*(\d+)\s*Нм', model_full)
+                # Поддержка двух вариантов: "Нм" (кириллица) и "НM" (латиница)
+                stock_match = re.search(r'(\d+)\s*л\.с\.\s*(\d+)\s*(?:Нм|НM|HM)', model_full, re.IGNORECASE)
                 if not stock_match:
-                    stats['errors'].append(f"Не найдены стоковые характеристики в: {model_full}")
+                    stats['errors'].append(f"[SKIP] Не найдены стоковые характеристики в: {model_full}")
                     continue
                 
                 stock_power = int(stock_match.group(1))  # л.с.
@@ -145,7 +146,7 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 
                 parts = model_clean.replace('BMW ', '').split()
                 
-                # Если только 2 части (например "M5 F90" или "520d G60")
+                # Если только 2 части (например "M5 F90", "520d G60", "X7 30d", "X3M F97")
                 if len(parts) == 2:
                     # Определяем что есть что по паттернам
                     first_part = parts[0]
@@ -156,6 +157,29 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                         series = f"{first_part}"
                         body_type = second_part
                         engine_code = first_part
+                    # Если первая часть = X-модель с M (X3M, X4M, X5M, X6M)
+                    elif re.match(r'^X\d+M$', first_part):
+                        series = first_part
+                        body_type = second_part
+                        engine_code = first_part
+                    # Если первая часть = X-серия (X7, X5, X3) + вторая = engine_code
+                    elif re.match(r'^X\d+$', first_part) and re.match(r'^\w+[di]$', second_part):
+                        # X7 30d -> series="X7", body="G07" (нужно угадать), engine="30d"
+                        # Для X7 предполагаем G07
+                        series = first_part
+                        if first_part == 'X7':
+                            body_type = 'G07'  # X7 всегда G07
+                        elif first_part == 'X5':
+                            body_type = 'G05'  # X5 последнее поколение G05
+                        elif first_part == 'X6':
+                            body_type = 'G06'  # X6 последнее поколение G06
+                        elif first_part == 'X3':
+                            body_type = 'G01'  # X3 последнее поколение G01
+                        elif first_part == 'X4':
+                            body_type = 'G02'  # X4 последнее поколение G02
+                        else:
+                            body_type = 'Unknown'
+                        engine_code = second_part
                     # Если первая часть = engine_code (520d, 530i, etc)
                     elif re.match(r'^\d{3}[a-z]+', first_part):
                         # Извлекаем серию из engine_code (520d -> 5-series)
@@ -179,8 +203,20 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                         body_type = parts[1]  # "E8x"
                         engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
                 
+                # Если только 1 часть (например "XM")
+                elif len(parts) == 1:
+                    first_part = parts[0]
+                    # XM - специальная M-модель
+                    if first_part == 'XM':
+                        series = 'XM'
+                        body_type = 'G09'  # XM это G09
+                        engine_code = 'XM'
+                    else:
+                        stats['errors'].append(f"[SKIP] Неверный формат (1 часть): {model_clean}")
+                        continue
+                
                 else:
-                    stats['errors'].append(f"[SKIP] Неверный формат (< 2 частей): {model_clean}")
+                    stats['errors'].append(f"[SKIP] Неверный формат (< 1 части): {model_clean}")
                     continue
                 
                 # Определяем рестайлинг по наличию LCI или Rest в body_type
