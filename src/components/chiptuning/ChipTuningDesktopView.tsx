@@ -1,6 +1,5 @@
 import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
-import { bmwModels, getTypeColor, ModelData } from './chipTuningDataNew';
 import { City } from '@/components/CitySelector';
 import ModificationCard from './ModificationCard';
 import {
@@ -10,6 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useChiptuningData } from '@/hooks/useChiptuningData';
+import { ModelData } from '@/types/chiptuning';
 
 interface ChipTuningDesktopViewProps {
   selectedCity: City;
@@ -23,7 +23,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
 
-  const models = apiData.length > 0 ? apiData : bmwModels;
+  const models = apiData;
 
   const uniqueSeries = Array.from(new Set(models.map(m => m.name)))
     .sort((a, b) => {
@@ -146,7 +146,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
             <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
             <h2 className="font-light text-white text-3xl">
               {step === 'body' && 'Выберите кузов'}
-              {step === 'engine' && 'Выберите двигатель и модификацию'}
+              {step === 'engine' && 'Выберите модификацию'}
             </h2>
           </div>
           <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
@@ -190,40 +190,13 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
 
       {step === 'engine' && selectedBody && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {selectedBody.engines.map((engine, idx) => (
-            <div
+          {selectedBody.modifications.map((mod, idx) => (
+            <ModificationCard
               key={idx}
-              className="p-6 rounded-2xl"
-              style={{
-                background: `linear-gradient(135deg, ${getTypeColor(engine.type)}15, ${getTypeColor(engine.type)}05)`,
-                border: `1px solid ${getTypeColor(engine.type)}30`,
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <Icon 
-                  name={engine.type === 'petrol' ? 'Flame' : 'Fuel'} 
-                  className="w-6 h-6" 
-                  style={{ color: getTypeColor(engine.type) }}
-                />
-                <div>
-                  <div className="text-white font-medium text-lg">{engine.code} {engine.displacement}L</div>
-                  <div className="text-white/50 text-sm capitalize">{engine.type === 'petrol' ? 'Бензиновый' : 'Дизельный'}</div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                {engine.modifications.map((mod, midx) => (
-                  <ModificationCard
-                    key={midx}
-                    mod={mod}
-                    engineType={engine.type}
-                    getPriceForCity={getPriceForCity}
-                    variant="desktop"
-                  />
-                ))}
-              </div>
-            </div>
+              mod={mod}
+              getPriceForCity={getPriceForCity}
+              variant="desktop"
+            />
           ))}
         </div>
       )}

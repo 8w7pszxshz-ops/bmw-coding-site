@@ -32,8 +32,10 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 status,
                 conversion_type,
                 conversion_price,
-                stage_type
+                stage_type,
+                is_restyling
             FROM bmw_chiptuning
+            WHERE status = 1
             ORDER BY series, body_type, engine_code, stage_type
         """)
         
@@ -55,6 +57,7 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 'conversion_type': row['conversion_type'],
                 'conversion_price': row['conversion_price'],
                 'stage_type': row.get('stage_type', 'St.1'),
+                'is_restyling': row.get('is_restyling', False),
                 'stock': {
                     'power': row['stock_power'],
                     'torque': row['stock_torque']
@@ -141,8 +144,11 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                     continue
                 
                 series = parts[0]  # "1-series"
-                body_type = parts[1]  # "E8x"
+                body_type = parts[1]  # "E8x" или "F30 LCI"
                 engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
+                
+                # Определяем рестайлинг по наличию LCI или Rest в body_type
+                is_restyling = 'LCI' in body_type or 'Rest' in body_type or 'rest' in body_type.lower()
                 
                 # Stage 1 - извлекаем числа из "400 Нм", "180 л.с."
                 stage1_torque_str = row.get('Stage 1 (крутящий момент)', '').strip()
@@ -194,15 +200,15 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 model_name = model_full
                 article_code = model_full
                 
-                # Вставка или обновление (теперь с stage_type)
+                # Вставка или обновление (теперь с stage_type и is_restyling)
                 cur.execute("""
                     INSERT INTO bmw_chiptuning (
                         model_name, series, body_type, engine_code, article_code,
                         stock_power, stock_torque,
                         stage1_power, stage1_torque, stage1_price,
                         stage2_power, stage2_torque,
-                        status, conversion_type, conversion_price, stage_type
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        status, conversion_type, conversion_price, stage_type, is_restyling
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (series, body_type, engine_code, stage_type) 
                     DO UPDATE SET
                         model_name = EXCLUDED.model_name,
@@ -217,13 +223,14 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                         status = EXCLUDED.status,
                         conversion_type = EXCLUDED.conversion_type,
                         conversion_price = EXCLUDED.conversion_price,
+                        is_restyling = EXCLUDED.is_restyling,
                         updated_at = CURRENT_TIMESTAMP
                 """, (
                     model_name, series, body_type, engine_code, article_code,
                     stock_power, stock_torque,
                     stage1_power, stage1_torque, stage1_price,
                     stage2_power, stage2_torque,
-                    status, conversion_type, conversion_price, stage_type
+                    status, conversion_type, conversion_price, stage_type, is_restyling
                 ))
                 stats['imported'] += 1
                 

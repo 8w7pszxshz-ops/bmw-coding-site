@@ -1,10 +1,10 @@
 import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
-import { bmwModels, getTypeColor, ModelData } from './chipTuningDataNew';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { City } from '@/components/CitySelector';
 import ModificationCard from './ModificationCard';
 import { useChiptuningData } from '@/hooks/useChiptuningData';
+import { ModelData } from '@/types/chiptuning';
 
 interface ChipTuningMobileViewProps {
   selectedCity: City;
@@ -18,7 +18,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
 
-  const models = apiData.length > 0 ? apiData : bmwModels;
+  const models = apiData;
 
   const uniqueSeries = Array.from(new Set(models.map(m => m.name)))
     .sort((a, b) => {
@@ -102,7 +102,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
           <h2 className="font-light text-white text-xl">
             {step === 'series' && 'Выберите серию BMW'}
             {step === 'body' && 'Выберите кузов'}
-            {step === 'engine' && 'Выберите двигатель'}
+            {step === 'engine' && 'Выберите модификацию'}
           </h2>
         </div>
         <p className="text-white/60 text-xs">Цены включают полную диагностику перед работами</p>
@@ -175,40 +175,13 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
 
       {step === 'engine' && selectedBody && (
         <div className="space-y-4">
-          {selectedBody.engines.map((engine, idx) => (
-            <div
+          {selectedBody.modifications.map((mod, idx) => (
+            <ModificationCard
               key={idx}
-              className="p-5 rounded-2xl"
-              style={{
-                background: `linear-gradient(135deg, ${getTypeColor(engine.type)}15, ${getTypeColor(engine.type)}05)`,
-                border: `1px solid ${getTypeColor(engine.type)}30`,
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <Icon 
-                  name={engine.type === 'petrol' ? 'Flame' : 'Fuel'} 
-                  className="w-5 h-5" 
-                  style={{ color: getTypeColor(engine.type) }}
-                />
-                <div>
-                  <div className="text-white font-medium">{engine.code} {engine.displacement}L</div>
-                  <div className="text-white/50 text-xs capitalize">{engine.type === 'petrol' ? 'Бензин' : 'Дизель'}</div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                {engine.modifications.map((mod, midx) => (
-                  <ModificationCard
-                    key={midx}
-                    mod={mod}
-                    engineType={engine.type}
-                    getPriceForCity={getPriceForCity}
-                    variant="mobile"
-                  />
-                ))}
-              </div>
-            </div>
+              mod={mod}
+              getPriceForCity={getPriceForCity}
+              variant="mobile"
+            />
           ))}
         </div>
       )}
