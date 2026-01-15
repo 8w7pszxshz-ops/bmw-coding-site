@@ -87,42 +87,59 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
     try:
         for row in rows:
             try:
-                # Новый формат CSV (9 колонок):
-                # Модель, Компания прошивки, Stage 1 крутящий момент, Stage 1 мощность,
-                # Stage 2 крутящий момент, Stage 2 мощность, Stage 3 крутящий момент, Stage 3 мощность, Статус
+                # Формат Excel: A=Наименование, B=Компания, C=Статус, D=St1 момент, E=St1 мощность, 
+                # F=Цена, I=St2 мощность, J=St2 момент
+                # Из колонки A парсим: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
                 
-                model_full = row.get('Модель', '').strip()
-                company = row.get('Компания прошивки', 'Reborn Technologies').strip()
+                model_full = row.get('Наименование', '').strip()
+                company = row.get('Наименование артикула', 'Reborn Technologies').strip()
                 
-                # Парсинг модели: "2-Series F2x 220i" -> series="2-series", body="F2x", engine="220i"
-                parts = model_full.split()
-                if len(parts) < 3:
-                    stats['errors'].append(f"Invalid model format: {model_full}")
+                # Парсинг наименования: "BMW 1-series E8x 116d 115 л.с. 260 Нм"
+                # Ищем последние два числа - это сток мощность и момент
+                import re
+                
+                # Поиск "XXX л.с. YYY Нм" в конце строки
+                stock_match = re.search(r'(\d+)\s*л\.с\.\s*(\d+)\s*Нм', model_full)
+                if not stock_match:
+                    stats['errors'].append(f"Не найдены стоковые характеристики в: {model_full}")
                     continue
-                    
-                series = parts[0]  # "2-Series"
-                body_type = parts[1]  # "F2x"
-                engine_code = ' '.join(parts[2:])  # "220i" или "220i → 228i"
                 
-                # Stage 3 (стоковые характеристики)
-                stock_power = int(row.get('Stage 3 мощность', 0))
-                stock_torque = int(row.get('Stage 3 крутящий момент', 0))
+                stock_power = int(stock_match.group(1))  # л.с.
+                stock_torque = int(stock_match.group(2))  # Нм
+                
+                # Убираем стоковые характеристики из названия для парсинга модели
+                model_clean = model_full[:stock_match.start()].strip()
+                
+                # Парсинг модели: "BMW 1-series E8x 116d" -> series="1-series", body="E8x", engine="116d"
+                parts = model_clean.replace('BMW ', '').split()
+                if len(parts) < 3:
+                    stats['errors'].append(f"Неверный формат модели: {model_clean}")
+                    continue
+                
+                series = parts[0]  # "1-series"
+                body_type = parts[1]  # "E8x"
+                engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
                 
                 # Stage 1
-                stage1_power = int(row.get('Stage 1 мощность', 0))
-                stage1_torque = int(row.get('Stage 1 крутящий момент', 0))
-                stage1_price = 30000  # Базовая цена по умолчанию
+                stage1_torque_str = row.get('Stage 1 (крутящий)', '').strip()
+                stage1_power_str = row.get('Stage 1 (мощность)', '').strip()
+                stage1_price_str = row.get('Stage 3 (мощность)', '').strip()  # Цена в колонке F
+                
+                # Убираем единицы измерения
+                stage1_torque = int(re.sub(r'[^\d]', '', stage1_torque_str)) if stage1_torque_str else 0
+                stage1_power = int(re.sub(r'[^\d]', '', stage1_power_str)) if stage1_power_str else 0
+                stage1_price = int(re.sub(r'[^\d]', '', stage1_price_str)) if stage1_price_str else 30000
                 
                 # Stage 2 (опционально)
-                stage2_power_str = row.get('Stage 2 мощность', '').strip()
-                stage2_torque_str = row.get('Stage 2 крутящий момент', '').strip()
+                stage2_power_str = row.get('Stage 2 (мощность)', '').strip()
+                stage2_torque_str = row.get('Stage 2 (крутящий момент)', '').strip()
                 
-                stage2_power = int(stage2_power_str) if stage2_power_str else None
-                stage2_torque = int(stage2_torque_str) if stage2_torque_str else None
+                stage2_power = int(re.sub(r'[^\d]', '', stage2_power_str)) if stage2_power_str else None
+                stage2_torque = int(re.sub(r'[^\d]', '', stage2_torque_str)) if stage2_torque_str else None
                 
                 # Статус (0 = скрыт, 1 = показывать)
-                status_str = row.get('Статус', '1').strip()
-                status = int(status_str) if status_str else 1
+                status_str = row.get('Код артикула', '1').strip()
+                status = int(status_str) if status_str and status_str.isdigit() else 1
                 
                 # Определение конверсии (если в названии есть стрелка →)
                 conversion_type = None
