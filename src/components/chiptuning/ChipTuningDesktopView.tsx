@@ -103,22 +103,24 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
           </DialogHeader>
           <p className="text-white/60 text-sm text-center mb-6">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-            {uniqueSeries.map((series) => (
-              <button
-                key={series}
-                onClick={() => handleSeriesSelect(series)}
-                className="p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(231,34,46,0.4)]"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  backdropFilter: 'blur(10px)'
-                }}
-              >
-                <Icon name="Waypoints" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
-                <div className="text-white font-medium text-xl">{series}</div>
-              </button>
-            ))}
+          <div className="max-h-[60vh] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+              {uniqueSeries.map((series) => (
+                <button
+                  key={series}
+                  onClick={() => handleSeriesSelect(series)}
+                  className="p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(231,34,46,0.4)]"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  <Icon name="Waypoints" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
+                  <div className="text-white font-medium text-xl">{series}</div>
+                </button>
+              ))}
+            </div>
           </div>
         </DialogContent>
       </Dialog>
