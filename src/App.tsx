@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import ChatGPT from "./pages/ChatGPT";
 import NotFound from "./pages/NotFound";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import ChipTuningAdmin from "@/components/chiptuning/ChipTuningAdmin";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/chatgpt" element={<ChatGPT />} />
+            <Route path="/admin/chiptuning" element={<ChipTuningAdmin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

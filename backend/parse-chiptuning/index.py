@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from typing import Dict, List, Any
 import re
+import psycopg2
+import psycopg2.extras
 
 BASE = "https://reborn.tech"
 START_URL = "https://reborn.tech/chiptuning/BMW/"
@@ -120,8 +122,177 @@ def parse_mod_page(url: str) -> List[Dict[str, Any]]:
         print(f"Error parsing {url}: {e}")
         return []
 
+def get_db_connection():
+    """Подключение к PostgreSQL"""
+    return psycopg2.connect(os.environ['DATABASE_URL'])
+
+def get_data_from_db() -> List[Dict[str, Any]]:
+    """Получает данные из БД"""
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    
+    try:
+        cur.execute("""
+            SELECT 
+                m.id as model_id, m.name as model_name, m.series, m.generation, m.sort_order,
+                e.id as engine_id, e.code as engine_code, e.type as engine_type, 
+                e.displacement, e.sort_order as engine_sort,
+                mod.id as mod_id, mod.name as mod_name, mod.stage,
+                mod.power_before, mod.power_after,
+                mod.torque_before, mod.torque_after, mod.price
+            FROM bmw_models m
+            JOIN bmw_engines e ON e.model_id = m.id
+            JOIN bmw_modifications mod ON mod.engine_id = e.id
+            ORDER BY m.sort_order, m.series, e.sort_order, e.code, mod.stage
+        """)
+        
+        rows = cur.fetchall()
+        models_dict = {}
+        
+        for row in rows:
+            series = row['series']
+            if series not in models_dict:
+                models_dict[series] = {
+                    'name': row['model_name'],
+                    'series': series,
+                    'generation': row['generation'],
+                    'engines': {}
+                }
+            
+            engine_key = f"{row['engine_id']}_{row['engine_code']}"
+            if engine_key not in models_dict[series]['engines']:
+                models_dict[series]['engines'][engine_key] = {
+                    'code': row['engine_code'],
+                    'type': row['engine_type'],
+                    'displacement': str(row['displacement']),
+                    'modifications': []
+                }
+            
+            models_dict[series]['engines'][engine_key]['modifications'].append({
+                'name': row['mod_name'],
+                'stage': row['stage'],
+                'powerBefore': row['power_before'],
+                'powerAfter': row['power_after'],
+                'torqueBefore': row['torque_before'],
+                'torqueAfter': row['torque_after'],
+                'price': row['price']
+            })
+        
+        result = []
+        for series_data in models_dict.values():
+            series_data['engines'] = list(series_data['engines'].values())
+            result.append(series_data)
+        
+        return result
+    finally:
+        cur.close()
+        conn.close()
+
+def populate_db_from_parser(limit: int = 50) -> Dict[str, Any]:
+    """Заполняет БД из парсера"""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    stats = {"models": 0, "engines": 0, "modifications": 0, "errors": []}
+    
+    try:
+        model_links = parse_model_links()[:limit]
+        all_rows = []
+        
+        for m_url in model_links:
+            try:
+                mod_links = parse_modification_links(m_url)[:5]
+                for url in mod_links:
+                    try:
+                        rows = parse_mod_page(url)
+                        all_rows.extend(rows)
+                    except Exception as e:
+                        stats['errors'].append(f"Parse error {url}: {str(e)}")
+            except Exception as e:
+                stats['errors'].append(f"Model error {m_url}: {str(e)}")
+        
+        # Обработка спарсенных данных
+        for row in all_rows:
+            try:
+                model_name = row['model']
+                modification = row['modification']
+                
+                if not model_name or not modification:
+                    continue
+                
+                series_match = re.search(r'([\d]+(?:-series)?[\s_]?[A-Z\d]+)', model_name)
+                series = series_match.group(1) if series_match else model_name.replace('BMW ', '')
+                
+                series_number = re.search(r'(\d+)', series)
+                series_num = int(series_number.group(1)) if series_number else 0
+                
+                generation = 'G' if any(g in series.upper() for g in ['G20', 'G30', 'G01', 'G05', 'G11', 'G14', 'G15', 'G22', 'G42', 'G60', 'G70', 'G80', 'G82', 'G87', 'G90']) else 'F'
+                
+                display_name = f"{series_num} Series" if series_num < 10 else model_name.replace('BMW ', '')
+                
+                # Сохранение модели
+                cur.execute("""
+                    INSERT INTO bmw_models (name, series, generation, sort_order)
+                    VALUES (%s, %s, %s, %s)
+                    ON CONFLICT (series) DO UPDATE 
+                    SET name = EXCLUDED.name, generation = EXCLUDED.generation
+                    RETURNING id
+                """, (display_name, series, generation, series_num))
+                model_id = cur.fetchone()[0]
+                stats['models'] += 1
+                
+                # Сохранение двигателя
+                engine_code = modification.split()[0] if ' ' in modification else modification
+                engine_type = 'diesel' if 'd' in modification.lower() else 'petrol'
+                disp_match = re.search(r'(\d\.\d)', modification)
+                displacement = disp_match.group(1) if disp_match else '2.0'
+                
+                cur.execute("""
+                    INSERT INTO bmw_engines (model_id, code, type, displacement, sort_order)
+                    VALUES (%s, %s, %s, %s, %s)
+                    ON CONFLICT (model_id, code) DO UPDATE
+                    SET type = EXCLUDED.type, displacement = EXCLUDED.displacement
+                    RETURNING id
+                """, (model_id, engine_code, engine_type, displacement, int(row.get('engine_hp_stock', 0))))
+                engine_id = cur.fetchone()[0]
+                stats['engines'] += 1
+                
+                # Сохранение модификации
+                stage_name = row.get('stage', 'Stage 1')
+                cur.execute("""
+                    INSERT INTO bmw_modifications (
+                        engine_id, name, stage, 
+                        power_before, power_after,
+                        torque_before, torque_after, price
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                """, (
+                    engine_id,
+                    f"{modification} {stage_name}",
+                    stage_name,
+                    int(row.get('engine_hp_stock', 0)),
+                    int(row.get('hp_after', 0)),
+                    int(row.get('engine_nm_stock', 0)),
+                    int(row.get('nm_after', 0)),
+                    int(row.get('price', 30000))
+                ))
+                stats['modifications'] += 1
+                
+            except Exception as e:
+                stats['errors'].append(f"DB insert error: {str(e)}")
+                continue
+        
+        conn.commit()
+        return stats
+        
+    except Exception as e:
+        conn.rollback()
+        stats['errors'].append(f"Transaction error: {str(e)}")
+        return stats
+    finally:
+        cur.close()
+        conn.close()
+
 def handler(event: dict, context) -> dict:
-    '''API для парсинга данных чип-тюнинга BMW с reborn.tech'''
+    '''API для работы с базой данных чип-тюнинга BMW'''
     
     method = event.get('httpMethod', 'GET')
     
@@ -138,121 +309,39 @@ def handler(event: dict, context) -> dict:
     
     if method == 'GET':
         query_params = event.get('queryStringParameters') or {}
-        limit = int(query_params.get('limit', '10'))
+        action = query_params.get('action', 'get_data')
         
-        all_rows = []
         try:
-            model_links = parse_model_links()[:limit]
-            
-            for m_url in model_links:
-                try:
-                    mod_links = parse_modification_links(m_url)[:5]
-                    for url in mod_links:
-                        try:
-                            rows = parse_mod_page(url)
-                            all_rows.extend(rows)
-                        except Exception as e:
-                            print(f"Error parsing {url}: {e}")
-                            continue
-                except Exception as e:
-                    print(f"Error parsing model {m_url}: {e}")
-                    continue
-            
-            models_dict: Dict[str, Dict[str, Any]] = {}
-            
-            for row in all_rows:
-                model_name = row['model']
-                modification = row['modification']
-                
-                if not model_name or not modification:
-                    continue
-                
-                series_match = re.search(r'([\d]+(?:-series)?[\s_]?[A-Z\d]+)', model_name)
-                series = series_match.group(1) if series_match else model_name.replace('BMW ', '')
-                
-                series_number = re.search(r'(\d+)', series)
-                series_num = int(series_number.group(1)) if series_number else 0
-                
-                generation = 'G' if any(g in series.upper() for g in ['G20', 'G30', 'G01', 'G05', 'G11', 'G14', 'G15', 'G22', 'G42', 'G60', 'G70', 'G80', 'G82', 'G87', 'G90']) else 'F'
-                
-                model_key = f"{series_num:02d}_{series}"
-                
-                if model_key not in models_dict:
-                    models_dict[model_key] = {
-                        'name': f"{series_num} Series" if series_num < 10 else model_name.replace('BMW ', ''),
-                        'series': series,
-                        'generation': generation,
-                        'engines': {},
-                        '_sort_key': series_num
-                    }
-                
-                engine_code = modification.split()[0] if ' ' in modification else modification
-                engine_type = 'diesel' if 'd' in modification.lower() else 'petrol'
-                
-                disp_match = re.search(r'(\d\.\d)', modification)
-                displacement = disp_match.group(1) if disp_match else '2.0'
-                
-                engine_key = f"{engine_code}_{row.get('engine_hp_stock', 0)}"
-                
-                if engine_key not in models_dict[model_key]['engines']:
-                    models_dict[model_key]['engines'][engine_key] = {
-                        'code': engine_code,
-                        'type': engine_type,
-                        'displacement': displacement,
-                        'modifications': [],
-                        '_sort_power': int(row.get('engine_hp_stock', 0))
-                    }
-                
-                stage_name = row.get('stage', 'Stage 1')
-                
-                models_dict[model_key]['engines'][engine_key]['modifications'].append({
-                    'name': f"{modification} {stage_name}",
-                    'powerBefore': int(row.get('engine_hp_stock', 0)),
-                    'powerAfter': int(row.get('hp_after', 0)),
-                    'torqueBefore': int(row.get('engine_nm_stock', 0)),
-                    'torqueAfter': int(row.get('nm_after', 0)),
-                    'price': int(row.get('price', 30000))
-                })
-            
-            result = []
-            for model_data in sorted(models_dict.values(), key=lambda x: x['_sort_key']):
-                engines_list = sorted(
-                    model_data['engines'].values(), 
-                    key=lambda x: (0 if x['type'] == 'petrol' else 1, x['_sort_power'])
-                )
-                for engine in engines_list:
-                    engine.pop('_sort_power', None)
-                
-                model_data['engines'] = engines_list
-                model_data.pop('_sort_key', None)
-                result.append(model_data)
-            
-            return {
-                'statusCode': 200,
-                'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                'body': json.dumps(result)
-            }
-            
+            if action == 'populate':
+                limit = int(query_params.get('limit', '50'))
+                stats = populate_db_from_parser(limit)
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps(stats, ensure_ascii=False)
+                }
+            else:
+                data = get_data_from_db()
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps(data, ensure_ascii=False)
+                }
         except Exception as e:
             return {
                 'statusCode': 500,
-                'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                'body': json.dumps({
-                    'error': str(e)
-                })
+                'headers': {'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'error': str(e)}, ensure_ascii=False)
             }
     
     return {
         'statusCode': 405,
-        'headers': {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        },
+        'headers': {'Access-Control-Allow-Origin': '*'},
         'body': json.dumps({'error': 'Method not allowed'})
     }
