@@ -4,32 +4,30 @@ import Icon from '@/components/ui/icon';
 const API_URL = 'https://functions.poehali.dev/8f9e18f2-51fd-4835-a3a1-c9b410946229';
 const ADMIN_PASSWORD = 'bmw2025';
 
-interface Modification {
+interface ChipTuningRecord {
   id: number;
-  mod_id: number;
   model_name: string;
   series: string;
-  generation: string;
+  body_type: string;
   engine_code: string;
-  engine_type: string;
-  displacement: string;
-  mod_name: string;
-  stage: string;
-  power_before: number;
-  power_after: number;
-  torque_before: number;
-  torque_after: number;
-  price: number;
+  article_code: string;
+  stock_power: number;
+  stock_torque: number;
+  stage1_power: number;
+  stage1_torque: number;
+  stage1_price: number;
+  stage2_power: number | null;
+  stage2_torque: number | null;
 }
 
 export default function ChipTuningAdmin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
-  const [modifications, setModifications] = useState<Modification[]>([]);
+  const [records, setRecords] = useState<ChipTuningRecord[]>([]);
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editForm, setEditForm] = useState<Partial<Modification>>({});
+  const [editForm, setEditForm] = useState<Partial<ChipTuningRecord>>({});
   const [filter, setFilter] = useState('');
   const [uploadStatus, setUploadStatus] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -50,35 +48,23 @@ export default function ChipTuningAdmin() {
       const response = await fetch(API_URL);
       const data = await response.json();
       
-      // Преобразование данных в плоский список
-      const flatList: Modification[] = [];
-      let id = 0;
+      const flatList: ChipTuningRecord[] = data.map((item: any) => ({
+        id: item.id,
+        model_name: item.model_name,
+        series: item.series,
+        body_type: item.body_type,
+        engine_code: item.engine_code,
+        article_code: item.article_code,
+        stock_power: item.stock.power,
+        stock_torque: item.stock.torque,
+        stage1_power: item.stage1.power,
+        stage1_torque: item.stage1.torque,
+        stage1_price: item.stage1.price,
+        stage2_power: item.stage2?.power || null,
+        stage2_torque: item.stage2?.torque || null
+      }));
       
-      data.forEach((model: any) => {
-        model.engines.forEach((engine: any) => {
-          engine.modifications.forEach((mod: any) => {
-            flatList.push({
-              id: id++,
-              mod_id: mod.id || 0,
-              model_name: model.name,
-              series: model.series,
-              generation: model.generation,
-              engine_code: engine.code,
-              engine_type: engine.type,
-              displacement: engine.displacement,
-              mod_name: mod.name,
-              stage: mod.stage,
-              power_before: mod.powerBefore,
-              power_after: mod.powerAfter,
-              torque_before: mod.torqueBefore,
-              torque_after: mod.torqueAfter,
-              price: mod.price
-            });
-          });
-        });
-      });
-      
-      setModifications(flatList);
+      setRecords(flatList);
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -86,14 +72,14 @@ export default function ChipTuningAdmin() {
     }
   };
 
-  const handleEdit = (mod: Modification) => {
-    setEditingId(mod.id);
-    setEditForm(mod);
+  const handleEdit = (record: ChipTuningRecord) => {
+    setEditingId(record.id);
+    setEditForm(record);
   };
 
   const handleSave = async () => {
-    if (!editForm.mod_id) {
-      alert('Невозможно сохранить: отсутствует ID модификации');
+    if (!editForm.id) {
+      alert('Невозможно сохранить: отсутствует ID записи');
       return;
     }
 
@@ -106,15 +92,20 @@ export default function ChipTuningAdmin() {
         },
         body: JSON.stringify({
           action: 'update',
-          id: editForm.mod_id,
+          id: editForm.id,
           data: {
-            mod_name: editForm.mod_name,
-            stage: editForm.stage,
-            power_before: editForm.power_before,
-            power_after: editForm.power_after,
-            torque_before: editForm.torque_before,
-            torque_after: editForm.torque_after,
-            price: editForm.price
+            model_name: editForm.model_name,
+            series: editForm.series,
+            body_type: editForm.body_type,
+            engine_code: editForm.engine_code,
+            article_code: editForm.article_code,
+            stock_power: editForm.stock_power,
+            stock_torque: editForm.stock_torque,
+            stage1_power: editForm.stage1_power,
+            stage1_torque: editForm.stage1_torque,
+            stage1_price: editForm.stage1_price,
+            stage2_power: editForm.stage2_power,
+            stage2_torque: editForm.stage2_torque
           }
         })
       });
@@ -122,8 +113,8 @@ export default function ChipTuningAdmin() {
       const result = await response.json();
 
       if (result.success) {
-        setModifications(prev => 
-          prev.map(m => m.id === editingId ? { ...m, ...editForm } : m)
+        setRecords(prev => 
+          prev.map(r => r.id === editingId ? { ...r, ...editForm } as ChipTuningRecord : r)
         );
         setUploadStatus('✅ Изменения сохранены');
         setTimeout(() => setUploadStatus(''), 3000);
@@ -144,26 +135,21 @@ export default function ChipTuningAdmin() {
     setEditForm({});
   };
 
-  const handleDelete = async (mod: Modification) => {
-    if (!mod.mod_id) {
-      alert('Невозможно удалить: отсутствует ID модификации');
-      return;
-    }
-
-    if (!confirm(`Удалить модификацию "${mod.mod_name}"?`)) {
+  const handleDelete = async (record: ChipTuningRecord) => {
+    if (!confirm(`Удалить запись "${record.model_name}"?`)) {
       return;
     }
 
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}?id=${mod.mod_id}`, {
+      const response = await fetch(`${API_URL}?id=${record.id}`, {
         method: 'DELETE'
       });
 
       const result = await response.json();
 
       if (result.success) {
-        setModifications(prev => prev.filter(m => m.id !== mod.id));
+        setRecords(prev => prev.filter(r => r.id !== record.id));
         setUploadStatus('✅ Запись удалена');
         setTimeout(() => setUploadStatus(''), 3000);
       } else {
@@ -171,18 +157,6 @@ export default function ChipTuningAdmin() {
       }
     } catch (error) {
       setUploadStatus(`❌ Ошибка удаления: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRefresh = async () => {
-    setLoading(true);
-    try {
-      await fetch(`${API_URL}?action=populate&limit=10`);
-      await loadData();
-    } catch (error) {
-      console.error('Error refreshing:', error);
     } finally {
       setLoading(false);
     }
@@ -204,7 +178,6 @@ export default function ChipTuningAdmin() {
         return;
       }
 
-      // Парсинг CSV
       const headers = lines[0].split(',').map(h => h.trim());
       const rows = lines.slice(1).map(line => {
         const values = line.split(',').map(v => v.trim());
@@ -217,7 +190,6 @@ export default function ChipTuningAdmin() {
 
       setUploadStatus(`Загрузка ${rows.length} записей в базу данных...`);
 
-      // Отправка в backend
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -229,7 +201,7 @@ export default function ChipTuningAdmin() {
       const result = await response.json();
 
       if (response.ok) {
-        setUploadStatus(`✅ Успешно загружено: ${result.models} моделей, ${result.engines} двигателей, ${result.modifications} модификаций`);
+        setUploadStatus(`✅ Успешно загружено: ${result.imported} записей`);
         await loadData();
         setTimeout(() => setUploadStatus(''), 5000);
       } else {
@@ -245,14 +217,16 @@ export default function ChipTuningAdmin() {
 
   const handleExportCSV = () => {
     const headers = [
-      'model_name', 'series', 'generation', 'engine_code', 'engine_type', 'displacement',
-      'mod_name', 'stage', 'power_before', 'power_after', 'torque_before', 'torque_after', 'price'
+      'model_name', 'series', 'body_type', 'engine_code', 'article_code',
+      'stock_power', 'stock_torque',
+      'stage1_power', 'stage1_torque', 'stage1_price',
+      'stage2_power', 'stage2_torque'
     ];
     
     const csvContent = [
       headers.join(','),
-      ...filteredMods.map(mod => 
-        headers.map(h => mod[h as keyof Modification]).join(',')
+      ...filteredRecords.map(record => 
+        headers.map(h => record[h as keyof ChipTuningRecord] ?? '').join(',')
       )
     ].join('\n');
 
@@ -263,11 +237,12 @@ export default function ChipTuningAdmin() {
     link.click();
   };
 
-  const filteredMods = modifications.filter(m => 
-    m.model_name.toLowerCase().includes(filter.toLowerCase()) ||
-    m.series.toLowerCase().includes(filter.toLowerCase()) ||
-    m.engine_code.toLowerCase().includes(filter.toLowerCase()) ||
-    m.mod_name.toLowerCase().includes(filter.toLowerCase())
+  const filteredRecords = records.filter(r => 
+    r.model_name.toLowerCase().includes(filter.toLowerCase()) ||
+    r.series.toLowerCase().includes(filter.toLowerCase()) ||
+    r.body_type.toLowerCase().includes(filter.toLowerCase()) ||
+    r.engine_code.toLowerCase().includes(filter.toLowerCase()) ||
+    r.article_code.toLowerCase().includes(filter.toLowerCase())
   );
 
   if (!isAuthenticated) {
@@ -320,7 +295,7 @@ export default function ChipTuningAdmin() {
         background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.98), rgba(20, 20, 30, 0.98))'
       }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1800px] mx-auto">
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <Icon name="Settings" className="w-8 h-8 text-[#FF0040]" />
@@ -364,26 +339,6 @@ export default function ChipTuningAdmin() {
                 </>
               )}
             </label>
-            <button
-              onClick={handleRefresh}
-              disabled={loading}
-              className="px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 flex items-center gap-2"
-              style={{
-                background: 'linear-gradient(135deg, #FF0040, #E7222E)'
-              }}
-            >
-              {loading ? (
-                <>
-                  <div className="w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
-                  Обновление...
-                </>
-              ) : (
-                <>
-                  <Icon name="RefreshCw" className="w-5 h-5" />
-                  Обновить из парсера
-                </>
-              )}
-            </button>
           </div>
         </div>
 
@@ -392,14 +347,14 @@ export default function ChipTuningAdmin() {
             type="text"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            placeholder="Поиск по модели, серии, двигателю..."
+            placeholder="Поиск по модели, кузову, двигателю, артикулу..."
             className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-[#FF0040]"
           />
         </div>
 
         <div className="flex items-center justify-between mb-4">
           <div className="text-white/60">
-            Найдено записей: {filteredMods.length}
+            Найдено записей: {filteredRecords.length}
           </div>
           {uploadStatus && (
             <div className="text-sm px-4 py-2 rounded-lg" style={{
@@ -416,88 +371,129 @@ export default function ChipTuningAdmin() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-white">
+          <table className="w-full text-white text-sm">
             <thead>
               <tr className="border-b border-white/10">
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Модель</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Кузов</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Двигатель</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Модификация</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Stage</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">HP До</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">HP После</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Nm До</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Nm После</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Цена</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-white/70">Действия</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Модель</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Серия</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Кузов</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Двигатель</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Артикул</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Сток л.с.</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Сток Нм</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.1 л.с.</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.1 Нм</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.1 Цена</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.2 л.с.</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">St.2 Нм</th>
+                <th className="px-3 py-3 text-left text-xs font-medium text-white/70">Действия</th>
               </tr>
             </thead>
             <tbody>
-              {filteredMods.map((mod) => (
-                <tr key={mod.id} className="border-b border-white/5 hover:bg-white/5">
-                  {editingId === mod.id ? (
+              {filteredRecords.map((record) => (
+                <tr key={record.id} className="border-b border-white/5 hover:bg-white/5">
+                  {editingId === record.id ? (
                     <>
-                      <td className="px-4 py-3 text-sm">{mod.model_name}</td>
-                      <td className="px-4 py-3 text-sm">{mod.series}</td>
-                      <td className="px-4 py-3 text-sm">{mod.engine_code}</td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-3 py-2">
                         <input
                           type="text"
-                          value={editForm.mod_name || ''}
-                          onChange={(e) => setEditForm({...editForm, mod_name: e.target.value})}
-                          className="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-sm"
+                          value={editForm.model_name || ''}
+                          onChange={(e) => setEditForm({...editForm, model_name: e.target.value})}
+                          className="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-3 py-2">
                         <input
                           type="text"
-                          value={editForm.stage || ''}
-                          onChange={(e) => setEditForm({...editForm, stage: e.target.value})}
-                          className="w-full px-2 py-1 rounded bg-white/10 border border-white/20 text-sm"
+                          value={editForm.series || ''}
+                          onChange={(e) => setEditForm({...editForm, series: e.target.value})}
+                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-3 py-2">
+                        <input
+                          type="text"
+                          value={editForm.body_type || ''}
+                          onChange={(e) => setEditForm({...editForm, body_type: e.target.value})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <input
+                          type="text"
+                          value={editForm.engine_code || ''}
+                          onChange={(e) => setEditForm({...editForm, engine_code: e.target.value})}
+                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <input
+                          type="text"
+                          value={editForm.article_code || ''}
+                          onChange={(e) => setEditForm({...editForm, article_code: e.target.value})}
+                          className="w-32 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
                         <input
                           type="number"
-                          value={editForm.power_before || 0}
-                          onChange={(e) => setEditForm({...editForm, power_before: parseInt(e.target.value)})}
-                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-sm"
+                          value={editForm.stock_power || 0}
+                          onChange={(e) => setEditForm({...editForm, stock_power: parseInt(e.target.value)})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-3 py-2">
                         <input
                           type="number"
-                          value={editForm.power_after || 0}
-                          onChange={(e) => setEditForm({...editForm, power_after: parseInt(e.target.value)})}
-                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-sm"
+                          value={editForm.stock_torque || 0}
+                          onChange={(e) => setEditForm({...editForm, stock_torque: parseInt(e.target.value)})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-3 py-2">
                         <input
                           type="number"
-                          value={editForm.torque_before || 0}
-                          onChange={(e) => setEditForm({...editForm, torque_before: parseInt(e.target.value)})}
-                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-sm"
+                          value={editForm.stage1_power || 0}
+                          onChange={(e) => setEditForm({...editForm, stage1_power: parseInt(e.target.value)})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-3 py-2">
                         <input
                           type="number"
-                          value={editForm.torque_after || 0}
-                          onChange={(e) => setEditForm({...editForm, torque_after: parseInt(e.target.value)})}
-                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-sm"
+                          value={editForm.stage1_torque || 0}
+                          onChange={(e) => setEditForm({...editForm, stage1_torque: parseInt(e.target.value)})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-3 py-2">
                         <input
                           type="number"
-                          value={editForm.price || 0}
-                          onChange={(e) => setEditForm({...editForm, price: parseInt(e.target.value)})}
-                          className="w-24 px-2 py-1 rounded bg-white/10 border border-white/20 text-sm"
+                          value={editForm.stage1_price || 0}
+                          onChange={(e) => setEditForm({...editForm, stage1_price: parseInt(e.target.value)})}
+                          className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                         />
                       </td>
-                      <td className="px-4 py-3">
-                        <div className="flex gap-2">
+                      <td className="px-3 py-2">
+                        <input
+                          type="number"
+                          value={editForm.stage2_power || ''}
+                          onChange={(e) => setEditForm({...editForm, stage2_power: e.target.value ? parseInt(e.target.value) : null})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                          placeholder="-"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <input
+                          type="number"
+                          value={editForm.stage2_torque || ''}
+                          onChange={(e) => setEditForm({...editForm, stage2_torque: e.target.value ? parseInt(e.target.value) : null})}
+                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
+                          placeholder="-"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <div className="flex gap-1">
                           <button
                             onClick={handleSave}
                             className="p-1 rounded hover:bg-green-500/20"
@@ -515,42 +511,29 @@ export default function ChipTuningAdmin() {
                     </>
                   ) : (
                     <>
-                      <td className="px-4 py-3 text-sm">{mod.model_name}</td>
-                      <td className="px-4 py-3 text-sm">
-                        <span className="px-2 py-1 rounded text-xs" style={{
-                          background: mod.generation === 'G' ? 'rgba(0, 212, 255, 0.2)' : 'rgba(255, 107, 53, 0.2)'
-                        }}>
-                          {mod.series}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-sm">
-                        <div className="flex items-center gap-2">
-                          <Icon 
-                            name={mod.engine_type === 'petrol' ? 'Flame' : 'Fuel'} 
-                            className="w-4 h-4"
-                            style={{ color: mod.engine_type === 'petrol' ? '#FF6B35' : '#00D4FF' }}
-                          />
-                          {mod.engine_code}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm">{mod.mod_name}</td>
-                      <td className="px-4 py-3 text-sm">{mod.stage}</td>
-                      <td className="px-4 py-3 text-sm">{mod.power_before}</td>
-                      <td className="px-4 py-3 text-sm font-medium text-green-400">{mod.power_after}</td>
-                      <td className="px-4 py-3 text-sm">{mod.torque_before}</td>
-                      <td className="px-4 py-3 text-sm font-medium text-green-400">{mod.torque_after}</td>
-                      <td className="px-4 py-3 text-sm">{mod.price.toLocaleString()} ₽</td>
-                      <td className="px-4 py-3">
-                        <div className="flex gap-2">
+                      <td className="px-3 py-2">{record.model_name}</td>
+                      <td className="px-3 py-2">{record.series}</td>
+                      <td className="px-3 py-2">{record.body_type}</td>
+                      <td className="px-3 py-2">{record.engine_code}</td>
+                      <td className="px-3 py-2 text-white/60">{record.article_code}</td>
+                      <td className="px-3 py-2 text-white/60">{record.stock_power}</td>
+                      <td className="px-3 py-2 text-white/60">{record.stock_torque}</td>
+                      <td className="px-3 py-2 font-medium text-green-400">{record.stage1_power}</td>
+                      <td className="px-3 py-2 font-medium text-green-400">{record.stage1_torque}</td>
+                      <td className="px-3 py-2">{record.stage1_price.toLocaleString()} ₽</td>
+                      <td className="px-3 py-2 font-medium text-blue-400">{record.stage2_power || '-'}</td>
+                      <td className="px-3 py-2 font-medium text-blue-400">{record.stage2_torque || '-'}</td>
+                      <td className="px-3 py-2">
+                        <div className="flex gap-1">
                           <button
-                            onClick={() => handleEdit(mod)}
+                            onClick={() => handleEdit(record)}
                             className="p-1 rounded hover:bg-[#FF0040]/20"
                             title="Редактировать"
                           >
                             <Icon name="Pencil" className="w-4 h-4 text-[#FF0040]" />
                           </button>
                           <button
-                            onClick={() => handleDelete(mod)}
+                            onClick={() => handleDelete(record)}
                             className="p-1 rounded hover:bg-red-500/20"
                             title="Удалить"
                           >
