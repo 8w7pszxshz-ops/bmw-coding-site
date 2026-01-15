@@ -391,6 +391,7 @@ export const bmwModels: ModelData[] = [
           { name: '320i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 300, torqueAfter: 420, price: 30000, egsPrice: 27000, euro2Price: 5000 },
           { name: '330i (заводская)', powerBefore: 252, powerAfter: 258, torqueBefore: 400, torqueAfter: 400, price: 20000, euro2Price: 5000 },
           { name: '330i Stage 1', powerBefore: 258, powerAfter: 350, torqueBefore: 400, torqueAfter: 510, price: 30000, egsPrice: 27000, euro2Price: 5000 },
+          { name: '330e (Hybrid) Stage 1', powerBefore: 292, powerAfter: 360, torqueBefore: 420, torqueAfter: 530, price: 32000, euro2Price: 5000 },
           { name: 'M340i Stage 1', powerBefore: 374, powerAfter: 430, torqueBefore: 500, torqueAfter: 600, price: 35000, euro2Price: 5000 }
         ]
       },
@@ -596,6 +597,7 @@ export const bmwModels: ModelData[] = [
         modifications: [
           { name: '520i Stage 1', powerBefore: 184, powerAfter: 270, torqueBefore: 290, torqueAfter: 420, price: 35000, egsPrice: 27000, euro2Price: 5000 },
           { name: '530i Stage 1', powerBefore: 252, powerAfter: 350, torqueBefore: 350, torqueAfter: 510, price: 35000, egsPrice: 27000, euro2Price: 5000 },
+          { name: '530e (Hybrid) Stage 1', powerBefore: 252, powerAfter: 330, torqueBefore: 420, torqueAfter: 530, price: 37000, euro2Price: 5000 },
           { name: 'M550i Stage 1', powerBefore: 530, powerAfter: 620, torqueBefore: 750, torqueAfter: 870, price: 40000, euro2Price: 5000 }
         ]
       },
@@ -604,7 +606,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: '540i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 35000, euro2Price: 5000 }
+          { name: '540i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 35000, euro2Price: 5000 },
+          { name: '545e xDrive (Hybrid) Stage 1', powerBefore: 394, powerAfter: 480, torqueBefore: 600, torqueAfter: 750, price: 39000, euro2Price: 5000 }
         ]
       },
       {
@@ -730,7 +733,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '2.0',
         modifications: [
-          { name: '730i Stage 1', powerBefore: 258, powerAfter: 350, torqueBefore: 400, torqueAfter: 510, price: 38000, euro2Price: 5000 }
+          { name: '730i Stage 1', powerBefore: 258, powerAfter: 350, torqueBefore: 400, torqueAfter: 510, price: 38000, euro2Price: 5000 },
+          { name: '740e (Hybrid) Stage 1', powerBefore: 326, powerAfter: 380, torqueBefore: 500, torqueAfter: 600, price: 40000, euro2Price: 5000 }
         ]
       },
       {
@@ -738,7 +742,8 @@ export const bmwModels: ModelData[] = [
         type: 'petrol',
         displacement: '3.0',
         modifications: [
-          { name: '740i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 38000, euro2Price: 5000 }
+          { name: '740i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 38000, euro2Price: 5000 },
+          { name: '745e (Hybrid) Stage 1', powerBefore: 394, powerAfter: 480, torqueBefore: 600, torqueAfter: 750, price: 42000, euro2Price: 5000 }
         ]
       },
       {
@@ -757,7 +762,8 @@ export const bmwModels: ModelData[] = [
         displacement: '3.0',
         modifications: [
           { name: '730d Stage 1', powerBefore: 265, powerAfter: 340, torqueBefore: 620, torqueAfter: 740, price: 38000, egsPrice: 27000, egrPrice: 15000, adbluePrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
-          { name: '740d Stage 1', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 830, price: 38000, egrPrice: 15000, adbluePrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
+          { name: '740d Stage 1', powerBefore: 320, powerAfter: 400, torqueBefore: 680, torqueAfter: 830, price: 38000, egrPrice: 15000, adbluePrice: 20000, dpfPrice: 18000, flapsPrice: 12000 },
+          { name: '750d xDrive (Quad-Turbo) Stage 1', powerBefore: 400, powerAfter: 480, torqueBefore: 760, torqueAfter: 920, price: 45000, egrPrice: 15000, adbluePrice: 20000, dpfPrice: 18000, flapsPrice: 12000 }
         ]
       }
     ]
@@ -1145,6 +1151,7 @@ export const bmwModels: ModelData[] = [
         displacement: '3.0',
         modifications: [
           { name: 'xDrive40i Stage 1', powerBefore: 340, powerAfter: 420, torqueBefore: 450, torqueAfter: 580, price: 35000, egsPrice: 27000, euro2Price: 5000 },
+          { name: 'xDrive45e (Hybrid) Stage 1', powerBefore: 394, powerAfter: 480, torqueBefore: 600, torqueAfter: 750, price: 38000, euro2Price: 5000 },
           { name: 'M50i Stage 1', powerBefore: 530, powerAfter: 620, torqueBefore: 750, torqueAfter: 870, price: 40000, euro2Price: 5000 }
         ]
       },
