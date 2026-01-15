@@ -32,13 +32,14 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         </div>
 
         <div 
-          className="fixed inset-0 pointer-events-none z-50"
+          className="fixed inset-0 pointer-events-none z-50 animate-water-shimmer"
           style={{
             backgroundImage: 'url(https://cdn.poehali.dev/files/капли.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.4,
+            opacity: 0.5,
             mixBlendMode: 'screen',
+            filter: 'brightness(1.2) contrast(1.1)',
           }}
         />
       </div>
