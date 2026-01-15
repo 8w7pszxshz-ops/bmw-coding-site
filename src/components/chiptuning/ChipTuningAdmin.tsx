@@ -202,9 +202,9 @@ export default function ChipTuningAdmin() {
         
         setUploadStatus(statusMsg);
         
-        // Показываем первые 5 ошибок в консоли
+        // Показываем ВСЕ ошибки в консоли
         if (result.errors?.length > 0) {
-          console.warn('Ошибки импорта (первые 5):', result.errors.slice(0, 5));
+          console.warn(`Ошибки импорта (всего ${result.errors.length}):`, result.errors);
         }
         
         await loadData();
