@@ -20,16 +20,25 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
 
   const models = apiData.length > 0 ? apiData : bmwModels;
 
-  const uniqueSeries = Array.from(new Set(models.map(m => m.name))).sort((a, b) => {
-    const getSeriesNum = (name: string) => {
-      const match = name.match(/(\d+)/);
-      return match ? parseInt(match[1]) : 999;
-    };
-    return getSeriesNum(a) - getSeriesNum(b);
-  });
+  const uniqueSeries = Array.from(new Set(models.map(m => m.name)))
+    .filter(name => !name.startsWith('M') || !name.includes('Series'))
+    .sort((a, b) => {
+      const getSeriesNum = (name: string) => {
+        const match = name.match(/(\d+)/);
+        return match ? parseInt(match[1]) : 999;
+      };
+      return getSeriesNum(a) - getSeriesNum(b);
+    });
   
   const bodiesForSeries = selectedSeries 
-    ? models.filter(m => m.name === selectedSeries).sort((a, b) => {
+    ? models.filter(m => {
+        if (m.name === selectedSeries) return true;
+        const seriesNum = selectedSeries.match(/(\d+)/)?.[1];
+        if (seriesNum && m.name.startsWith('M') && m.name.includes(seriesNum)) {
+          return true;
+        }
+        return false;
+      }).sort((a, b) => {
         if (a.generation !== b.generation) {
           return a.generation === 'G' ? -1 : 1;
         }
