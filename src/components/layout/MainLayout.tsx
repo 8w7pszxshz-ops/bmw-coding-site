@@ -17,12 +17,9 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         className="min-h-screen relative"
       >
         <div 
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0"
           style={{
-            backgroundImage: 'url(https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/3c496751-7454-4202-9376-e92a9c07ff7a.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
+            background: `linear-gradient(135deg, #000000 0%, #0a0d15 50%, #000509 100%)`,
           }}
         />
         
@@ -30,11 +27,24 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 150, 255, 0.15), transparent),
-              radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 200, 255, 0.12), transparent),
-              radial-gradient(ellipse 400px 400px at 50% 50%, rgba(50, 180, 255, 0.08), transparent),
-              linear-gradient(135deg, #000000 0%, #0a0d15 50%, #000509 100%)
+              radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 200, 255, 0.4), transparent),
+              radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 220, 255, 0.35), transparent),
+              radial-gradient(ellipse 500px 500px at 50% 50%, rgba(80, 180, 255, 0.3), transparent),
+              radial-gradient(ellipse 400px 400px at 15% 80%, rgba(0, 150, 255, 0.25), transparent),
+              radial-gradient(ellipse 350px 350px at 85% 20%, rgba(120, 200, 255, 0.28), transparent)
             `,
+            filter: 'blur(40px)',
+          }}
+        />
+        
+        <div 
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage: 'url(https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/3c496751-7454-4202-9376-e92a9c07ff7a.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            mixBlendMode: 'overlay',
           }}
         />
         
