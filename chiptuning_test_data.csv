@@ -1,0 +1,4 @@
+model_name,series,body_type,engine_code,article_code,stock_power,stock_torque,stage1_power,stage1_torque,stage1_price,stage2_power,stage2_torque,status,conversion_type,conversion_price
+BMW 2-series F2x 220i,2-series,F2x,220i,BMW 2-series F2x 220i,184,270,210,350,32000,220,370,1,,
+BMW 2-series F2x 220i → 228i,2-series,F2x,220i-228i,BMW 2-series F2x 220i Conversion 228i,254,350,254,350,35000,,,1,Заводская прошивка 228i,35000
+BMW 2-series F2x 220i → 230i,2-series,F2x,220i-230i,BMW 2-series F2x 220i Conversion 230i,252,350,252,350,37000,,,1,Заводская прошивка 230i,37000
