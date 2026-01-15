@@ -167,28 +167,45 @@ def handler(event: dict, context) -> dict:
                 if not model_name or not modification:
                     continue
                 
-                series = model_name.split()[-1] if ' ' in model_name else model_name
+                series_match = re.search(r'([\d]+(?:-series)?[\s_]?[A-Z\d]+)', model_name)
+                series = series_match.group(1) if series_match else model_name.replace('BMW ', '')
                 
-                if model_name not in models_dict:
-                    models_dict[model_name] = {
-                        'name': ' '.join(model_name.split()[:-1]) if ' ' in model_name else model_name,
+                series_number = re.search(r'(\d+)', series)
+                series_num = int(series_number.group(1)) if series_number else 0
+                
+                generation = 'G' if any(g in series.upper() for g in ['G20', 'G30', 'G01', 'G05', 'G11', 'G14', 'G15', 'G22', 'G42', 'G60', 'G70', 'G80', 'G82', 'G87', 'G90']) else 'F'
+                
+                model_key = f"{series_num:02d}_{series}"
+                
+                if model_key not in models_dict:
+                    models_dict[model_key] = {
+                        'name': f"{series_num} Series" if series_num < 10 else model_name.replace('BMW ', ''),
                         'series': series,
-                        'generation': 'F' if series.startswith(('E', 'F')) else 'G',
-                        'engines': {}
+                        'generation': generation,
+                        'engines': {},
+                        '_sort_key': series_num
                     }
                 
-                engine_key = modification
-                if engine_key not in models_dict[model_name]['engines']:
-                    models_dict[model_name]['engines'][engine_key] = {
-                        'code': modification.split()[0] if ' ' in modification else modification,
-                        'type': 'diesel' if 'd' in modification.lower() else 'petrol',
-                        'displacement': '2.0',
-                        'modifications': []
+                engine_code = modification.split()[0] if ' ' in modification else modification
+                engine_type = 'diesel' if 'd' in modification.lower() else 'petrol'
+                
+                disp_match = re.search(r'(\d\.\d)', modification)
+                displacement = disp_match.group(1) if disp_match else '2.0'
+                
+                engine_key = f"{engine_code}_{row.get('engine_hp_stock', 0)}"
+                
+                if engine_key not in models_dict[model_key]['engines']:
+                    models_dict[model_key]['engines'][engine_key] = {
+                        'code': engine_code,
+                        'type': engine_type,
+                        'displacement': displacement,
+                        'modifications': [],
+                        '_sort_power': int(row.get('engine_hp_stock', 0))
                     }
                 
                 stage_name = row.get('stage', 'Stage 1')
                 
-                models_dict[model_name]['engines'][engine_key]['modifications'].append({
+                models_dict[model_key]['engines'][engine_key]['modifications'].append({
                     'name': f"{modification} {stage_name}",
                     'powerBefore': int(row.get('engine_hp_stock', 0)),
                     'powerAfter': int(row.get('hp_after', 0)),
@@ -198,8 +215,16 @@ def handler(event: dict, context) -> dict:
                 })
             
             result = []
-            for model_data in models_dict.values():
-                model_data['engines'] = list(model_data['engines'].values())
+            for model_data in sorted(models_dict.values(), key=lambda x: x['_sort_key']):
+                engines_list = sorted(
+                    model_data['engines'].values(), 
+                    key=lambda x: (0 if x['type'] == 'petrol' else 1, x['_sort_power'])
+                )
+                for engine in engines_list:
+                    engine.pop('_sort_power', None)
+                
+                model_data['engines'] = engines_list
+                model_data.pop('_sort_key', None)
                 result.append(model_data)
             
             return {

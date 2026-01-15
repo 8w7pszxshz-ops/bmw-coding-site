@@ -25,10 +25,21 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
 
   const models = apiData.length > 0 ? apiData : bmwModels;
 
-  const uniqueSeries = Array.from(new Set(models.map(m => m.name)));
+  const uniqueSeries = Array.from(new Set(models.map(m => m.name))).sort((a, b) => {
+    const getSeriesNum = (name: string) => {
+      const match = name.match(/(\d+)/);
+      return match ? parseInt(match[1]) : 999;
+    };
+    return getSeriesNum(a) - getSeriesNum(b);
+  });
   
   const bodiesForSeries = selectedSeries 
-    ? models.filter(m => m.name === selectedSeries)
+    ? models.filter(m => m.name === selectedSeries).sort((a, b) => {
+        if (a.generation !== b.generation) {
+          return a.generation === 'G' ? -1 : 1;
+        }
+        return a.series.localeCompare(b.series);
+      })
     : [];
 
   const handleSeriesSelect = (series: string) => {
