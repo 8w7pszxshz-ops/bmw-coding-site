@@ -13,6 +13,7 @@ export default function ChipTuningAdmin() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<Partial<ChipTuningRecord>>({});
   const [filter, setFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'visible' | 'hidden'>('visible');
   const [uploadStatus, setUploadStatus] = useState('');
   const [uploading, setUploading] = useState(false);
 
@@ -259,13 +260,21 @@ export default function ChipTuningAdmin() {
     link.click();
   };
 
-  const filteredRecords = records.filter(r => 
-    r.model_name.toLowerCase().includes(filter.toLowerCase()) ||
-    r.series.toLowerCase().includes(filter.toLowerCase()) ||
-    r.body_type.toLowerCase().includes(filter.toLowerCase()) ||
-    r.engine_code.toLowerCase().includes(filter.toLowerCase()) ||
-    r.article_code.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filteredRecords = records.filter(r => {
+    // Фильтр по тексту
+    const matchesText = r.model_name.toLowerCase().includes(filter.toLowerCase()) ||
+      r.series.toLowerCase().includes(filter.toLowerCase()) ||
+      r.body_type.toLowerCase().includes(filter.toLowerCase()) ||
+      r.engine_code.toLowerCase().includes(filter.toLowerCase()) ||
+      r.article_code.toLowerCase().includes(filter.toLowerCase());
+    
+    // Фильтр по статусу
+    const matchesStatus = statusFilter === 'all' ? true :
+      statusFilter === 'visible' ? r.status === 1 :
+      r.status === 0;
+    
+    return matchesText && matchesStatus;
+  });
 
   if (!isAuthenticated) {
     return (
@@ -331,14 +340,23 @@ export default function ChipTuningAdmin() {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 flex gap-4">
           <input
             type="text"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             placeholder="Поиск по модели, кузову, двигателю, артикулу..."
-            className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-[#FF0040]"
+            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-[#FF0040]"
           />
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value as 'all' | 'visible' | 'hidden')}
+            className="px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+          >
+            <option value="visible">Видимые (статус 1)</option>
+            <option value="hidden">Скрытые (статус 0)</option>
+            <option value="all">Все записи</option>
+          </select>
         </div>
 
         <div className="flex items-center justify-between mb-4">
