@@ -202,6 +202,29 @@ def delete_record(record_id: int) -> Dict[str, Any]:
         cur.close()
         conn.close()
 
+def delete_all_except(keep_ids: list) -> Dict[str, Any]:
+    """Удаляет все записи кроме указанных ID"""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    try:
+        if not keep_ids:
+            cur.execute("DELETE FROM bmw_chiptuning")
+        else:
+            placeholders = ','.join(['%s'] * len(keep_ids))
+            cur.execute(f"DELETE FROM bmw_chiptuning WHERE id NOT IN ({placeholders})", tuple(keep_ids))
+        
+        deleted_count = cur.rowcount
+        conn.commit()
+        
+        return {"success": True, "message": f"Deleted {deleted_count} records", "deleted": deleted_count}
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    finally:
+        cur.close()
+        conn.close()
+
 def update_record(record_id: int, data: dict) -> Dict[str, Any]:
     """Обновляет данные записи"""
     conn = get_db_connection()
@@ -312,6 +335,17 @@ def handler(event: dict, context) -> dict:
                 record_id = body.get('id')
                 record_data = body.get('data')
                 result = update_record(record_id, record_data)
+                return {
+                    'statusCode': 200 if result.get('success') else 400,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps(result, ensure_ascii=False)
+                }
+            elif action == 'delete_all_except':
+                keep_ids = body.get('keep_ids', [])
+                result = delete_all_except(keep_ids)
                 return {
                     'statusCode': 200 if result.get('success') else 400,
                     'headers': {
