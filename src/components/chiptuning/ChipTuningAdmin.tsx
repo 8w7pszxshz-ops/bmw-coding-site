@@ -20,7 +20,6 @@ interface ChipTuningRecord {
   stage2_torque: number | null;
   status: number;
   conversion_type: string | null;
-  conversion_target_power: number | null;
   conversion_price: number | null;
 }
 
@@ -68,7 +67,6 @@ export default function ChipTuningAdmin() {
         stage2_torque: item.stage2?.torque || null,
         status: item.status,
         conversion_type: item.conversion_type || null,
-        conversion_target_power: item.conversion_target_power || null,
         conversion_price: item.conversion_price || null
       }));
       
@@ -116,7 +114,6 @@ export default function ChipTuningAdmin() {
             stage2_torque: editForm.stage2_torque,
             status: editForm.status,
             conversion_type: editForm.conversion_type,
-            conversion_target_power: editForm.conversion_target_power,
             conversion_price: editForm.conversion_price
           }
         })
@@ -233,7 +230,7 @@ export default function ChipTuningAdmin() {
       'stock_power', 'stock_torque',
       'stage1_power', 'stage1_torque', 'stage1_price',
       'stage2_power', 'stage2_torque',
-      'status', 'conversion_type', 'conversion_target_power', 'conversion_price'
+      'status', 'conversion_type', 'conversion_price'
     ];
     
     const csvContent = [
@@ -401,7 +398,6 @@ export default function ChipTuningAdmin() {
                 <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.2 Нм</th>
                 <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Статус</th>
                 <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Перепрошивка</th>
-                <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Конв. л.с.</th>
                 <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Конв. ₽</th>
                 <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Действия</th>
               </tr>
@@ -524,15 +520,6 @@ export default function ChipTuningAdmin() {
                       <td className="px-2 py-2">
                         <input
                           type="number"
-                          value={editForm.conversion_target_power || ''}
-                          onChange={(e) => setEditForm({...editForm, conversion_target_power: e.target.value ? parseInt(e.target.value) : null})}
-                          className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
-                          placeholder="-"
-                        />
-                      </td>
-                      <td className="px-2 py-2">
-                        <input
-                          type="number"
                           value={editForm.conversion_price || ''}
                           onChange={(e) => setEditForm({...editForm, conversion_price: e.target.value ? parseInt(e.target.value) : null})}
                           className="w-20 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
@@ -579,9 +566,6 @@ export default function ChipTuningAdmin() {
                       </td>
                       <td className="px-2 py-2 text-purple-400">
                         {record.conversion_type || '-'}
-                      </td>
-                      <td className="px-2 py-2 text-purple-400 font-medium">
-                        {record.conversion_target_power || '-'}
                       </td>
                       <td className="px-2 py-2 text-purple-400">
                         {record.conversion_price ? record.conversion_price.toLocaleString() : '-'}
