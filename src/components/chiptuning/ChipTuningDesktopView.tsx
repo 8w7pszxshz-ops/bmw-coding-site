@@ -26,24 +26,30 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   const models = apiData.length > 0 ? apiData : bmwModels;
 
   const uniqueSeries = Array.from(new Set(models.map(m => m.name)))
-    .filter(name => !name.startsWith('M') || !name.includes('Series'))
     .sort((a, b) => {
       const getSeriesNum = (name: string) => {
         const match = name.match(/(\d+)/);
         return match ? parseInt(match[1]) : 999;
       };
+      
+      const getSeriesType = (name: string) => {
+        if (name.startsWith('M') && name.includes('Series')) return 3; // M-серии в конце (M2, M3, M4...)
+        if (name.startsWith('X')) return 2; // X-серии после обычных
+        return 1; // Обычные серии (1-8) первыми
+      };
+      
+      const typeA = getSeriesType(a);
+      const typeB = getSeriesType(b);
+      
+      if (typeA !== typeB) {
+        return typeA - typeB;
+      }
+      
       return getSeriesNum(a) - getSeriesNum(b);
     });
   
   const bodiesForSeries = selectedSeries 
-    ? models.filter(m => {
-        if (m.name === selectedSeries) return true;
-        const seriesNum = selectedSeries.match(/(\d+)/)?.[1];
-        if (seriesNum && m.name.startsWith('M') && m.name.includes(seriesNum)) {
-          return true;
-        }
-        return false;
-      }).sort((a, b) => {
+    ? models.filter(m => m.name === selectedSeries).sort((a, b) => {
         if (a.generation !== b.generation) {
           return a.generation === 'G' ? -1 : 1;
         }
