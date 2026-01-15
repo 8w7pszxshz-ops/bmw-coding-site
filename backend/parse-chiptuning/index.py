@@ -87,9 +87,9 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
     try:
         for row in rows:
             try:
-                # Новый формат CSV:
+                # Новый формат CSV (9 колонок):
                 # Модель, Компания прошивки, Stage 1 крутящий момент, Stage 1 мощность,
-                # Stage 2 крутящий момент, Stage 2 мощность, Stage 3 крутящий момент, Stage 3 мощность
+                # Stage 2 крутящий момент, Stage 2 мощность, Stage 3 крутящий момент, Stage 3 мощность, Статус
                 
                 model_full = row.get('Модель', '').strip()
                 company = row.get('Компания прошивки', 'Reborn Technologies').strip()
@@ -120,6 +120,10 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 stage2_power = int(stage2_power_str) if stage2_power_str else None
                 stage2_torque = int(stage2_torque_str) if stage2_torque_str else None
                 
+                # Статус (0 = скрыт, 1 = показывать)
+                status_str = row.get('Статус', '1').strip()
+                status = int(status_str) if status_str else 1
+                
                 # Определение конверсии (если в названии есть стрелка →)
                 conversion_type = None
                 conversion_price = None
@@ -132,7 +136,6 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 # Генерация полей для базы
                 model_name = model_full
                 article_code = model_full
-                status = 1
                 
                 # Вставка или обновление
                 cur.execute("""
