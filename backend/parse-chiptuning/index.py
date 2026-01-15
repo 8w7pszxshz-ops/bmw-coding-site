@@ -82,9 +82,13 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
     """Импортирует данные из CSV в базу (новый формат с русскими названиями)"""
     conn = get_db_connection()
     cur = conn.cursor()
-    stats = {"imported": 0, "errors": []}
+    stats = {"imported": 0, "errors": [], "deleted": 0}
     
     try:
+        # Удаляем все старые записи перед импортом
+        cur.execute("DELETE FROM bmw_chiptuning")
+        stats['deleted'] = cur.rowcount
+        
         for row in rows:
             try:
                 # Формат CSV: Наименование, Компания, Stage 1 (крутящий момент), Stage 1 (мощность),
@@ -198,7 +202,9 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 stats['imported'] += 1
                 
             except Exception as e:
-                stats['errors'].append(f"Row error: {str(e)}")
+                # Добавляем подробную информацию об ошибке
+                row_preview = row.get('Наименование', 'unknown')[:50]
+                stats['errors'].append(f"Строка '{row_preview}': {str(e)}")
                 continue
         
         conn.commit()

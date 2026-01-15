@@ -191,9 +191,21 @@ export default function ChipTuningAdmin() {
       const result = await response.json();
 
       if (response.ok) {
-        setUploadStatus(`✅ Успешно загружено: ${result.imported} записей`);
+        const statusMsg = [
+          `✅ Импорт завершён: ${result.imported} записей загружено`,
+          result.deleted ? `Удалено старых: ${result.deleted}` : '',
+          result.errors?.length > 0 ? `⚠️ Ошибок: ${result.errors.length}` : ''
+        ].filter(Boolean).join(' | ');
+        
+        setUploadStatus(statusMsg);
+        
+        // Показываем первые 5 ошибок в консоли
+        if (result.errors?.length > 0) {
+          console.warn('Ошибки импорта (первые 5):', result.errors.slice(0, 5));
+        }
+        
         await loadData();
-        setTimeout(() => setUploadStatus(''), 5000);
+        setTimeout(() => setUploadStatus(''), 8000);
       } else {
         setUploadStatus(`❌ Ошибка: ${result.error}`);
       }
