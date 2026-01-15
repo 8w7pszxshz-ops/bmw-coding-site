@@ -4,6 +4,7 @@ import { bmwModels, getTypeColor, ModelData } from './chipTuningDataNew';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { City } from '@/components/CitySelector';
 import ModificationCard from './ModificationCard';
+import { useChiptuningData } from '@/hooks/useChiptuningData';
 
 interface ChipTuningMobileViewProps {
   selectedCity: City;
@@ -12,14 +13,17 @@ interface ChipTuningMobileViewProps {
 type Step = 'series' | 'body' | 'engine';
 
 const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }: ChipTuningMobileViewProps) {
+  const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
 
-  const uniqueSeries = Array.from(new Set(bmwModels.map(m => m.name)));
+  const models = apiData.length > 0 ? apiData : bmwModels;
+
+  const uniqueSeries = Array.from(new Set(models.map(m => m.name)));
   
   const bodiesForSeries = selectedSeries 
-    ? bmwModels.filter(m => m.name === selectedSeries)
+    ? models.filter(m => m.name === selectedSeries)
     : [];
 
   const handleSeriesSelect = (series: string) => {
@@ -45,6 +49,24 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
   const getPriceForCity = (basePrice: number) => {
     return selectedCity.value === 'moscow' ? basePrice : Math.round(basePrice * 0.9);
   };
+
+  if (loading) {
+    return (
+      <div className="mb-12 px-4 flex items-center justify-center py-20">
+        <div className="w-12 h-12 rounded-full border-4 border-[#FF0040]/20 border-t-[#FF0040] animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mb-12 px-4 text-center py-20">
+        <Icon name="AlertCircle" className="w-12 h-12 text-red-500 mx-auto mb-3" />
+        <p className="text-white/70 text-sm">Ошибка загрузки данных</p>
+        <p className="text-white/50 text-xs mt-2">Используются локальные данные</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mb-12 px-4">

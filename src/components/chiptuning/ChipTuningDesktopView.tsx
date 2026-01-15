@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { useChiptuningData } from '@/hooks/useChiptuningData';
 
 interface ChipTuningDesktopViewProps {
   selectedCity: City;
@@ -17,14 +18,17 @@ interface ChipTuningDesktopViewProps {
 type Step = 'series' | 'body' | 'engine';
 
 const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity }: ChipTuningDesktopViewProps) {
+  const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
 
-  const uniqueSeries = Array.from(new Set(bmwModels.map(m => m.name)));
+  const models = apiData.length > 0 ? apiData : bmwModels;
+
+  const uniqueSeries = Array.from(new Set(models.map(m => m.name)));
   
   const bodiesForSeries = selectedSeries 
-    ? bmwModels.filter(m => m.name === selectedSeries)
+    ? models.filter(m => m.name === selectedSeries)
     : [];
 
   const handleSeriesSelect = (series: string) => {
@@ -50,6 +54,24 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   const getPriceForCity = (basePrice: number) => {
     return selectedCity.value === 'moscow' ? basePrice : Math.round(basePrice * 0.9);
   };
+
+  if (loading) {
+    return (
+      <div className="mb-16 flex items-center justify-center py-20">
+        <div className="w-12 h-12 rounded-full border-4 border-[#FF0040]/20 border-t-[#FF0040] animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mb-16 text-center py-20">
+        <Icon name="AlertCircle" className="w-16 h-16 text-red-500 mx-auto mb-4" />
+        <p className="text-white/70">Ошибка загрузки данных: {error}</p>
+        <p className="text-white/50 text-sm mt-2">Используются локальные данные</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mb-16">
