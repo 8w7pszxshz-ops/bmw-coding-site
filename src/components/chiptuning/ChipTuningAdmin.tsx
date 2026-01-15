@@ -219,7 +219,7 @@ export default function ChipTuningAdmin() {
   };
 
   const handleExportCSV = () => {
-    // Экспортируем ВСЕ записи (не только отфильтрованные)
+    // Экспорт в формат: Наименование, Компания, Stage 1..., цена
     const headers = [
       'Наименование',
       'Компания',
