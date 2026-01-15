@@ -37,9 +37,9 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
             backgroundImage: 'url(https://cdn.poehali.dev/files/капли.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.5,
+            opacity: 0.85,
             mixBlendMode: 'screen',
-            filter: 'brightness(1.2) contrast(1.1)',
+            filter: 'brightness(2) contrast(1.5)',
           }}
         />
       </div>
