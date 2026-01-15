@@ -15,14 +15,6 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
     <div className="min-h-screen bg-black relative overflow-hidden">
       <div 
         className="min-h-screen relative"
-        style={{
-          background: `
-            radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 150, 255, 0.15), transparent),
-            radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 200, 255, 0.12), transparent),
-            radial-gradient(ellipse 400px 400px at 50% 50%, rgba(50, 180, 255, 0.08), transparent),
-            linear-gradient(135deg, #000000 0%, #0a0d15 50%, #000509 100%)
-          `,
-        }}
       >
         <div 
           className="absolute inset-0 opacity-[0.04]"
@@ -34,18 +26,17 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
           }}
         />
         
-        <div className="fixed top-0 left-0 right-0 h-48 pointer-events-none z-[5]">
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(180deg, rgba(100, 200, 255, 0.15) 0%, rgba(100, 200, 255, 0.08) 40%, transparent 100%)',
-              boxShadow: '0 20px 80px rgba(100, 200, 255, 0.3), 0 40px 120px rgba(100, 200, 255, 0.15)'
-            }}
-          />
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] h-2 bg-gradient-to-r from-transparent via-blue-400/40 to-transparent blur-sm"
-          />
-        </div>
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 150, 255, 0.15), transparent),
+              radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 200, 255, 0.12), transparent),
+              radial-gradient(ellipse 400px 400px at 50% 50%, rgba(50, 180, 255, 0.08), transparent),
+              linear-gradient(135deg, #000000 0%, #0a0d15 50%, #000509 100%)
+            `,
+          }}
+        />
         
         <BackgroundEffects />
         <NavigationBar selectedCity={selectedCity} onCityChange={onCityChange} showCityPulse={showCityPulse} />
