@@ -24,16 +24,9 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         />
         
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 animate-police-lights"
           style={{
-            background: `
-              radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 200, 255, 0.4), transparent),
-              radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 220, 255, 0.35), transparent),
-              radial-gradient(ellipse 500px 500px at 50% 50%, rgba(80, 180, 255, 0.3), transparent),
-              radial-gradient(ellipse 400px 400px at 15% 80%, rgba(0, 150, 255, 0.25), transparent),
-              radial-gradient(ellipse 350px 350px at 85% 20%, rgba(120, 200, 255, 0.28), transparent)
-            `,
-            filter: 'blur(40px)',
+            filter: 'blur(60px)',
           }}
         />
         
