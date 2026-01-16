@@ -19,27 +19,26 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         <div 
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(135deg, #0a1628 0%, #0d1b2a 50%, #08121d 100%)`,
+            background: `linear-gradient(135deg, #000000 0%, #0a1428 100%)`,
           }}
         />
         
         <div 
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 1200px 800px at 10% 20%, rgba(0, 180, 255, 0.15), transparent),
-              radial-gradient(ellipse 1000px 700px at 90% 80%, rgba(220, 40, 80, 0.12), transparent)
+              linear-gradient(135deg, transparent 0%, rgba(200, 220, 255, 0.08) 20%, transparent 30%, transparent 70%, rgba(255, 100, 120, 0.06) 80%, transparent 100%),
+              linear-gradient(315deg, transparent 0%, rgba(180, 200, 255, 0.06) 15%, transparent 25%, transparent 75%, rgba(255, 80, 100, 0.05) 85%, transparent 100%)
             `,
-            filter: 'blur(60px)',
+            filter: 'blur(50px)',
           }}
         />
         
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `
-              repeating-linear-gradient(0deg, transparent 0px, rgba(0, 180, 255, 0.03) 1px, transparent 2px, transparent 40px),
-              repeating-linear-gradient(90deg, transparent 0px, rgba(0, 180, 255, 0.03) 1px, transparent 2px, transparent 40px)
+            background: `
+              radial-gradient(circle 400px at 50% 50%, rgba(0, 0, 0, 0.7), transparent)
             `,
           }}
         />
