@@ -34,18 +34,26 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
       
       const audio = new Audio('/reborn-sound.mp3');
       audio.volume = 0.5;
+      let fallbackTimer: NodeJS.Timeout | null = null;
       
-      const handleAudioEnd = () => {
+      const stopLights = () => {
         setShowPoliceLights(false);
       };
       
-      audio.addEventListener('ended', handleAudioEnd);
-      audio.play().catch(err => console.log('Audio play failed:', err));
+      audio.addEventListener('ended', stopLights);
+      
+      audio.play().then(() => {
+        // Аудио успешно запущено
+      }).catch(() => {
+        // Если аудио заблокировано браузером, используем таймер
+        fallbackTimer = setTimeout(stopLights, 5500);
+      });
 
       return () => {
-        audio.removeEventListener('ended', handleAudioEnd);
+        audio.removeEventListener('ended', stopLights);
         audio.pause();
         audio.src = '';
+        if (fallbackTimer) clearTimeout(fallbackTimer);
       };
     }
   }, [step, dialogOpened]);
