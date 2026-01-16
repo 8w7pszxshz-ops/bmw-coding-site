@@ -480,8 +480,8 @@
   @keyframes chiptuningPoliceLights {
     0%,
     2% {
-      background: rgba(0, 100, 255, 0.15);
-      box-shadow: 0 0 150px 80px rgba(0, 100, 255, 0.2);
+      background: rgba(0, 100, 255, 0.1);
+      box-shadow: 0 0 80px 40px rgba(0, 100, 255, 0.15);
     }
     3%,
     5% {
@@ -490,8 +490,8 @@
     }
     6%,
     8% {
-      background: rgba(0, 100, 255, 0.15);
-      box-shadow: 0 0 150px 80px rgba(0, 100, 255, 0.2);
+      background: rgba(0, 100, 255, 0.1);
+      box-shadow: 0 0 80px 40px rgba(0, 100, 255, 0.15);
     }
     9%,
     11% {
@@ -500,8 +500,8 @@
     }
     12%,
     14% {
-      background: rgba(0, 100, 255, 0.15);
-      box-shadow: 0 0 150px 80px rgba(0, 100, 255, 0.2);
+      background: rgba(0, 100, 255, 0.1);
+      box-shadow: 0 0 80px 40px rgba(0, 100, 255, 0.15);
     }
     15%,
     39% {
@@ -510,8 +510,8 @@
     }
     40%,
     42% {
-      background: rgba(255, 0, 0, 0.15);
-      box-shadow: 0 0 150px 80px rgba(255, 0, 0, 0.2);
+      background: rgba(255, 0, 0, 0.1);
+      box-shadow: 0 0 80px 40px rgba(255, 0, 0, 0.15);
     }
     43%,
     45% {
@@ -520,8 +520,8 @@
     }
     46%,
     48% {
-      background: rgba(255, 0, 0, 0.15);
-      box-shadow: 0 0 150px 80px rgba(255, 0, 0, 0.2);
+      background: rgba(255, 0, 0, 0.1);
+      box-shadow: 0 0 80px 40px rgba(255, 0, 0, 0.15);
     }
     49%,
     51% {
@@ -530,8 +530,8 @@
     }
     52%,
     54% {
-      background: rgba(255, 0, 0, 0.15);
-      box-shadow: 0 0 150px 80px rgba(255, 0, 0, 0.2);
+      background: rgba(255, 0, 0, 0.1);
+      box-shadow: 0 0 80px 40px rgba(255, 0, 0, 0.15);
     }
     55%,
     100% {
