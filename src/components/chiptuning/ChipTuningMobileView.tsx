@@ -24,21 +24,19 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<any>(null);
+  const [showPoliceLights, setShowPoliceLights] = useState(true);
 
   useEffect(() => {
     const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.5;
     audio.play().catch(err => console.log('Audio play failed:', err));
 
-    document.body.classList.add('animate-police-lights');
-
     const timer = setTimeout(() => {
-      document.body.classList.remove('animate-police-lights');
+      setShowPoliceLights(false);
     }, 4500);
 
     return () => {
       clearTimeout(timer);
-      document.body.classList.remove('animate-police-lights');
     };
   }, []);
 
@@ -120,6 +118,12 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
   return (
     <div className="mb-12 px-4">
+      {showPoliceLights && (
+        <div 
+          className="fixed inset-0 pointer-events-none z-[9999] animate-police-lights"
+          style={{ mixBlendMode: 'screen' }}
+        />
+      )}
       <div className="text-center mb-8">
         <img 
           src="https://cdn.poehali.dev/files/rebornlogo.png" 

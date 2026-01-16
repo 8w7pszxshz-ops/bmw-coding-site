@@ -417,63 +417,63 @@
   @keyframes policeLights {
     0%,
     2% {
-      background: rgba(0, 100, 255, 0.06);
-      filter: blur(100px);
+      background: rgba(0, 100, 255, 0.25);
+      box-shadow: 0 0 200px 100px rgba(0, 100, 255, 0.4);
     }
     3%,
     5% {
       background: rgba(0, 0, 0, 0);
-      filter: blur(100px);
+      box-shadow: none;
     }
     6%,
     8% {
-      background: rgba(0, 100, 255, 0.06);
-      filter: blur(100px);
+      background: rgba(0, 100, 255, 0.25);
+      box-shadow: 0 0 200px 100px rgba(0, 100, 255, 0.4);
     }
     9%,
     11% {
       background: rgba(0, 0, 0, 0);
-      filter: blur(100px);
+      box-shadow: none;
     }
     12%,
     14% {
-      background: rgba(0, 100, 255, 0.06);
-      filter: blur(100px);
+      background: rgba(0, 100, 255, 0.25);
+      box-shadow: 0 0 200px 100px rgba(0, 100, 255, 0.4);
     }
     15%,
     39% {
       background: rgba(0, 0, 0, 0);
-      filter: blur(100px);
+      box-shadow: none;
     }
     40%,
     42% {
-      background: rgba(255, 0, 0, 0.06);
-      filter: blur(100px);
+      background: rgba(255, 0, 0, 0.25);
+      box-shadow: 0 0 200px 100px rgba(255, 0, 0, 0.4);
     }
     43%,
     45% {
       background: rgba(0, 0, 0, 0);
-      filter: blur(100px);
+      box-shadow: none;
     }
     46%,
     48% {
-      background: rgba(255, 0, 0, 0.06);
-      filter: blur(100px);
+      background: rgba(255, 0, 0, 0.25);
+      box-shadow: 0 0 200px 100px rgba(255, 0, 0, 0.4);
     }
     49%,
     51% {
       background: rgba(0, 0, 0, 0);
-      filter: blur(100px);
+      box-shadow: none;
     }
     52%,
     54% {
-      background: rgba(255, 0, 0, 0.06);
-      filter: blur(100px);
+      background: rgba(255, 0, 0, 0.25);
+      box-shadow: 0 0 200px 100px rgba(255, 0, 0, 0.4);
     }
     55%,
     100% {
       background: rgba(0, 0, 0, 0);
-      filter: blur(100px);
+      box-shadow: none;
     }
   }
 
