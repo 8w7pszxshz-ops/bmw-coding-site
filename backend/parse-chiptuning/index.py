@@ -8,13 +8,15 @@ def get_db_connection():
     """Подключение к PostgreSQL"""
     return psycopg2.connect(os.environ['DATABASE_URL'])
 
-def get_data_from_db() -> List[Dict[str, Any]]:
+def get_data_from_db(include_inactive: bool = False) -> List[Dict[str, Any]]:
     """Получает данные из новой таблицы bmw_chiptuning"""
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     
     try:
-        cur.execute("""
+        where_clause = "" if include_inactive else "WHERE status = 1"
+        
+        cur.execute(f"""
             SELECT 
                 id,
                 model_name,
@@ -35,7 +37,7 @@ def get_data_from_db() -> List[Dict[str, Any]]:
                 stage_type,
                 is_restyling
             FROM bmw_chiptuning
-            WHERE status = 1
+            {where_clause}
             ORDER BY series, body_type, engine_code, stage_type
         """)
         
@@ -392,6 +394,7 @@ def update_record(record_id: int, data: dict) -> Dict[str, Any]:
                 conversion_type = %s,
                 conversion_price = %s,
                 stage_type = %s,
+                is_restyling = %s,
                 updated_at = CURRENT_TIMESTAMP
             WHERE id = %s
         """, (
@@ -411,6 +414,7 @@ def update_record(record_id: int, data: dict) -> Dict[str, Any]:
             data.get('conversion_type'),
             data.get('conversion_price'),
             data.get('stage_type', 'St.1'),
+            data.get('is_restyling', False),
             record_id
         ))
         conn.commit()
@@ -444,7 +448,11 @@ def handler(event: dict, context) -> dict:
     
     if method == 'GET':
         try:
-            data = get_data_from_db()
+            # Параметр admin=1 возвращает ВСЕ записи (не только status=1)
+            query_params = event.get('queryStringParameters', {}) or {}
+            is_admin = query_params.get('admin') == '1'
+            
+            data = get_data_from_db(include_inactive=is_admin)
             return {
                 'statusCode': 200,
                 'headers': {
@@ -480,6 +488,17 @@ def handler(event: dict, context) -> dict:
                 record_id = body.get('id')
                 record_data = body.get('data')
                 result = update_record(record_id, record_data)
+                return {
+                    'statusCode': 200 if result.get('success') else 400,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps(result, ensure_ascii=False)
+                }
+            elif action == 'delete':
+                record_id = body.get('id')
+                result = delete_record(record_id)
                 return {
                     'statusCode': 200 if result.get('success') else 400,
                     'headers': {
