@@ -139,9 +139,9 @@ function EngineVariantCardMobile({ variant, engineType, color, index, selectedCi
       </div>
 
       <div 
-        className="mb-3 flex justify-center"
+        className="mb-3 flex justify-center text-sm"
       >
-        <RebornLogo className="h-4" />
+        <RebornLogo />
       </div>
 
       <div 
@@ -298,9 +298,9 @@ function EngineVariantCardDesktop({ variant, engineType, color, index, selectedC
       </div>
 
       <div 
-        className="mb-4 flex justify-center"
+        className="mb-4 flex justify-center text-lg"
       >
-        <RebornLogo className="h-6" />
+        <RebornLogo />
       </div>
 
       <div 
