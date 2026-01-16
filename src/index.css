@@ -540,12 +540,23 @@
     }
   }
 
+  @keyframes chiptuningDialogFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   .chiptuning-dialog {
-    animation: none !important;
+    animation: chiptuningDialogFadeIn 2s ease-out forwards !important;
   }
 
   .chiptuning-dialog.with-police-lights {
-    animation: chiptuningPoliceLights 1.5s steps(1) 3 forwards !important;
+    animation:
+      chiptuningDialogFadeIn 2s ease-out forwards,
+      chiptuningPoliceLights 1.5s steps(1) 3 forwards !important;
   }
 
   .animate-fade-in {
