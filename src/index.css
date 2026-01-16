@@ -408,171 +408,63 @@
   @keyframes policeLights {
     0%,
     2% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0.8),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 100, 255, 0.15);
+      filter: blur(80px);
     }
     3%,
     5% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 0, 0, 0);
+      filter: blur(80px);
     }
     6%,
     8% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0.8),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 100, 255, 0.15);
+      filter: blur(80px);
     }
     9%,
     11% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 0, 0, 0);
+      filter: blur(80px);
     }
     12%,
     14% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0.8),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 100, 255, 0.15);
+      filter: blur(80px);
     }
     15%,
     39% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 0, 0, 0);
+      filter: blur(80px);
     }
     40%,
     42% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0.8),
-          transparent
-        );
+      background: rgba(255, 0, 0, 0.15);
+      filter: blur(80px);
     }
     43%,
     45% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 0, 0, 0);
+      filter: blur(80px);
     }
     46%,
     48% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0.8),
-          transparent
-        );
+      background: rgba(255, 0, 0, 0.15);
+      filter: blur(80px);
     }
     49%,
     51% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 0, 0, 0);
+      filter: blur(80px);
     }
     52%,
     54% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0.8),
-          transparent
-        );
+      background: rgba(255, 0, 0, 0.15);
+      filter: blur(80px);
     }
     55%,
     100% {
-      background:
-        radial-gradient(
-          circle 800px at 15% 100%,
-          rgba(0, 100, 255, 0),
-          transparent
-        ),
-        radial-gradient(
-          circle 800px at 85% 100%,
-          rgba(255, 0, 0, 0),
-          transparent
-        );
+      background: rgba(0, 0, 0, 0);
+      filter: blur(80px);
     }
   }
 

@@ -24,9 +24,13 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         />
         
         <div 
-          className="fixed bottom-0 left-0 right-0 h-[400px] animate-police-lights pointer-events-none"
+          className="absolute inset-0 animate-police-lights pointer-events-none"
+        />
+        
+        <div 
+          className="absolute inset-0 pointer-events-none"
           style={{
-            filter: 'blur(60px)',
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 100%)',
           }}
         />
         
