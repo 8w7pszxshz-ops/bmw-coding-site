@@ -7,17 +7,16 @@ import UpdateDataButton from './UpdateDataButton';
 interface ChipTuningProps {
   selectedCity: City;
   onClose?: () => void;
-  audioEnabled?: boolean;
 }
 
-export default function ChipTuningNew({ selectedCity, onClose, audioEnabled = false }: ChipTuningProps) {
+export default function ChipTuningNew({ selectedCity, onClose }: ChipTuningProps) {
   return (
     <>
       <MobileOnly>
-        <ChipTuningMobileView selectedCity={selectedCity} onClose={onClose} audioEnabled={audioEnabled} />
+        <ChipTuningMobileView selectedCity={selectedCity} onClose={onClose} />
       </MobileOnly>
       <DesktopOnly>
-        <ChipTuningDesktopView selectedCity={selectedCity} onClose={onClose} audioEnabled={audioEnabled} />
+        <ChipTuningDesktopView selectedCity={selectedCity} onClose={onClose} />
       </DesktopOnly>
       <UpdateDataButton />
     </>

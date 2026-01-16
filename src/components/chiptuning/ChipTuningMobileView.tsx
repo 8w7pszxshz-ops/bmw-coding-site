@@ -14,65 +14,38 @@ import {
 interface ChipTuningMobileViewProps {
   selectedCity: City;
   onClose?: () => void;
-  audioEnabled?: boolean;
 }
 
 type Step = 'series' | 'body' | 'engine';
 
-const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, onClose, audioEnabled = false }: ChipTuningMobileViewProps) {
+const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, onClose }: ChipTuningMobileViewProps) {
   const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<any>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
-  const [audioPlayed, setAudioPlayed] = useState(false);
 
   useEffect(() => {
-    if (step === 'series' && !audioPlayed && audioEnabled) {
-      setAudioPlayed(true);
-      setShowPoliceLights(true);
-      
-      const audio = new Audio('/reborn-sound.mp3');
-      audio.volume = 0.5;
-      audio.preload = 'auto';
-      let fallbackTimer: NodeJS.Timeout | null = null;
-      
-      const stopLights = () => {
-        console.log('Мигалки остановлены');
-        setShowPoliceLights(false);
-      };
-      
-      audio.addEventListener('ended', () => {
-        console.log('Аудио закончилось (ended event)');
-        stopLights();
-      });
-      
-      audio.addEventListener('loadedmetadata', () => {
-        console.log('Аудио загружено, длительность:', audio.duration, 'секунд');
-        fallbackTimer = setTimeout(() => {
-          console.log('Fallback таймер сработал');
-          stopLights();
-        }, (audio.duration * 1000) + 100);
-      });
-      
-      audio.play().then(() => {
-        console.log('Аудио успешно запущено!');
-      }).catch((err) => {
-        console.log('Аудио заблокировано браузером:', err);
-        fallbackTimer = setTimeout(() => {
-          console.log('Fallback таймер сработал (аудио заблокировано)');
-          stopLights();
-        }, 5500);
-      });
+    setShowPoliceLights(true);
+    
+    const audio = new Audio('/reborn-sound.mp3');
+    audio.volume = 0.5;
+    
+    const timer = setTimeout(() => {
+      setShowPoliceLights(false);
+    }, 5500);
+    
+    audio.play().catch(() => {
+      // Игнорируем ошибку автовоспроизведения
+    });
 
-      return () => {
-        audio.pause();
-        audio.src = '';
-        if (fallbackTimer) clearTimeout(fallbackTimer);
-      };
-    }
-  }, [step, audioPlayed]);
+    return () => {
+      clearTimeout(timer);
+      audio.pause();
+      audio.src = '';
+    };
+  }, []);
 
   const models = apiData;
 
