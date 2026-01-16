@@ -8,6 +8,7 @@ export function useAdminLogic() {
   const [formData, setFormData] = useState<EditFormData | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSeries, setFilterSeries] = useState<string>('all');
+  const [filterBodyType, setFilterBodyType] = useState<string>('all');
   const [editingCell, setEditingCell] = useState<{ id: number; field: string } | null>(null);
   const [cellValue, setCellValue] = useState('');
   const [savedCell, setSavedCell] = useState<{ id: number; field: string } | null>(null);
@@ -225,6 +226,7 @@ export function useAdminLogic() {
   };
 
   const uniqueSeries = Array.from(new Set(records.map(r => r.series))).sort();
+  const uniqueBodyTypes = Array.from(new Set(records.map(r => r.body_type))).sort();
 
   const filteredRecords = records.filter(r => {
     const matchSearch = searchTerm === '' || 
@@ -232,8 +234,9 @@ export function useAdminLogic() {
       r.engine_code.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchSeries = filterSeries === 'all' || r.series === filterSeries;
+    const matchBodyType = filterBodyType === 'all' || r.body_type === filterBodyType;
     
-    return matchSearch && matchSeries;
+    return matchSearch && matchSeries && matchBodyType;
   });
 
   return {
@@ -247,7 +250,10 @@ export function useAdminLogic() {
     setSearchTerm,
     filterSeries,
     setFilterSeries,
+    filterBodyType,
+    setFilterBodyType,
     uniqueSeries,
+    uniqueBodyTypes,
     filteredRecords,
     handleEdit,
     handleSave,

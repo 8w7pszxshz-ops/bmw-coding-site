@@ -16,7 +16,10 @@ export default function Admin() {
     setSearchTerm,
     filterSeries,
     setFilterSeries,
+    filterBodyType,
+    setFilterBodyType,
     uniqueSeries,
+    uniqueBodyTypes,
     filteredRecords,
     handleEdit,
     handleSave,
@@ -63,10 +66,22 @@ export default function Admin() {
             value={filterSeries}
             onChange={(e) => setFilterSeries(e.target.value)}
             className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
+            style={{ color: '#ffffff' }}
           >
-            <option value="all">Все серии</option>
+            <option value="all" style={{ background: '#1e293b', color: '#ffffff' }}>Все серии</option>
             {uniqueSeries.map(series => (
-              <option key={series} value={series}>{series}</option>
+              <option key={series} value={series} style={{ background: '#1e293b', color: '#ffffff' }}>{series}</option>
+            ))}
+          </select>
+          <select
+            value={filterBodyType}
+            onChange={(e) => setFilterBodyType(e.target.value)}
+            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
+            style={{ color: '#ffffff' }}
+          >
+            <option value="all" style={{ background: '#1e293b', color: '#ffffff' }}>Все кузова</option>
+            {uniqueBodyTypes.map(bodyType => (
+              <option key={bodyType} value={bodyType} style={{ background: '#1e293b', color: '#ffffff' }}>{bodyType}</option>
             ))}
           </select>
         </div>
