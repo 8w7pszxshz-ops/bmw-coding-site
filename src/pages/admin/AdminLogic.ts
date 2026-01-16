@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ChiptuningRecord, EditFormData, API_URL } from './AdminTypes';
 
 export function useAdminLogic() {
@@ -9,11 +9,7 @@ export function useAdminLogic() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSeries, setFilterSeries] = useState<string>('all');
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`${API_URL}?admin=1`);
@@ -48,7 +44,11 @@ export function useAdminLogic() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const handleEdit = (record: ChiptuningRecord) => {
     setEditingRecord(record);
