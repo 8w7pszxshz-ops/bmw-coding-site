@@ -407,11 +407,11 @@
 
   @keyframes policeLights {
     0%,
-    24% {
+    3% {
       background:
         radial-gradient(
           circle 600px at 20% 50%,
-          rgba(0, 100, 255, 0.6),
+          rgba(0, 100, 255, 0.7),
           transparent
         ),
         radial-gradient(
@@ -420,7 +420,63 @@
           transparent
         );
     }
-    25%,
+    4%,
+    7% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0),
+          transparent
+        );
+    }
+    8%,
+    11% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0.7),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0),
+          transparent
+        );
+    }
+    12%,
+    15% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0),
+          transparent
+        );
+    }
+    16%,
+    19% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0.7),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0),
+          transparent
+        );
+    }
+    20%,
     49% {
       background:
         radial-gradient(
@@ -430,16 +486,30 @@
         ),
         radial-gradient(
           circle 600px at 80% 50%,
-          rgba(255, 0, 0, 0.6),
+          rgba(255, 0, 0, 0),
           transparent
         );
     }
     50%,
-    74% {
+    53% {
       background:
         radial-gradient(
           circle 600px at 20% 50%,
-          rgba(0, 100, 255, 0.6),
+          rgba(0, 100, 255, 0),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0.7),
+          transparent
+        );
+    }
+    54%,
+    57% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0),
           transparent
         ),
         radial-gradient(
@@ -448,7 +518,49 @@
           transparent
         );
     }
-    75%,
+    58%,
+    61% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0.7),
+          transparent
+        );
+    }
+    62%,
+    65% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0),
+          transparent
+        );
+    }
+    66%,
+    69% {
+      background:
+        radial-gradient(
+          circle 600px at 20% 50%,
+          rgba(0, 100, 255, 0),
+          transparent
+        ),
+        radial-gradient(
+          circle 600px at 80% 50%,
+          rgba(255, 0, 0, 0.7),
+          transparent
+        );
+    }
+    70%,
     100% {
       background:
         radial-gradient(
@@ -458,7 +570,7 @@
         ),
         radial-gradient(
           circle 600px at 80% 50%,
-          rgba(255, 0, 0, 0.6),
+          rgba(255, 0, 0, 0),
           transparent
         );
     }
