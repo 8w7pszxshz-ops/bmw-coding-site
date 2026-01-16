@@ -146,7 +146,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
             boxShadow: showPoliceLights ? 'none' : '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
             willChange: showPoliceLights ? 'background, box-shadow' : 'auto',
             opacity: dialogOpacity,
-            transition: 'opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
+            transition: dialogOpacity < 1 ? 'opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1)' : 'box-shadow 0.3s ease'
           }}
         >
           <DialogHeader>
