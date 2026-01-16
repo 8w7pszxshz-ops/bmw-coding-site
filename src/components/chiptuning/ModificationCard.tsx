@@ -39,20 +39,20 @@ export default function ModificationCard({ mod, getPriceForCity, variant = 'mobi
           style={{ color: getTypeColor(mod.engineType) }}
         />
         <div className="flex-1">
-          <div className={`text-white font-medium ${isMobile ? '' : 'text-lg'} flex items-center gap-2`}>
+          <div className={`text-white font-medium ${isMobile ? '' : 'text-lg'} flex items-center gap-2`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
             {mod.name}
             {mod.isRestyling && (
-              <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded border border-[#FF0040]/30">
+              <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded border border-[#FF0040]/30" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                 Рестайлинг
               </span>
             )}
           </div>
-          <div className={`text-white/50 ${isMobile ? 'text-xs' : 'text-sm'} capitalize`}>
+          <div className={`text-white/50 ${isMobile ? 'text-xs' : 'text-sm'} capitalize`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
             {mod.engineType === 'petrol' ? 'Бензиновый' : 'Дизельный'}
           </div>
         </div>
         <div className="text-right">
-          <div className={`font-bold ${isMobile ? 'text-lg' : 'text-2xl'}`} style={{ color: getTypeColor(mod.engineType) }}>
+          <div className={`font-bold ${isMobile ? 'text-lg' : 'text-2xl'}`} style={{ color: getTypeColor(mod.engineType), fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
             {totalPrice.toLocaleString()} ₽
           </div>
         </div>
@@ -63,10 +63,10 @@ export default function ModificationCard({ mod, getPriceForCity, variant = 'mobi
           <div className={`${isMobile ? 'mb-1 text-[10px]' : 'text-sm mb-2'} flex items-center gap-0.5`}>
             <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E', letterSpacing: '-0.02em' }}>R</span><span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>EBORN TECH</span>
           </div>
-          <div className={`text-white ${isMobile ? '' : 'text-base'}`}>
+          <div className={`text-white ${isMobile ? '' : 'text-base'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
             {mod.powerBefore} → <span style={{ color: getTypeColor(mod.engineType) }} className="font-bold">{mod.powerAfter} л.с.</span>
           </div>
-          <div className={`text-green-400 ${isMobile ? 'text-[10px]' : 'text-sm mt-1'}`}>
+          <div className={`text-green-400 ${isMobile ? 'text-[10px]' : 'text-sm mt-1'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
             +{getGainPercentage(mod.powerBefore, mod.powerAfter)}%
           </div>
         </div>
@@ -74,10 +74,10 @@ export default function ModificationCard({ mod, getPriceForCity, variant = 'mobi
           <div className={`${isMobile ? 'mb-1 text-[10px]' : 'text-sm mb-2'} flex items-center gap-0.5`}>
             <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E', letterSpacing: '-0.02em' }}>R</span><span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>EBORN TECH</span>
           </div>
-          <div className={`text-white ${isMobile ? '' : 'text-base'}`}>
+          <div className={`text-white ${isMobile ? '' : 'text-base'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
             {mod.torqueBefore} → <span style={{ color: getTypeColor(mod.engineType) }} className="font-bold">{mod.torqueAfter} Нм</span>
           </div>
-          <div className={`text-green-400 ${isMobile ? 'text-[10px]' : 'text-sm mt-1'}`}>
+          <div className={`text-green-400 ${isMobile ? 'text-[10px]' : 'text-sm mt-1'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
             +{getGainPercentage(mod.torqueBefore, mod.torqueAfter)}%
           </div>
         </div>
@@ -94,7 +94,7 @@ export default function ModificationCard({ mod, getPriceForCity, variant = 'mobi
         }}
       >
         <Icon name="MessageCircle" className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'}`} />
-        {isMobile ? 'Записаться' : 'Записаться на чип-тюнинг'}
+        <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{isMobile ? 'Записаться' : 'Записаться на чип-тюнинг'}</span>
       </a>
     </div>
   );

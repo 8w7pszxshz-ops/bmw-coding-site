@@ -228,16 +228,16 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   </div>
                   
                   <div className="flex items-center gap-6 flex-1">
-                    <div className="text-sm">
-                      <span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>МОЩНОСТЬ: </span>
+                    <div className="text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                      <span className="text-white/50">МОЩНОСТЬ: </span>
                       <span className="text-white">{mod.powerBefore}</span>
                       <Icon name="ArrowRight" className="w-3 h-3 inline mx-1 text-white/30" />
                       <span style={{ color: typeColor }} className="font-bold">{mod.powerAfter} л.с.</span>
                       <span className="text-green-400 text-xs ml-2">+{powerGain}</span>
                     </div>
                     
-                    <div className="text-sm">
-                      <span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>МОМЕНТ: </span>
+                    <div className="text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                      <span className="text-white/50">МОМЕНТ: </span>
                       <span className="text-white">{mod.torqueBefore}</span>
                       <Icon name="ArrowRight" className="w-3 h-3 inline mx-1 text-white/30" />
                       <span style={{ color: typeColor }} className="font-bold">{mod.torqueAfter} Нм</span>
@@ -246,7 +246,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   </div>
                   
                   <div className="text-right min-w-[140px]">
-                    <div className="font-bold text-xl" style={{ color: typeColor }}>
+                    <div className="font-bold text-xl" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                       {totalPrice.toLocaleString()} ₽
                     </div>
                   </div>
@@ -327,13 +327,13 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                       }}
                     >
                       <div className="text-white/50 text-sm mb-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>МОЩНОСТЬ</div>
-                      <div className="flex items-baseline gap-3">
+                      <div className="flex items-baseline gap-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-2xl">{selectedMod.powerBefore}</span>
                         <Icon name="ArrowRight" className="w-5 h-5 text-white/30" />
                         <span className="text-4xl font-bold" style={{ color: typeColor }}>{selectedMod.powerAfter}</span>
                         <span className="text-white/50 text-lg">л.с.</span>
                       </div>
-                      <div className="mt-3 flex items-center gap-2">
+                      <div className="mt-3 flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <div className="text-green-400 text-xl font-bold">+{powerGainPercent}%</div>
                         <div className="text-white/40 text-sm">(+{selectedMod.powerAfter - selectedMod.powerBefore} л.с.)</div>
                       </div>
@@ -347,13 +347,13 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                       }}
                     >
                       <div className="text-white/50 text-sm mb-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>КРУТЯЩИЙ МОМЕНТ</div>
-                      <div className="flex items-baseline gap-3">
+                      <div className="flex items-baseline gap-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-2xl">{selectedMod.torqueBefore}</span>
                         <Icon name="ArrowRight" className="w-5 h-5 text-white/30" />
                         <span className="text-4xl font-bold" style={{ color: typeColor }}>{selectedMod.torqueAfter}</span>
                         <span className="text-white/50 text-lg">Нм</span>
                       </div>
-                      <div className="mt-3 flex items-center gap-2">
+                      <div className="mt-3 flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <div className="text-green-400 text-xl font-bold">+{torqueGainPercent}%</div>
                         <div className="text-white/40 text-sm">(+{selectedMod.torqueAfter - selectedMod.torqueBefore} Нм)</div>
                       </div>
@@ -368,7 +368,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                     }}
                   >
                     <div className="text-white/60 text-sm mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>СТОИМОСТЬ ПРОШИВКИ</div>
-                    <div className="text-5xl font-bold mb-1" style={{ color: typeColor }}>
+                    <div className="text-5xl font-bold mb-1" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                       {totalPrice.toLocaleString()} ₽
                     </div>
                     <div className="text-white/40 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
