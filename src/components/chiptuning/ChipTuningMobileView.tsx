@@ -139,12 +139,11 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
         }
       }}>
         <DialogContent 
-          className="chiptuning-dialog border-0 max-w-[95vw] w-full max-h-[85vh]"
+          className={`chiptuning-dialog border-0 max-w-[95vw] w-full max-h-[85vh] ${showPoliceLights ? 'with-police-lights' : ''}`}
           style={{
             background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
             backdropFilter: 'blur(20px)',
             boxShadow: showPoliceLights ? 'none' : '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-            animation: showPoliceLights ? 'chiptuningPoliceLights 1.5s steps(1) infinite' : 'none',
             willChange: showPoliceLights ? 'background, box-shadow' : 'auto',
             opacity: dialogOpacity,
             transition: 'opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1)'

@@ -540,13 +540,18 @@
     }
   }
 
-  /* Отключение встроенных анимаций Dialog для плавного появления */
+  /* Отключение только встроенных Radix UI анимаций (zoom, slide), но не наших */
   .chiptuning-dialog[data-state="open"] {
-    animation: none !important;
+    animation-name: none;
   }
 
   .chiptuning-dialog[data-state="closed"] {
-    animation: none !important;
+    animation-name: none;
+  }
+
+  /* Разрешаем мигалки полиции */
+  .chiptuning-dialog.with-police-lights {
+    animation: chiptuningPoliceLights 1.5s steps(1) infinite !important;
   }
 
   .animate-fade-in {
