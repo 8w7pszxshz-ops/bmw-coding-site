@@ -3,6 +3,7 @@ import { Adaptive } from '@/components/ui/responsive';
 import { EngineVariant, getGainPercentage } from './chipTuningData';
 import { getTelegramLink } from '@/utils/cityConfig';
 import { City } from '@/components/CitySelector';
+import RebornLogo from './RebornLogo';
 
 interface EngineVariantCardProps {
   variant: EngineVariant;
@@ -140,11 +141,7 @@ function EngineVariantCardMobile({ variant, engineType, color, index, selectedCi
       <div 
         className="mb-3 flex justify-center"
       >
-        <img 
-          src="https://cdn.poehali.dev/files/наклейки_белый_текст.png" 
-          alt="RaceChip Technologies"
-          className="h-4 opacity-80"
-        />
+        <RebornLogo className="h-4" />
       </div>
 
       <div 
@@ -303,11 +300,7 @@ function EngineVariantCardDesktop({ variant, engineType, color, index, selectedC
       <div 
         className="mb-4 flex justify-center"
       >
-        <img 
-          src="https://cdn.poehali.dev/files/наклейки_белый_текст.png" 
-          alt="RaceChip Technologies"
-          className="h-6 opacity-80"
-        />
+        <RebornLogo className="h-6" />
       </div>
 
       <div 
