@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Font Test</title>
+  <style>
+    @font-face {
+      font-family: "Reborn Technologies";
+      src: url("https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn%20Technologies%20%C2%A9.png.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      padding: 40px;
+      font-size: 24px;
+    }
+
+    .test1 {
+      font-family: "Reborn Technologies", Arial, sans-serif;
+      font-size: 48px;
+      margin: 20px 0;
+    }
+
+    .test2 {
+      font-family: Arial, sans-serif;
+      font-size: 48px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Font Loading Test</h1>
+  
+  <div class="test1">
+    REBORN TECHNOLOGIES - English
+  </div>
+  
+  <div class="test1">
+    РУССКИЙ ТЕКСТ - Russian
+  </div>
+  
+  <div class="test2">
+    Arial Fallback - English
+  </div>
+  
+  <div class="test2">
+    Arial Fallback - Русский
+  </div>
+
+  <script>
+    // Check if font loaded
+    document.fonts.ready.then(function() {
+      const rebornFont = Array.from(document.fonts).find(f => f.family === 'Reborn Technologies');
+      if (rebornFont) {
+        console.log('✅ Font Reborn Technologies found!', rebornFont);
+        document.body.innerHTML += '<p style="color: lime;">✅ Font loaded successfully!</p>';
+      } else {
+        console.error('❌ Font Reborn Technologies NOT found');
+        document.body.innerHTML += '<p style="color: red;">❌ Font NOT loaded</p>';
+      }
+      
+      console.log('All fonts:', Array.from(document.fonts).map(f => f.family));
+    });
+
+    // Try to load font explicitly
+    const font = new FontFace('Reborn Technologies Test', 
+      'url(https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn%20Technologies%20%C2%A9.png.ttf)'
+    );
+    
+    font.load().then(function(loadedFont) {
+      console.log('✅ Font loaded via FontFace API:', loadedFont);
+      document.body.innerHTML += '<p style="color: cyan;">✅ FontFace API successful</p>';
+    }).catch(function(error) {
+      console.error('❌ Font loading error:', error);
+      document.body.innerHTML += '<p style="color: orange;">❌ Error: ' + error.message + '</p>';
+    });
+  </script>
+</body>
+</html>
