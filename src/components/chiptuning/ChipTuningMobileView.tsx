@@ -24,21 +24,27 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<any>(null);
-  const [showPoliceLights, setShowPoliceLights] = useState(true);
+  const [showPoliceLights, setShowPoliceLights] = useState(false);
+  const [dialogOpened, setDialogOpened] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio('/reborn-sound.mp3');
-    audio.volume = 0.5;
-    audio.play().catch(err => console.log('Audio play failed:', err));
+    if (step === 'series' && !dialogOpened) {
+      setDialogOpened(true);
+      setShowPoliceLights(true);
+      
+      const audio = new Audio('/reborn-sound.mp3');
+      audio.volume = 0.5;
+      audio.play().catch(err => console.log('Audio play failed:', err));
 
-    const timer = setTimeout(() => {
-      setShowPoliceLights(false);
-    }, 5500);
+      const timer = setTimeout(() => {
+        setShowPoliceLights(false);
+      }, 5500);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [step, dialogOpened]);
 
   const models = apiData;
 
