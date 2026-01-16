@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Загрузка шрифта Reborn Technologies</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .container {
+      background: #2a2a2a;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid #00aaff;
+    }
+    h1 {
+      color: #00aaff;
+      margin-top: 0;
+    }
+    button {
+      background: #00aaff;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 0;
+      display: block;
+      width: 100%;
+    }
+    button:hover {
+      background: #0088cc;
+    }
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+    .status {
+      margin: 20px 0;
+      padding: 15px;
+      background: #333;
+      border-radius: 5px;
+      border-left: 4px solid #00aaff;
+    }
+    .error {
+      border-left-color: #ff4444;
+    }
+    .success {
+      border-left-color: #44ff44;
+    }
+    pre {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .instructions {
+      background: #333;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    .instructions ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .instructions li {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔧 Инструмент загрузки шрифта</h1>
+    
+    <div class="instructions">
+      <h3>Инструкция:</h3>
+      <ol>
+        <li>Нажмите кнопку "Скачать шрифт"</li>
+        <li>Файл автоматически загрузится на ваш компьютер</li>
+        <li>Поместите файл <code>Reborn-Technologies.ttf</code> в папку <code>public/fonts/</code> вашего проекта</li>
+        <li>Готово! Шрифт заработает на сайте</li>
+      </ol>
+    </div>
+
+    <button id="downloadBtn" onclick="downloadFont()">⬇️ Скачать шрифт</button>
+    
+    <div id="status" class="status" style="display: none;"></div>
+    
+    <div class="instructions">
+      <h3>Альтернативный способ (через консоль браузера F12):</h3>
+      <pre id="consoleCode">// Скопируйте этот код в консоль браузера (F12)
+fetch('https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn%20Technologies.ttf')
+  .then(r => r.blob())
+  .then(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Reborn-Technologies.ttf';
+    a.click();
+    URL.revokeObjectURL(url);
+    console.log('✅ Шрифт скачан!');
+  })
+  .catch(err => console.error('❌ Ошибка:', err));</pre>
+      <button onclick="copyConsoleCode()">📋 Скопировать код</button>
+    </div>
+  </div>
+
+  <script>
+    function showStatus(message, type = 'info') {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = 'status ' + type;
+      status.style.display = 'block';
+    }
+
+    async function downloadFont() {
+      const btn = document.getElementById('downloadBtn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Загрузка...';
+      
+      try {
+        showStatus('Загрузка шрифта с CDN...', 'info');
+        
+        const response = await fetch('https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn%20Technologies.ttf', {
+          mode: 'cors'
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        showStatus('Обработка файла...', 'info');
+        const blob = await response.blob();
+        
+        showStatus(`Сохранение файла (${(blob.size / 1024).toFixed(1)} KB)...`, 'info');
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Reborn-Technologies.ttf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showStatus('✅ Шрифт успешно скачан! Теперь поместите файл в папку public/fonts/', 'success');
+        btn.textContent = '✅ Скачано';
+        
+      } catch (error) {
+        showStatus('❌ Ошибка: ' + error.message + '. Попробуйте альтернативный способ ниже.', 'error');
+        btn.disabled = false;
+        btn.textContent = '🔄 Попробовать снова';
+      }
+    }
+
+    function copyConsoleCode() {
+      const code = document.getElementById('consoleCode').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('✅ Код скопирован! Откройте консоль браузера (F12) и вставьте код.');
+      }).catch(err => {
+        alert('❌ Не удалось скопировать. Скопируйте код вручную.');
+      });
+    }
+  </script>
+</body>
+</html>
