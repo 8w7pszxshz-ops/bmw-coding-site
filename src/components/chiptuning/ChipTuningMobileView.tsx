@@ -2,9 +2,14 @@ import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { City } from '@/components/CitySelector';
-import ModificationCard from './ModificationCard';
 import { useChiptuningData } from '@/hooks/useChiptuningData';
 import { ModelData } from '@/types/chiptuning';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface ChipTuningMobileViewProps {
   selectedCity: City;
@@ -17,6 +22,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
+  const [selectedMod, setSelectedMod] = useState<any>(null);
 
   const models = apiData;
 
@@ -174,17 +180,161 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
       )}
 
       {step === 'engine' && selectedBody && (
-        <div className="space-y-4">
-          {selectedBody.modifications.map((mod, idx) => (
-            <ModificationCard
-              key={idx}
-              mod={mod}
-              getPriceForCity={getPriceForCity}
-              variant="mobile"
-            />
-          ))}
+        <div className="space-y-2">
+          {selectedBody.modifications.map((mod, idx) => {
+            const totalPrice = getPriceForCity(mod.price);
+            const typeColor = mod.engineType === 'petrol' ? '#FF0040' : '#00A8E8';
+            
+            return (
+              <button
+                key={idx}
+                onClick={() => setSelectedMod(mod)}
+                className="w-full p-3 rounded-xl transition-all duration-300 active:scale-95 text-left"
+                style={{
+                  background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
+                  border: `1px solid ${typeColor}30`
+                }}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon 
+                    name={mod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
+                    className="w-5 h-5 flex-shrink-0" 
+                    style={{ color: typeColor }}
+                  />
+                  <div className="flex-1">
+                    <div className="text-white font-medium text-sm flex items-center gap-2">
+                      {mod.name}
+                      {mod.isRestyling && (
+                        <span className="px-1.5 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-[10px] rounded">
+                          LCI
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-white/50 text-xs">
+                      {mod.powerBefore} → {mod.powerAfter} л.с. • {mod.torqueBefore} → {mod.torqueAfter} Нм
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-base" style={{ color: typeColor }}>
+                      {totalPrice.toLocaleString()} ₽
+                    </div>
+                  </div>
+                  <Icon name="ChevronRight" className="w-4 h-4 text-white/30 flex-shrink-0" />
+                </div>
+              </button>
+            );
+          })}
         </div>
       )}
+
+      <Dialog open={!!selectedMod} onOpenChange={(open) => !open && setSelectedMod(null)}>
+        <DialogContent 
+          className="border-0 max-w-[95vw] w-full"
+          style={{
+            background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
+            backdropFilter: 'blur(40px)'
+          }}
+        >
+          {selectedMod && (() => {
+            const totalPrice = getPriceForCity(selectedMod.price);
+            const typeColor = selectedMod.engineType === 'petrol' ? '#FF0040' : '#00A8E8';
+            const powerGainPercent = Math.round(((selectedMod.powerAfter - selectedMod.powerBefore) / selectedMod.powerBefore) * 100);
+            const torqueGainPercent = Math.round(((selectedMod.torqueAfter - selectedMod.torqueBefore) / selectedMod.torqueBefore) * 100);
+            
+            return (
+              <>
+                <DialogHeader>
+                  <DialogTitle className="text-white flex items-center gap-2">
+                    <Icon 
+                      name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
+                      className="w-6 h-6" 
+                      style={{ color: typeColor }}
+                    />
+                    <div>
+                      <div className="flex items-center gap-2 text-lg">
+                        <span>{selectedMod.name}</span>
+                        {selectedMod.isRestyling && (
+                          <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded">
+                            LCI
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-xs text-white/50 font-normal capitalize">
+                        {selectedMod.engineType === 'petrol' ? 'Бензин' : 'Дизель'}
+                      </div>
+                    </div>
+                  </DialogTitle>
+                </DialogHeader>
+
+                <div className="mt-4 space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div 
+                      className="p-4 rounded-xl"
+                      style={{
+                        background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
+                        border: `1px solid ${typeColor}30`
+                      }}
+                    >
+                      <div className="text-white/50 text-xs mb-2">Мощность</div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-white text-lg">{selectedMod.powerBefore}</span>
+                        <Icon name="ArrowRight" className="w-4 h-4 text-white/30" />
+                        <span className="text-2xl font-bold" style={{ color: typeColor }}>{selectedMod.powerAfter}</span>
+                      </div>
+                      <div className="text-white/40 text-xs mt-1">л.с.</div>
+                      <div className="mt-2 text-green-400 text-sm font-bold">+{powerGainPercent}%</div>
+                    </div>
+
+                    <div 
+                      className="p-4 rounded-xl"
+                      style={{
+                        background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
+                        border: `1px solid ${typeColor}30`
+                      }}
+                    >
+                      <div className="text-white/50 text-xs mb-2">Момент</div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-white text-lg">{selectedMod.torqueBefore}</span>
+                        <Icon name="ArrowRight" className="w-4 h-4 text-white/30" />
+                        <span className="text-2xl font-bold" style={{ color: typeColor }}>{selectedMod.torqueAfter}</span>
+                      </div>
+                      <div className="text-white/40 text-xs mt-1">Нм</div>
+                      <div className="mt-2 text-green-400 text-sm font-bold">+{torqueGainPercent}%</div>
+                    </div>
+                  </div>
+
+                  <div 
+                    className="p-5 rounded-xl text-center"
+                    style={{
+                      background: `linear-gradient(135deg, ${typeColor}20, ${typeColor}10)`,
+                      border: `1px solid ${typeColor}40`
+                    }}
+                  >
+                    <div className="text-white/60 text-xs mb-1">Стоимость</div>
+                    <div className="text-3xl font-bold" style={{ color: typeColor }}>
+                      {totalPrice.toLocaleString()} ₽
+                    </div>
+                  </div>
+
+                  <a
+                    href={`https://t.me/bmw_tuning_spb`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 px-4 rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 active:scale-95"
+                    style={{
+                      background: `linear-gradient(135deg, ${typeColor}, ${typeColor}CC)`,
+                      boxShadow: `0 8px 32px ${typeColor}40`
+                    }}
+                  >
+                    <Icon name="MessageCircle" className="w-5 h-5" />
+                    Записаться
+                  </a>
+                </div>
+              </>
+            );
+          })()}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 });
