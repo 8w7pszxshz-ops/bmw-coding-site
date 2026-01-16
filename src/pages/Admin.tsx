@@ -30,7 +30,10 @@ export default function Admin() {
     setCellValue,
     handleCellClick,
     handleCellSave,
-    savedCell
+    savedCell,
+    uploading,
+    handleExportCSV,
+    handleImportCSV
   } = useAdminLogic();
 
   if (loading) {
@@ -46,10 +49,38 @@ export default function Admin() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-white">Админ-панель Чип-тюнинга</h1>
-          <Button onClick={handleAddNew} className="bg-green-600 hover:bg-green-700">
-            <Icon name="Plus" className="w-5 h-5 mr-2" />
-            Добавить
-          </Button>
+          <div className="flex gap-3">
+            <Button 
+              onClick={handleExportCSV} 
+              variant="outline"
+              className="bg-white/5 hover:bg-white/10 border-white/20 text-white"
+            >
+              <Icon name="Download" className="w-5 h-5 mr-2" />
+              Экспорт CSV
+            </Button>
+            <Button 
+              onClick={() => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.csv';
+                input.onchange = (e) => {
+                  const file = (e.target as HTMLInputElement).files?.[0];
+                  if (file) handleImportCSV(file);
+                };
+                input.click();
+              }}
+              variant="outline"
+              className="bg-white/5 hover:bg-white/10 border-white/20 text-white"
+              disabled={uploading}
+            >
+              <Icon name="Upload" className="w-5 h-5 mr-2" />
+              {uploading ? 'Загрузка...' : 'Импорт CSV'}
+            </Button>
+            <Button onClick={handleAddNew} className="bg-green-600 hover:bg-green-700">
+              <Icon name="Plus" className="w-5 h-5 mr-2" />
+              Добавить
+            </Button>
+          </div>
         </div>
 
         <div className="bg-white/5 backdrop-blur-lg rounded-xl p-4 mb-6 flex gap-4">

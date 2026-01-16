@@ -12,6 +12,7 @@ export function useAdminLogic() {
   const [editingCell, setEditingCell] = useState<{ id: number; field: string } | null>(null);
   const [cellValue, setCellValue] = useState('');
   const [savedCell, setSavedCell] = useState<{ id: number; field: string } | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const loadData = useCallback(async () => {
     try {
@@ -158,6 +159,43 @@ export function useAdminLogic() {
     });
   };
 
+  const handleExportCSV = () => {
+    const csv = records.map(r => 
+      `${r.model_name},${r.series},${r.body_type},${r.engine_code},${r.stock_power},${r.stock_torque},${r.stage1_power},${r.stage1_torque},${r.stage1_price}`
+    ).join('\n');
+    
+    const blob = new Blob([`Модель,Серия,Кузов,Двигатель,Мощность (сток),Момент (сток),Мощность (St.1),Момент (St.1),Цена\n${csv}`], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `chiptuning_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+  };
+
+  const handleImportCSV = async (file: File) => {
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) throw new Error('Import failed');
+
+      const result = await response.json();
+      alert(`Импортировано: ${result.imported} записей`);
+      loadData();
+    } catch (error) {
+      console.error('Import error:', error);
+      alert('Ошибка импорта CSV');
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleCellClick = (record: ChiptuningRecord, field: keyof ChiptuningRecord) => {
     setEditingCell({ id: record.id, field });
     setCellValue(String(record[field] ?? ''));
@@ -264,6 +302,9 @@ export function useAdminLogic() {
     setCellValue,
     handleCellClick,
     handleCellSave,
-    savedCell
+    savedCell,
+    uploading,
+    handleExportCSV,
+    handleImportCSV
   };
 }
