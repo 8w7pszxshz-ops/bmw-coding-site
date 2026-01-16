@@ -138,6 +138,16 @@ function EngineVariantCardMobile({ variant, engineType, color, index, selectedCi
       </div>
 
       <div 
+        className="mb-3 flex justify-center"
+      >
+        <img 
+          src="https://cdn.poehali.dev/files/наклейки_белый_текст.png" 
+          alt="RaceChip Technologies"
+          className="h-4 opacity-80"
+        />
+      </div>
+
+      <div 
         className="pt-4 border-t flex items-center justify-between"
         style={{ borderColor: `${color}20` }}
       >
@@ -288,6 +298,16 @@ function EngineVariantCardDesktop({ variant, engineType, color, index, selectedC
             </span>
           ))}
         </div>
+      </div>
+
+      <div 
+        className="mb-4 flex justify-center"
+      >
+        <img 
+          src="https://cdn.poehali.dev/files/наклейки_белый_текст.png" 
+          alt="RaceChip Technologies"
+          className="h-6 opacity-80"
+        />
       </div>
 
       <div 
