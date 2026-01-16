@@ -195,11 +195,31 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 elif len(parts) >= 3:
                     series = parts[0]  # "1-series"
                     
-                    # Проверяем LCI/Rest в следующих частях
-                    if len(parts) >= 4 and (parts[2].upper() == 'LCI' or parts[2].lower() == 'rest'):
-                        body_type = f"{parts[1]} {parts[2]}"  # "G30 LCI"
-                        engine_code = ' '.join(parts[3:]) if len(parts) > 3 else parts[0]
+                    # Ищем LCI/Rest в любой позиции
+                    lci_index = -1
+                    for i, part in enumerate(parts):
+                        if part.upper() == 'LCI' or part.lower() == 'rest':
+                            lci_index = i
+                            break
+                    
+                    if lci_index > 0:
+                        # Найден LCI/Rest
+                        # Проверяем что после LCI - это кузов (например F97, G30) или нет
+                        # Кузов = буква + цифры (F97, G30, E8x)
+                        if lci_index + 1 < len(parts) and re.match(r'^[A-Z]\d+[a-z]?$', parts[lci_index + 1], re.IGNORECASE):
+                            # После LCI идёт кузов: "X3M Competition LCI F97"
+                            # body_type = "F97 LCI"
+                            # engine = "Competition"
+                            body_type = f"{parts[lci_index + 1]} {parts[lci_index]}"
+                            engine_code = ' '.join(parts[1:lci_index])
+                        else:
+                            # LCI в середине, после него engine: "5-series G30 LCI 530e"
+                            # body_type = "G30 LCI"
+                            # engine = "530e"
+                            body_type = f"{parts[1]} {parts[lci_index]}"
+                            engine_code = ' '.join(parts[lci_index + 1:]) if lci_index + 1 < len(parts) else parts[0]
                     else:
+                        # Нет LCI/Rest - стандартный формат
                         body_type = parts[1]  # "E8x"
                         engine_code = ' '.join(parts[2:])  # "116d" или "220i → 228i"
                 
