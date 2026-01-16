@@ -139,7 +139,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
         }
       }}>
         <DialogContent 
-          className="border-0 max-w-4xl"
+          className="chiptuning-dialog border-0 max-w-4xl"
           style={{
             background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
             backdropFilter: 'blur(40px)',
@@ -147,7 +147,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
             animation: showPoliceLights ? 'chiptuningPoliceLights 1.5s steps(1) infinite' : 'none',
             willChange: showPoliceLights ? 'background, box-shadow' : 'auto',
             opacity: dialogOpacity,
-            transition: 'opacity 1.2s ease-out'
+            transition: 'opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
           <DialogHeader>

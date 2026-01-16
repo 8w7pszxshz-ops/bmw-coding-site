@@ -540,6 +540,15 @@
     }
   }
 
+  /* Отключение встроенных анимаций Dialog для плавного появления */
+  .chiptuning-dialog[data-state="open"] {
+    animation: none !important;
+  }
+
+  .chiptuning-dialog[data-state="closed"] {
+    animation: none !important;
+  }
+
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
   }
