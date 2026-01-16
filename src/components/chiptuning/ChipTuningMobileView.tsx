@@ -139,8 +139,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   return (
     <div className="mb-12 px-4">
       <Dialog open={step === 'series'} onOpenChange={(open) => {
-        if (!open && onClose) {
-          onClose();
+        if (!open) {
+          if (onClose) onClose();
         }
       }}>
         <DialogContent 
@@ -162,7 +162,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
             </DialogTitle>
           </DialogHeader>
           
-          <div className="max-h-[60vh] overflow-y-auto pr-2 mt-4" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
+          <div className="max-h-[60vh] overflow-y-auto pr-2 mt-4 pb-4" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)', overscrollBehavior: 'contain' }}>
             <div className="grid grid-cols-2 gap-4">
               {uniqueSeries.map((series) => (
                 <button
@@ -217,7 +217,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
       {step === 'body' && (
         <>
-          <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory">
+          <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
             <div className="flex gap-4 px-4 pb-2">
               {bodiesForSeries.map((body) => (
                 <button
@@ -241,7 +241,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       )}
 
       {step === 'engine' && selectedBody && (
-        <div className="space-y-2 max-h-[calc(100vh-280px)] overflow-y-auto pb-20" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
+        <div className="space-y-2 max-h-[calc(100vh-280px)] overflow-y-auto pb-20" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)', overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
           {selectedBody.modifications.map((mod, idx) => {
             const totalPrice = getPriceForCity(mod.price);
             const typeColor = mod.engineType === 'petrol' ? '#FF0040' : '#00A8E8';
