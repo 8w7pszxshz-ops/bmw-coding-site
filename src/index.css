@@ -540,6 +540,10 @@
     }
   }
 
+  .chiptuning-dialog {
+    animation: none !important;
+  }
+
   .chiptuning-dialog.with-police-lights {
     animation: chiptuningPoliceLights 1.5s steps(1) 3 forwards !important;
   }
