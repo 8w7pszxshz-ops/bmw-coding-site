@@ -25,15 +25,15 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<any>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
-  const [opacity, setOpacity] = useState(0);
+  const [contentOpacity, setContentOpacity] = useState(0);
 
   useEffect(() => {
     setShowPoliceLights(true);
     
-    // Плавное появление с задержкой
+    // Плавное появление контента
     const fadeTimer = setTimeout(() => {
-      setOpacity(1);
-    }, 50);
+      setContentOpacity(1);
+    }, 100);
     
     const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.5;
@@ -144,11 +144,10 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
             backdropFilter: 'blur(20px)',
             boxShadow: showPoliceLights ? 'none' : '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
             animation: showPoliceLights ? 'chiptuningPoliceLights 1.5s steps(1) infinite' : 'none',
-            willChange: showPoliceLights ? 'background, box-shadow' : 'auto',
-            opacity: opacity,
-            transition: 'opacity 0.8s ease-out'
+            willChange: showPoliceLights ? 'background, box-shadow' : 'auto'
           }}
         >
+          <div style={{ opacity: contentOpacity, transition: 'opacity 1s ease-out' }}>
           <DialogHeader>
             <DialogTitle className="text-white flex flex-col items-center justify-center gap-3">
               <img 
@@ -178,6 +177,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                 </button>
               ))}
             </div>
+          </div>
           </div>
         </DialogContent>
       </Dialog>
