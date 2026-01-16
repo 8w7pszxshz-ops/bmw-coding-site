@@ -5,7 +5,7 @@ import { EngineGroup, engineGroups, getTypeColor } from './chiptuning/chipTuning
 import ChipTuningFilters from './chiptuning/ChipTuningFilters';
 import EngineGroupCard from './chiptuning/EngineGroupCard';
 import EngineVariantCard from './chiptuning/EngineVariantCard';
-import ScrollIndicator from '@/components/ScrollIndicator';
+
 import { City } from '@/components/CitySelector';
 
 interface ChipTuningProps {
@@ -55,7 +55,6 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
               ))}
             </div>
           </div>
-          <ScrollIndicator totalItems={filteredGroups.length} color="#FF6B35" />
         </>
       ) : (
         <>

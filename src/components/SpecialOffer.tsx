@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
-import ScrollIndicator from '@/components/ScrollIndicator';
+
 import { City } from '@/components/CitySelector';
 import { getTelegramLink } from '@/utils/cityConfig';
 

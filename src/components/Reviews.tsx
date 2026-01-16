@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
-import ScrollIndicator from '@/components/ScrollIndicator';
+
 
 const reviews = [
   {
@@ -117,7 +117,6 @@ function ReviewsMobile() {
           ))}
         </div>
       </div>
-      <ScrollIndicator totalItems={reviews.length} color="#FFD700" />
     </div>
   );
 }

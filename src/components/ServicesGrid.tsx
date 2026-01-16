@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
-import ScrollIndicator from '@/components/ScrollIndicator';
+
 import { City } from '@/components/CitySelector';
 import { getTelegramLink } from '@/utils/cityConfig';
 
@@ -326,7 +326,6 @@ export default function ServicesGrid({ selectedCity = 'saratov' }: ServicesGridP
               ))}
             </div>
           </div>
-          <ScrollIndicator totalItems={services.length} color="#00D4FF" />
         </div>
       }
       desktop={

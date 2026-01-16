@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import ScrollIndicator from '@/components/ScrollIndicator';
 import { City } from '@/components/CitySelector';
 import { getTelegramLink } from '@/utils/cityConfig';
 
@@ -197,7 +196,6 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
         </div>
       </div>
       <div className="flex flex-col items-center gap-3 mt-4">
-        <ScrollIndicator totalItems={offers.length} color="#E7222E" />
         <div className="flex items-center gap-2 text-white/50 text-xs animate-pulse">
           <Icon name="ChevronsRight" className="w-4 h-4" />
           <span>Листайте для просмотра всех акций</span>

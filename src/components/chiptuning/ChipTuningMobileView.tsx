@@ -1,6 +1,5 @@
 import { useState, memo, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
-import ScrollIndicator from '@/components/ScrollIndicator';
 import { City } from '@/components/CitySelector';
 import { useChiptuningData } from '@/hooks/useChiptuningData';
 import { ModelData } from '@/types/chiptuning';
@@ -241,7 +240,6 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
               ))}
             </div>
           </div>
-          <ScrollIndicator totalItems={bodiesForSeries.length} color="#FF6B35" />
         </>
       )}
 
