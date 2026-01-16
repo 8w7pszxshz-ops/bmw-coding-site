@@ -25,38 +25,53 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<any>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
-  const [dialogOpened, setDialogOpened] = useState(false);
+  const [audioPlayed, setAudioPlayed] = useState(false);
 
   useEffect(() => {
-    if (step === 'series' && !dialogOpened) {
-      setDialogOpened(true);
+    if (step === 'series' && !audioPlayed) {
+      setAudioPlayed(true);
       setShowPoliceLights(true);
       
       const audio = new Audio('/reborn-sound.mp3');
       audio.volume = 0.5;
+      audio.preload = 'auto';
       let fallbackTimer: NodeJS.Timeout | null = null;
       
       const stopLights = () => {
+        console.log('Мигалки остановлены');
         setShowPoliceLights(false);
       };
       
-      audio.addEventListener('ended', stopLights);
+      audio.addEventListener('ended', () => {
+        console.log('Аудио закончилось (ended event)');
+        stopLights();
+      });
+      
+      audio.addEventListener('loadedmetadata', () => {
+        console.log('Аудио загружено, длительность:', audio.duration, 'секунд');
+        fallbackTimer = setTimeout(() => {
+          console.log('Fallback таймер сработал');
+          stopLights();
+        }, (audio.duration * 1000) + 100);
+      });
       
       audio.play().then(() => {
-        // Аудио успешно запущено
-      }).catch(() => {
-        // Если аудио заблокировано браузером, используем таймер
-        fallbackTimer = setTimeout(stopLights, 5500);
+        console.log('Аудио успешно запущено!');
+      }).catch((err) => {
+        console.log('Аудио заблокировано браузером:', err);
+        fallbackTimer = setTimeout(() => {
+          console.log('Fallback таймер сработал (аудио заблокировано)');
+          stopLights();
+        }, 5500);
       });
 
       return () => {
-        audio.removeEventListener('ended', stopLights);
         audio.pause();
         audio.src = '';
         if (fallbackTimer) clearTimeout(fallbackTimer);
       };
     }
-  }, [step, dialogOpened]);
+  }, [step, audioPlayed]);
 
   const models = apiData;
 
