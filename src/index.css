@@ -551,6 +551,11 @@
 
   .chiptuning-dialog {
     animation: chiptuningDialogFadeIn 2s ease-out forwards !important;
+    pointer-events: auto !important;
+  }
+
+  .chiptuning-dialog * {
+    pointer-events: auto;
   }
 
   .chiptuning-dialog.with-police-lights {
