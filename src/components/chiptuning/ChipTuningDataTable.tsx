@@ -35,11 +35,11 @@ export default function ChipTuningDataTable({
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Stage</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Сток л.с.</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Сток Нм</th>
-            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.1 л.с.</th>
-            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.1 Нм</th>
-            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.1 ₽</th>
-            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.2 л.с.</th>
-            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">St.2 Нм</th>
+            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Stage 1 л.с.</th>
+            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Stage 1 Нм</th>
+            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Stage 1 ₽</th>
+            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Stage 2 л.с.</th>
+            <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Stage 2 Нм</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Статус</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Перепрошивка</th>
             <th className="px-2 py-3 text-left text-xs font-medium text-white/70">Конв. ₽</th>
