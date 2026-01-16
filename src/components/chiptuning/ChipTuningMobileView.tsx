@@ -251,7 +251,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                     style={{ color: typeColor }}
                   />
                   <div className="flex-1">
-                    <div className="text-white font-medium text-sm flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                    <div className="text-white font-medium text-sm flex items-center gap-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                       {mod.name}
                       {mod.isRestyling && (
                         <span className="px-1.5 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-[10px] rounded" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
@@ -301,7 +301,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                       style={{ color: typeColor }}
                     />
                     <div>
-                      <div className="flex items-center gap-2 text-lg" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                      <div className="flex items-center gap-2 text-lg uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span>{selectedMod.name}</span>
                         {selectedMod.isRestyling && (
                           <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
@@ -309,8 +309,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                           </span>
                         )}
                       </div>
-                      <div className="text-xs text-white/50 font-normal uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-                        {selectedMod.engineType === 'petrol' ? 'Бензиновый двигатель' : 'Дизельный двигатель'}
+                      <div className="text-xs text-white/50 font-normal" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                        {selectedMod.engineType === 'petrol' ? 'БЕНЗИНОВЫЙ ДВИГАТЕЛЬ' : 'ДИЗЕЛЬНЫЙ ДВИГАТЕЛЬ'}
                       </div>
                     </div>
                   </DialogTitle>
@@ -325,7 +325,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                         border: `1px solid ${typeColor}30`
                       }}
                     >
-                      <div className="text-white/50 text-xs mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>Мощность</div>
+                      <div className="text-white/50 text-xs mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>МОЩНОСТЬ</div>
                       <div className="flex items-baseline gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-lg">{selectedMod.powerBefore}</span>
                         <Icon name="ArrowRight" className="w-4 h-4 text-white/30" />
@@ -341,7 +341,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                         border: `1px solid ${typeColor}30`
                       }}
                     >
-                      <div className="text-white/50 text-xs mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>Крутящий момент</div>
+                      <div className="text-white/50 text-xs mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>КРУТЯЩИЙ МОМЕНТ</div>
                       <div className="flex items-baseline gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-lg">{selectedMod.torqueBefore}</span>
                         <Icon name="ArrowRight" className="w-4 h-4 text-white/30" />
@@ -358,7 +358,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                       border: `1px solid ${typeColor}40`
                     }}
                   >
-                    <div className="text-white/60 text-xs mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>Стоимость прошивки</div>
+                    <div className="text-white/60 text-xs mb-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>СТОИМОСТЬ ПРОШИВКИ</div>
                     <div className="text-3xl font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                       {totalPrice.toLocaleString()} ₽
                     </div>
@@ -375,7 +375,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                     }}
                   >
                     <Icon name="MessageCircle" className="w-5 h-5" />
-                    <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ЗАПИСАТЬСЯ НА ЧИП-ТЮНИНГ</span>
+                    <span className="uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>Записаться на чип-тюнинг</span>
                   </a>
                 </div>
               </>
