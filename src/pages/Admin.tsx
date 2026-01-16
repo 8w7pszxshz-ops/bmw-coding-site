@@ -51,7 +51,8 @@ export default function Admin() {
         backgroundImage: 'url(https://cdn.poehali.dev/files/карбон.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundAttachment: 'fixed',
+        filter: 'contrast(1.3) brightness(1.1)'
       }}
     >
       <div className="max-w-7xl mx-auto">
