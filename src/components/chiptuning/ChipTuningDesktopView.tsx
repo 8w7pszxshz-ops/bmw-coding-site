@@ -102,7 +102,11 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
 
   return (
     <div className="mb-16">
-      <Dialog open={step === 'series'} onOpenChange={() => {}}>
+      <Dialog open={step === 'series'} onOpenChange={(open) => {
+        if (!open) {
+          window.location.hash = '';
+        }
+      }}>
         <DialogContent 
           className="border-0 max-w-4xl"
           style={{
