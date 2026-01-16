@@ -24,7 +24,7 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         />
         
         <div 
-          className="absolute inset-0 animate-police-lights"
+          className="fixed bottom-0 left-0 right-0 h-[400px] animate-police-lights pointer-events-none"
           style={{
             filter: 'blur(60px)',
           }}
