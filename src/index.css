@@ -540,87 +540,8 @@
     }
   }
 
-  /* Отключение только встроенных Radix UI анимаций (zoom, slide), но не наших */
-  .chiptuning-dialog[data-state="open"] {
-    animation-name: none;
-  }
-
-  .chiptuning-dialog[data-state="closed"] {
-    animation-name: none;
-  }
-
-  /* Плавное появление мигалок полиции */
-  @keyframes chiptuningPoliceLightsFadeIn {
-    0% {
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    10%,
-    12% {
-      background: rgba(0, 100, 255, 0.1);
-      box-shadow: 0 0 80px 40px rgba(0, 100, 255, 0.15);
-    }
-    13%,
-    15% {
-      background: rgba(0, 0, 0, 0);
-      box-shadow: none;
-    }
-    16%,
-    18% {
-      background: rgba(0, 100, 255, 0.1);
-      box-shadow: 0 0 80px 40px rgba(0, 100, 255, 0.15);
-    }
-    19%,
-    21% {
-      background: rgba(0, 0, 0, 0);
-      box-shadow: none;
-    }
-    22%,
-    24% {
-      background: rgba(0, 100, 255, 0.1);
-      box-shadow: 0 0 80px 40px rgba(0, 100, 255, 0.15);
-    }
-    25%,
-    49% {
-      background: rgba(0, 0, 0, 0);
-      box-shadow: none;
-    }
-    50%,
-    52% {
-      background: rgba(255, 0, 0, 0.1);
-      box-shadow: 0 0 80px 40px rgba(255, 0, 0, 0.15);
-    }
-    53%,
-    55% {
-      background: rgba(0, 0, 0, 0);
-      box-shadow: none;
-    }
-    56%,
-    58% {
-      background: rgba(255, 0, 0, 0.1);
-      box-shadow: 0 0 80px 40px rgba(255, 0, 0, 0.15);
-    }
-    59%,
-    61% {
-      background: rgba(0, 0, 0, 0);
-      box-shadow: none;
-    }
-    62%,
-    64% {
-      background: rgba(255, 0, 0, 0.1);
-      box-shadow: 0 0 80px 40px rgba(255, 0, 0, 0.15);
-    }
-    65%,
-    100% {
-      background: rgba(0, 0, 0, 0);
-      box-shadow: none;
-    }
-  }
-
   .chiptuning-dialog.with-police-lights {
-    animation: chiptuningPoliceLightsFadeIn 1.5s steps(1) infinite !important;
+    animation: chiptuningPoliceLights 1.5s steps(1) infinite !important;
   }
 
   .animate-fade-in {
