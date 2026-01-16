@@ -30,15 +30,15 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   useEffect(() => {
     setShowPoliceLights(true);
     
-    // Плавное появление
-    requestAnimationFrame(() => {
+    // Плавное появление с задержкой
+    const fadeTimer = setTimeout(() => {
       setOpacity(1);
-    });
+    }, 50);
     
     const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.5;
     
-    const timer = setTimeout(() => {
+    const lightsTimer = setTimeout(() => {
       setShowPoliceLights(false);
     }, 5500);
     
@@ -47,7 +47,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     });
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(fadeTimer);
+      clearTimeout(lightsTimer);
       audio.pause();
       audio.src = '';
     };
@@ -145,7 +146,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
             animation: showPoliceLights ? 'chiptuningPoliceLights 1.5s steps(1) infinite' : 'none',
             willChange: showPoliceLights ? 'background, box-shadow' : 'auto',
             opacity: opacity,
-            transition: 'opacity 0.5s ease-out'
+            transition: 'opacity 0.8s ease-out'
           }}
         >
           <DialogHeader>
