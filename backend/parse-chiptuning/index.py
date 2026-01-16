@@ -58,7 +58,7 @@ def get_data_from_db(include_inactive: bool = False) -> List[Dict[str, Any]]:
                 'status': row['status'],
                 'conversion_type': row['conversion_type'],
                 'conversion_price': row['conversion_price'],
-                'stage_type': row.get('stage_type', 'St.1'),
+                'stage_type': row.get('stage_type', 'Stage 1').replace('St.1', 'Stage 1').replace('St.2', 'Stage 2'),
                 'is_restyling': row.get('is_restyling', False),
                 'stock': {
                     'power': row['stock_power'],
@@ -111,9 +111,12 @@ def import_csv_data(rows: list) -> Dict[str, Any]:
                 if 'Sedox' in company_raw or 'sedox' in company_raw.lower():
                     continue
                 
-                # Извлекаем stage_type из компании ("Reborn Technologies St.1" → "St.1")
+                # Извлекаем stage_type из компании ("Reborn Technologies St.1" → "Stage 1")
                 stage_match = re.search(r'St\.(\d+)$', company_raw)
-                stage_type = f"St.{stage_match.group(1)}" if stage_match else 'St.1'
+                if stage_match:
+                    stage_type = f"Stage {stage_match.group(1)}"
+                else:
+                    stage_type = 'Stage 1'
                 
                 # Убираем "St.1", "St.2" из компании для хранения
                 company = re.sub(r'\s+St\.\d+$', '', company_raw).strip()

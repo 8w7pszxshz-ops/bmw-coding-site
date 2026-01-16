@@ -60,7 +60,9 @@ export default function ModificationCard({ mod, getPriceForCity, variant = 'mobi
 
       <div className={`grid grid-cols-2 ${isMobile ? 'gap-3 text-xs mb-4' : 'gap-4 mb-6'}`}>
         <div>
-          <div className={`text-white/50 ${isMobile ? 'mb-1' : 'text-sm mb-2'}`}>Мощность</div>
+          <div className={`${isMobile ? 'mb-1 text-[10px]' : 'text-sm mb-2'} flex items-center gap-0.5`}>
+            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E', letterSpacing: '-0.02em' }}>R</span><span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>EBORN TECH</span>
+          </div>
           <div className={`text-white ${isMobile ? '' : 'text-base'}`}>
             {mod.powerBefore} → <span style={{ color: getTypeColor(mod.engineType) }} className="font-bold">{mod.powerAfter} л.с.</span>
           </div>
@@ -69,7 +71,9 @@ export default function ModificationCard({ mod, getPriceForCity, variant = 'mobi
           </div>
         </div>
         <div>
-          <div className={`text-white/50 ${isMobile ? 'mb-1' : 'text-sm mb-2'}`}>Крутящий момент</div>
+          <div className={`${isMobile ? 'mb-1 text-[10px]' : 'text-sm mb-2'} flex items-center gap-0.5`}>
+            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E', letterSpacing: '-0.02em' }}>R</span><span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>EBORN TECH</span>
+          </div>
           <div className={`text-white ${isMobile ? '' : 'text-base'}`}>
             {mod.torqueBefore} → <span style={{ color: getTypeColor(mod.engineType) }} className="font-bold">{mod.torqueAfter} Нм</span>
           </div>

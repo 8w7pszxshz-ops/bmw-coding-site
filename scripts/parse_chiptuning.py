@@ -64,7 +64,7 @@ def parse_mod_page(url):
             continue
 
         stage = None
-        for key in ["Reborn Technologies St.1,5", "Reborn Technologies St.1", "Reborn Technologies St.2",
+        for key in ["Reborn Technologies Stage 1,5", "Reborn Technologies Stage 1", "Reborn Technologies Stage 2",
                     "Stage 1,5", "Stage 1", "Stage 2"]:
             if key in text:
                 stage = key

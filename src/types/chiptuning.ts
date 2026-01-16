@@ -67,9 +67,10 @@ export function convertAPIDataToModelData(apiData: ChipTuningAPIResponse[]): Mod
     const engineType = item.engine_code.toLowerCase().includes('d') ? 'diesel' : 'petrol';
 
     // Добавляем модификацию напрямую без группировки по моторам
+    const stageType = item.stage_type.replace('St.1', 'Stage 1').replace('St.2', 'Stage 2');
     model.modifications.push({
-      name: `${item.engine_code} ${item.stage_type}`,
-      stage: item.stage_type,
+      name: `${item.engine_code} ${stageType}`,
+      stage: stageType,
       engineCode: item.engine_code,
       engineType,
       powerBefore: item.stock.power,
