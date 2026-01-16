@@ -34,7 +34,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
     
     const lightsTimer = setTimeout(() => {
       setShowPoliceLights(false);
-    }, 5500);
+    }, 4500);
     
     audio.play().catch(() => {
       // Игнорируем ошибку автовоспроизведения
