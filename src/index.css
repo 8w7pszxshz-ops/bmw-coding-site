@@ -542,6 +542,11 @@
 
   .chiptuning-dialog.with-police-lights {
     animation: chiptuningPoliceLights 1.5s steps(1) infinite !important;
+    background: linear-gradient(
+      135deg,
+      rgba(20, 20, 30, 0.98),
+      rgba(10, 10, 15, 0.98)
+    ) !important;
   }
 
   .animate-fade-in {
