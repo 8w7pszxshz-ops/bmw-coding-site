@@ -14,6 +14,9 @@ export default function ChipTuningAdmin() {
   const [editForm, setEditForm] = useState<Partial<ChipTuningRecord>>({});
   const [filter, setFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'visible' | 'hidden'>('all');
+  const [seriesFilter, setSeriesFilter] = useState<string>('all');
+  const [bodyTypeFilter, setBodyTypeFilter] = useState<string>('all');
+  const [engineTypeFilter, setEngineTypeFilter] = useState<'all' | 'petrol' | 'diesel'>('all');
   const [uploadStatus, setUploadStatus] = useState('');
   const [uploading, setUploading] = useState(false);
   const [lastImportErrors, setLastImportErrors] = useState<string[]>([]);
@@ -291,6 +294,9 @@ export default function ChipTuningAdmin() {
     link.click();
   };
 
+  const uniqueSeries = Array.from(new Set(records.map(r => r.series))).sort();
+  const uniqueBodyTypes = Array.from(new Set(records.map(r => r.body_type))).sort();
+
   const filteredRecords = records.filter(r => {
     // Фильтр по тексту
     const matchesText = r.model_name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -304,7 +310,19 @@ export default function ChipTuningAdmin() {
       statusFilter === 'visible' ? r.status === 1 :
       r.status === 0;
     
-    return matchesText && matchesStatus;
+    // Фильтр по серии
+    const matchesSeries = seriesFilter === 'all' || r.series === seriesFilter;
+    
+    // Фильтр по кузову
+    const matchesBodyType = bodyTypeFilter === 'all' || r.body_type === bodyTypeFilter;
+    
+    // Фильтр по типу двигателя (дизель = буква 'd' в engine_code)
+    const isDiesel = r.engine_code.toLowerCase().includes('d');
+    const matchesEngineType = engineTypeFilter === 'all' ||
+      (engineTypeFilter === 'diesel' && isDiesel) ||
+      (engineTypeFilter === 'petrol' && !isDiesel);
+    
+    return matchesText && matchesStatus && matchesSeries && matchesBodyType && matchesEngineType;
   });
 
   if (!isAuthenticated) {
@@ -383,24 +401,78 @@ export default function ChipTuningAdmin() {
           </div>
         </div>
 
-        <div className="mb-6 flex gap-4">
-          <input
-            type="text"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            placeholder="Поиск по модели, кузову, двигателю, артикулу..."
-            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-[#FF0040]"
-          />
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as 'all' | 'visible' | 'hidden')}
-            className="px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
-          >
-            <option value="all">Все записи</option>
+        <div className="mb-6 space-y-4">
+          <div className="flex gap-4">
+            <input
+              type="text"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              placeholder="Поиск по модели, кузову, двигателю, артикулу..."
+              className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-[#FF0040]"
+            />
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value as 'all' | 'visible' | 'hidden')}
+              className="px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+            >
+              <option value="all">Все записи</option>
             <option value="visible">Видимые (статус 1)</option>
             <option value="hidden">Скрытые (статус 0)</option>
           </select>
         </div>
+        
+        <div className="flex gap-4">
+          <select
+            value={seriesFilter}
+            onChange={(e) => setSeriesFilter(e.target.value)}
+            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+          >
+            <option value="all">Все серии ({uniqueSeries.length})</option>
+            {uniqueSeries.map(series => (
+              <option key={series} value={series}>
+                {series} ({records.filter(r => r.series === series).length})
+              </option>
+            ))}
+          </select>
+          
+          <select
+            value={bodyTypeFilter}
+            onChange={(e) => setBodyTypeFilter(e.target.value)}
+            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+          >
+            <option value="all">Все кузова ({uniqueBodyTypes.length})</option>
+            {uniqueBodyTypes.map(bodyType => (
+              <option key={bodyType} value={bodyType}>
+                {bodyType} ({records.filter(r => r.body_type === bodyType).length})
+              </option>
+            ))}
+          </select>
+          
+          <select
+            value={engineTypeFilter}
+            onChange={(e) => setEngineTypeFilter(e.target.value as 'all' | 'petrol' | 'diesel')}
+            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+          >
+            <option value="all">Все типы двигателей</option>
+            <option value="petrol">Бензин ({records.filter(r => !r.engine_code.toLowerCase().includes('d')).length})</option>
+            <option value="diesel">Дизель ({records.filter(r => r.engine_code.toLowerCase().includes('d')).length})</option>
+          </select>
+          
+          {(seriesFilter !== 'all' || bodyTypeFilter !== 'all' || engineTypeFilter !== 'all') && (
+            <button
+              onClick={() => {
+                setSeriesFilter('all');
+                setBodyTypeFilter('all');
+                setEngineTypeFilter('all');
+              }}
+              className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-[#FF0040] transition-all"
+              title="Сбросить фильтры"
+            >
+              <Icon name="X" className="w-5 h-5" />
+            </button>
+          )}
+        </div>
+      </div>
 
         <div className="flex items-center justify-between mb-4">
           <div className="text-white/60">
