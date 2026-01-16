@@ -26,34 +26,41 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedMod, setSelectedMod] = useState<any>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
   const [dialogOpacity, setDialogOpacity] = useState(0);
+  const [isDialogMounted, setIsDialogMounted] = useState(false);
 
+  // Отслеживаем открытие диалога
   useEffect(() => {
-    setShowPoliceLights(true);
-    
-    // Плавное появление всего диалога
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
+    if (step === 'series' && !isDialogMounted) {
+      setIsDialogMounted(true);
+      setDialogOpacity(0);
+      setShowPoliceLights(true);
+      
+      // Задержка для гарантии что Dialog отрендерился
+      const mountTimer = setTimeout(() => {
         setDialogOpacity(1);
+      }, 50);
+      
+      const audio = new Audio('/reborn-sound.mp3');
+      audio.volume = 0.5;
+      
+      const lightsTimer = setTimeout(() => {
+        setShowPoliceLights(false);
+      }, 5500);
+      
+      audio.play().catch(() => {
+        // Игнорируем ошибку автовоспроизведения
       });
-    });
-    
-    const audio = new Audio('/reborn-sound.mp3');
-    audio.volume = 0.5;
-    
-    const lightsTimer = setTimeout(() => {
-      setShowPoliceLights(false);
-    }, 5500);
-    
-    audio.play().catch(() => {
-      // Игнорируем ошибку автовоспроизведения
-    });
 
-    return () => {
-      clearTimeout(lightsTimer);
-      audio.pause();
-      audio.src = '';
-    };
-  }, []);
+      return () => {
+        clearTimeout(mountTimer);
+        clearTimeout(lightsTimer);
+        audio.pause();
+        audio.src = '';
+      };
+    } else if (step !== 'series') {
+      setIsDialogMounted(false);
+    }
+  }, [step, isDialogMounted]);
 
   const models = apiData;
 
