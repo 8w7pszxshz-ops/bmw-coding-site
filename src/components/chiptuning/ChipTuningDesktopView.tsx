@@ -269,9 +269,9 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
         >
           <div className="flex items-start gap-3">
             <Icon name="Info" className="w-5 h-5 text-[#FF6B35] flex-shrink-0 mt-1" />
-            <div className="text-white/70 text-sm leading-relaxed">
-              <p className="mb-2"><strong className="text-white">Процесс занимает 2-3 часа:</strong> предварительная диагностика, считывание прошивки через OBD-порт, коррекция Stage 1, запись и тест-драйв с владельцем.</p>
-              <p className="text-white/60 text-xs">Гарантия на все работы. Для бензиновых двигателей рекомендуется топливо АИ-98.</p>
+            <div className="text-white/70 text-sm leading-relaxed" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+              <p className="mb-2"><strong className="text-white">ПРОЦЕСС ЗАНИМАЕТ 2-3 ЧАСА:</strong> ПРЕДВАРИТЕЛЬНАЯ ДИАГНОСТИКА, СЧИТЫВАНИЕ ПРОШИВКИ ЧЕРЕЗ OBD-ПОРТ, КОРРЕКЦИЯ STAGE 1, ЗАПИСЬ И ТЕСТ-ДРАЙВ С ВЛАДЕЛЬЦЕМ.</p>
+              <p className="text-white/60 text-xs">ГАРАНТИЯ НА ВСЕ РАБОТЫ. ДЛЯ БЕНЗИНОВЫХ ДВИГАТЕЛЕЙ РЕКОМЕНДУЕТСЯ ТОПЛИВО АИ-98.</p>
             </div>
           </div>
         </div>
@@ -303,15 +303,15 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                     />
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-light text-2xl">{selectedMod.name}</span>
+                        <span className="font-light text-2xl" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{selectedMod.name.toUpperCase()}</span>
                         {selectedMod.isRestyling && (
-                          <span className="px-2 py-1 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded border border-[#FF0040]/30">
-                            Рестайлинг
+                          <span className="px-2 py-1 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded border border-[#FF0040]/30" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                            LCI
                           </span>
                         )}
                       </div>
-                      <div className="text-sm text-white/50 font-normal capitalize">
-                        {selectedMod.engineType === 'petrol' ? 'Бензиновый двигатель' : 'Дизельный двигатель'}
+                      <div className="text-sm text-white/50 font-normal" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                        {selectedMod.engineType === 'petrol' ? 'БЕНЗИНОВЫЙ ДВИГАТЕЛЬ' : 'ДИЗЕЛЬНЫЙ ДВИГАТЕЛЬ'}
                       </div>
                     </div>
                   </DialogTitle>
@@ -326,7 +326,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                         border: `1px solid ${typeColor}30`
                       }}
                     >
-                      <div className="text-white/50 text-sm mb-3">Мощность</div>
+                      <div className="text-white/50 text-sm mb-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>МОЩНОСТЬ</div>
                       <div className="flex items-baseline gap-3">
                         <span className="text-white text-2xl">{selectedMod.powerBefore}</span>
                         <Icon name="ArrowRight" className="w-5 h-5 text-white/30" />
@@ -346,7 +346,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                         border: `1px solid ${typeColor}30`
                       }}
                     >
-                      <div className="text-white/50 text-sm mb-3">Крутящий момент</div>
+                      <div className="text-white/50 text-sm mb-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>КРУТЯЩИЙ МОМЕНТ</div>
                       <div className="flex items-baseline gap-3">
                         <span className="text-white text-2xl">{selectedMod.torqueBefore}</span>
                         <Icon name="ArrowRight" className="w-5 h-5 text-white/30" />
@@ -367,12 +367,12 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                       border: `1px solid ${typeColor}40`
                     }}
                   >
-                    <div className="text-white/60 text-sm mb-2">Стоимость прошивки</div>
+                    <div className="text-white/60 text-sm mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>СТОИМОСТЬ ПРОШИВКИ</div>
                     <div className="text-5xl font-bold mb-1" style={{ color: typeColor }}>
                       {totalPrice.toLocaleString()} ₽
                     </div>
-                    <div className="text-white/40 text-xs">
-                      Включает диагностику и тест-драйв
+                    <div className="text-white/40 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                      ВКЛЮЧАЕТ ДИАГНОСТИКУ И ТЕСТ-ДРАЙВ
                     </div>
                   </div>
 
@@ -381,13 +381,14 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-4 px-6 rounded-xl text-white font-medium text-lg flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
+                    aria-label="Записаться на чип-тюнинг"
                     style={{
                       background: `linear-gradient(135deg, ${typeColor}, ${typeColor}CC)`,
                       boxShadow: `0 8px 32px ${typeColor}40`
                     }}
                   >
                     <Icon name="MessageCircle" className="w-6 h-6" />
-                    Записаться на чип-тюнинг
+                    <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ЗАПИСАТЬСЯ НА ЧИП-ТЮНИНГ</span>
                   </a>
                 </div>
               </>
