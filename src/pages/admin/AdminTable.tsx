@@ -10,6 +10,7 @@ interface AdminTableProps {
   onCellValueChange: (value: string) => void;
   onCellClick: (record: ChiptuningRecord, field: keyof ChiptuningRecord) => void;
   onCellSave: () => void;
+  savedCell: { id: number; field: string } | null;
 }
 
 export default function AdminTable({ 
@@ -20,7 +21,8 @@ export default function AdminTable({
   cellValue, 
   onCellValueChange, 
   onCellClick, 
-  onCellSave 
+  onCellSave,
+  savedCell
 }: AdminTableProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -42,6 +44,7 @@ export default function AdminTable({
     className?: string;
   }) => {
     const isEditing = editingCell?.id === record.id && editingCell?.field === field;
+    const isSaved = savedCell?.id === record.id && savedCell?.field === field;
     
     if (isEditing) {
       return (
@@ -60,7 +63,9 @@ export default function AdminTable({
     return (
       <div 
         onClick={() => onCellClick(record, field)}
-        className="cursor-pointer hover:bg-white/10 px-2 py-1 rounded transition-colors"
+        className={`cursor-pointer hover:bg-white/10 px-2 py-1 rounded transition-all duration-300 ${
+          isSaved ? 'bg-green-500/30 border border-green-400/50' : ''
+        } ${className}`}
       >
         {value}
       </div>

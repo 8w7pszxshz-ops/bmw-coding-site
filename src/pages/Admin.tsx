@@ -26,7 +26,8 @@ export default function Admin() {
     cellValue,
     setCellValue,
     handleCellClick,
-    handleCellSave
+    handleCellSave,
+    savedCell
   } = useAdminLogic();
 
   if (loading) {
@@ -79,6 +80,7 @@ export default function Admin() {
           onCellValueChange={setCellValue}
           onCellClick={handleCellClick}
           onCellSave={handleCellSave}
+          savedCell={savedCell}
         />
 
         <div className="mt-4 text-white/60 text-sm">

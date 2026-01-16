@@ -10,6 +10,7 @@ export function useAdminLogic() {
   const [filterSeries, setFilterSeries] = useState<string>('all');
   const [editingCell, setEditingCell] = useState<{ id: number; field: string } | null>(null);
   const [cellValue, setCellValue] = useState('');
+  const [savedCell, setSavedCell] = useState<{ id: number; field: string } | null>(null);
 
   const loadData = useCallback(async () => {
     try {
@@ -209,9 +210,14 @@ export function useAdminLogic() {
 
       if (!response.ok) throw new Error('Save failed');
 
+      setSavedCell({ id: record.id, field });
       setEditingCell(null);
       setCellValue('');
       loadData();
+      
+      setTimeout(() => {
+        setSavedCell(null);
+      }, 1500);
     } catch (error) {
       console.error('Cell save error:', error);
       alert('Ошибка сохранения');
@@ -251,6 +257,7 @@ export function useAdminLogic() {
     cellValue,
     setCellValue,
     handleCellClick,
-    handleCellSave
+    handleCellSave,
+    savedCell
   };
 }
