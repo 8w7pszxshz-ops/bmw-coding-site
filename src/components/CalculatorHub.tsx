@@ -22,6 +22,12 @@ interface CalculatorHubProps {
 
 export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+
+  const handleChiptuningClick = () => {
+    setActiveCalculator('chiptuning');
+    setAudioEnabled(true);
+  };
 
   const calculators = [
     {
@@ -92,7 +98,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
           <span className="text-sm md:text-base">Назад</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
-          <ChipTuningNew selectedCity={selectedCity} onClose={() => setActiveCalculator(null)} />
+          <ChipTuningNew selectedCity={selectedCity} onClose={() => setActiveCalculator(null)} audioEnabled={audioEnabled} />
         </Suspense>
       </div>
     );
@@ -109,7 +115,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
           <button
             key={calc.id}
             id={calc.id}
-            onClick={() => setActiveCalculator(calc.id)}
+            onClick={() => calc.id === 'chiptuning' ? handleChiptuningClick() : setActiveCalculator(calc.id)}
             className="group relative rounded-2xl p-5 md:p-8 text-left transition-all duration-300 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',

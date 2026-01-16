@@ -14,11 +14,12 @@ import {
 interface ChipTuningMobileViewProps {
   selectedCity: City;
   onClose?: () => void;
+  audioEnabled?: boolean;
 }
 
 type Step = 'series' | 'body' | 'engine';
 
-const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, onClose }: ChipTuningMobileViewProps) {
+const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, onClose, audioEnabled = false }: ChipTuningMobileViewProps) {
   const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
@@ -28,7 +29,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [audioPlayed, setAudioPlayed] = useState(false);
 
   useEffect(() => {
-    if (step === 'series' && !audioPlayed) {
+    if (step === 'series' && !audioPlayed && audioEnabled) {
       setAudioPlayed(true);
       setShowPoliceLights(true);
       

@@ -14,11 +14,12 @@ import { ModelData } from '@/types/chiptuning';
 interface ChipTuningDesktopViewProps {
   selectedCity: City;
   onClose?: () => void;
+  audioEnabled?: boolean;
 }
 
 type Step = 'series' | 'body' | 'engine';
 
-const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity, onClose }: ChipTuningDesktopViewProps) {
+const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity, onClose, audioEnabled = false }: ChipTuningDesktopViewProps) {
   const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
@@ -28,7 +29,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   const [audioPlayed, setAudioPlayed] = useState(false);
 
   useEffect(() => {
-    if (step === 'series' && !audioPlayed) {
+    if (step === 'series' && !audioPlayed && audioEnabled) {
       setAudioPlayed(true);
       setShowPoliceLights(true);
       
