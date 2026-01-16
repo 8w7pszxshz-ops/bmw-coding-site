@@ -29,12 +29,6 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   useEffect(() => {
     setShowPoliceLights(true);
     
-    // Блокируем скролл при открытии
-    const scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
-    
     const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.25;
     
@@ -50,15 +44,26 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       clearTimeout(lightsTimer);
       audio.pause();
       audio.src = '';
-      
-      // Восстанавливаем скролл при закрытии
-      const scrollPos = parseInt(document.body.style.top || '0') * -1;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollPos);
     };
   }, []);
+
+  // Блокировка скролла только для диалога выбора серии
+  useEffect(() => {
+    if (step === 'series') {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      
+      return () => {
+        const scrollPos = parseInt(document.body.style.top || '0') * -1;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollPos);
+      };
+    }
+  }, [step]);
 
   const models = apiData;
 
