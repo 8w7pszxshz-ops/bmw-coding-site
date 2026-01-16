@@ -105,10 +105,18 @@ export default function AdminTable({
                   <EditableCell record={record} field="engine_code" value={record.engine_code} />
                 </td>
                 <td className="px-4 py-3 text-white/60 text-sm text-right">
-                  <EditableCell record={record} field="stock_power" value={record.stock_power} className="text-right" /> / <EditableCell record={record} field="stock_torque" value={record.stock_torque} className="text-right" />
+                  <div className="flex items-center justify-end gap-1">
+                    <EditableCell record={record} field="stock_power" value={record.stock_power} className="text-right" />
+                    <span>/</span>
+                    <EditableCell record={record} field="stock_torque" value={record.stock_torque} className="text-right" />
+                  </div>
                 </td>
                 <td className="px-4 py-3 text-green-400 text-sm text-right">
-                  <EditableCell record={record} field="stage1_power" value={record.stage1_power} className="text-right" /> / <EditableCell record={record} field="stage1_torque" value={record.stage1_torque} className="text-right" />
+                  <div className="flex items-center justify-end gap-1">
+                    <EditableCell record={record} field="stage1_power" value={record.stage1_power} className="text-right" />
+                    <span>/</span>
+                    <EditableCell record={record} field="stage1_torque" value={record.stage1_torque} className="text-right" />
+                  </div>
                 </td>
                 <td className="px-4 py-3 text-blue-400 font-medium text-right">
                   <EditableCell record={record} field="stage1_price" value={record.stage1_price.toLocaleString()} />
