@@ -135,8 +135,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
           style={{
             background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
             backdropFilter: 'blur(20px)',
-            boxShadow: showPoliceLights ? 'none' : '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-            willChange: showPoliceLights ? 'background, box-shadow' : 'auto'
+            boxShadow: showPoliceLights ? '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)' : '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
           }}
         >
           <DialogHeader>
