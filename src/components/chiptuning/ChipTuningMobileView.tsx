@@ -118,20 +118,68 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
   return (
     <div className="mb-12 px-4">
-      <div className="text-center mb-8">
-        <img 
-          src="https://cdn.poehali.dev/files/rebornlogo.png" 
-          alt="Reborn Technologies" 
-          className="h-8 w-auto object-contain mx-auto mb-4"
-        />
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <h2 className="text-white text-xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>
-            {step === 'series' && 'ВЫБЕРИТЕ СЕРИЮ BMW'}
-            {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
-            {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
-          </h2>
+      <Dialog open={step === 'series'} onOpenChange={(open) => {
+        if (!open && onClose) {
+          onClose();
+        }
+      }}>
+        <DialogContent 
+          className="border-0 max-w-[95vw] w-full"
+          style={{
+            background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
+            backdropFilter: 'blur(40px)',
+            boxShadow: showPoliceLights ? 'none' : '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+            animation: showPoliceLights ? 'chiptuningPoliceLights 1.5s steps(1) infinite' : 'none'
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-white flex flex-col items-center justify-center gap-3">
+              <img 
+                src="https://cdn.poehali.dev/files/rebornlogo.png" 
+                alt="Reborn Technologies" 
+                className="h-10 w-auto object-contain"
+              />
+              <span className="text-xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>ВЫБЕРИТЕ СЕРИЮ BMW</span>
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="max-h-[60vh] overflow-y-auto pr-2 mt-4" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
+            <div className="grid grid-cols-2 gap-4">
+              {uniqueSeries.map((series) => (
+                <button
+                  key={series}
+                  onClick={() => handleSeriesSelect(series)}
+                  className="p-6 rounded-2xl transition-all duration-300 active:scale-95"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  <Icon name="Waypoints" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
+                  <div className="text-white text-base" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{series.toUpperCase()}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {step !== 'series' && (
+        <div className="text-center mb-8">
+          <img 
+            src="https://cdn.poehali.dev/files/rebornlogo.png" 
+            alt="Reborn Technologies" 
+            className="h-8 w-auto object-contain mx-auto mb-4"
+          />
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <h2 className="text-white text-xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>
+              {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
+              {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
+            </h2>
+          </div>
         </div>
-      </div>
+      )}
 
       {step !== 'series' && (
         <button
@@ -146,31 +194,6 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
           <Icon name="ArrowLeft" className="w-4 h-4" />
           <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>НАЗАД</span>
         </button>
-      )}
-
-      {step === 'series' && (
-        <>
-          <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory">
-            <div className="flex gap-4 px-4 pb-2">
-              {uniqueSeries.map((series) => (
-                <button
-                  key={series}
-                  onClick={() => handleSeriesSelect(series)}
-                  className="snap-center min-w-[160px] p-5 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                >
-                  <Icon name="Waypoints" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
-                  <div className="text-white text-base" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{series.toUpperCase()}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-          <ScrollIndicator totalItems={uniqueSeries.length} color="#FF6B35" />
-        </>
       )}
 
       {step === 'body' && (
