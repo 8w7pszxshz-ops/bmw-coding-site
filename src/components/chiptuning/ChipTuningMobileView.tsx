@@ -149,15 +149,15 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                 <button
                   key={series}
                   onClick={() => handleSeriesSelect(series)}
-                  className="p-6 rounded-2xl transition-all duration-300 active:scale-95"
+                  className="p-5 rounded-2xl transition-all duration-300 active:scale-95 flex flex-col items-center justify-center"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
                     border: '1px solid rgba(255, 255, 255, 0.15)',
                     backdropFilter: 'blur(10px)'
                   }}
                 >
-                  <Icon name="Waypoints" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
-                  <div className="text-white text-base" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{series.toUpperCase()}</div>
+                  <Icon name="Waypoints" className="w-8 h-8 text-[#FF0040] mx-auto mb-2 flex-shrink-0" />
+                  <div className="text-white text-sm text-center break-words" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{series.toUpperCase()}</div>
                 </button>
               ))}
             </div>
