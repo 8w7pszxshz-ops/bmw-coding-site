@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 export type City = 'saratov' | 'moscow';
@@ -14,6 +14,25 @@ const cities = [
 
 export default function CitySelector({ onCityChange, selectedCity }: CitySelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside as any);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside as any);
+    };
+  }, [isOpen]);
 
   const handleCitySelect = (city: City) => {
     onCityChange(city);
@@ -23,10 +42,10 @@ export default function CitySelector({ onCityChange, selectedCity }: CitySelecto
   const currentCity = cities.find(c => c.id === selectedCity);
 
   return (
-    <div className="relative inline-block">
+    <div ref={containerRef} className="relative inline-block">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/10 border-2 border-blue-400/40 text-white hover:border-blue-400/60 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+        className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/10 border-2 border-blue-400/40 text-white hover:border-blue-400/60 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] min-h-[44px]"
       >
         <Icon name={currentCity?.icon as any} className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-400" />
         <span className="text-xs md:text-sm font-medium">{currentCity?.name}</span>
