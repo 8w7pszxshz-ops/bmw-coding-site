@@ -4,7 +4,7 @@ import { City } from '@/components/CitySelector';
 
 const KeyCalculator = lazy(() => import('./KeyCalculator'));
 const CodingPackages = lazy(() => import('./CodingPackages'));
-const ChipTuning = lazy(() => import('./chiptuning/ChipTuningNew'));
+const ChipTuningNew = lazy(() => import('./chiptuning/ChipTuningNew'));
 
 type CalculatorType = 'key' | 'coding' | 'chiptuning' | null;
 
@@ -92,7 +92,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
           <span className="text-sm md:text-base">Назад</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
-          <ChipTuning selectedCity={selectedCity} onClose={() => setActiveCalculator(null)} />
+          <ChipTuningNew selectedCity={selectedCity} onClose={() => setActiveCalculator(null)} />
         </Suspense>
       </div>
     );
