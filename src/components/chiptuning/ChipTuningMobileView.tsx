@@ -118,36 +118,6 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
   return (
     <div className="mb-12 px-4">
-      {showPoliceLights && (
-        <>
-          <div 
-            className="fixed inset-0 z-[9998]"
-            style={{
-              background: `
-                radial-gradient(circle 600px at 15% 25%, #1a1f3a 0%, transparent 50%),
-                radial-gradient(circle 700px at 85% 70%, #0f1f2d 0%, transparent 50%),
-                radial-gradient(circle 500px at 50% 90%, #1e142a 0%, transparent 50%),
-                linear-gradient(135deg, #0a0e1a 0%, #12192b 100%)
-              `,
-            }}
-          />
-          <div 
-            className="fixed inset-0 z-[9998]"
-            style={{
-              background: `
-                radial-gradient(ellipse 800px 400px at 20% 30%, rgba(80, 100, 200, 0.15), transparent),
-                radial-gradient(ellipse 600px 500px at 80% 65%, rgba(40, 140, 160, 0.12), transparent),
-                radial-gradient(circle 400px at 90% 20%, rgba(200, 60, 80, 0.1), transparent),
-                radial-gradient(circle 350px at 10% 80%, rgba(180, 50, 70, 0.08), transparent)
-              `,
-              filter: 'blur(60px)',
-            }}
-          />
-          <div 
-            className="fixed inset-0 pointer-events-none z-[9999] animate-chiptuning-police"
-          />
-        </>
-      )}
       <div className="text-center mb-8">
         <img 
           src="https://cdn.poehali.dev/files/rebornlogo.png" 
@@ -281,7 +251,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
           className="border-0 max-w-[95vw] w-full"
           style={{
             background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
-            backdropFilter: 'blur(40px)'
+            backdropFilter: 'blur(40px)',
+            animation: showPoliceLights ? 'chiptuningPoliceLights 1.5s steps(1) infinite' : 'none'
           }}
         >
           {selectedMod && (() => {
@@ -328,10 +299,9 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                       <div className="flex items-baseline gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-lg">{selectedMod.powerBefore}</span>
                         <Icon name="ArrowRight" className="w-4 h-4 text-white/30" />
-                        <span className="text-2xl font-bold" style={{ color: typeColor }}>{selectedMod.powerAfter}</span>
+                        <span className="text-2xl font-bold" style={{ color: typeColor }}>{selectedMod.powerAfter} <span className="text-sm">л.с.</span></span>
                       </div>
-                      <div className="text-white/40 text-xs mt-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>л.с.</div>
-                      <div className="mt-2 text-green-400 text-sm font-bold" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>+{powerGainPercent}%</div>
+                      <div className="mt-2 text-sm font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>+{powerGainPercent}%</div>
                     </div>
 
                     <div 
@@ -345,10 +315,9 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                       <div className="flex items-baseline gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-lg">{selectedMod.torqueBefore}</span>
                         <Icon name="ArrowRight" className="w-4 h-4 text-white/30" />
-                        <span className="text-2xl font-bold" style={{ color: typeColor }}>{selectedMod.torqueAfter}</span>
+                        <span className="text-2xl font-bold" style={{ color: typeColor }}>{selectedMod.torqueAfter} <span className="text-sm">Нм</span></span>
                       </div>
-                      <div className="text-white/40 text-xs mt-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>Нм</div>
-                      <div className="mt-2 text-green-400 text-sm font-bold" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>+{torqueGainPercent}%</div>
+                      <div className="mt-2 text-sm font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>+{torqueGainPercent}%</div>
                     </div>
                   </div>
 

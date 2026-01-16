@@ -118,36 +118,6 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
 
   return (
     <div className="mb-16">
-      {showPoliceLights && (
-        <>
-          <div 
-            className="fixed inset-0 z-[9998]"
-            style={{
-              background: `
-                radial-gradient(circle 600px at 15% 25%, #1a1f3a 0%, transparent 50%),
-                radial-gradient(circle 700px at 85% 70%, #0f1f2d 0%, transparent 50%),
-                radial-gradient(circle 500px at 50% 90%, #1e142a 0%, transparent 50%),
-                linear-gradient(135deg, #0a0e1a 0%, #12192b 100%)
-              `,
-            }}
-          />
-          <div 
-            className="fixed inset-0 z-[9998]"
-            style={{
-              background: `
-                radial-gradient(ellipse 800px 400px at 20% 30%, rgba(80, 100, 200, 0.15), transparent),
-                radial-gradient(ellipse 600px 500px at 80% 65%, rgba(40, 140, 160, 0.12), transparent),
-                radial-gradient(circle 400px at 90% 20%, rgba(200, 60, 80, 0.1), transparent),
-                radial-gradient(circle 350px at 10% 80%, rgba(180, 50, 70, 0.08), transparent)
-              `,
-              filter: 'blur(60px)',
-            }}
-          />
-          <div 
-            className="fixed inset-0 pointer-events-none z-[9999] animate-chiptuning-police"
-          />
-        </>
-      )}
       <Dialog open={step === 'series'} onOpenChange={(open) => {
         if (!open && onClose) {
           onClose();
@@ -158,7 +128,8 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
           style={{
             background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
             backdropFilter: 'blur(40px)',
-            boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+            boxShadow: showPoliceLights ? 'none' : '0 30px 80px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+            animation: showPoliceLights ? 'chiptuningPoliceLights 1.5s steps(1) infinite' : 'none'
           }}
         >
           <DialogHeader>
@@ -386,11 +357,10 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                       <div className="flex items-baseline gap-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-2xl">{selectedMod.powerBefore}</span>
                         <Icon name="ArrowRight" className="w-5 h-5 text-white/30" />
-                        <span className="text-4xl font-bold" style={{ color: typeColor }}>{selectedMod.powerAfter}</span>
-                        <span className="text-white/50 text-lg">л.с.</span>
+                        <span className="text-4xl font-bold" style={{ color: typeColor }}>{selectedMod.powerAfter} <span className="text-2xl">л.с.</span></span>
                       </div>
                       <div className="mt-3 flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-                        <div className="text-green-400 text-xl font-bold">+{powerGainPercent}%</div>
+                        <div style={{ color: typeColor }} className="text-xl font-bold">+{powerGainPercent}%</div>
                         <div className="text-white/40 text-sm">(+{selectedMod.powerAfter - selectedMod.powerBefore} л.с.)</div>
                       </div>
                     </div>
@@ -406,11 +376,10 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                       <div className="flex items-baseline gap-3" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
                         <span className="text-white text-2xl">{selectedMod.torqueBefore}</span>
                         <Icon name="ArrowRight" className="w-5 h-5 text-white/30" />
-                        <span className="text-4xl font-bold" style={{ color: typeColor }}>{selectedMod.torqueAfter}</span>
-                        <span className="text-white/50 text-lg">Нм</span>
+                        <span className="text-4xl font-bold" style={{ color: typeColor }}>{selectedMod.torqueAfter} <span className="text-2xl">Нм</span></span>
                       </div>
                       <div className="mt-3 flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-                        <div className="text-green-400 text-xl font-bold">+{torqueGainPercent}%</div>
+                        <div style={{ color: typeColor }} className="text-xl font-bold">+{torqueGainPercent}%</div>
                         <div className="text-white/40 text-sm">(+{selectedMod.torqueAfter - selectedMod.torqueBefore} Нм)</div>
                       </div>
                     </div>
