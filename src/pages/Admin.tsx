@@ -21,7 +21,12 @@ export default function Admin() {
     handleEdit,
     handleSave,
     handleDelete,
-    handleAddNew
+    handleAddNew,
+    editingCell,
+    cellValue,
+    setCellValue,
+    handleCellClick,
+    handleCellSave
   } = useAdminLogic();
 
   if (loading) {
@@ -69,6 +74,11 @@ export default function Admin() {
           records={filteredRecords}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          editingCell={editingCell}
+          cellValue={cellValue}
+          onCellValueChange={setCellValue}
+          onCellClick={handleCellClick}
+          onCellSave={handleCellSave}
         />
 
         <div className="mt-4 text-white/60 text-sm">

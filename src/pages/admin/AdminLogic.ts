@@ -8,6 +8,8 @@ export function useAdminLogic() {
   const [formData, setFormData] = useState<EditFormData | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSeries, setFilterSeries] = useState<string>('all');
+  const [editingCell, setEditingCell] = useState<{ id: number; field: string } | null>(null);
+  const [cellValue, setCellValue] = useState('');
 
   const loadData = useCallback(async () => {
     try {
@@ -154,6 +156,68 @@ export function useAdminLogic() {
     });
   };
 
+  const handleCellClick = (record: ChiptuningRecord, field: keyof ChiptuningRecord) => {
+    setEditingCell({ id: record.id, field });
+    setCellValue(String(record[field] ?? ''));
+  };
+
+  const handleCellSave = async () => {
+    if (!editingCell) return;
+
+    const record = records.find(r => r.id === editingCell.id);
+    if (!record) return;
+
+    const updatedData: any = {
+      model_name: record.model_name,
+      series: record.series,
+      body_type: record.body_type,
+      engine_code: record.engine_code,
+      article_code: record.article_code,
+      stock_power: record.stock_power,
+      stock_torque: record.stock_torque,
+      stage1_power: record.stage1_power,
+      stage1_torque: record.stage1_torque,
+      stage1_price: record.stage1_price,
+      stage2_power: record.stage2_power,
+      stage2_torque: record.stage2_torque,
+      stage_type: record.stage_type,
+      is_restyling: record.is_restyling,
+      status: record.status
+    };
+
+    const field = editingCell.field;
+    const numericFields = ['stock_power', 'stock_torque', 'stage1_power', 'stage1_torque', 'stage1_price', 'stage2_power', 'stage2_torque', 'status'];
+    
+    if (numericFields.includes(field)) {
+      updatedData[field] = cellValue === '' ? null : parseInt(cellValue);
+    } else if (field === 'is_restyling') {
+      updatedData[field] = cellValue === 'true';
+    } else {
+      updatedData[field] = cellValue;
+    }
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'update',
+          id: record.id,
+          data: updatedData
+        })
+      });
+
+      if (!response.ok) throw new Error('Save failed');
+
+      setEditingCell(null);
+      setCellValue('');
+      loadData();
+    } catch (error) {
+      console.error('Cell save error:', error);
+      alert('Ошибка сохранения');
+    }
+  };
+
   const uniqueSeries = Array.from(new Set(records.map(r => r.series))).sort();
 
   const filteredRecords = records.filter(r => {
@@ -182,6 +246,11 @@ export function useAdminLogic() {
     handleEdit,
     handleSave,
     handleDelete,
-    handleAddNew
+    handleAddNew,
+    editingCell,
+    cellValue,
+    setCellValue,
+    handleCellClick,
+    handleCellSave
   };
 }
