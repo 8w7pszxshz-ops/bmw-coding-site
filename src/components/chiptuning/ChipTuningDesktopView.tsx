@@ -13,11 +13,12 @@ import { ModelData } from '@/types/chiptuning';
 
 interface ChipTuningDesktopViewProps {
   selectedCity: City;
+  onClose?: () => void;
 }
 
 type Step = 'series' | 'body' | 'engine';
 
-const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity }: ChipTuningDesktopViewProps) {
+const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity, onClose }: ChipTuningDesktopViewProps) {
   const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
@@ -103,8 +104,8 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   return (
     <div className="mb-16">
       <Dialog open={step === 'series'} onOpenChange={(open) => {
-        if (!open) {
-          window.location.hash = '';
+        if (!open && onClose) {
+          onClose();
         }
       }}>
         <DialogContent 

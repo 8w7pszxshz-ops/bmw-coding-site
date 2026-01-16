@@ -92,7 +92,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
           <span className="text-sm md:text-base">Назад</span>
         </button>
         <Suspense fallback={<LoadingSpinner />}>
-          <ChipTuning selectedCity={selectedCity} />
+          <ChipTuning selectedCity={selectedCity} onClose={() => setActiveCalculator(null)} />
         </Suspense>
       </div>
     );

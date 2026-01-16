@@ -13,11 +13,12 @@ import {
 
 interface ChipTuningMobileViewProps {
   selectedCity: City;
+  onClose?: () => void;
 }
 
 type Step = 'series' | 'body' | 'engine';
 
-const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }: ChipTuningMobileViewProps) {
+const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, onClose }: ChipTuningMobileViewProps) {
   const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
