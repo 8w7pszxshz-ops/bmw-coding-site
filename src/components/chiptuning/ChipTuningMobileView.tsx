@@ -40,7 +40,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     
     const lightsTimer = setTimeout(() => {
       setShowPoliceLights(false);
-    }, 4500);
+    }, 6500);
     
     audio.play().catch(() => {
       // Игнорируем ошибку автовоспроизведения
