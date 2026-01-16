@@ -417,8 +417,71 @@
   @keyframes policeLights {
     0%,
     2% {
-      background: rgba(0, 100, 255, 0.25);
-      box-shadow: 0 0 200px 100px rgba(0, 100, 255, 0.4);
+      background: rgba(0, 100, 255, 0.06);
+      filter: blur(100px);
+    }
+    3%,
+    5% {
+      background: rgba(0, 0, 0, 0);
+      filter: blur(100px);
+    }
+    6%,
+    8% {
+      background: rgba(0, 100, 255, 0.06);
+      filter: blur(100px);
+    }
+    9%,
+    11% {
+      background: rgba(0, 0, 0, 0);
+      filter: blur(100px);
+    }
+    12%,
+    14% {
+      background: rgba(0, 100, 255, 0.06);
+      filter: blur(100px);
+    }
+    15%,
+    39% {
+      background: rgba(0, 0, 0, 0);
+      filter: blur(100px);
+    }
+    40%,
+    42% {
+      background: rgba(255, 0, 0, 0.06);
+      filter: blur(100px);
+    }
+    43%,
+    45% {
+      background: rgba(0, 0, 0, 0);
+      filter: blur(100px);
+    }
+    46%,
+    48% {
+      background: rgba(255, 0, 0, 0.06);
+      filter: blur(100px);
+    }
+    49%,
+    51% {
+      background: rgba(0, 0, 0, 0);
+      filter: blur(100px);
+    }
+    52%,
+    54% {
+      background: rgba(255, 0, 0, 0.06);
+      filter: blur(100px);
+    }
+    55%,
+    100% {
+      background: rgba(0, 0, 0, 0);
+      filter: blur(100px);
+    }
+  }
+
+  @keyframes chiptuningPoliceLights {
+    0%,
+    2% {
+      background: rgba(0, 100, 255, 0.15);
+      box-shadow: 0 0 150px 80px rgba(0, 100, 255, 0.2);
     }
     3%,
     5% {
@@ -427,8 +490,8 @@
     }
     6%,
     8% {
-      background: rgba(0, 100, 255, 0.25);
-      box-shadow: 0 0 200px 100px rgba(0, 100, 255, 0.4);
+      background: rgba(0, 100, 255, 0.15);
+      box-shadow: 0 0 150px 80px rgba(0, 100, 255, 0.2);
     }
     9%,
     11% {
@@ -437,8 +500,8 @@
     }
     12%,
     14% {
-      background: rgba(0, 100, 255, 0.25);
-      box-shadow: 0 0 200px 100px rgba(0, 100, 255, 0.4);
+      background: rgba(0, 100, 255, 0.15);
+      box-shadow: 0 0 150px 80px rgba(0, 100, 255, 0.2);
     }
     15%,
     39% {
@@ -447,8 +510,8 @@
     }
     40%,
     42% {
-      background: rgba(255, 0, 0, 0.25);
-      box-shadow: 0 0 200px 100px rgba(255, 0, 0, 0.4);
+      background: rgba(255, 0, 0, 0.15);
+      box-shadow: 0 0 150px 80px rgba(255, 0, 0, 0.2);
     }
     43%,
     45% {
@@ -457,8 +520,8 @@
     }
     46%,
     48% {
-      background: rgba(255, 0, 0, 0.25);
-      box-shadow: 0 0 200px 100px rgba(255, 0, 0, 0.4);
+      background: rgba(255, 0, 0, 0.15);
+      box-shadow: 0 0 150px 80px rgba(255, 0, 0, 0.2);
     }
     49%,
     51% {
@@ -467,8 +530,8 @@
     }
     52%,
     54% {
-      background: rgba(255, 0, 0, 0.25);
-      box-shadow: 0 0 200px 100px rgba(255, 0, 0, 0.4);
+      background: rgba(255, 0, 0, 0.15);
+      box-shadow: 0 0 150px 80px rgba(255, 0, 0, 0.2);
     }
     55%,
     100% {
@@ -487,6 +550,10 @@
 
   .animate-police-lights {
     animation: policeLights 1.5s steps(1) infinite;
+  }
+
+  .animate-chiptuning-police {
+    animation: chiptuningPoliceLights 1.5s steps(1) infinite;
   }
 
   .animate-slide-in {

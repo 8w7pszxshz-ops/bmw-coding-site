@@ -119,10 +119,34 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   return (
     <div className="mb-16">
       {showPoliceLights && (
-        <div 
-          className="fixed inset-0 pointer-events-none z-[9999] animate-police-lights"
-          style={{ mixBlendMode: 'screen' }}
-        />
+        <>
+          <div 
+            className="fixed inset-0 z-[9998]"
+            style={{
+              background: `
+                radial-gradient(circle 600px at 15% 25%, #1a1f3a 0%, transparent 50%),
+                radial-gradient(circle 700px at 85% 70%, #0f1f2d 0%, transparent 50%),
+                radial-gradient(circle 500px at 50% 90%, #1e142a 0%, transparent 50%),
+                linear-gradient(135deg, #0a0e1a 0%, #12192b 100%)
+              `,
+            }}
+          />
+          <div 
+            className="fixed inset-0 z-[9998]"
+            style={{
+              background: `
+                radial-gradient(ellipse 800px 400px at 20% 30%, rgba(80, 100, 200, 0.15), transparent),
+                radial-gradient(ellipse 600px 500px at 80% 65%, rgba(40, 140, 160, 0.12), transparent),
+                radial-gradient(circle 400px at 90% 20%, rgba(200, 60, 80, 0.1), transparent),
+                radial-gradient(circle 350px at 10% 80%, rgba(180, 50, 70, 0.08), transparent)
+              `,
+              filter: 'blur(60px)',
+            }}
+          />
+          <div 
+            className="fixed inset-0 pointer-events-none z-[9999] animate-chiptuning-police"
+          />
+        </>
       )}
       <Dialog open={step === 'series'} onOpenChange={(open) => {
         if (!open && onClose) {
