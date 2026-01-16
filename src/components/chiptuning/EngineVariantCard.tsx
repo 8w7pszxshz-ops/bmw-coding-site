@@ -75,9 +75,10 @@ function EngineVariantCardMobile({ variant, engineType, color, index, selectedCi
 
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <div className="text-white/60 text-[10px] mb-1.5 flex items-center gap-1 font-medium">
-            <Icon name="Gauge" className="w-2.5 h-2.5" />
-            Мощность
+          <div className="text-[10px] mb-1.5 flex items-center gap-1 font-medium">
+            <Icon name="Gauge" className="w-2.5 h-2.5 text-[#E7222E]" />
+            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E' }}>R</span>
+            <span className="text-white/60" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>мощность</span>
           </div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-white/80 text-sm font-medium">{variant.powerBefore}</span>
@@ -89,9 +90,10 @@ function EngineVariantCardMobile({ variant, engineType, color, index, selectedCi
         </div>
 
         <div>
-          <div className="text-white/60 text-[10px] mb-1.5 flex items-center gap-1 font-medium">
-            <Icon name="Zap" className="w-2.5 h-2.5" />
-            Кр. момент
+          <div className="text-[10px] mb-1.5 flex items-center gap-1 font-medium">
+            <Icon name="Zap" className="w-2.5 h-2.5 text-[#E7222E]" />
+            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E' }}>R</span>
+            <span className="text-white/60" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>момент</span>
           </div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-white/80 text-sm font-medium">{variant.torqueBefore}</span>
@@ -234,9 +236,10 @@ function EngineVariantCardDesktop({ variant, engineType, color, index, selectedC
 
       <div className="grid grid-cols-2 gap-6 mb-6">
         <div>
-          <div className="text-white/60 text-xs mb-2 flex items-center gap-1 font-medium">
-            <Icon name="Gauge" className="w-3 h-3" />
-            Мощность
+          <div className="text-xs mb-2 flex items-center gap-1 font-medium">
+            <Icon name="Gauge" className="w-3 h-3 text-[#E7222E]" />
+            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E' }}>R</span>
+            <span className="text-white/60" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>мощность</span>
           </div>
           <div className="flex items-center gap-3 mb-2">
             <span className="text-white/80 text-lg font-medium">{variant.powerBefore}</span>
@@ -248,9 +251,10 @@ function EngineVariantCardDesktop({ variant, engineType, color, index, selectedC
         </div>
 
         <div>
-          <div className="text-white/60 text-xs mb-2 flex items-center gap-1 font-medium">
-            <Icon name="Zap" className="w-3 h-3" />
-            Крутящий момент
+          <div className="text-xs mb-2 flex items-center gap-1 font-medium">
+            <Icon name="Zap" className="w-3 h-3 text-[#E7222E]" />
+            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E' }}>R</span>
+            <span className="text-white/60" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>момент</span>
           </div>
           <div className="flex items-center gap-3 mb-2">
             <span className="text-white/80 text-lg font-medium">{variant.torqueBefore}</span>

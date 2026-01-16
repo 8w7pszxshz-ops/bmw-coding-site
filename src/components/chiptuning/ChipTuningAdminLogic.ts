@@ -51,7 +51,7 @@ export function useChipTuningAdmin() {
         status: item.status,
         conversion_type: item.conversion_type || null,
         conversion_price: item.conversion_price || null,
-        stage_type: item.stage_type || 'St.1'
+        stage_type: item.stage_type || 'Stage 1'
       }));
       
       setRecords(flatList);

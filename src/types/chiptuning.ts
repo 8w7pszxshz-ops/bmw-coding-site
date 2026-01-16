@@ -82,8 +82,8 @@ export function convertAPIDataToModelData(apiData: ChipTuningAPIResponse[]): Mod
 
     if (item.stage2) {
       model.modifications.push({
-        name: `${item.engine_code} St.2`,
-        stage: 'St.2',
+        name: `${item.engine_code} Stage 2`,
+        stage: 'Stage 2',
         engineCode: item.engine_code,
         engineType,
         powerBefore: item.stock.power,

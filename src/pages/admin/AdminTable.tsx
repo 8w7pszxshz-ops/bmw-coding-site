@@ -83,7 +83,7 @@ export default function AdminTable({
               <th className="px-4 py-3 text-left">Кузов</th>
               <th className="px-4 py-3 text-left">Двигатель</th>
               <th className="px-4 py-3 text-right">Сток</th>
-              <th className="px-4 py-3 text-right">St.1</th>
+              <th className="px-4 py-3 text-right">Stage 1</th>
               <th className="px-4 py-3 text-right">Цена</th>
               <th className="px-4 py-3 text-center">Действия</th>
             </tr>

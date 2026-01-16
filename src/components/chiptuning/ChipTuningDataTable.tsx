@@ -87,7 +87,7 @@ export default function ChipTuningDataTable({
                   <td className="px-2 py-2">
                     <input
                       type="text"
-                      value={editForm.stage_type || 'St.1'}
+                      value={editForm.stage_type || 'Stage 1'}
                       onChange={(e) => setEditForm({...editForm, stage_type: e.target.value})}
                       className="w-16 px-2 py-1 rounded bg-white/10 border border-white/20 text-xs"
                     />

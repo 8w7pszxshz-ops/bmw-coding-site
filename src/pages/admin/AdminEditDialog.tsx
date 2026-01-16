@@ -181,8 +181,8 @@ export default function AdminEditDialog({
                 onChange={(e) => setFormData({ ...formData, stage_type: e.target.value })}
                 className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
               >
-                <option value="St.1">St.1</option>
-                <option value="St.2">St.2</option>
+                <option value="Stage 1">Stage 1</option>
+                <option value="Stage 2">Stage 2</option>
               </select>
             </div>
             <div>

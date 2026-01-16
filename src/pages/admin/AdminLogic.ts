@@ -153,7 +153,7 @@ export function useAdminLogic() {
       stage1_price: '30000',
       stage2_power: '',
       stage2_torque: '',
-      stage_type: 'St.1',
+      stage_type: 'Stage 1',
       is_restyling: false,
       status: '1'
     });
@@ -164,7 +164,7 @@ export function useAdminLogic() {
       `${r.model_name},${r.series},${r.body_type},${r.engine_code},${r.stock_power},${r.stock_torque},${r.stage1_power},${r.stage1_torque},${r.stage1_price}`
     ).join('\n');
     
-    const blob = new Blob([`Модель,Серия,Кузов,Двигатель,Мощность (сток),Момент (сток),Мощность (St.1),Момент (St.1),Цена\n${csv}`], { type: 'text/csv' });
+    const blob = new Blob([`Модель,Серия,Кузов,Двигатель,Мощность (сток),Момент (сток),Мощность (Stage 1),Момент (Stage 1),Цена\n${csv}`], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
