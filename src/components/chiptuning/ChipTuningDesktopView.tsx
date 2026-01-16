@@ -26,7 +26,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   const [selectedMod, setSelectedMod] = useState<any>(null);
 
   useEffect(() => {
-    const audio = new Audio('https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn Technologies ©.png.mp3');
+    const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.5;
     audio.play().catch(err => console.log('Audio play failed:', err));
 
