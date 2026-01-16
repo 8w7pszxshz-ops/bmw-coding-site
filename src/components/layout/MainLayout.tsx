@@ -58,9 +58,9 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         />
         
         <div 
-          className="fixed inset-0 pointer-events-none animate-police-lights"
+          className="absolute inset-0 pointer-events-none animate-police-lights"
           style={{
-            background: 'rgba(0, 100, 255, 0.15)',
+            background: 'rgba(0, 100, 255, 0.08)',
             filter: 'blur(80px)',
           }}
         />
