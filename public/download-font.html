@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка шрифта</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .status {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 1rem 0;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Установка шрифта Reborn Technologies</h1>
+        <div id="status" class="status">Готов к загрузке...</div>
+        <div id="spinner" class="spinner" style="display: none;"></div>
+        <button id="downloadBtn" onclick="downloadFont()">Скачать и установить шрифт</button>
+    </div>
+
+    <script>
+        async function downloadFont() {
+            const statusEl = document.getElementById('status');
+            const spinnerEl = document.getElementById('spinner');
+            const btnEl = document.getElementById('downloadBtn');
+            
+            try {
+                btnEl.disabled = true;
+                spinnerEl.style.display = 'inline-block';
+                statusEl.textContent = 'Загрузка шрифта из Google Drive...';
+                statusEl.className = 'status';
+                
+                // Прямая ссылка на скачивание из Google Drive
+                const googleDriveUrl = 'https://drive.usercontent.google.com/uc?id=1p9AVkhaCfdm0uwkUQUNQgCMh2aWuzzKU&export=download';
+                
+                const response = await fetch(googleDriveUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`Ошибка загрузки: ${response.status}`);
+                }
+                
+                const blob = await response.blob();
+                statusEl.textContent = `Шрифт загружен (${(blob.size / 1024).toFixed(1)} КБ)! Сохранение...`;
+                
+                // Создаём ссылку для скачивания
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'RebornTechnologies.ttf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                spinnerEl.style.display = 'none';
+                statusEl.textContent = '✅ Шрифт успешно скачан! Теперь переместите файл в папку public/fonts/ вашего проекта.';
+                statusEl.className = 'status success';
+                
+                btnEl.textContent = 'Скачать ещё раз';
+                btnEl.disabled = false;
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                spinnerEl.style.display = 'none';
+                statusEl.textContent = `❌ Ошибка: ${error.message}`;
+                statusEl.className = 'status error';
+                btnEl.disabled = false;
+            }
+        }
+        
+        // Автоматический запуск при загрузке страницы
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('auto') === 'true') {
+                    downloadFont();
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
