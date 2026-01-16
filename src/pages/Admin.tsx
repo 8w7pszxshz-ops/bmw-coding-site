@@ -84,6 +84,18 @@ export default function Admin() {
               <option key={bodyType} value={bodyType} style={{ background: '#1e293b', color: '#ffffff' }}>{bodyType}</option>
             ))}
           </select>
+          <Button 
+            onClick={() => {
+              setSearchTerm('');
+              setFilterSeries('all');
+              setFilterBodyType('all');
+            }}
+            variant="outline"
+            className="bg-white/5 hover:bg-white/10 border-white/20 text-white"
+          >
+            <Icon name="X" className="w-4 h-4 mr-2" />
+            Сбросить
+          </Button>
         </div>
 
         <AdminTable
