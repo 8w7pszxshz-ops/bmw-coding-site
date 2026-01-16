@@ -94,15 +94,15 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
     return (
       <div className="mb-16 text-center py-20">
         <Icon name="AlertCircle" className="w-16 h-16 text-red-500 mx-auto mb-4" />
-        <p className="text-white/70">Ошибка загрузки данных: {error}</p>
-        <p className="text-white/50 text-sm mt-2">Используются локальные данные</p>
+        <p className="text-white/70" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ОШИБКА ЗАГРУЗКИ ДАННЫХ: {error.toUpperCase()}</p>
+        <p className="text-white/50 text-sm mt-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ИСПОЛЬЗУЮТСЯ ЛОКАЛЬНЫЕ ДАННЫЕ</p>
       </div>
     );
   }
 
   return (
     <div className="mb-16">
-      <Dialog open={step === 'series'} onOpenChange={(open) => !open && setStep('series')}>
+      <Dialog open={step === 'series'} onOpenChange={(open) => { if (!open) { window.location.hash = ''; } }}>
         <DialogContent 
           className="border-0 max-w-4xl"
           style={{
@@ -114,10 +114,10 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
           <DialogHeader>
             <DialogTitle className="text-white flex items-center justify-center gap-3">
               <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
-              <span className="font-light text-3xl">Выберите серию BMW</span>
+              <span className="text-3xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.01em' }}>ВЫБЕРИТЕ СЕРИЮ BMW</span>
             </DialogTitle>
           </DialogHeader>
-          <p className="text-white/60 text-sm text-center mb-6">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
+          <p className="text-white/60 text-sm text-center mb-6" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ВСЕ ДАННЫЕ АКТУАЛЬНЫ ДЛЯ ПРОШИВОК 2025 ГОДА. ЦЕНЫ ВКЛЮЧАЮТ ПОЛНУЮ КОМПЬЮТЕРНУЮ ДИАГНОСТИКУ ПЕРЕД НАЧАЛОМ РАБОТ</p>
           
           <div className="max-h-[60vh] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
@@ -133,7 +133,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   }}
                 >
                   <Icon name="Waypoints" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
-                  <div className="text-white font-medium text-xl">{series}</div>
+                  <div className="text-white text-xl" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{series.toUpperCase()}</div>
                 </button>
               ))}
             </div>
@@ -145,12 +145,12 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
-            <h2 className="font-light text-white text-3xl">
-              {step === 'body' && 'Выберите кузов'}
-              {step === 'engine' && 'Выберите модификацию'}
+            <h2 className="text-white text-3xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.01em' }}>
+              {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
+              {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
             </h2>
           </div>
-          <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
+          <p className="text-white/60 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ВСЕ ДАННЫЕ АКТУАЛЬНЫ ДЛЯ ПРОШИВОК 2025 ГОДА. ЦЕНЫ ВКЛЮЧАЮТ ПОЛНУЮ КОМПЬЮТЕРНУЮ ДИАГНОСТИКУ ПЕРЕД НАЧАЛОМ РАБОТ</p>
         </div>
       )}
 
@@ -165,7 +165,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
           }}
         >
           <Icon name="ArrowLeft" className="w-5 h-5" />
-          Назад
+          <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>НАЗАД</span>
         </button>
       )}
 
@@ -183,7 +183,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
               }}
             >
               <Icon name="Box" className="w-14 h-14 text-[#FF0040] mx-auto mb-3" />
-              <div className="text-white font-medium text-xl">{body.series}</div>
+              <div className="text-white text-xl" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{body.series.toUpperCase()}</div>
             </button>
           ))}
         </div>
@@ -214,22 +214,22 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                 />
                 <div className="flex-1 flex items-center gap-6">
                   <div className="min-w-[180px]">
-                    <div className="text-white font-medium flex items-center gap-2">
-                      {mod.name}
+                    <div className="text-white flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                      {mod.name.toUpperCase()}
                       {mod.isRestyling && (
                         <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded border border-[#FF0040]/30">
                           LCI
                         </span>
                       )}
                     </div>
-                    <div className="text-white/50 text-xs capitalize">
-                      {mod.engineType === 'petrol' ? 'Бензин' : 'Дизель'}
+                    <div className="text-white/50 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
+                      {mod.engineType === 'petrol' ? 'БЕНЗИН' : 'ДИЗЕЛЬ'}
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-6 flex-1">
                     <div className="text-sm">
-                      <span className="text-white/50">Мощность: </span>
+                      <span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>МОЩНОСТЬ: </span>
                       <span className="text-white">{mod.powerBefore}</span>
                       <Icon name="ArrowRight" className="w-3 h-3 inline mx-1 text-white/30" />
                       <span style={{ color: typeColor }} className="font-bold">{mod.powerAfter} л.с.</span>
@@ -237,7 +237,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                     </div>
                     
                     <div className="text-sm">
-                      <span className="text-white/50">Момент: </span>
+                      <span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>МОМЕНТ: </span>
                       <span className="text-white">{mod.torqueBefore}</span>
                       <Icon name="ArrowRight" className="w-3 h-3 inline mx-1 text-white/30" />
                       <span style={{ color: typeColor }} className="font-bold">{mod.torqueAfter} Нм</span>

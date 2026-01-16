@@ -94,8 +94,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
     return (
       <div className="mb-12 px-4 text-center py-20">
         <Icon name="AlertCircle" className="w-12 h-12 text-red-500 mx-auto mb-3" />
-        <p className="text-white/70 text-sm">Ошибка загрузки данных</p>
-        <p className="text-white/50 text-xs mt-2">Используются локальные данные</p>
+        <p className="text-white/70 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ОШИБКА ЗАГРУЗКИ ДАННЫХ</p>
+        <p className="text-white/50 text-xs mt-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ИСПОЛЬЗУЮТСЯ ЛОКАЛЬНЫЕ ДАННЫЕ</p>
       </div>
     );
   }
@@ -105,13 +105,13 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
-          <h2 className="font-light text-white text-xl">
-            {step === 'series' && 'Выберите серию BMW'}
-            {step === 'body' && 'Выберите кузов'}
-            {step === 'engine' && 'Выберите модификацию'}
+          <h2 className="text-white text-xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.01em' }}>
+            {step === 'series' && 'ВЫБЕРИТЕ СЕРИЮ BMW'}
+            {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
+            {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
           </h2>
         </div>
-        <p className="text-white/60 text-xs">Цены включают полную диагностику перед работами</p>
+        <p className="text-white/60 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ЦЕНЫ ВКЛЮЧАЮТ ПОЛНУЮ ДИАГНОСТИКУ ПЕРЕД РАБОТАМИ</p>
       </div>
 
       {step !== 'series' && (
@@ -125,7 +125,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
           }}
         >
           <Icon name="ArrowLeft" className="w-4 h-4" />
-          Назад
+          <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>НАЗАД</span>
         </button>
       )}
 
@@ -145,7 +145,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
                   }}
                 >
                   <Icon name="Waypoints" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
-                  <div className="text-white font-medium text-base">{series}</div>
+                  <div className="text-white text-base" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{series.toUpperCase()}</div>
                 </button>
               ))}
             </div>
@@ -170,7 +170,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity }
                   }}
                 >
                   <Icon name="Box" className="w-10 h-10 text-[#FF0040] mx-auto mb-2" />
-                  <div className="text-white font-medium text-base">{body.series}</div>
+                  <div className="text-white text-base" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{body.series.toUpperCase()}</div>
                 </button>
               ))}
             </div>
