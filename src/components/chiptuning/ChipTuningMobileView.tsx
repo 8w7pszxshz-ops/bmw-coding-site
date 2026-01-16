@@ -33,7 +33,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
     const timer = setTimeout(() => {
       setShowPoliceLights(false);
-    }, 4500);
+    }, 5500);
 
     return () => {
       clearTimeout(timer);
