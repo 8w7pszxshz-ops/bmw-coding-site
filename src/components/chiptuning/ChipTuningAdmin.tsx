@@ -413,7 +413,7 @@ export default function ChipTuningAdmin() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as 'all' | 'visible' | 'hidden')}
-              className="px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+              className="px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040] [&>option]:bg-[#1a1a24] [&>option]:text-white"
             >
               <option value="all">Все записи</option>
             <option value="visible">Видимые (статус 1)</option>
@@ -425,7 +425,7 @@ export default function ChipTuningAdmin() {
           <select
             value={seriesFilter}
             onChange={(e) => setSeriesFilter(e.target.value)}
-            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040] [&>option]:bg-[#1a1a24] [&>option]:text-white"
           >
             <option value="all">Все серии ({uniqueSeries.length})</option>
             {uniqueSeries.map(series => (
@@ -438,7 +438,7 @@ export default function ChipTuningAdmin() {
           <select
             value={bodyTypeFilter}
             onChange={(e) => setBodyTypeFilter(e.target.value)}
-            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040] [&>option]:bg-[#1a1a24] [&>option]:text-white"
           >
             <option value="all">Все кузова ({uniqueBodyTypes.length})</option>
             {uniqueBodyTypes.map(bodyType => (
@@ -451,7 +451,7 @@ export default function ChipTuningAdmin() {
           <select
             value={engineTypeFilter}
             onChange={(e) => setEngineTypeFilter(e.target.value as 'all' | 'petrol' | 'diesel')}
-            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040]"
+            className="flex-1 px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#FF0040] [&>option]:bg-[#1a1a24] [&>option]:text-white"
           >
             <option value="all">Все типы двигателей</option>
             <option value="petrol">Бензин ({records.filter(r => !r.engine_code.toLowerCase().includes('d')).length})</option>
