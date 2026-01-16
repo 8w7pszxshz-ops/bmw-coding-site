@@ -19,18 +19,28 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         <div 
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(135deg, #000000 0%, #0a0d15 50%, #000509 100%)`,
+            background: `linear-gradient(135deg, #0a1628 0%, #0d1b2a 50%, #08121d 100%)`,
           }}
         />
         
         <div 
-          className="absolute inset-0 animate-police-lights pointer-events-none"
+          className="absolute inset-0 opacity-40"
+          style={{
+            background: `
+              radial-gradient(ellipse 1200px 800px at 10% 20%, rgba(0, 180, 255, 0.15), transparent),
+              radial-gradient(ellipse 1000px 700px at 90% 80%, rgba(220, 40, 80, 0.12), transparent)
+            `,
+            filter: 'blur(60px)',
+          }}
         />
         
         <div 
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 opacity-20"
           style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 100%)',
+            backgroundImage: `
+              repeating-linear-gradient(0deg, transparent 0px, rgba(0, 180, 255, 0.03) 1px, transparent 2px, transparent 40px),
+              repeating-linear-gradient(90deg, transparent 0px, rgba(0, 180, 255, 0.03) 1px, transparent 2px, transparent 40px)
+            `,
           }}
         />
         
