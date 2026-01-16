@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { City } from '@/components/CitySelector';
@@ -24,6 +24,12 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<any>(null);
+
+  useEffect(() => {
+    const audio = new Audio('https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn Technologies ©.png.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(err => console.log('Audio play failed:', err));
+  }, []);
 
   const models = apiData;
 
