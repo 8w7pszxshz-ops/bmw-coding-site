@@ -29,6 +29,17 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
     const audio = new Audio('https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn Technologies ©.png.mp3');
     audio.volume = 0.5;
     audio.play().catch(err => console.log('Audio play failed:', err));
+
+    document.body.classList.add('animate-police-lights');
+
+    const timer = setTimeout(() => {
+      document.body.classList.remove('animate-police-lights');
+    }, 4500);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.classList.remove('animate-police-lights');
+    };
   }, []);
 
   const models = apiData;
@@ -123,12 +134,15 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
           }}
         >
           <DialogHeader>
-            <DialogTitle className="text-white flex items-center justify-center gap-3">
-              <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
+            <DialogTitle className="text-white flex flex-col items-center justify-center gap-4">
+              <img 
+                src="https://cdn.poehali.dev/files/rebornlogo.png" 
+                alt="Reborn Technologies" 
+                className="h-12 w-auto object-contain"
+              />
               <span className="text-3xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>ВЫБЕРИТЕ СЕРИЮ BMW</span>
             </DialogTitle>
           </DialogHeader>
-          <p className="text-white/60 text-sm text-center mb-6" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ВСЕ ДАННЫЕ АКТУАЛЬНЫ ДЛЯ ПРОШИВОК 2025 ГОДА. ЦЕНЫ ВКЛЮЧАЮТ ПОЛНУЮ КОМПЬЮТЕРНУЮ ДИАГНОСТИКУ ПЕРЕД НАЧАЛОМ РАБОТ</p>
           
           <div className="max-h-[60vh] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
@@ -154,14 +168,17 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
 
       {step !== 'series' && (
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
+          <img 
+            src="https://cdn.poehali.dev/files/rebornlogo.png" 
+            alt="Reborn Technologies" 
+            className="h-12 w-auto object-contain mx-auto mb-6"
+          />
+          <div className="flex items-center justify-center gap-3 mb-2">
             <h2 className="text-white text-3xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>
               {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
               {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
             </h2>
           </div>
-          <p className="text-white/60 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ВСЕ ДАННЫЕ АКТУАЛЬНЫ ДЛЯ ПРОШИВОК 2025 ГОДА. ЦЕНЫ ВКЛЮЧАЮТ ПОЛНУЮ КОМПЬЮТЕРНУЮ ДИАГНОСТИКУ ПЕРЕД НАЧАЛОМ РАБОТ</p>
         </div>
       )}
 

@@ -29,6 +29,17 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     const audio = new Audio('https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/bucket/Reborn Technologies ©.png.mp3');
     audio.volume = 0.5;
     audio.play().catch(err => console.log('Audio play failed:', err));
+
+    document.body.classList.add('animate-police-lights');
+
+    const timer = setTimeout(() => {
+      document.body.classList.remove('animate-police-lights');
+    }, 4500);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.classList.remove('animate-police-lights');
+    };
   }, []);
 
   const models = apiData;
@@ -110,15 +121,18 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   return (
     <div className="mb-12 px-4">
       <div className="text-center mb-8">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
+        <img 
+          src="https://cdn.poehali.dev/files/rebornlogo.png" 
+          alt="Reborn Technologies" 
+          className="h-8 w-auto object-contain mx-auto mb-4"
+        />
+        <div className="flex items-center justify-center gap-2 mb-2">
           <h2 className="text-white text-xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>
             {step === 'series' && 'ВЫБЕРИТЕ СЕРИЮ BMW'}
             {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
             {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
           </h2>
         </div>
-        <p className="text-white/60 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>ЦЕНЫ ВКЛЮЧАЮТ ПОЛНУЮ ДИАГНОСТИКУ ПЕРЕД РАБОТАМИ</p>
       </div>
 
       {step !== 'series' && (
