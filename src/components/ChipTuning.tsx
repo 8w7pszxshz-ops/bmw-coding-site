@@ -136,48 +136,47 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
           {!selectedSeries ? (
             <div className="relative">
-              {/* Police lights behind buttons - 7 seconds */}
+              {/* Police lights behind buttons - 20 seconds - same as MainLayout */}
               {showLights && (
                 <>
-                  {/* Bright flash layer */}
+                  {/* Layer 1 - Main gradient */}
                   <div 
                     className="absolute inset-0 pointer-events-none z-0"
                     style={{
-                      background: 'linear-gradient(90deg, #FF000D 0%, transparent 25%, transparent 75%, #FF000D 100%)',
-                      backgroundSize: '300% 100%',
-                      animation: 'policeLights 0.8s linear infinite',
-                      opacity: 0.8,
-                      filter: 'blur(80px)',
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.6) 25%, transparent 50%, rgba(255, 0, 13, 0.6) 75%, transparent 100%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'policeLights 2s linear infinite',
+                      filter: 'blur(120px)',
                       borderRadius: '1rem'
                     }}
                   />
-                  {/* Glow layer */}
+                  {/* Layer 2 - Radial ellipses */}
                   <div 
                     className="absolute inset-0 pointer-events-none z-0"
                     style={{
-                      background: 'radial-gradient(ellipse at 20% 50%, #FF000D 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, #FF000D 0%, transparent 50%)',
-                      animation: 'policeLights 0.8s linear infinite',
-                      filter: 'blur(100px)',
-                      opacity: 0.9
+                      background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'policeLights 2s linear infinite',
+                      filter: 'blur(100px)'
                     }}
                   />
-                  {/* Center pulse */}
+                  {/* Layer 3 - Slower gradient */}
                   <div 
                     className="absolute inset-0 pointer-events-none z-0"
                     style={{
-                      background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 1) 0%, transparent 40%)',
-                      animation: 'policeLights 0.8s linear infinite',
-                      filter: 'blur(120px)'
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.35) 20%, transparent 40%, transparent 60%, rgba(255, 0, 13, 0.35) 80%, transparent 100%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'policeLights 2.5s linear infinite',
+                      filter: 'blur(150px)'
                     }}
                   />
-                  {/* Extra diffusion layer */}
+                  {/* Extra intensity layer */}
                   <div 
                     className="absolute inset-0 pointer-events-none z-0"
                     style={{
-                      background: 'radial-gradient(ellipse at 50% 0%, #FF000D 0%, transparent 60%), radial-gradient(ellipse at 50% 100%, #FF000D 0%, transparent 60%)',
-                      animation: 'policeLights 0.8s linear infinite',
-                      filter: 'blur(150px)',
-                      opacity: 0.7
+                      background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.5) 0%, transparent 50%)',
+                      animation: 'policeLights 2s linear infinite',
+                      filter: 'blur(140px)'
                     }}
                   />
                 </>
