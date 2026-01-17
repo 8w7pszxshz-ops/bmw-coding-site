@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
 
 interface ChipTuningMobileViewProps {
@@ -156,6 +157,9 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
               />
               <span className="text-lg" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>ВЫБЕРИТЕ СЕРИЮ BMW</span>
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Выберите серию вашего BMW для расчета стоимости чип-тюнинга
+            </DialogDescription>
           </DialogHeader>
           
           <div className="max-h-[60vh] overflow-y-auto pr-2 mt-4 pb-4" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
