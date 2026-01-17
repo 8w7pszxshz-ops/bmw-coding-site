@@ -275,7 +275,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                       )}
                     </div>
                     <div className="text-white/50 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-                      {mod.powerBefore} → {mod.powerAfter} л.с. • {mod.torqueBefore} → {mod.torqueAfter} Нм
+                      <div>{mod.powerBefore} → {mod.powerAfter} Л.С.</div>
+                      <div>{mod.torqueBefore} → {mod.torqueAfter} НМ</div>
                     </div>
                   </div>
                   <div className="text-right">
@@ -346,7 +347,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                         <Icon name="ArrowRight" className="w-4 h-4 text-white/40 flex-shrink-0" />
                         <span className="text-2xl" style={{ color: typeColor }}>{selectedMod.powerAfter}</span>
                       </div>
-                      <div className="text-center text-white/60 text-xs mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>л.с.</div>
+                      <div className="text-center text-white/60 text-xs mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>Л.С.</div>
                       <div className="text-base font-bold text-center" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>+{powerGainPercent}%</div>
                     </div>
 
@@ -363,7 +364,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                         <Icon name="ArrowRight" className="w-4 h-4 text-white/40 flex-shrink-0" />
                         <span className="text-2xl" style={{ color: typeColor }}>{selectedMod.torqueAfter}</span>
                       </div>
-                      <div className="text-center text-white/60 text-xs mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>Нм</div>
+                      <div className="text-center text-white/60 text-xs mb-2" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>НМ</div>
                       <div className="text-base font-bold text-center" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal', letterSpacing: '-0.02em' }}>+{torqueGainPercent}%</div>
                     </div>
                   </div>
@@ -387,7 +388,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                         if (navigator.share) {
                           navigator.share({
                             title: `Чип-тюнинг ${selectedMod.name}`,
-                            text: `${selectedBody?.series} • ${selectedMod.name}\n💪 Мощность: ${selectedMod.powerBefore} → ${selectedMod.powerAfter} л.с. (+${powerGainPercent}%)\n⚡ Момент: ${selectedMod.torqueBefore} → ${selectedMod.torqueAfter} Нм (+${torqueGainPercent}%)\n💰 Цена: ${totalPrice.toLocaleString()} ₽`,
+                            text: `${selectedBody?.series} • ${selectedMod.name}\n💪 Мощность: ${selectedMod.powerBefore} → ${selectedMod.powerAfter} Л.С. (+${powerGainPercent}%)\n⚡ Момент: ${selectedMod.torqueBefore} → ${selectedMod.torqueAfter} НМ (+${torqueGainPercent}%)\n💰 Цена: ${totalPrice.toLocaleString()} ₽`,
                             url: window.location.href
                           });
                         }
