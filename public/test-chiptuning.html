@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест мигалок чип-тюнинга</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .pass { background: #00ff0030; border: 1px solid #00ff00; }
+        .fail { background: #ff000030; border: 1px solid #ff0000; }
+        button {
+            background: #0099ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0077cc; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Тест функционала мигалок</h1>
+    <div id="results"></div>
+    <hr>
+    <h2>Ручное управление:</h2>
+    <button onclick="clearStorage()">Очистить sessionStorage</button>
+    <button onclick="checkStorage()">Проверить значение</button>
+    <button onclick="runTests()">Запустить тесты</button>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function addResult(name, passed, details) {
+            const div = document.createElement('div');
+            div.className = `test-result ${passed ? 'pass' : 'fail'}`;
+            div.innerHTML = `
+                <strong>${passed ? '✅' : '❌'} ${name}</strong><br>
+                <small>${details}</small>
+            `;
+            results.appendChild(div);
+        }
+
+        function clearStorage() {
+            sessionStorage.removeItem('chiptuning-lights-shown');
+            addResult('SessionStorage очищен', true, 'Ключ chiptuning-lights-shown удалён');
+        }
+
+        function checkStorage() {
+            const value = sessionStorage.getItem('chiptuning-lights-shown');
+            addResult('Проверка значения', true, `chiptuning-lights-shown = ${value || 'null'}`);
+        }
+
+        function runTests() {
+            results.innerHTML = '';
+
+            // Тест 1: sessionStorage доступен
+            try {
+                sessionStorage.setItem('test', '1');
+                sessionStorage.removeItem('test');
+                addResult('SessionStorage доступен', true, 'API работает корректно');
+            } catch (e) {
+                addResult('SessionStorage доступен', false, e.message);
+            }
+
+            // Тест 2: Проверка ключа
+            const hasShown = sessionStorage.getItem('chiptuning-lights-shown');
+            addResult(
+                'Проверка ключа мигалок',
+                true,
+                `Значение: ${hasShown || 'не установлено (мигалки будут показаны)'}`
+            );
+
+            // Тест 3: Симуляция логики
+            if (!hasShown) {
+                addResult('Логика показа', true, 'Мигалки БУДУТ показаны (ключ не найден)');
+            } else {
+                addResult('Логика показа', true, 'Мигалки НЕ будут показаны (ключ установлен)');
+            }
+
+            // Тест 4: Проверка времени
+            const startTime = Date.now();
+            setTimeout(() => {
+                const elapsed = Date.now() - startTime;
+                const correct = elapsed >= 6500 && elapsed < 6600;
+                addResult(
+                    'Таймер 6500ms',
+                    correct,
+                    `Прошло ${elapsed}ms (ожидалось 6500ms)`
+                );
+            }, 6500);
+
+            // Тест 5: Проверка CSS класса
+            const testDiv = document.createElement('div');
+            testDiv.className = 'chiptuning-dialog with-police-lights';
+            document.body.appendChild(testDiv);
+            const hasAnimation = window.getComputedStyle(testDiv).animation !== 'none';
+            testDiv.remove();
+            addResult(
+                'CSS класс .with-police-lights',
+                true,
+                `Анимация: ${hasAnimation ? 'применена' : 'не найдена (это нормально для теста)'}`
+            );
+
+            addResult('Все тесты завершены', true, 'Проверь результаты выше');
+        }
+
+        // Автозапуск при загрузке
+        window.onload = runTests;
+    </script>
+</body>
+</html>

@@ -29,8 +29,10 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
   useEffect(() => {
     const hasShown = sessionStorage.getItem('chiptuning-lights-shown');
+    console.log('[CHIPTUNING DEBUG] step:', step, '| hasShown:', hasShown, '| showPoliceLights:', showPoliceLights);
     
     if (step === 'series' && !hasShown) {
+      console.log('[CHIPTUNING DEBUG] ✅ Запускаю мигалки на 6.5 сек');
       sessionStorage.setItem('chiptuning-lights-shown', 'true');
       setShowPoliceLights(true);
       
@@ -39,14 +41,18 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       audio.play().catch(() => {});
 
       const timer = setTimeout(() => {
+        console.log('[CHIPTUNING DEBUG] ⏱️ 6.5 сек прошло - выключаю мигалки');
         setShowPoliceLights(false);
       }, 6500);
 
       return () => {
+        console.log('[CHIPTUNING DEBUG] 🧹 Cleanup');
         clearTimeout(timer);
         audio.pause();
         audio.src = '';
       };
+    } else if (step === 'series' && hasShown) {
+      console.log('[CHIPTUNING DEBUG] ⏭️ Мигалки уже были показаны, пропускаю');
     }
   }, [step]);
 
