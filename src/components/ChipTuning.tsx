@@ -75,7 +75,7 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+                className="relative p-4 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95"
                 style={{
                   background: '#000000',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
@@ -140,7 +140,7 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                 <button
                   key={stage.id}
                   onClick={() => setSelectedStage(stage.id)}
-                  className="relative w-full p-5 rounded-xl text-left transition-all duration-300 overflow-hidden"
+                  className="relative w-full p-5 rounded-lg text-left transition-all duration-300"
                   style={{
                     background: '#000000',
                     border: isSelected 
@@ -258,7 +258,7 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-6 rounded-xl transition-all duration-300 hover:scale-105 overflow-hidden"
+                className="relative p-6 rounded-lg transition-all duration-300 hover:scale-105"
                 style={{
                   background: '#000000',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
@@ -324,7 +324,7 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                   <button
                     key={stage.id}
                     onClick={() => setSelectedStage(stage.id)}
-                    className="relative w-full p-6 rounded-xl text-left transition-all duration-300 hover:scale-[1.02] overflow-hidden"
+                    className="relative w-full p-6 rounded-lg text-left transition-all duration-300 hover:scale-[1.02]"
                     style={{
                       background: '#000000',
                       border: isSelected 
