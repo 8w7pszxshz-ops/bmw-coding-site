@@ -1,100 +1,109 @@
-import { useMemo } from 'react';
 import Icon from '@/components/ui/icon';
 import { EngineModification } from '@/types/chiptuning';
 
 interface ModificationCardProps {
-  mod: EngineModification;
-  getPriceForCity: (basePrice: number) => number;
-  variant?: 'mobile' | 'desktop';
+  modification: EngineModification;
+  totalPrice: number;
+  bodyName: string;
 }
 
-function getTypeColor(type: 'petrol' | 'diesel'): string {
-  return type === 'petrol' ? '#FF0040' : '#00A8E8';
-}
-
-function getGainPercentage(before: number, after: number): number {
-  return Math.round(((after - before) / before) * 100);
-}
-
-export default function ModificationCard({ mod, getPriceForCity, variant = 'mobile' }: ModificationCardProps) {
-  const totalPrice = useMemo(() => {
-    return getPriceForCity(mod.price);
-  }, [mod.price, getPriceForCity]);
-
-  const isMobile = variant === 'mobile';
+export default function ModificationCard({ modification, totalPrice, bodyName }: ModificationCardProps) {
+  const typeColor = modification.engineType === 'petrol' ? '#FF0040' : '#00A8E8';
+  const powerGainPercent = Math.round(((modification.powerAfter - modification.powerBefore) / modification.powerBefore) * 100);
+  const torqueGainPercent = Math.round(((modification.torqueAfter - modification.torqueBefore) / modification.torqueBefore) * 100);
 
   return (
     <div
-      className={isMobile ? 'p-5 rounded-2xl' : 'p-6 rounded-2xl'}
+      className="p-5 rounded-xl transition-all duration-300 hover:scale-105"
       style={{
-        background: `linear-gradient(135deg, ${getTypeColor(mod.engineType)}15, ${getTypeColor(mod.engineType)}05)`,
-        border: `1px solid ${getTypeColor(mod.engineType)}30`,
-        backdropFilter: 'blur(10px)'
+        background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
+        border: `1px solid ${typeColor}30`
       }}
     >
-      <div className={`flex items-center gap-3 ${isMobile ? 'mb-4' : 'mb-6'}`}>
+      <div className="flex items-start gap-3 mb-4">
         <Icon 
-          name={mod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
-          className={isMobile ? 'w-5 h-5' : 'w-6 h-6'} 
-          style={{ color: getTypeColor(mod.engineType) }}
+          name={modification.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
+          className="w-6 h-6 flex-shrink-0" 
+          style={{ color: typeColor }}
         />
         <div className="flex-1">
-          <div className={`text-white font-medium ${isMobile ? '' : 'text-lg'} flex items-center gap-2`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-            {mod.name}
-            {mod.isRestyling && (
-              <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded border border-[#FF0040]/30" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-                Рестайлинг
+          <div className="flex items-center gap-2 mb-1">
+            <div className="text-white font-medium text-base uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+              {modification.name}
+            </div>
+            {modification.isRestyling && (
+              <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                LCI
               </span>
             )}
           </div>
-          <div className={`text-white/50 ${isMobile ? 'text-xs' : 'text-sm'} capitalize`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-            {mod.engineType === 'petrol' ? 'Бензиновый' : 'Дизельный'}
-          </div>
-        </div>
-        <div className="text-right">
-          <div className={`font-bold ${isMobile ? 'text-lg' : 'text-2xl'}`} style={{ color: getTypeColor(mod.engineType), fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-            {totalPrice.toLocaleString()} ₽
+          <div className="text-white/50 text-xs uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+            {modification.engineType === 'petrol' ? 'БЕНЗИНОВЫЙ ДВИГАТЕЛЬ' : 'ДИЗЕЛЬНЫЙ ДВИГАТЕЛЬ'}
           </div>
         </div>
       </div>
 
-      <div className={`grid grid-cols-2 ${isMobile ? 'gap-3 text-xs mb-4' : 'gap-4 mb-6'}`}>
-        <div>
-          <div className={`${isMobile ? 'mb-1 text-[10px]' : 'text-sm mb-2'} flex items-center gap-0.5`}>
-            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E', letterSpacing: '-0.02em' }}>R</span><span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>EBORN TECH</span>
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        <div 
+          className="p-3 rounded-lg"
+          style={{
+            background: `linear-gradient(135deg, ${typeColor}10, ${typeColor}05)`,
+            border: `1px solid ${typeColor}20`
+          }}
+        >
+          <div className="text-white/50 text-[10px] mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>МОЩНОСТЬ</div>
+          <div className="flex items-center gap-1 mb-1" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+            <span className="text-white text-base">{modification.powerBefore}</span>
+            <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
+            <span className="text-lg" style={{ color: typeColor }}>{modification.powerAfter}</span>
           </div>
-          <div className={`text-white ${isMobile ? '' : 'text-base'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-            {mod.powerBefore} → <span style={{ color: getTypeColor(mod.engineType) }} className="font-bold">{mod.powerAfter} л.с.</span>
-          </div>
-          <div className={`text-green-400 ${isMobile ? 'text-[10px]' : 'text-sm mt-1'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-            +{getGainPercentage(mod.powerBefore, mod.powerAfter)}%
-          </div>
+          <div className="text-white/60 text-xs mb-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</div>
+          <div className="text-xs font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{powerGainPercent}%</div>
         </div>
-        <div>
-          <div className={`${isMobile ? 'mb-1 text-[10px]' : 'text-sm mb-2'} flex items-center gap-0.5`}>
-            <span style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', color: '#E7222E', letterSpacing: '-0.02em' }}>R</span><span className="text-white/50" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>EBORN TECH</span>
+
+        <div 
+          className="p-3 rounded-lg"
+          style={{
+            background: `linear-gradient(135deg, ${typeColor}10, ${typeColor}05)`,
+            border: `1px solid ${typeColor}20`
+          }}
+        >
+          <div className="text-white/50 text-[10px] mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>КРУТЯЩИЙ МОМЕНТ</div>
+          <div className="flex items-center gap-1 mb-1" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+            <span className="text-white text-base">{modification.torqueBefore}</span>
+            <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
+            <span className="text-lg" style={{ color: typeColor }}>{modification.torqueAfter}</span>
           </div>
-          <div className={`text-white ${isMobile ? '' : 'text-base'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-            {mod.torqueBefore} → <span style={{ color: getTypeColor(mod.engineType) }} className="font-bold">{mod.torqueAfter} Нм</span>
-          </div>
-          <div className={`text-green-400 ${isMobile ? 'text-[10px]' : 'text-sm mt-1'}`} style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>
-            +{getGainPercentage(mod.torqueBefore, mod.torqueAfter)}%
-          </div>
+          <div className="text-white/60 text-xs mb-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</div>
+          <div className="text-xs font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{torqueGainPercent}%</div>
+        </div>
+      </div>
+
+      <div 
+        className="p-4 rounded-lg text-center mb-4"
+        style={{
+          background: `linear-gradient(135deg, ${typeColor}20, ${typeColor}10)`,
+          border: `1px solid ${typeColor}40`
+        }}
+      >
+        <div className="text-white/60 text-xs mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>СТОИМОСТЬ ПРОШИВКИ</div>
+        <div className="text-2xl" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+          {totalPrice.toLocaleString()} ₽
         </div>
       </div>
 
       <a
-        href={`https://t.me/bmw_tuning_spb`}
+        href="https://t.me/bmw_tuning_spb"
         target="_blank"
         rel="noopener noreferrer"
-        className={`${isMobile ? 'py-2.5 px-4 text-sm' : 'py-3 px-6'} w-full rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105`}
+        className="py-3 px-4 w-full rounded-xl text-white flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
         style={{
-          background: `linear-gradient(135deg, ${getTypeColor(mod.engineType)}, ${getTypeColor(mod.engineType)}CC)`,
-          boxShadow: `0 8px 32px ${getTypeColor(mod.engineType)}40`
+          background: `linear-gradient(135deg, ${typeColor}40, ${typeColor}30)`,
+          border: `1px solid ${typeColor}60`
         }}
       >
-        <Icon name="MessageCircle" className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'}`} />
-        <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif', letterSpacing: '-0.01em' }}>{isMobile ? 'Записаться' : 'Записаться на чип-тюнинг'}</span>
+        <Icon name="MessageCircle" className="w-4 h-4" />
+        <span className="uppercase text-sm" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Заказать</span>
       </a>
     </div>
   );
