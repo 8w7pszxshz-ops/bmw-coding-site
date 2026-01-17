@@ -9,7 +9,7 @@ import { getTelegramLink } from '@/utils/cityConfig';
 const services = [
   {
     id: 'carplay',
-    title: 'Установка сертификата для активации Apple CarPlay',
+    title: 'Apple CarPlay',
     description: 'Установка и интеграция системы',
     icon: 'Smartphone',
     price: 'от 15 000 ₽',
@@ -129,7 +129,7 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           {service.title}
         </h3>
         
-        <p className="text-[9px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        <p className="text-[11px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
           {service.details}
         </p>
         
@@ -247,7 +247,7 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
           {service.title}
         </h3>
         
-        <p className="text-xs text-white/40 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        <p className="text-sm text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
           {service.details}
         </p>
         
