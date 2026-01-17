@@ -1,10 +1,10 @@
 import { useState, lazy, Suspense } from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
+import ChipTuning from './ChipTuning';
 
 const KeyCalculator = lazy(() => import('./KeyCalculator'));
 const CodingPackages = lazy(() => import('./CodingPackages'));
-const ChipTuning = lazy(() => import('./ChipTuning'));
 
 type CalculatorType = 'key' | 'coding' | 'chiptuning' | null;
 
@@ -22,6 +22,7 @@ interface CalculatorHubProps {
 
 export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
+  const [isChipTuningOpen, setIsChipTuningOpen] = useState(false);
 
   const calculators = [
     {
@@ -81,36 +82,28 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
     );
   }
 
-  if (activeCalculator === 'chiptuning') {
-    return (
-      <div className="mb-12 md:mb-16">
-        <button
-          onClick={() => setActiveCalculator(null)}
-          className="mb-4 md:mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors px-4 md:px-0"
-        >
-          <Icon name="ChevronLeft" className="w-4 h-4 md:w-5 md:h-5" />
-          <span className="text-sm md:text-base">Назад</span>
-        </button>
-        <Suspense fallback={<LoadingSpinner />}>
-          <ChipTuning selectedCity={selectedCity} />
-        </Suspense>
-      </div>
-    );
-  }
+
 
   return (
-    <div id="calculator-hub" className="mb-12 md:mb-16">
-      <div className="text-center mb-6 md:mb-8 px-4">
-        <p className="text-base md:text-xl text-white/70">Выберите услугу для расчёта стоимости</p>
-      </div>
+    <>
+      <div id="calculator-hub" className="mb-12 md:mb-16">
+        <div className="text-center mb-6 md:mb-8 px-4">
+          <p className="text-base md:text-xl text-white/70">Выберите услугу для расчёта стоимости</p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 px-4 md:px-0">
-        {calculators.map((calc) => (
-          <button
-            key={calc.id}
-            id={calc.id}
-            onClick={() => setActiveCalculator(calc.id)}
-            className="group relative rounded-2xl p-5 md:p-8 text-left transition-all duration-300 hover:scale-105"
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 px-4 md:px-0">
+          {calculators.map((calc) => (
+            <button
+              key={calc.id}
+              id={calc.id}
+              onClick={() => {
+                if (calc.id === 'chiptuning') {
+                  setIsChipTuningOpen(true);
+                } else {
+                  setActiveCalculator(calc.id);
+                }
+              }}
+              className="group relative rounded-2xl p-5 md:p-8 text-left transition-all duration-300 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',
               border: `1px solid ${calc.color}40`,
@@ -197,5 +190,12 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
         ))}
       </div>
     </div>
+    
+    <ChipTuning 
+      selectedCity={selectedCity}
+      isOpen={isChipTuningOpen}
+      onClose={() => setIsChipTuningOpen(false)}
+    />
+    </>
   );
 }
