@@ -26,12 +26,11 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedMod, setSelectedMod] = useState<EngineModification | null>(null);
   const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
-  const hasShownLights = useRef(false);
+  const isFirstOpen = useRef(true);
 
   useEffect(() => {
-    if (step === 'series' && !hasShownLights.current) {
-      console.log('[DEBUG] First time opening dialog, starting police lights');
-      hasShownLights.current = true;
+    if (step === 'series' && isFirstOpen.current) {
+      isFirstOpen.current = false;
       setShowPoliceLights(true);
       
       const audio = new Audio('/reborn-sound.mp3');
@@ -39,12 +38,10 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       audio.play().catch(() => {});
 
       const timer = setTimeout(() => {
-        console.log('[DEBUG] 6.5 seconds passed, turning off lights');
         setShowPoliceLights(false);
       }, 6500);
 
       return () => {
-        console.log('[DEBUG] Cleanup timer and audio');
         clearTimeout(timer);
         audio.pause();
         audio.src = '';
@@ -87,7 +84,6 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     : [];
 
   const handleSeriesSelect = (series: string) => {
-    console.log('[DEBUG] Series selected:', series, 'changing step to body');
     setSelectedSeries(series);
     setStep('body');
   };
@@ -151,7 +147,6 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
           style={{
             backdropFilter: 'blur(20px)'
           }}
-          onOpenAutoFocus={() => console.log('[DEBUG] Dialog opened, lights class:', showPoliceLights ? 'with-police-lights' : 'none')}
         >
           <DialogHeader>
             <DialogTitle className="text-white flex flex-col items-center justify-center gap-3">
