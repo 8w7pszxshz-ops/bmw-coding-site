@@ -292,16 +292,15 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
         <div className="space-y-4 pb-20">
           {selectedMod.stages.map((stage, idx) => {
             const totalPrice = getPriceForCity(stage.price);
-            const powerGainPercent = Math.round(((stage.powerAfter - selectedMod.powerBefore) / selectedMod.powerBefore) * 100);
-            const torqueGainPercent = Math.round(((stage.torqueAfter - selectedMod.torqueBefore) / selectedMod.torqueBefore) * 100);
+            const stageColor = stage.stage === 'Stage 1' ? '#00FF66' : typeColor;
 
             return (
               <div
                 key={idx}
                 className="w-full p-5 rounded-2xl"
                 style={{
-                  background: `linear-gradient(135deg, ${typeColor}25, ${typeColor}15)`,
-                  border: `2px solid ${typeColor}70`
+                  background: `linear-gradient(135deg, ${stageColor}25, ${stageColor}15)`,
+                  border: `2px solid ${stageColor}70`
                 }}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -309,7 +308,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                     <Icon 
                       name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
                       className="w-8 h-8" 
-                      style={{ color: typeColor }}
+                      style={{ color: stageColor }}
                     />
                     <div>
                       <div className="text-white text-2xl uppercase leading-none mb-1" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
@@ -321,44 +320,34 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold leading-none" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                    <div className="text-3xl font-bold leading-none" style={{ color: stageColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
                       {totalPrice.toLocaleString()}
                     </div>
                     <div className="text-white/50 text-xs mt-0.5" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>₽</div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div 
-                    className="p-4 rounded-xl"
-                    style={{
-                      background: `linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2))`
-                    }}
-                  >
-                    <div className="text-white/50 text-[10px] mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>МОЩНОСТЬ</div>
-                    <div className="flex items-baseline gap-1 mb-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                      <span className="text-white text-xl">{selectedMod.powerBefore}</span>
-                      <Icon name="ArrowRight" className="w-3 h-3 text-white/40 mx-0.5" />
-                      <span className="text-2xl" style={{ color: typeColor }}>{stage.powerAfter}</span>
-                      <span className="text-white/60 text-xs ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</span>
-                    </div>
-                    <div className="text-sm font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{powerGainPercent}%</div>
+                <div 
+                  className="p-4 rounded-xl mb-4"
+                  style={{
+                    background: `linear-gradient(135deg, ${stageColor}15, ${stageColor}05)`,
+                    border: `1px solid ${stageColor}30`
+                  }}
+                >
+                  <div className="text-white/50 text-[10px] mb-3 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>МОЩНОСТЬ</div>
+                  <div className="flex items-center gap-2 mb-5" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                    <span className="text-white text-xl">{selectedMod.powerBefore}</span>
+                    <Icon name="ArrowRight" className="w-4 h-4" style={{ color: stageColor }} strokeWidth={3} />
+                    <span className="text-xl" style={{ color: stageColor }}>{stage.powerAfter}</span>
+                    <span className="text-white/60 text-sm ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</span>
                   </div>
 
-                  <div 
-                    className="p-4 rounded-xl"
-                    style={{
-                      background: `linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2))`
-                    }}
-                  >
-                    <div className="text-white/50 text-[10px] mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>КРУТЯЩИЙ МОМЕНТ</div>
-                    <div className="flex items-baseline gap-1 mb-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                      <span className="text-white text-xl">{selectedMod.torqueBefore}</span>
-                      <Icon name="ArrowRight" className="w-3 h-3 text-white/40 mx-0.5" />
-                      <span className="text-2xl" style={{ color: typeColor }}>{stage.torqueAfter}</span>
-                      <span className="text-white/60 text-xs ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</span>
-                    </div>
-                    <div className="text-sm font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{torqueGainPercent}%</div>
+                  <div className="text-white/50 text-[10px] mb-3 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>КРУТЯЩИЙ МОМЕНТ</div>
+                  <div className="flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                    <span className="text-white text-xl">{selectedMod.torqueBefore}</span>
+                    <Icon name="ArrowRight" className="w-4 h-4" style={{ color: stageColor }} strokeWidth={3} />
+                    <span className="text-xl" style={{ color: stageColor }}>{stage.torqueAfter}</span>
+                    <span className="text-white/60 text-sm ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</span>
                   </div>
                 </div>
 
@@ -376,7 +365,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                     className="flex-1 py-3 rounded-xl text-white flex items-center justify-center gap-2 text-xs transition-all duration-300 active:scale-95"
                     style={{
                       background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08))',
-                      border: `1px solid rgba(255, 255, 255, 0.2)`
+                      border: `1px solid ${stageColor}40`
                     }}
                   >
                     <Icon name="Share2" className="w-4 h-4" />
@@ -389,8 +378,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                     rel="noopener noreferrer"
                     className="flex-1 py-3 rounded-xl text-white flex items-center justify-center gap-2 text-xs transition-all duration-300 active:scale-95"
                     style={{
-                      background: `linear-gradient(135deg, ${typeColor}, ${typeColor}DD)`,
-                      border: `1px solid ${typeColor}`
+                      background: `linear-gradient(135deg, ${stageColor}, ${stageColor}DD)`,
+                      border: `1px solid ${stageColor}`
                     }}
                   >
                     <Icon name="MessageCircle" className="w-4 h-4" />

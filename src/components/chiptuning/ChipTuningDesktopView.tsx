@@ -277,16 +277,15 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {selectedMod.stages.map((stage, idx) => {
             const totalPrice = getPriceForCity(stage.price);
-            const powerGainPercent = Math.round(((stage.powerAfter - selectedMod.powerBefore) / selectedMod.powerBefore) * 100);
-            const torqueGainPercent = Math.round(((stage.torqueAfter - selectedMod.torqueBefore) / selectedMod.torqueBefore) * 100);
+            const stageColor = stage.stage === 'Stage 1' ? '#00FF66' : typeColor;
 
             return (
               <div
                 key={idx}
                 className="p-6 rounded-xl"
                 style={{
-                  background: `linear-gradient(135deg, ${typeColor}20, ${typeColor}10)`,
-                  border: `2px solid ${typeColor}60`
+                  background: `linear-gradient(135deg, ${stageColor}20, ${stageColor}10)`,
+                  border: `2px solid ${stageColor}60`
                 }}
               >
                 <div className="flex items-center justify-between mb-6">
@@ -294,7 +293,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                     <Icon 
                       name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
                       className="w-10 h-10" 
-                      style={{ color: typeColor }}
+                      style={{ color: stageColor }}
                     />
                     <div>
                       <div className="text-white text-3xl uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
@@ -307,51 +306,39 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div 
-                    className="p-4 rounded-lg"
-                    style={{
-                      background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
-                      border: `1px solid ${typeColor}30`
-                    }}
-                  >
-                    <div className="text-white/50 text-xs mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>МОЩНОСТЬ</div>
-                    <div className="flex items-center gap-1 mb-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                      <span className="text-white text-xl">{selectedMod.powerBefore}</span>
-                      <Icon name="ArrowRight" className="w-4 h-4 text-white/40" />
-                      <span className="text-2xl" style={{ color: typeColor }}>{stage.powerAfter}</span>
-                      <span className="text-white/60 text-sm ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</span>
-                    </div>
-                    <div className="text-base font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{powerGainPercent}%</div>
+                <div 
+                  className="p-5 rounded-lg mb-6"
+                  style={{
+                    background: `linear-gradient(135deg, ${stageColor}15, ${stageColor}05)`,
+                    border: `1px solid ${stageColor}30`
+                  }}
+                >
+                  <div className="text-white/50 text-xs mb-3 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>МОЩНОСТЬ</div>
+                  <div className="flex items-center gap-2 mb-5" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                    <span className="text-white text-2xl">{selectedMod.powerBefore}</span>
+                    <Icon name="ArrowRight" className="w-5 h-5" style={{ color: stageColor }} strokeWidth={3} />
+                    <span className="text-2xl" style={{ color: stageColor }}>{stage.powerAfter}</span>
+                    <span className="text-white/60 text-base ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</span>
                   </div>
 
-                  <div 
-                    className="p-4 rounded-lg"
-                    style={{
-                      background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
-                      border: `1px solid ${typeColor}30`
-                    }}
-                  >
-                    <div className="text-white/50 text-xs mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>КРУТЯЩИЙ МОМЕНТ</div>
-                    <div className="flex items-center gap-1 mb-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                      <span className="text-white text-xl">{selectedMod.torqueBefore}</span>
-                      <Icon name="ArrowRight" className="w-4 h-4 text-white/40" />
-                      <span className="text-2xl" style={{ color: typeColor }}>{stage.torqueAfter}</span>
-                      <span className="text-white/60 text-sm ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</span>
-                    </div>
-                    <div className="text-base font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{torqueGainPercent}%</div>
+                  <div className="text-white/50 text-xs mb-3 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>КРУТЯЩИЙ МОМЕНТ</div>
+                  <div className="flex items-center gap-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                    <span className="text-white text-2xl">{selectedMod.torqueBefore}</span>
+                    <Icon name="ArrowRight" className="w-5 h-5" style={{ color: stageColor }} strokeWidth={3} />
+                    <span className="text-2xl" style={{ color: stageColor }}>{stage.torqueAfter}</span>
+                    <span className="text-white/60 text-base ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</span>
                   </div>
                 </div>
 
                 <div 
                   className="p-5 rounded-lg text-center mb-4"
                   style={{
-                    background: `linear-gradient(135deg, ${typeColor}30, ${typeColor}20)`,
-                    border: `1px solid ${typeColor}50`
+                    background: `linear-gradient(135deg, ${stageColor}30, ${stageColor}20)`,
+                    border: `1px solid ${stageColor}50`
                   }}
                 >
                   <div className="text-white/60 text-sm mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>СТОИМОСТЬ ПРОШИВКИ</div>
-                  <div className="text-4xl" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                  <div className="text-4xl" style={{ color: stageColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
                     {totalPrice.toLocaleString()} ₽
                   </div>
                 </div>
@@ -370,7 +357,7 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                     className="flex-1 py-3 rounded-lg text-white flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
                     style={{
                       background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                      border: `1px solid ${typeColor}40`
+                      border: `1px solid ${stageColor}40`
                     }}
                   >
                     <Icon name="Share2" className="w-4 h-4" />
@@ -383,8 +370,8 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                     rel="noopener noreferrer"
                     className="flex-1 py-3 rounded-lg text-white flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
                     style={{
-                      background: `linear-gradient(135deg, ${typeColor}, ${typeColor}CC)`,
-                      border: `1px solid ${typeColor}`
+                      background: `linear-gradient(135deg, ${stageColor}, ${stageColor}CC)`,
+                      border: `1px solid ${stageColor}`
                     }}
                   >
                     <Icon name="MessageCircle" className="w-4 h-4" />
