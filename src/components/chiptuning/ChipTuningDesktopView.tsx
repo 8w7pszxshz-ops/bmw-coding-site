@@ -330,8 +330,22 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   </div>
                 </div>
 
+                <a
+                  href="https://t.me/bmw_tuning_spb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 rounded-lg text-white flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 mb-4"
+                  style={{
+                    background: `linear-gradient(135deg, ${stageColor}, ${stageColor}CC)`,
+                    border: `1px solid ${stageColor}`
+                  }}
+                >
+                  <Icon name="MessageCircle" className="w-5 h-5" />
+                  <span className="text-base" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>ЗАКАЗАТЬ</span>
+                </a>
+
                 <div 
-                  className="p-5 rounded-lg text-center mb-4"
+                  className="p-5 rounded-lg text-center"
                   style={{
                     background: `linear-gradient(135deg, ${stageColor}30, ${stageColor}20)`,
                     border: `1px solid ${stageColor}50`
@@ -341,42 +355,6 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   <div className="text-4xl" style={{ color: stageColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
                     {totalPrice.toLocaleString()} ₽
                   </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => {
-                      if (navigator.share) {
-                        navigator.share({
-                          title: `Чип-тюнинг ${selectedMod.name} ${stage.stage}`,
-                          text: `${selectedBody?.series} • ${selectedMod.name} ${stage.stage}\n💪 Мощность: ${selectedMod.powerBefore} → ${stage.powerAfter} Л.С. (+${powerGainPercent}%)\n⚡ Момент: ${selectedMod.torqueBefore} → ${stage.torqueAfter} НМ (+${torqueGainPercent}%)\n💰 Цена: ${totalPrice.toLocaleString()} ₽`,
-                          url: window.location.href
-                        });
-                      }
-                    }}
-                    className="flex-1 py-3 rounded-lg text-white flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                      border: `1px solid ${stageColor}40`
-                    }}
-                  >
-                    <Icon name="Share2" className="w-4 h-4" />
-                    <span className="text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>ПОДЕЛИТЬСЯ</span>
-                  </button>
-
-                  <a
-                    href="https://t.me/bmw_tuning_spb"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-3 rounded-lg text-white flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105"
-                    style={{
-                      background: `linear-gradient(135deg, ${stageColor}, ${stageColor}CC)`,
-                      border: `1px solid ${stageColor}`
-                    }}
-                  >
-                    <Icon name="MessageCircle" className="w-4 h-4" />
-                    <span className="text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>ЗАКАЗАТЬ</span>
-                  </a>
                 </div>
               </div>
             );

@@ -351,40 +351,31 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                   </div>
                 </div>
 
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      if (navigator.share) {
-                        navigator.share({
-                          title: `Чип-тюнинг ${selectedMod.name} ${stage.stage}`,
-                          text: `${selectedBody?.series} • ${selectedMod.name} ${stage.stage}\n💪 Мощность: ${selectedMod.powerBefore} → ${stage.powerAfter} Л.С. (+${powerGainPercent}%)\n⚡ Момент: ${selectedMod.torqueBefore} → ${stage.torqueAfter} НМ (+${torqueGainPercent}%)\n💰 Цена: ${totalPrice.toLocaleString()} ₽`,
-                          url: window.location.href
-                        });
-                      }
-                    }}
-                    className="flex-1 py-3 rounded-xl text-white flex items-center justify-center gap-2 text-xs transition-all duration-300 active:scale-95"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08))',
-                      border: `1px solid ${stageColor}40`
-                    }}
-                  >
-                    <Icon name="Share2" className="w-4 h-4" />
-                    <span className="uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Поделиться</span>
-                  </button>
+                <a
+                  href="https://t.me/bmw_tuning_spb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl text-white flex items-center justify-center gap-2 text-sm transition-all duration-300 active:scale-95 mb-3"
+                  style={{
+                    background: `linear-gradient(135deg, ${stageColor}, ${stageColor}DD)`,
+                    border: `1px solid ${stageColor}`
+                  }}
+                >
+                  <Icon name="MessageCircle" className="w-5 h-5" />
+                  <span className="uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Заказать</span>
+                </a>
 
-                  <a
-                    href="https://t.me/bmw_tuning_spb"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-3 rounded-xl text-white flex items-center justify-center gap-2 text-xs transition-all duration-300 active:scale-95"
-                    style={{
-                      background: `linear-gradient(135deg, ${stageColor}, ${stageColor}DD)`,
-                      border: `1px solid ${stageColor}`
-                    }}
-                  >
-                    <Icon name="MessageCircle" className="w-4 h-4" />
-                    <span className="uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Заказать</span>
-                  </a>
+                <div 
+                  className="p-4 rounded-xl text-center"
+                  style={{
+                    background: `linear-gradient(135deg, ${stageColor}30, ${stageColor}20)`,
+                    border: `1px solid ${stageColor}50`
+                  }}
+                >
+                  <div className="text-white/60 text-xs mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>СТОИМОСТЬ ПРОШИВКИ</div>
+                  <div className="text-3xl" style={{ color: stageColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                    {totalPrice.toLocaleString()} ₽
+                  </div>
                 </div>
               </div>
             );
