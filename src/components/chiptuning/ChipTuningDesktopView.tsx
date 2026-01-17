@@ -288,20 +288,18 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   border: `2px solid ${stageColor}60`
                 }}
               >
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-4">
-                    <Icon 
-                      name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
-                      className="w-10 h-10" 
-                      style={{ color: stageColor }}
-                    />
-                    <div>
-                      <div className="text-white text-3xl uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                        {stage.stage}
-                      </div>
-                      <div className="text-white/50 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                        {selectedMod.name}
-                      </div>
+                <div className="flex items-center gap-4 mb-6">
+                  <Icon 
+                    name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
+                    className="w-10 h-10" 
+                    style={{ color: stageColor }}
+                  />
+                  <div>
+                    <div className="text-white text-3xl uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                      {stage.stage}
+                    </div>
+                    <div className="text-white/50 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                      {selectedMod.name}
                     </div>
                   </div>
                 </div>
@@ -334,28 +332,20 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
                   href="https://t.me/bmw_tuning_spb"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-4 rounded-lg text-white flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 mb-4"
+                  className="w-full p-5 rounded-lg text-white flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
                   style={{
                     background: `linear-gradient(135deg, ${stageColor}, ${stageColor}CC)`,
                     border: `1px solid ${stageColor}`
                   }}
                 >
-                  <Icon name="MessageCircle" className="w-5 h-5" />
-                  <span className="text-base" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>ЗАКАЗАТЬ</span>
-                </a>
-
-                <div 
-                  className="p-5 rounded-lg text-center"
-                  style={{
-                    background: `linear-gradient(135deg, ${stageColor}30, ${stageColor}20)`,
-                    border: `1px solid ${stageColor}50`
-                  }}
-                >
-                  <div className="text-white/60 text-sm mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>СТОИМОСТЬ ПРОШИВКИ</div>
-                  <div className="text-4xl" style={{ color: stageColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                  <div className="flex items-center gap-3">
+                    <Icon name="MessageCircle" className="w-5 h-5" />
+                    <span className="text-base uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>ЗАКАЗАТЬ</span>
+                  </div>
+                  <div className="text-4xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
                     {totalPrice.toLocaleString()} ₽
                   </div>
-                </div>
+                </a>
               </div>
             );
           })}

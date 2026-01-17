@@ -303,27 +303,19 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                   border: `2px solid ${stageColor}70`
                 }}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <Icon 
-                      name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
-                      className="w-8 h-8" 
-                      style={{ color: stageColor }}
-                    />
-                    <div>
-                      <div className="text-white text-2xl uppercase leading-none mb-1" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                        {stage.stage}
-                      </div>
-                      <div className="text-white/50 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                        {selectedMod.name}
-                      </div>
+                <div className="flex items-center gap-3 mb-4">
+                  <Icon 
+                    name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
+                    className="w-8 h-8" 
+                    style={{ color: stageColor }}
+                  />
+                  <div>
+                    <div className="text-white text-2xl uppercase leading-none mb-1" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                      {stage.stage}
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-3xl font-bold leading-none" style={{ color: stageColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                      {totalPrice.toLocaleString()}
+                    <div className="text-white/50 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                      {selectedMod.name}
                     </div>
-                    <div className="text-white/50 text-xs mt-0.5" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>₽</div>
                   </div>
                 </div>
 
@@ -355,28 +347,20 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                   href="https://t.me/bmw_tuning_spb"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 rounded-xl text-white flex items-center justify-center gap-2 text-sm transition-all duration-300 active:scale-95 mb-3"
+                  className="w-full p-4 rounded-xl text-white flex flex-col items-center justify-center gap-3 transition-all duration-300 active:scale-95"
                   style={{
                     background: `linear-gradient(135deg, ${stageColor}, ${stageColor}DD)`,
                     border: `1px solid ${stageColor}`
                   }}
                 >
-                  <Icon name="MessageCircle" className="w-5 h-5" />
-                  <span className="uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Заказать</span>
-                </a>
-
-                <div 
-                  className="p-4 rounded-xl text-center"
-                  style={{
-                    background: `linear-gradient(135deg, ${stageColor}30, ${stageColor}20)`,
-                    border: `1px solid ${stageColor}50`
-                  }}
-                >
-                  <div className="text-white/60 text-xs mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>СТОИМОСТЬ ПРОШИВКИ</div>
-                  <div className="text-3xl" style={{ color: stageColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                  <div className="flex items-center gap-2">
+                    <Icon name="MessageCircle" className="w-5 h-5" />
+                    <span className="uppercase text-sm" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Заказать</span>
+                  </div>
+                  <div className="text-3xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
                     {totalPrice.toLocaleString()} ₽
                   </div>
-                </div>
+                </a>
               </div>
             );
           })}
