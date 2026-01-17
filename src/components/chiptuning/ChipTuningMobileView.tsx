@@ -141,7 +141,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   }
 
   return (
-    <div className="mb-12 px-4">
+    <div className="mb-12 px-4 min-h-screen">
       <Dialog open={step === 'series'} onOpenChange={(open) => {
         if (!open) {
           if (onClose) onClose();
@@ -244,7 +244,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       )}
 
       {step === 'engine' && selectedBody && (
-        <div className="space-y-2 max-h-[calc(100vh-280px)] overflow-y-auto pb-20" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)', overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
+        <div className="space-y-2 pb-20" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
           {selectedBody.modifications.map((mod, idx) => {
             const totalPrice = getPriceForCity(mod.price);
             const typeColor = mod.engineType === 'petrol' ? '#FF0040' : '#00A8E8';
