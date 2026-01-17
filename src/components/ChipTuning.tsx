@@ -48,7 +48,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
       
       const timer = setTimeout(() => {
         setShowLights(false);
-      }, 7000);
+      }, 20000);
 
       return () => {
         clearTimeout(timer);
@@ -190,11 +190,12 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                   onClick={() => setSelectedSeries(series)}
                   className="group relative rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.3)',
-                    backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 0, 13, 0.1)',
-                    minHeight: '173px'
+                    background: 'rgba(0, 0, 0, 0.15)',
+                    backdropFilter: 'blur(15px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 0, 13, 0.05)',
+                    minHeight: '180px',
+                    aspectRatio: '1 / 1'
                   }}
                 >
                   {/* Radial gradient glow */}
@@ -227,17 +228,27 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                     }}
                   />
                   
-                  {/* Animated pattern */}
-                  <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none rounded-2xl" style={{ mixBlendMode: 'screen' }}>
+                  {/* Animated pattern - brighter pulsating dots */}
+                  <svg className="absolute inset-0 w-full h-full opacity-60 pointer-events-none rounded-2xl" style={{ mixBlendMode: 'screen' }}>
                     <defs>
                       <pattern id={`pattern-series-${index}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                        <circle cx="15" cy="15" r="1" fill="#FF000D" opacity="0.6">
-                          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                        <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="1">
+                          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" />
                         </circle>
                       </pattern>
                     </defs>
                     <rect width="100%" height="100%" fill={`url(#pattern-series-${index})`} />
                   </svg>
+                  
+                  {/* Extra bright pulsating dots */}
+                  <div 
+                    className="absolute top-2 right-2 w-3 h-3 rounded-full pointer-events-none"
+                    style={{
+                      background: '#FF000D',
+                      boxShadow: '0 0 15px #FF000D, 0 0 30px rgba(255, 0, 13, 0.6)',
+                      animation: 'pulse 1.5s ease-in-out infinite'
+                    }}
+                  />
                   
                   {/* Content */}
                   <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
