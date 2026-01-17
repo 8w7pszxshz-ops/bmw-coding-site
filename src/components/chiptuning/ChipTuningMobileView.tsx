@@ -145,7 +145,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                 <button
                   key={series}
                   onClick={() => handleSeriesSelect(series)}
-                  className="p-4 rounded-xl transition-all duration-300 active:scale-95 flex flex-col items-center justify-center"
+                  className="p-4 rounded-xl transition-transform duration-300 flex flex-col items-center justify-center overflow-hidden"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
                     border: '1px solid rgba(255, 255, 255, 0.15)',

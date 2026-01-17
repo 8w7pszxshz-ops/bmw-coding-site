@@ -477,6 +477,15 @@
     }
   }
 
+  @keyframes chiptuningDialogFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   .chiptuning-dialog {
     background: linear-gradient(
       135deg,
@@ -486,10 +495,16 @@
     box-shadow:
       0 30px 80px -20px rgba(0, 0, 0, 0.8),
       inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    animation: chiptuningDialogFadeIn 2s ease-out !important;
   }
 
   .chiptuning-dialog button {
     pointer-events: auto !important;
+    overflow: hidden !important;
+  }
+
+  .chiptuning-dialog button:active {
+    transform: scale(0.95) !important;
   }
 
   .chiptuning-dialog [data-radix-dialog-close] {
