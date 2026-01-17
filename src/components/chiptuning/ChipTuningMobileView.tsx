@@ -197,7 +197,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
               <button
                 key={body.series}
                 onClick={() => handleBodySelect(body)}
-                className="snap-center min-w-[140px] p-4 rounded-xl transition-all duration-300 active:scale-95"
+                className="snap-center min-w-[140px] p-4 rounded-xl transition-opacity duration-300 active:opacity-70 overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
                   border: '1px solid rgba(255, 255, 255, 0.15)'
@@ -217,7 +217,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
             <button
               key={idx}
               onClick={() => handleModSelect(mod)}
-              className="w-full p-4 rounded-xl transition-all duration-300 active:scale-95 text-left"
+              className="w-full p-4 rounded-xl transition-opacity duration-300 active:opacity-70 text-left overflow-hidden"
               style={{
                 background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
                 border: `1px solid ${typeColor}30`
