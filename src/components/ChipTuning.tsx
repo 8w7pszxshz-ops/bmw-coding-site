@@ -36,6 +36,7 @@ const stages = [
 const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
+  const [audio] = useState(() => new Audio('/police-lights.mp3'));
 
   const handleReset = () => {
     setSelectedSeries(null);
@@ -62,14 +63,14 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
       <div className="text-center mb-6">
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
-          <h2 className="font-light text-white text-xl">Чип-тюнинг</h2>
+          <h2 className="font-light text-white text-xl uppercase" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>Чип-тюнинг</h2>
         </div>
-        <p className="text-white/60 text-xs">Подберите программу для вашего BMW</p>
+        <p className="text-white/60 text-xs uppercase">Подберите программу для вашего BMW</p>
       </div>
 
       {!selectedSeries ? (
         <div className="space-y-3">
-          <p className="text-white/70 text-sm mb-4">Выберите серию:</p>
+          <p className="text-white/70 text-sm mb-4 uppercase">Выберите серию:</p>
           <div className="grid grid-cols-2 gap-3">
             {seriesList.map((series) => (
               <button
@@ -100,8 +101,8 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                   <rect width="100%" height="100%" fill={`url(#dots-mobile-${series.replace(/\s/g, '-')})`} />
                 </svg>
                 <div className="relative z-10">
-                  <div className="text-white text-base font-bold mb-1">{series}</div>
-                  <div className="text-white/50 text-xs">Выбрать серию</div>
+                  <div className="text-white text-base font-bold mb-1 uppercase">{series}</div>
+                  <div className="text-white/50 text-xs uppercase">Выбрать серию</div>
                 </div>
               </button>
             ))}
@@ -215,10 +216,20 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
 const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
+  const [audio] = useState(() => new Audio('/police-lights.mp3'));
 
   const handleReset = () => {
     setSelectedSeries(null);
     setSelectedStage(null);
+    audio.pause();
+    audio.currentTime = 0;
+    document.body.classList.remove('with-police-lights');
+  };
+
+  const handleSeriesSelect = (series: Series) => {
+    setSelectedSeries(series);
+    audio.play();
+    document.body.classList.add('with-police-lights');
   };
 
   const handleOrder = () => {
@@ -241,19 +252,19 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
-          <h2 className="font-light text-white text-3xl">Чип-тюнинг</h2>
+          <h2 className="font-light text-white text-3xl uppercase" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>Чип-тюнинг</h2>
         </div>
-        <p className="text-white/60 text-base">Подберите программу для вашего BMW</p>
+        <p className="text-white/60 text-base uppercase">Подберите программу для вашего BMW</p>
       </div>
 
       {!selectedSeries ? (
         <div className="space-y-4">
-          <p className="text-white/70 text-lg mb-6">Выберите серию:</p>
+          <p className="text-white/70 text-lg mb-6 uppercase">Выберите серию:</p>
           <div className="grid grid-cols-4 gap-4">
             {seriesList.map((series) => (
               <button
                 key={series}
-                onClick={() => setSelectedSeries(series)}
+                onClick={() => handleSeriesSelect(series)}
                 className="relative p-5 rounded-xl transition-all duration-300 hover:scale-105 flex flex-col items-start justify-center text-left overflow-hidden"
                 style={{
                   background: 'rgba(0, 0, 0, 0.8)',
@@ -279,8 +290,8 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                   <rect width="100%" height="100%" fill={`url(#dots-desktop-${series.replace(/\s/g, '-')})`} />
                 </svg>
                 <div className="relative z-10">
-                  <div className="text-white text-lg font-bold mb-1">{series}</div>
-                  <div className="text-white/50 text-sm">Выбрать серию</div>
+                  <div className="text-white text-lg font-bold mb-1 uppercase">{series}</div>
+                  <div className="text-white/50 text-sm uppercase">Выбрать серию</div>
                 </div>
               </button>
             ))}
