@@ -4,9 +4,8 @@ import { City } from '@/components/CitySelector';
 
 const KeyCalculator = lazy(() => import('./KeyCalculator'));
 const CodingPackages = lazy(() => import('./CodingPackages'));
-const ChipTuningNew = lazy(() => import('./chiptuning/ChipTuningNew'));
 
-type CalculatorType = 'key' | 'coding' | 'chiptuning' | null;
+type CalculatorType = 'key' | 'coding' | null;
 
 function LoadingSpinner() {
   return (
@@ -37,13 +36,6 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
       title: 'Конфигуратор опций',
       description: 'Соберите свой пакет кодировок',
       color: '#81C4FF'
-    },
-    {
-      id: 'chiptuning' as CalculatorType,
-      icon: 'Gauge',
-      title: 'Чип-тюнинг',
-      description: 'Подберите программу для вашего двигателя',
-      color: '#FF0040'
     }
   ];
 
@@ -81,22 +73,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
     );
   }
 
-  if (activeCalculator === 'chiptuning') {
-    return (
-      <div id="chiptuning" className="mb-12 md:mb-16">
-        <button
-          onClick={() => setActiveCalculator(null)}
-          className="mb-4 md:mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors px-4 md:px-0"
-        >
-          <Icon name="ChevronLeft" className="w-4 h-4 md:w-5 md:h-5" />
-          <span className="text-sm md:text-base">Назад</span>
-        </button>
-        <Suspense fallback={<LoadingSpinner />}>
-          <ChipTuningNew selectedCity={selectedCity} onClose={() => setActiveCalculator(null)} />
-        </Suspense>
-      </div>
-    );
-  }
+
 
   return (
     <div id="calculator-hub" className="mb-12 md:mb-16">
@@ -104,7 +81,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
         <p className="text-base md:text-xl text-white/70">Выберите услугу для расчёта стоимости</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 px-4 md:px-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-4 md:px-0">
         {calculators.map((calc) => (
           <button
             key={calc.id}
