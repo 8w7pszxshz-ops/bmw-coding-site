@@ -129,9 +129,19 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           {service.title}
         </h3>
         
-        <p className="text-[11px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-          {service.details}
-        </p>
+        <div className="relative">
+          <p className="text-[11px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+            {service.details}
+          </p>
+          {!isSelected && (
+            <div 
+              className="absolute bottom-0 left-0 right-0 h-4 pointer-events-none"
+              style={{
+                background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 100%)'
+              }}
+            />
+          )}
+        </div>
         
         <div className="mt-auto">
           <div className="flex items-center justify-between mb-2">
@@ -247,9 +257,19 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
           {service.title}
         </h3>
         
-        <p className="text-sm text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-          {service.details}
-        </p>
+        <div className="relative">
+          <p className="text-sm text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+            {service.details}
+          </p>
+          {!isSelected && (
+            <div 
+              className="absolute bottom-0 left-0 right-0 h-6 pointer-events-none"
+              style={{
+                background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 100%)'
+              }}
+            />
+          )}
+        </div>
         
         <div className="mt-auto">
           <div className="flex items-center justify-between mb-4">
