@@ -86,14 +86,14 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                 <div 
                   className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 0, 13, 0.08) 0%, transparent 50%, rgba(255, 0, 13, 0.05) 100%)'
+                    background: 'linear-gradient(135deg, rgba(255, 0, 13, 0.25) 0%, rgba(255, 0, 13, 0.1) 40%, transparent 60%, rgba(255, 0, 13, 0.15) 100%)'
                   }}
                 />
-                <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none">
+                <svg className="absolute inset-0 w-full h-full opacity-50 pointer-events-none">
                   <defs>
                     <pattern id={`dots-mobile-${series.replace(/\s/g, '-')}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                      <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="0.6">
-                        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite" />
+                      <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="0.8">
+                        <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
                       </circle>
                     </pattern>
                   </defs>
@@ -265,14 +265,14 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                 <div 
                   className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 0, 13, 0.08) 0%, transparent 50%, rgba(255, 0, 13, 0.05) 100%)'
+                    background: 'linear-gradient(135deg, rgba(255, 0, 13, 0.25) 0%, rgba(255, 0, 13, 0.1) 40%, transparent 60%, rgba(255, 0, 13, 0.15) 100%)'
                   }}
                 />
-                <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none">
+                <svg className="absolute inset-0 w-full h-full opacity-50 pointer-events-none">
                   <defs>
                     <pattern id={`dots-desktop-${series.replace(/\s/g, '-')}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                      <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="0.6">
-                        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite" />
+                      <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="0.8">
+                        <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
                       </circle>
                     </pattern>
                   </defs>
