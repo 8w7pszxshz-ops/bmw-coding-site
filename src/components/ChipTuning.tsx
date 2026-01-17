@@ -77,21 +77,31 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                 onClick={() => setSelectedSeries(series)}
                 className="relative p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-start gap-3 text-left overflow-hidden"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.6)',
+                  background: 'rgba(0, 0, 0, 0.4)',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
-                  backdropFilter: 'blur(10px)'
+                  backdropFilter: 'blur(20px)'
                 }}
               >
                 <div 
                   className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, transparent 50%, rgba(255, 0, 64, 0.1) 100%)'
+                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.08) 0%, transparent 50%, rgba(255, 0, 64, 0.05) 100%)'
                   }}
                 />
+                <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none">
+                  <defs>
+                    <pattern id={`dots-mobile-${series.replace(/\s/g, '-')}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                      <circle cx="15" cy="15" r="1.5" fill="#FF0040" opacity="0.6">
+                        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite" />
+                      </circle>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#dots-mobile-${series.replace(/\s/g, '-')})`} />
+                </svg>
                 <div 
                   className="relative z-10 w-14 h-14 rounded-xl flex items-center justify-center"
                   style={{
-                    background: 'rgba(30, 30, 40, 0.9)',
+                    background: 'rgba(0, 0, 0, 0.5)',
                     border: '1px solid rgba(255, 255, 255, 0.1)'
                   }}
                 >
@@ -254,21 +264,31 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                 onClick={() => setSelectedSeries(series)}
                 className="relative p-5 rounded-xl transition-all duration-300 hover:scale-105 flex flex-col items-start gap-3 text-left overflow-hidden"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.6)',
+                  background: 'rgba(0, 0, 0, 0.4)',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
-                  backdropFilter: 'blur(10px)'
+                  backdropFilter: 'blur(20px)'
                 }}
               >
                 <div 
                   className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, transparent 50%, rgba(255, 0, 64, 0.1) 100%)'
+                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.08) 0%, transparent 50%, rgba(255, 0, 64, 0.05) 100%)'
                   }}
                 />
+                <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none">
+                  <defs>
+                    <pattern id={`dots-desktop-${series.replace(/\s/g, '-')}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                      <circle cx="15" cy="15" r="1.5" fill="#FF0040" opacity="0.6">
+                        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite" />
+                      </circle>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#dots-desktop-${series.replace(/\s/g, '-')})`} />
+                </svg>
                 <div 
                   className="relative z-10 w-16 h-16 rounded-xl flex items-center justify-center"
                   style={{
-                    background: 'rgba(30, 30, 40, 0.9)',
+                    background: 'rgba(0, 0, 0, 0.5)',
                     border: '1px solid rgba(255, 255, 255, 0.1)'
                   }}
                 >
