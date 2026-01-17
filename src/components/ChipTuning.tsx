@@ -221,15 +221,10 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
   const handleReset = () => {
     setSelectedSeries(null);
     setSelectedStage(null);
-    audio.pause();
-    audio.currentTime = 0;
-    document.body.classList.remove('with-police-lights');
   };
 
   const handleSeriesSelect = (series: Series) => {
     setSelectedSeries(series);
-    audio.play();
-    document.body.classList.add('with-police-lights');
   };
 
   const handleOrder = () => {
