@@ -190,20 +190,20 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                   onClick={() => setSelectedSeries(series)}
                   className="group relative rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    backdropFilter: 'blur(40px)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3)',
-                    minHeight: '173px',
-                    WebkitMaskImage: 'radial-gradient(circle, black 60%, rgba(0, 0, 0, 0.9) 100%)'
+                    background: 'rgba(0, 0, 0, 0.3)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 0, 13, 0.1)',
+                    minHeight: '173px'
                   }}
                 >
                   {/* Radial gradient glow */}
                   <div 
-                    className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"
+                    className="absolute inset-0 opacity-30 group-hover:opacity-60 transition-opacity rounded-2xl pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle at center, #FF000D40, transparent 70%)',
-                      boxShadow: 'inset 0 0 60px #FF000D30'
+                      background: 'radial-gradient(circle at center, #FF000D30, transparent 70%)',
+                      boxShadow: 'inset 0 0 60px #FF000D20',
+                      mixBlendMode: 'screen'
                     }}
                   />
                   
@@ -212,7 +212,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                     className="absolute top-0 left-0 right-0 rounded-t-2xl pointer-events-none"
                     style={{
                       height: '2px',
-                      background: 'linear-gradient(90deg, transparent 0%, #FF000D20 20%, #FF000D80 50%, #FF000D20 80%, transparent 100%)',
+                      background: 'linear-gradient(90deg, transparent 0%, #FF000D30 20%, #FF000D90 50%, #FF000D30 80%, transparent 100%)',
                       boxShadow: '0 0 30px #FF000D60, 0 2px 20px #FF000D40'
                     }}
                   />
@@ -222,13 +222,13 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                     className="absolute bottom-0 left-0 right-0 rounded-b-2xl pointer-events-none"
                     style={{
                       height: '1px',
-                      background: 'linear-gradient(90deg, transparent 0%, #FF000D15 30%, #FF000D40 50%, #FF000D15 70%, transparent 100%)',
+                      background: 'linear-gradient(90deg, transparent 0%, #FF000D20 30%, #FF000D50 50%, #FF000D20 70%, transparent 100%)',
                       boxShadow: '0 0 15px #FF000D30'
                     }}
                   />
                   
                   {/* Animated pattern */}
-                  <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none rounded-2xl" style={{ mixBlendMode: 'screen' }}>
+                  <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none rounded-2xl" style={{ mixBlendMode: 'screen' }}>
                     <defs>
                       <pattern id={`pattern-series-${index}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
                         <circle cx="15" cy="15" r="1" fill="#FF000D" opacity="0.6">
@@ -241,10 +241,12 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                   
                   {/* Content */}
                   <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
-                    <Icon name="Settings" className="w-10 h-10 mb-3" style={{ color: '#FF000D' }} />
                     <div 
-                      className="text-white text-sm tracking-wider text-center"
-                      style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                      className="text-white text-lg tracking-wider text-center"
+                      style={{ 
+                        fontFamily: '"Reborn Technologies", sans-serif',
+                        textShadow: '0 0 20px rgba(255, 0, 13, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
+                      }}
                     >
                       {series}
                     </div>
