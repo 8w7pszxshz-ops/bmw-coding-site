@@ -2,7 +2,7 @@ import { useState, memo, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { useChiptuningData } from '@/hooks/useChiptuningData';
-import { ModelData } from '@/types/chiptuning';
+import { ModelData, EngineModification, StageOption } from '@/types/chiptuning';
 import {
   Dialog,
   DialogContent,
@@ -15,14 +15,15 @@ interface ChipTuningMobileViewProps {
   onClose?: () => void;
 }
 
-type Step = 'series' | 'body' | 'engine';
+type Step = 'series' | 'body' | 'engine' | 'stage';
 
 const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, onClose }: ChipTuningMobileViewProps) {
   const { data: apiData, loading, error } = useChiptuningData();
   const [step, setStep] = useState<Step>('series');
   const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
-  const [selectedMod, setSelectedMod] = useState<any>(null);
+  const [selectedMod, setSelectedMod] = useState<EngineModification | null>(null);
+  const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
 
   useEffect(() => {
@@ -105,8 +106,21 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     setStep('engine');
   };
 
+  const handleModSelect = (mod: EngineModification) => {
+    setSelectedMod(mod);
+    setStep('stage');
+  };
+
+  const handleStageSelect = (stage: StageOption) => {
+    setSelectedStage(stage);
+  };
+
   const handleBack = () => {
-    if (step === 'engine') {
+    if (step === 'stage') {
+      setSelectedMod(null);
+      setSelectedStage(null);
+      setStep('engine');
+    } else if (step === 'engine') {
       setSelectedBody(null);
       setStep('body');
     } else if (step === 'body') {
@@ -135,6 +149,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       </div>
     );
   }
+
+  const typeColor = '#FF0040';
 
   return (
     <div className="mb-12 px-4 min-h-screen">
@@ -204,7 +220,8 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
             />
             <h2 className="text-white text-lg" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
               {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
-              {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
+              {step === 'engine' && 'ВЫБЕРИТЕ ДВИГАТЕЛЬ'}
+              {step === 'stage' && 'ВЫБЕРИТЕ STAGE'}
             </h2>
           </div>
         </>
@@ -233,179 +250,162 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
       {step === 'engine' && selectedBody && (
         <div className="space-y-2 pb-20">
-          {selectedBody.modifications.map((mod, idx) => {
-            const totalPrice = getPriceForCity(mod.price);
-            const typeColor = mod.engineType === 'petrol' ? '#FF0040' : '#00A8E8';
-            
+          {selectedBody.modifications.map((mod, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleModSelect(mod)}
+              className="w-full p-4 rounded-xl transition-all duration-300 active:scale-95 text-left"
+              style={{
+                background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
+                border: `1px solid ${typeColor}30`
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <Icon 
+                  name={mod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
+                  className="w-6 h-6 flex-shrink-0" 
+                  style={{ color: typeColor }}
+                />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="text-white font-medium text-base uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                      {mod.name}
+                    </div>
+                    {mod.isRestyling && (
+                      <span className="px-1.5 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-[10px] rounded" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                        LCI
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-white/50 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                    {mod.powerBefore} Л.С. • {mod.torqueBefore} НМ
+                  </div>
+                </div>
+                <Icon name="ChevronRight" className="w-5 h-5 text-white/30 flex-shrink-0" />
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {step === 'stage' && selectedMod && (
+        <div className="space-y-3 pb-20">
+          {selectedMod.stages.map((stage, idx) => {
+            const totalPrice = getPriceForCity(stage.price);
+            const powerGainPercent = Math.round(((stage.powerAfter - selectedMod.powerBefore) / selectedMod.powerBefore) * 100);
+            const torqueGainPercent = Math.round(((stage.torqueAfter - selectedMod.torqueBefore) / selectedMod.torqueBefore) * 100);
+
             return (
               <button
                 key={idx}
-                onClick={() => setSelectedMod(mod)}
-                className="w-full p-3 rounded-xl transition-all duration-300 active:scale-95 text-left"
+                onClick={() => handleStageSelect(stage)}
+                className="w-full p-5 rounded-xl transition-all duration-300 active:scale-95 text-left"
                 style={{
-                  background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
-                  border: `1px solid ${typeColor}30`
+                  background: `linear-gradient(135deg, ${typeColor}20, ${typeColor}10)`,
+                  border: `2px solid ${typeColor}60`
                 }}
               >
-                <div className="flex items-center gap-3">
-                  <Icon 
-                    name={mod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
-                    className="w-6 h-6 flex-shrink-0" 
-                    style={{ color: typeColor }}
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="text-white font-medium text-base uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                        {mod.name}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <Icon 
+                      name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
+                      className="w-7 h-7" 
+                      style={{ color: typeColor }}
+                    />
+                    <div>
+                      <div className="text-white text-xl uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                        {stage.stage}
                       </div>
-                      {mod.isRestyling && (
-                        <span className="px-1.5 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-[10px] rounded" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                          LCI
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-white/50 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                      {mod.powerBefore} Л.С. • {mod.torqueBefore} НМ
+                      <div className="text-white/50 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                        {selectedMod.name}
+                      </div>
                     </div>
                   </div>
-                  <Icon name="ChevronRight" className="w-5 h-5 text-white/30 flex-shrink-0" />
+                  <div className="text-right">
+                    <div className="text-2xl font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                      {totalPrice.toLocaleString()} ₽
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div 
+                    className="p-3 rounded-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
+                      border: `1px solid ${typeColor}30`
+                    }}
+                  >
+                    <div className="text-white/50 text-[10px] mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>МОЩНОСТЬ</div>
+                    <div className="flex items-center gap-1 mb-1" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                      <span className="text-white text-base">{selectedMod.powerBefore}</span>
+                      <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
+                      <span className="text-lg" style={{ color: typeColor }}>{stage.powerAfter}</span>
+                      <span className="text-white/60 text-xs ml-0.5" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</span>
+                    </div>
+                    <div className="text-xs font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{powerGainPercent}%</div>
+                  </div>
+
+                  <div 
+                    className="p-3 rounded-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
+                      border: `1px solid ${typeColor}30`
+                    }}
+                  >
+                    <div className="text-white/50 text-[10px] mb-1 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>КРУТЯЩИЙ МОМЕНТ</div>
+                    <div className="flex items-center gap-1 mb-1" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+                      <span className="text-white text-base">{selectedMod.torqueBefore}</span>
+                      <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
+                      <span className="text-lg" style={{ color: typeColor }}>{stage.torqueAfter}</span>
+                      <span className="text-white/60 text-xs ml-0.5" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</span>
+                    </div>
+                    <div className="text-xs font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{torqueGainPercent}%</div>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (navigator.share) {
+                        navigator.share({
+                          title: `Чип-тюнинг ${selectedMod.name} ${stage.stage}`,
+                          text: `${selectedBody?.series} • ${selectedMod.name} ${stage.stage}\n💪 Мощность: ${selectedMod.powerBefore} → ${stage.powerAfter} Л.С. (+${powerGainPercent}%)\n⚡ Момент: ${selectedMod.torqueBefore} → ${stage.torqueAfter} НМ (+${torqueGainPercent}%)\n💰 Цена: ${totalPrice.toLocaleString()} ₽`,
+                          url: window.location.href
+                        });
+                      }
+                    }}
+                    className="flex-1 py-2 rounded-lg text-white flex items-center justify-center gap-2 text-xs"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+                      border: `1px solid ${typeColor}40`
+                    }}
+                  >
+                    <Icon name="Share2" className="w-3 h-3" />
+                    <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>ПОДЕЛИТЬСЯ</span>
+                  </button>
+
+                  <a
+                    href="https://t.me/bmw_tuning_spb"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex-1 py-2 rounded-lg text-white flex items-center justify-center gap-2 text-xs"
+                    style={{
+                      background: `linear-gradient(135deg, ${typeColor}, ${typeColor}CC)`,
+                      border: `1px solid ${typeColor}`
+                    }}
+                  >
+                    <Icon name="MessageCircle" className="w-3 h-3" />
+                    <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>ЗАКАЗАТЬ</span>
+                  </a>
                 </div>
               </button>
             );
           })}
         </div>
       )}
-
-      <Dialog open={!!selectedMod} onOpenChange={(open) => !open && setSelectedMod(null)}>
-        <DialogContent 
-          className="border-0 max-w-[95vw] w-full"
-          style={{
-            background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 15, 0.98))',
-            backdropFilter: 'blur(40px)'
-          }}
-        >
-          {selectedMod && (() => {
-            const totalPrice = getPriceForCity(selectedMod.price);
-            const typeColor = selectedMod.engineType === 'petrol' ? '#FF0040' : '#00A8E8';
-            const powerGainPercent = Math.round(((selectedMod.powerAfter - selectedMod.powerBefore) / selectedMod.powerBefore) * 100);
-            const torqueGainPercent = Math.round(((selectedMod.torqueAfter - selectedMod.torqueBefore) / selectedMod.torqueBefore) * 100);
-            
-            return (
-              <>
-                <DialogHeader>
-                  <DialogTitle className="text-white flex flex-col items-center justify-center gap-2 text-center">
-                    <Icon 
-                      name={selectedMod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
-                      className="w-8 h-8" 
-                      style={{ color: typeColor }}
-                    />
-                    <div>
-                      <div className="flex items-center justify-center gap-2 text-xl uppercase" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                        <span>{selectedMod.name}</span>
-                        {selectedMod.isRestyling && (
-                          <span className="px-2 py-0.5 bg-[#FF0040]/20 text-[#FF0040] text-xs rounded" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                            LCI
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-xs text-white/50 font-normal mt-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                        {selectedMod.engineType === 'petrol' ? 'БЕНЗИНОВЫЙ ДВИГАТЕЛЬ' : 'ДИЗЕЛЬНЫЙ ДВИГАТЕЛЬ'}
-                      </div>
-                    </div>
-                  </DialogTitle>
-                </DialogHeader>
-
-                <div className="mt-4 space-y-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div 
-                      className="p-4 rounded-xl"
-                      style={{
-                        background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
-                        border: `1px solid ${typeColor}30`
-                      }}
-                    >
-                      <div className="text-white/50 text-[10px] mb-2 uppercase text-center" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>МОЩНОСТЬ</div>
-                      <div className="flex items-center justify-center gap-1 mb-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                        <span className="text-white text-lg">{selectedMod.powerBefore}</span>
-                        <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
-                        <span className="text-xl" style={{ color: typeColor }}>{selectedMod.powerAfter}</span>
-                        <span className="text-white/60 text-xs ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</span>
-                      </div>
-                      <div className="text-sm font-bold text-center" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{powerGainPercent}%</div>
-                    </div>
-
-                    <div 
-                      className="p-4 rounded-xl"
-                      style={{
-                        background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
-                        border: `1px solid ${typeColor}30`
-                      }}
-                    >
-                      <div className="text-white/50 text-[10px] mb-2 uppercase text-center" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>КРУТЯЩИЙ МОМЕНТ</div>
-                      <div className="flex items-center justify-center gap-1 mb-2" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                        <span className="text-white text-lg">{selectedMod.torqueBefore}</span>
-                        <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
-                        <span className="text-xl" style={{ color: typeColor }}>{selectedMod.torqueAfter}</span>
-                        <span className="text-white/60 text-xs ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</span>
-                      </div>
-                      <div className="text-sm font-bold text-center" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{torqueGainPercent}%</div>
-                    </div>
-                  </div>
-
-                  <div 
-                    className="p-5 rounded-xl text-center"
-                    style={{
-                      background: `linear-gradient(135deg, ${typeColor}20, ${typeColor}10)`,
-                      border: `1px solid ${typeColor}40`
-                    }}
-                  >
-                    <div className="text-white/60 text-xs mb-2 uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>СТОИМОСТЬ ПРОШИВКИ</div>
-                    <div className="text-3xl" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-                      {totalPrice.toLocaleString()} ₽
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      onClick={() => {
-                        if (navigator.share) {
-                          navigator.share({
-                            title: `Чип-тюнинг ${selectedMod.name}`,
-                            text: `${selectedBody?.series} • ${selectedMod.name}\n💪 Мощность: ${selectedMod.powerBefore} → ${selectedMod.powerAfter} Л.С. (+${powerGainPercent}%)\n⚡ Момент: ${selectedMod.torqueBefore} → ${selectedMod.torqueAfter} НМ (+${torqueGainPercent}%)\n💰 Цена: ${totalPrice.toLocaleString()} ₽`,
-                            url: window.location.href
-                          });
-                        }
-                      }}
-                      className="py-3 px-3 rounded-xl text-white flex items-center justify-center gap-2 transition-all duration-300 active:scale-95"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                        border: `1px solid ${typeColor}40`
-                      }}
-                    >
-                      <Icon name="Share2" className="w-4 h-4" />
-                      <span className="uppercase text-xs" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Поделиться</span>
-                    </button>
-
-                    <a
-                      href="https://t.me/bmw_tuning_spb"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="py-3 px-3 rounded-xl text-white flex items-center justify-center gap-2 transition-all duration-300 active:scale-95"
-                      style={{
-                        background: `linear-gradient(135deg, ${typeColor}30, ${typeColor}20)`,
-                        border: `1px solid ${typeColor}60`
-                      }}
-                    >
-                      <Icon name="MessageCircle" className="w-4 h-4" />
-                      <span className="uppercase text-xs" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>Заказать</span>
-                    </a>
-                  </div>
-                </div>
-              </>
-            );
-          })()}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 });

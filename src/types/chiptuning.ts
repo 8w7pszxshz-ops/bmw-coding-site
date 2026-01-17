@@ -27,17 +27,21 @@ export interface ChipTuningAPIResponse {
   } | null;
 }
 
+export interface StageOption {
+  stage: 'Stage 1' | 'Stage 2';
+  powerAfter: number;
+  torqueAfter: number;
+  price: number;
+}
+
 export interface EngineModification {
   name: string;
-  stage: string;
   engineCode: string;
   engineType: 'petrol' | 'diesel';
   powerBefore: number;
-  powerAfter: number;
   torqueBefore: number;
-  torqueAfter: number;
-  price: number;
   isRestyling: boolean;
+  stages: StageOption[];
 }
 
 export interface ModelData {
@@ -65,34 +69,38 @@ export function convertAPIDataToModelData(apiData: ChipTuningAPIResponse[]): Mod
 
     const model = modelsMap.get(seriesKey)!;
     const engineType = item.engine_code.toLowerCase().includes('d') ? 'diesel' : 'petrol';
+    const engineKey = item.engine_code;
 
-    // Добавляем модификацию напрямую без группировки по моторам
-    const stageType = item.stage_type.replace('St.1', 'Stage 1').replace('St.2', 'Stage 2');
-    model.modifications.push({
-      name: `${item.engine_code} ${stageType}`,
-      stage: stageType,
-      engineCode: item.engine_code,
-      engineType,
-      powerBefore: item.stock.power,
-      powerAfter: item.stage1.power,
-      torqueBefore: item.stock.torque,
-      torqueAfter: item.stage1.torque,
-      price: item.stage1.price,
-      isRestyling: item.is_restyling
-    });
-
-    if (item.stage2) {
-      model.modifications.push({
-        name: `${item.engine_code} Stage 2`,
-        stage: 'Stage 2',
+    let existingMod = model.modifications.find(m => m.engineCode === engineKey);
+    
+    if (!existingMod) {
+      existingMod = {
+        name: item.engine_code,
         engineCode: item.engine_code,
         engineType,
         powerBefore: item.stock.power,
-        powerAfter: item.stage2.power,
         torqueBefore: item.stock.torque,
+        isRestyling: item.is_restyling,
+        stages: []
+      };
+      model.modifications.push(existingMod);
+    }
+
+    if (item.stage_type.includes('St.1') || item.stage_type.includes('Stage 1')) {
+      existingMod.stages.push({
+        stage: 'Stage 1',
+        powerAfter: item.stage1.power,
+        torqueAfter: item.stage1.torque,
+        price: item.stage1.price
+      });
+    }
+
+    if (item.stage2) {
+      existingMod.stages.push({
+        stage: 'Stage 2',
+        powerAfter: item.stage2.power,
         torqueAfter: item.stage2.torque,
-        price: item.stage2.price,
-        isRestyling: item.is_restyling
+        price: item.stage2.price
       });
     }
   });
@@ -101,5 +109,5 @@ export function convertAPIDataToModelData(apiData: ChipTuningAPIResponse[]): Mod
 }
 
 export function getTypeColor(type: string) {
-  return type === 'petrol' ? '#FF6B35' : '#00D4FF';
+  return '#FF0040';
 }
