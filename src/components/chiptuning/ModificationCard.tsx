@@ -56,8 +56,8 @@ export default function ModificationCard({ modification, totalPrice, bodyName }:
             <span className="text-white text-base">{modification.powerBefore}</span>
             <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
             <span className="text-lg" style={{ color: typeColor }}>{modification.powerAfter}</span>
+            <span className="text-white/60 text-xs ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</span>
           </div>
-          <div className="text-white/60 text-xs mb-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>Л.С.</div>
           <div className="text-xs font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{powerGainPercent}%</div>
         </div>
 
@@ -73,8 +73,8 @@ export default function ModificationCard({ modification, totalPrice, bodyName }:
             <span className="text-white text-base">{modification.torqueBefore}</span>
             <Icon name="ArrowRight" className="w-3 h-3 text-white/40" />
             <span className="text-lg" style={{ color: typeColor }}>{modification.torqueAfter}</span>
+            <span className="text-white/60 text-xs ml-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</span>
           </div>
-          <div className="text-white/60 text-xs mb-1" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НМ</div>
           <div className="text-xs font-bold" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>+{torqueGainPercent}%</div>
         </div>
       </div>
