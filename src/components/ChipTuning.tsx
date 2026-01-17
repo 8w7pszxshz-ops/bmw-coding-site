@@ -24,7 +24,7 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
   });
 
   return (
-    <div className="mb-12 px-4">
+    <div className="mb-12 px-4 overflow-y-auto">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
@@ -42,8 +42,8 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
 
       {!selectedGroup ? (
         <>
-          <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory">
-            <div className="flex gap-4 px-4 pb-2">
+          <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory touch-pan-x">
+            <div className="flex gap-4 px-4 pb-2" style={{ WebkitOverflowScrolling: 'touch' }}>
               {filteredGroups.map((group, idx) => (
                 <div key={group.name} className="snap-center">
                   <EngineGroupCard

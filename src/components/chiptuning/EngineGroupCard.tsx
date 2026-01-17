@@ -14,8 +14,16 @@ function EngineGroupCardMobile({ group, index, onSelect }: EngineGroupCardProps)
 
   return (
     <Card
-      onClick={onSelect}
-      className="group relative overflow-hidden border-0 transition-all duration-300 cursor-pointer flex-shrink-0"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onSelect();
+      }}
+      onTouchEnd={(e) => {
+        e.preventDefault();
+        onSelect();
+      }}
+      className="group relative overflow-hidden border-0 transition-all duration-300 cursor-pointer flex-shrink-0 select-none"
       style={{
         background: `
           linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
@@ -102,8 +110,12 @@ function EngineGroupCardDesktop({ group, index, onSelect }: EngineGroupCardProps
 
   return (
     <Card
-      onClick={onSelect}
-      className="group relative overflow-hidden border-0 transition-all duration-500 hover:scale-[1.02] cursor-pointer"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onSelect();
+      }}
+      className="group relative overflow-hidden border-0 transition-all duration-500 hover:scale-[1.02] cursor-pointer select-none"
       style={{
         background: `
           linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
