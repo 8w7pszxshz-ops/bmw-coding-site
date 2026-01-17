@@ -39,7 +39,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [showLights, setShowLights] = useState(false);
-  const [audio] = useState(() => new Audio('/police-lights.mp3'));
+  const [audio] = useState(() => new Audio('/reborn_sound.mp3'));
 
   useEffect(() => {
     if (isOpen) {
