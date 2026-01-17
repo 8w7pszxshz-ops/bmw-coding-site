@@ -93,41 +93,6 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
     >
       {/* Backdrop blur */}
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md z-0" />
-      
-      {/* Police lights effect - 7 seconds - BRIGHT */}
-      {showLights && (
-        <>
-          {/* Bright flash layer */}
-          <div 
-            className="fixed inset-0 pointer-events-none z-10"
-            style={{
-              background: 'linear-gradient(90deg, #FF000D 0%, transparent 20%, transparent 80%, #FF000D 100%)',
-              backgroundSize: '300% 100%',
-              animation: 'policeLights 0.8s linear infinite',
-              opacity: 0.4
-            }}
-          />
-          {/* Glow layer */}
-          <div 
-            className="fixed inset-0 pointer-events-none z-10"
-            style={{
-              background: 'radial-gradient(ellipse at 20% 50%, #FF000D 0%, transparent 40%), radial-gradient(ellipse at 80% 50%, #FF000D 0%, transparent 40%)',
-              animation: 'policeLights 0.8s linear infinite',
-              filter: 'blur(40px)',
-              opacity: 0.6
-            }}
-          />
-          {/* Center pulse */}
-          <div 
-            className="fixed inset-0 pointer-events-none z-10"
-            style={{
-              background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.8) 0%, transparent 30%)',
-              animation: 'policeLights 0.8s linear infinite',
-              filter: 'blur(60px)'
-            }}
-          />
-        </>
-      )}
 
       {/* Modal content */}
       <div 
@@ -170,7 +135,44 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
           </div>
 
           {!selectedSeries ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="relative">
+              {/* Police lights behind buttons - 7 seconds */}
+              {showLights && (
+                <>
+                  {/* Bright flash layer */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                      background: 'linear-gradient(90deg, #FF000D 0%, transparent 20%, transparent 80%, #FF000D 100%)',
+                      backgroundSize: '300% 100%',
+                      animation: 'policeLights 0.8s linear infinite',
+                      opacity: 0.5,
+                      borderRadius: '1rem'
+                    }}
+                  />
+                  {/* Glow layer */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                      background: 'radial-gradient(ellipse at 20% 50%, #FF000D 0%, transparent 40%), radial-gradient(ellipse at 80% 50%, #FF000D 0%, transparent 40%)',
+                      animation: 'policeLights 0.8s linear infinite',
+                      filter: 'blur(40px)',
+                      opacity: 0.7
+                    }}
+                  />
+                  {/* Center pulse */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                      background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.9) 0%, transparent 30%)',
+                      animation: 'policeLights 0.8s linear infinite',
+                      filter: 'blur(60px)'
+                    }}
+                  />
+                </>
+              )}
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
               {seriesList.map((series, index) => (
                 <button
                   key={series}
@@ -238,6 +240,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                   </div>
                 </button>
               ))}
+              </div>
             </div>
           ) : (
             <div className="space-y-6">
