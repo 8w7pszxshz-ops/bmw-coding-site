@@ -74,9 +74,9 @@ export function convertAPIDataToModelData(apiData: ChipTuningAPIResponse[]): Mod
     let existingMod = model.modifications.find(m => m.engineCode === engineKey);
     
     if (!existingMod) {
-      const formattedName = item.engine_code
-        .replace(/(\d+)([a-z])/gi, '$1 $2')
-        .toUpperCase();
+      const formattedName = engineType === 'diesel'
+        ? item.engine_code.replace(/(\d+)d/gi, '$1 D')
+        : item.engine_code.toUpperCase();
       
       existingMod = {
         name: formattedName,
