@@ -92,35 +92,37 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
       onClick={onClose}
     >
       {/* Backdrop blur */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md z-0" />
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-md z-0" />
       
-      {/* Police lights effect - 7 seconds */}
+      {/* Police lights effect - 7 seconds - BRIGHT */}
       {showLights && (
         <>
+          {/* Bright flash layer */}
           <div 
             className="fixed inset-0 pointer-events-none z-10"
             style={{
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.8) 25%, transparent 50%, rgba(255, 0, 13, 0.8) 75%, transparent 100%)',
-              backgroundSize: '200% 100%',
-              animation: 'policeLights 1.5s linear infinite',
-              filter: 'blur(100px)'
+              background: 'linear-gradient(90deg, #FF000D 0%, transparent 20%, transparent 80%, #FF000D 100%)',
+              backgroundSize: '300% 100%',
+              animation: 'policeLights 0.8s linear infinite',
+              opacity: 0.4
             }}
           />
+          {/* Glow layer */}
           <div 
             className="fixed inset-0 pointer-events-none z-10"
             style={{
-              background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.7) 0%, transparent 50%)',
-              backgroundSize: '200% 100%',
-              animation: 'policeLights 1.5s linear infinite',
-              filter: 'blur(80px)'
+              background: 'radial-gradient(ellipse at 20% 50%, #FF000D 0%, transparent 40%), radial-gradient(ellipse at 80% 50%, #FF000D 0%, transparent 40%)',
+              animation: 'policeLights 0.8s linear infinite',
+              filter: 'blur(40px)',
+              opacity: 0.6
             }}
           />
+          {/* Center pulse */}
           <div 
             className="fixed inset-0 pointer-events-none z-10"
             style={{
-              background: 'linear-gradient(90deg, rgba(255, 0, 13, 0.3) 0%, rgba(255, 0, 13, 0.6) 50%, rgba(255, 0, 13, 0.3) 100%)',
-              backgroundSize: '200% 100%',
-              animation: 'policeLights 1s linear infinite',
+              background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.8) 0%, transparent 30%)',
+              animation: 'policeLights 0.8s linear infinite',
               filter: 'blur(60px)'
             }}
           />
@@ -169,51 +171,67 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
           {!selectedSeries ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {seriesList.map((series) => (
+              {seriesList.map((series, index) => (
                 <button
                   key={series}
                   onClick={() => setSelectedSeries(series)}
-                  className="group relative p-6 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-2xl"
+                  className="group relative rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(10, 10, 15, 0.95))',
-                    border: '1px solid rgba(255, 0, 13, 0.4)',
-                    backdropFilter: 'blur(20px)',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+                    background: 'rgba(0, 0, 0, 0.6)',
+                    backdropFilter: 'blur(40px)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3)',
+                    minHeight: '173px',
+                    WebkitMaskImage: 'radial-gradient(circle, black 60%, rgba(0, 0, 0, 0.9) 100%)'
                   }}
                 >
-                  {/* Pulsating dot */}
-                  <div className="absolute top-3 right-3 z-20">
-                    <div 
-                      className="w-2 h-2 rounded-full"
-                      style={{
-                        background: '#FF000D',
-                        boxShadow: '0 0 10px rgba(255, 0, 13, 0.8), 0 0 20px rgba(255, 0, 13, 0.4)',
-                        animation: 'pulse 2s ease-in-out infinite'
-                      }}
-                    />
-                  </div>
-                  
+                  {/* Radial gradient glow */}
                   <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"
+                    className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle at center, rgba(255, 0, 13, 0.3), transparent 70%)'
+                      background: 'radial-gradient(circle at center, #FF000D40, transparent 70%)',
+                      boxShadow: 'inset 0 0 60px #FF000D30'
                     }}
                   />
                   
-                  {/* Depth shadow */}
+                  {/* Top border glow */}
                   <div 
-                    className="absolute inset-0 opacity-50 rounded-xl"
+                    className="absolute top-0 left-0 right-0 rounded-t-2xl pointer-events-none"
                     style={{
-                      background: 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%)',
-                      pointerEvents: 'none'
+                      height: '2px',
+                      background: 'linear-gradient(90deg, transparent 0%, #FF000D20 20%, #FF000D80 50%, #FF000D20 80%, transparent 100%)',
+                      boxShadow: '0 0 30px #FF000D60, 0 2px 20px #FF000D40'
                     }}
                   />
                   
-                  <div className="relative z-10 flex flex-col items-center justify-center min-h-[100px]">
-                    <Icon name="Settings" className="w-10 h-10 mb-3" style={{ color: '#FF000D', filter: 'drop-shadow(0 2px 8px rgba(255, 0, 13, 0.6))' }} />
+                  {/* Bottom border glow */}
+                  <div 
+                    className="absolute bottom-0 left-0 right-0 rounded-b-2xl pointer-events-none"
+                    style={{
+                      height: '1px',
+                      background: 'linear-gradient(90deg, transparent 0%, #FF000D15 30%, #FF000D40 50%, #FF000D15 70%, transparent 100%)',
+                      boxShadow: '0 0 15px #FF000D30'
+                    }}
+                  />
+                  
+                  {/* Animated pattern */}
+                  <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none rounded-2xl" style={{ mixBlendMode: 'screen' }}>
+                    <defs>
+                      <pattern id={`pattern-series-${index}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <circle cx="15" cy="15" r="1" fill="#FF000D" opacity="0.6">
+                          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                        </circle>
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill={`url(#pattern-series-${index})`} />
+                  </svg>
+                  
+                  {/* Content */}
+                  <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
+                    <Icon name="Settings" className="w-10 h-10 mb-3" style={{ color: '#FF000D' }} />
                     <div 
-                      className="text-white text-lg tracking-wider"
-                      style={{ fontFamily: '"Reborn Technologies", sans-serif', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)' }}
+                      className="text-white text-sm tracking-wider text-center"
+                      style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                     >
                       {series}
                     </div>
