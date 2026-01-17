@@ -39,7 +39,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [showLights, setShowLights] = useState(false);
-  const [audio] = useState(() => new Audio('/reborn_sound.mp3'));
+  const [audio] = useState(() => new Audio('/reborn-sound.mp3'));
 
   useEffect(() => {
     if (isOpen) {
@@ -92,24 +92,24 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
       onClick={onClose}
     >
       {/* Backdrop blur */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md z-0" />
       
       {/* Police lights effect - 7 seconds */}
       {showLights && (
         <>
           <div 
-            className="fixed inset-0 pointer-events-none"
+            className="fixed inset-0 pointer-events-none z-10"
             style={{
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.4) 25%, transparent 50%, rgba(255, 0, 13, 0.4) 75%, transparent 100%)',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.5) 25%, transparent 50%, rgba(255, 0, 13, 0.5) 75%, transparent 100%)',
               backgroundSize: '200% 100%',
               animation: 'policeLights 1.5s linear infinite',
               filter: 'blur(100px)'
             }}
           />
           <div 
-            className="fixed inset-0 pointer-events-none"
+            className="fixed inset-0 pointer-events-none z-10"
             style={{
-              background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.3) 0%, transparent 50%)',
+              background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%)',
               backgroundSize: '200% 100%',
               animation: 'policeLights 1.5s linear infinite',
               filter: 'blur(80px)'
@@ -120,7 +120,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
       {/* Modal content */}
       <div 
-        className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl"
+        className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl z-20"
         style={{
           background: 'rgba(10, 10, 15, 0.95)',
           border: '1px solid rgba(255, 0, 13, 0.3)',
