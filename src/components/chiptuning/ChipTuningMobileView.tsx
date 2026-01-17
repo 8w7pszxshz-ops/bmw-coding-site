@@ -26,37 +26,39 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedMod, setSelectedMod] = useState<EngineModification | null>(null);
   const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const lightsTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const hasShownRef = useRef(false);
 
   useEffect(() => {
-    if (step !== 'series') return;
-    
-    const hasShown = sessionStorage.getItem('chiptuning-lights-shown');
-    console.log('[CHIPTUNING DEBUG] Открытие диалога | hasShown:', hasShown);
-    
-    if (!hasShown) {
-      console.log('[CHIPTUNING DEBUG] ✅ Запускаю мигалки на 6.5 сек');
-      sessionStorage.setItem('chiptuning-lights-shown', 'true');
+    if (step === 'series' && !hasShownRef.current) {
+      console.log('[CHIPTUNING] Показываю мигалки и музыку');
+      hasShownRef.current = true;
       setShowPoliceLights(true);
       
-      const audio = new Audio('/reborn-sound.mp3');
-      audio.volume = 0.25;
-      audio.play().catch(() => {});
+      audioRef.current = new Audio('/reborn-sound.mp3');
+      audioRef.current.volume = 0.25;
+      audioRef.current.play().catch((e) => console.log('[CHIPTUNING] Audio error:', e));
 
-      const timer = setTimeout(() => {
-        console.log('[CHIPTUNING DEBUG] ⏱️ 6.5 сек прошло - выключаю мигалки');
+      lightsTimerRef.current = setTimeout(() => {
+        console.log('[CHIPTUNING] Останавливаю мигалки и музыку через 6.5 сек');
         setShowPoliceLights(false);
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }
       }, 6500);
-
-      return () => {
-        console.log('[CHIPTUNING DEBUG] 🧹 Cleanup');
-        clearTimeout(timer);
-        audio.pause();
-        audio.src = '';
-      };
-    } else {
-      console.log('[CHIPTUNING DEBUG] ⏭️ Мигалки уже были показаны в этой сессии');
-      setShowPoliceLights(false);
     }
+
+    return () => {
+      if (lightsTimerRef.current) {
+        clearTimeout(lightsTimerRef.current);
+      }
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
   }, [step]);
 
   const models = apiData;
