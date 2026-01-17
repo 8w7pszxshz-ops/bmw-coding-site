@@ -564,7 +564,7 @@
   .chiptuning-dialog.with-police-lights {
     animation:
       chiptuningDialogFadeIn 2s ease-out forwards,
-      chiptuningPoliceLights 1.5s steps(1) 10 forwards !important;
+      chiptuningPoliceLights 1.5s steps(1) 10 !important;
   }
 
   .chiptuning-dialog button {
