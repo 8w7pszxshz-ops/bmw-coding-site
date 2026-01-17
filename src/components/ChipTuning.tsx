@@ -75,12 +75,11 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-6 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-center justify-center gap-3 overflow-hidden"
+                className="relative p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-start gap-3 text-left overflow-hidden"
                 style={{
                   background: 'rgba(0, 0, 0, 0.6)',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
-                  backdropFilter: 'blur(10px)',
-                  minHeight: '110px'
+                  backdropFilter: 'blur(10px)'
                 }}
               >
                 <div 
@@ -89,8 +88,19 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                     background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, transparent 50%, rgba(255, 0, 64, 0.1) 100%)'
                   }}
                 />
-                <Icon name="GitBranch" className="w-8 h-8 text-[#FF0040] relative z-10" />
-                <div className="text-white text-sm font-bold uppercase tracking-wider relative z-10">{series}</div>
+                <div 
+                  className="relative z-10 w-14 h-14 rounded-xl flex items-center justify-center"
+                  style={{
+                    background: 'rgba(30, 30, 40, 0.9)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                  }}
+                >
+                  <Icon name="GitBranch" className="w-7 h-7 text-[#FF0040]" />
+                </div>
+                <div className="relative z-10">
+                  <div className="text-white text-base font-bold mb-1">{series}</div>
+                  <div className="text-white/50 text-xs">Выбрать серию</div>
+                </div>
               </button>
             ))}
           </div>
@@ -242,12 +252,11 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-8 rounded-lg transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center gap-4 overflow-hidden"
+                className="relative p-5 rounded-xl transition-all duration-300 hover:scale-105 flex flex-col items-start gap-3 text-left overflow-hidden"
                 style={{
                   background: 'rgba(0, 0, 0, 0.6)',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
-                  backdropFilter: 'blur(10px)',
-                  minHeight: '140px'
+                  backdropFilter: 'blur(10px)'
                 }}
               >
                 <div 
@@ -256,8 +265,19 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                     background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, transparent 50%, rgba(255, 0, 64, 0.1) 100%)'
                   }}
                 />
-                <Icon name="GitBranch" className="w-10 h-10 text-[#FF0040] relative z-10" />
-                <div className="text-white text-base font-bold uppercase tracking-wider relative z-10">{series}</div>
+                <div 
+                  className="relative z-10 w-16 h-16 rounded-xl flex items-center justify-center"
+                  style={{
+                    background: 'rgba(30, 30, 40, 0.9)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                  }}
+                >
+                  <Icon name="GitBranch" className="w-8 h-8 text-[#FF0040]" />
+                </div>
+                <div className="relative z-10">
+                  <div className="text-white text-lg font-bold mb-1">{series}</div>
+                  <div className="text-white/50 text-sm">Выбрать серию</div>
+                </div>
               </button>
             ))}
           </div>
