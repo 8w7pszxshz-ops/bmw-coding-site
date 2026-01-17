@@ -28,10 +28,12 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [showPoliceLights, setShowPoliceLights] = useState(false);
 
   useEffect(() => {
-    const hasShown = sessionStorage.getItem('chiptuning-lights-shown');
-    console.log('[CHIPTUNING DEBUG] step:', step, '| hasShown:', hasShown, '| showPoliceLights:', showPoliceLights);
+    if (step !== 'series') return;
     
-    if (step === 'series' && !hasShown) {
+    const hasShown = sessionStorage.getItem('chiptuning-lights-shown');
+    console.log('[CHIPTUNING DEBUG] Открытие диалога | hasShown:', hasShown);
+    
+    if (!hasShown) {
       console.log('[CHIPTUNING DEBUG] ✅ Запускаю мигалки на 6.5 сек');
       sessionStorage.setItem('chiptuning-lights-shown', 'true');
       setShowPoliceLights(true);
@@ -51,8 +53,9 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
         audio.pause();
         audio.src = '';
       };
-    } else if (step === 'series' && hasShown) {
-      console.log('[CHIPTUNING DEBUG] ⏭️ Мигалки уже были показаны, пропускаю');
+    } else {
+      console.log('[CHIPTUNING DEBUG] ⏭️ Мигалки уже были показаны в этой сессии');
+      setShowPoliceLights(false);
     }
   }, [step]);
 
