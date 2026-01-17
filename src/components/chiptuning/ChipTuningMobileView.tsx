@@ -40,12 +40,10 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   }, []);
 
   useEffect(() => {
-    if (step === 'series') {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-    }
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
     
     return () => {
       const scrollPos = parseInt(document.body.style.top || '0') * -1;
@@ -56,7 +54,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
         window.scrollTo(0, scrollPos);
       }
     };
-  }, [step]);
+  }, []);
 
   const models = apiData;
 
