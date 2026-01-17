@@ -47,23 +47,8 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
     };
   }, []);
 
-  // Блокируем скролл только на этапе выбора серии
-  useEffect(() => {
-    if (step === 'series') {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      
-      return () => {
-        const scrollPos = parseInt(document.body.style.top || '0') * -1;
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, scrollPos);
-      };
-    }
-  }, [step]);
+  // Dialog компонент сам управляет блокировкой скролла на десктопе
+  // Убрана ручная блокировка для избежания конфликтов
 
   const models = apiData;
 
@@ -144,8 +129,10 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
   return (
     <div className="mb-16">
       <Dialog open={step === 'series'} onOpenChange={(open) => {
-        if (!open && onClose) {
-          onClose();
+        if (!open) {
+          if (onClose) {
+            onClose();
+          }
         }
       }}>
         <DialogContent 
