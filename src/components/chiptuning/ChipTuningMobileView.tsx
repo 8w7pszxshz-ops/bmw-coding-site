@@ -26,11 +26,12 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedMod, setSelectedMod] = useState<EngineModification | null>(null);
   const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
-  const isFirstOpen = useRef(true);
 
   useEffect(() => {
-    if (step === 'series' && isFirstOpen.current) {
-      isFirstOpen.current = false;
+    const hasShown = sessionStorage.getItem('chiptuning-lights-shown');
+    
+    if (step === 'series' && !hasShown) {
+      sessionStorage.setItem('chiptuning-lights-shown', 'true');
       setShowPoliceLights(true);
       
       const audio = new Audio('/reborn-sound.mp3');
