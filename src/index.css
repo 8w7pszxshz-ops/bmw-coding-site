@@ -633,7 +633,7 @@
   }
 
   .chiptuning-dialog.with-police-lights {
-    animation: chiptuningPoliceLights 1.3s steps(1) 5 !important;
+    animation: chiptuningPoliceLights 1.5s steps(1) infinite !important;
   }
 
   .chiptuning-dialog button {

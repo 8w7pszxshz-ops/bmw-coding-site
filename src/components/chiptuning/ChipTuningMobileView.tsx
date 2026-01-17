@@ -27,35 +27,28 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const lightsTimerRef = useRef<NodeJS.Timeout | null>(null);
   const hasShownRef = useRef(false);
 
   useEffect(() => {
     if (step === 'series' && !hasShownRef.current) {
-      console.log('[CHIPTUNING] Показываю мигалки и музыку');
       hasShownRef.current = true;
       setShowPoliceLights(true);
       
-      audioRef.current = new Audio('/reborn-sound.mp3');
-      audioRef.current.volume = 0.25;
-      audioRef.current.play().catch((e) => console.log('[CHIPTUNING] Audio error:', e));
-
-      lightsTimerRef.current = setTimeout(() => {
-        console.log('[CHIPTUNING] Останавливаю мигалки и музыку через 6.5 сек');
+      const audio = new Audio('/reborn-sound.mp3');
+      audio.volume = 0.25;
+      audioRef.current = audio;
+      
+      audio.addEventListener('ended', () => {
         setShowPoliceLights(false);
-        if (audioRef.current) {
-          audioRef.current.pause();
-          audioRef.current.currentTime = 0;
-        }
-      }, 6500);
+      });
+      
+      audio.play().catch(() => {});
     }
 
     return () => {
-      if (lightsTimerRef.current) {
-        clearTimeout(lightsTimerRef.current);
-      }
       if (audioRef.current) {
         audioRef.current.pause();
+        audioRef.current.currentTime = 0;
         audioRef.current = null;
       }
     };
