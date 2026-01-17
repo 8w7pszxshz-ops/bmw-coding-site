@@ -33,32 +33,14 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     audio.volume = 0.25;
     audio.play().catch(() => {});
 
-    const scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
-
     const lightsTimer = setTimeout(() => {
       setShowPoliceLights(false);
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      if (scrollY > 0) {
-        window.scrollTo(0, scrollY);
-      }
     }, 15000);
 
     return () => {
       clearTimeout(lightsTimer);
       audio.pause();
       audio.src = '';
-      const currentScrollY = parseInt(document.body.style.top || '0') * -1;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      if (currentScrollY > 0) {
-        window.scrollTo(0, currentScrollY);
-      }
     };
   }, []);
 
