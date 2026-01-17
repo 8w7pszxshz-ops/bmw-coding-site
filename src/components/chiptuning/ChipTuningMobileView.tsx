@@ -1,4 +1,4 @@
-import { useState, memo, useEffect } from 'react';
+import { useState, memo, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { useChiptuningData } from '@/hooks/useChiptuningData';
@@ -25,31 +25,32 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<EngineModification | null>(null);
   const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
-  const [showPoliceLights, setShowPoliceLights] = useState(true);
+  const [showPoliceLights, setShowPoliceLights] = useState(false);
+  const hasShownLights = useRef(false);
 
   useEffect(() => {
-    console.log('[DEBUG] ChipTuning mounted, showPoliceLights:', true);
-    
-    const audio = new Audio('/reborn-sound.mp3');
-    audio.volume = 0.25;
-    audio.play().catch(() => {});
+    if (step === 'series' && !hasShownLights.current) {
+      console.log('[DEBUG] First time opening dialog, starting police lights');
+      hasShownLights.current = true;
+      setShowPoliceLights(true);
+      
+      const audio = new Audio('/reborn-sound.mp3');
+      audio.volume = 0.25;
+      audio.play().catch(() => {});
 
-    const timer = setTimeout(() => {
-      console.log('[DEBUG] 15 seconds passed, turning off lights');
-      setShowPoliceLights(false);
-    }, 15000);
+      const timer = setTimeout(() => {
+        console.log('[DEBUG] 6.5 seconds passed, turning off lights');
+        setShowPoliceLights(false);
+      }, 6500);
 
-    return () => {
-      console.log('[DEBUG] ChipTuning unmounting');
-      clearTimeout(timer);
-      audio.pause();
-      audio.src = '';
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log('[DEBUG] showPoliceLights changed:', showPoliceLights);
-  }, [showPoliceLights]);
+      return () => {
+        console.log('[DEBUG] Cleanup timer and audio');
+        clearTimeout(timer);
+        audio.pause();
+        audio.src = '';
+      };
+    }
+  }, [step]);
 
   const models = apiData;
 
