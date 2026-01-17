@@ -75,13 +75,38 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95"
+                className="relative p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
-                  border: '1px solid rgba(255, 0, 64, 0.3)'
+                  background: '#000000',
+                  border: '1px solid rgba(255, 0, 64, 0.3)',
+                  boxShadow: '0 4px 16px rgba(255, 0, 64, 0.2)'
                 }}
               >
-                <div className="text-white text-sm font-medium">{series}</div>
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.25) 0%, rgba(255, 0, 64, 0.05) 20%, transparent 40%, rgba(255, 0, 64, 0.03) 60%, rgba(255, 0, 64, 0.15) 100%)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                />
+                <div 
+                  className="absolute top-0 left-0 w-full h-1/3"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255, 0, 64, 0.4) 0%, transparent 100%)',
+                    borderRadius: '0.75rem 0.75rem 0 0'
+                  }}
+                />
+                <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+                  <defs>
+                    <pattern id={`pattern-series-${series.replace(' ', '-')}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <circle cx="10" cy="10" r="1" fill="#FF0040" opacity="0.6">
+                        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                      </circle>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#pattern-series-${series.replace(' ', '-')})`} />
+                </svg>
+                <div className="text-white text-sm font-medium relative z-10" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>{series}</div>
               </button>
             ))}
           </div>
@@ -115,28 +140,57 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                 <button
                   key={stage.id}
                   onClick={() => setSelectedStage(stage.id)}
-                  className="w-full p-5 rounded-xl text-left transition-all duration-300"
+                  className="relative w-full p-5 rounded-xl text-left transition-all duration-300 overflow-hidden"
                   style={{
-                    background: isSelected 
-                      ? 'linear-gradient(135deg, rgba(255, 0, 64, 0.25), rgba(255, 0, 64, 0.15))'
-                      : 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
+                    background: '#000000',
                     border: isSelected 
                       ? '2px solid rgba(255, 0, 64, 0.5)'
-                      : '1px solid rgba(255, 0, 64, 0.3)'
+                      : '1px solid rgba(255, 0, 64, 0.3)',
+                    boxShadow: isSelected 
+                      ? '0 4px 20px rgba(255, 0, 64, 0.3)'
+                      : '0 4px 16px rgba(255, 0, 64, 0.2)'
                   }}
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="text-white font-medium text-lg mb-1">{stage.name}</h3>
-                      <p className="text-white/60 text-xs">{stage.description}</p>
+                  <div 
+                    className="absolute inset-0"
+                    style={{
+                      background: isSelected
+                        ? 'linear-gradient(135deg, rgba(255, 0, 64, 0.3) 0%, rgba(255, 0, 64, 0.08) 20%, transparent 40%, rgba(255, 0, 64, 0.05) 60%, rgba(255, 0, 64, 0.2) 100%)'
+                        : 'linear-gradient(135deg, rgba(255, 0, 64, 0.25) 0%, rgba(255, 0, 64, 0.05) 20%, transparent 40%, rgba(255, 0, 64, 0.03) 60%, rgba(255, 0, 64, 0.15) 100%)',
+                      backdropFilter: 'blur(10px)'
+                    }}
+                  />
+                  <div 
+                    className="absolute top-0 left-0 w-full h-1/3"
+                    style={{
+                      background: 'linear-gradient(180deg, rgba(255, 0, 64, 0.4) 0%, transparent 100%)',
+                      borderRadius: '0.75rem 0.75rem 0 0'
+                    }}
+                  />
+                  <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+                    <defs>
+                      <pattern id={`pattern-stage-mobile-${stage.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <circle cx="10" cy="10" r="1" fill="#FF0040" opacity="0.6">
+                          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                        </circle>
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill={`url(#pattern-stage-mobile-${stage.id})`} />
+                  </svg>
+                  <div className="relative z-10">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="text-white font-medium text-lg mb-1" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>{stage.name}</h3>
+                        <p className="text-white/60 text-xs">{stage.description}</p>
+                      </div>
+                      {isSelected && (
+                        <Icon name="Check" className="w-5 h-5 text-[#FF0040]" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }} />
+                      )}
                     </div>
-                    {isSelected && (
-                      <Icon name="Check" className="w-5 h-5 text-[#FF0040]" />
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70 text-sm">{stage.gains}</span>
-                    <span className="text-white font-medium text-lg">{price.toLocaleString('ru-RU')} ₽</span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70 text-sm">{stage.gains}</span>
+                      <span className="text-white font-medium text-lg" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>{price.toLocaleString('ru-RU')} ₽</span>
+                    </div>
                   </div>
                 </button>
               );
@@ -204,13 +258,38 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="p-6 rounded-xl transition-all duration-300 hover:scale-105"
+                className="relative p-6 rounded-xl transition-all duration-300 hover:scale-105 overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
-                  border: '1px solid rgba(255, 0, 64, 0.3)'
+                  background: '#000000',
+                  border: '1px solid rgba(255, 0, 64, 0.3)',
+                  boxShadow: '0 4px 16px rgba(255, 0, 64, 0.2)'
                 }}
               >
-                <div className="text-white text-base font-medium">{series}</div>
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.25) 0%, rgba(255, 0, 64, 0.05) 20%, transparent 40%, rgba(255, 0, 64, 0.03) 60%, rgba(255, 0, 64, 0.15) 100%)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                />
+                <div 
+                  className="absolute top-0 left-0 w-full h-1/3"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255, 0, 64, 0.4) 0%, transparent 100%)',
+                    borderRadius: '0.75rem 0.75rem 0 0'
+                  }}
+                />
+                <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+                  <defs>
+                    <pattern id={`pattern-series-desktop-${series.replace(' ', '-')}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <circle cx="10" cy="10" r="1" fill="#FF0040" opacity="0.6">
+                        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                      </circle>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#pattern-series-desktop-${series.replace(' ', '-')})`} />
+                </svg>
+                <div className="text-white text-base font-medium relative z-10" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>{series}</div>
               </button>
             ))}
           </div>
@@ -245,28 +324,57 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                   <button
                     key={stage.id}
                     onClick={() => setSelectedStage(stage.id)}
-                    className="w-full p-6 rounded-xl text-left transition-all duration-300 hover:scale-[1.02]"
+                    className="relative w-full p-6 rounded-xl text-left transition-all duration-300 hover:scale-[1.02] overflow-hidden"
                     style={{
-                      background: isSelected 
-                        ? 'linear-gradient(135deg, rgba(255, 0, 64, 0.25), rgba(255, 0, 64, 0.15))'
-                        : 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
+                      background: '#000000',
                       border: isSelected 
                         ? '2px solid rgba(255, 0, 64, 0.5)'
-                        : '1px solid rgba(255, 0, 64, 0.3)'
+                        : '1px solid rgba(255, 0, 64, 0.3)',
+                      boxShadow: isSelected 
+                        ? '0 4px 20px rgba(255, 0, 64, 0.3)'
+                        : '0 4px 16px rgba(255, 0, 64, 0.2)'
                     }}
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="text-white font-medium text-2xl mb-2">{stage.name}</h3>
-                        <p className="text-white/60 text-sm">{stage.description}</p>
+                    <div 
+                      className="absolute inset-0"
+                      style={{
+                        background: isSelected
+                          ? 'linear-gradient(135deg, rgba(255, 0, 64, 0.3) 0%, rgba(255, 0, 64, 0.08) 20%, transparent 40%, rgba(255, 0, 64, 0.05) 60%, rgba(255, 0, 64, 0.2) 100%)'
+                          : 'linear-gradient(135deg, rgba(255, 0, 64, 0.25) 0%, rgba(255, 0, 64, 0.05) 20%, transparent 40%, rgba(255, 0, 64, 0.03) 60%, rgba(255, 0, 64, 0.15) 100%)',
+                        backdropFilter: 'blur(10px)'
+                      }}
+                    />
+                    <div 
+                      className="absolute top-0 left-0 w-full h-1/3"
+                      style={{
+                        background: 'linear-gradient(180deg, rgba(255, 0, 64, 0.4) 0%, transparent 100%)',
+                        borderRadius: '0.75rem 0.75rem 0 0'
+                      }}
+                    />
+                    <svg className="absolute inset-0 w-full h-full opacity-40 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+                      <defs>
+                        <pattern id={`pattern-stage-desktop-${stage.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                          <circle cx="10" cy="10" r="1" fill="#FF0040" opacity="0.6">
+                            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                          </circle>
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill={`url(#pattern-stage-desktop-${stage.id})`} />
+                    </svg>
+                    <div className="relative z-10">
+                      <div className="flex items-start justify-between mb-4">
+                        <div>
+                          <h3 className="text-white font-medium text-2xl mb-2" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>{stage.name}</h3>
+                          <p className="text-white/60 text-sm">{stage.description}</p>
+                        </div>
+                        {isSelected && (
+                          <Icon name="Check" className="w-6 h-6 text-[#FF0040]" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }} />
+                        )}
                       </div>
-                      {isSelected && (
-                        <Icon name="Check" className="w-6 h-6 text-[#FF0040]" />
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-white/70">{stage.gains}</span>
-                      <span className="text-white font-medium text-2xl">{price.toLocaleString('ru-RU')} ₽</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/70">{stage.gains}</span>
+                        <span className="text-white font-medium text-2xl" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}>{price.toLocaleString('ru-RU')} ₽</span>
+                      </div>
                     </div>
                   </button>
                 );
