@@ -51,15 +51,17 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = '100%';
-      
-      return () => {
-        const scrollPos = parseInt(document.body.style.top || '0') * -1;
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, scrollPos);
-      };
     }
+    
+    return () => {
+      const scrollPos = parseInt(document.body.style.top || '0') * -1;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      if (scrollPos > 0) {
+        window.scrollTo(0, scrollPos);
+      }
+    };
   }, [step]);
 
   const models = apiData;
