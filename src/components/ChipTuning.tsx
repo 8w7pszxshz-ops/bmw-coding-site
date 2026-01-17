@@ -1,229 +1,351 @@
 import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
-import { EngineGroup, engineGroups, getTypeColor } from './chiptuning/chipTuningData';
-import ChipTuningFilters from './chiptuning/ChipTuningFilters';
-import EngineGroupCard from './chiptuning/EngineGroupCard';
-import EngineVariantCard from './chiptuning/EngineVariantCard';
-
 import { City } from '@/components/CitySelector';
+import { getTelegramLink } from '@/utils/cityConfig';
 
 interface ChipTuningProps {
   selectedCity: City;
 }
 
-const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTuningProps) {
-  const [selectedGroup, setSelectedGroup] = useState<EngineGroup | null>(null);
-  const [generationFilter, setGenerationFilter] = useState<'all' | 'F' | 'G'>('all');
-  const [typeFilter, setTypeFilter] = useState<'all' | 'petrol' | 'diesel'>('all');
+type Series = '1 Series' | '2 Series' | '3 Series' | '4 Series' | '5 Series' | '6 Series' | '7 Series' | 'X1' | 'X3' | 'X4' | 'X5' | 'X6' | 'M2' | 'M3' | 'M4' | 'M5';
 
-  const filteredGroups = engineGroups.filter(g => {
-    const typeMatch = typeFilter === 'all' || g.type === typeFilter;
-    const genMatch = generationFilter === 'all' || g.variants.some(v => v.generation === generationFilter);
-    return typeMatch && genMatch;
-  });
+const seriesList: Series[] = [
+  '1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series',
+  'X1', 'X3', 'X4', 'X5', 'X6',
+  'M2', 'M3', 'M4', 'M5'
+];
+
+const stages = [
+  { 
+    id: 'stage1',
+    name: 'Stage 1',
+    description: 'Базовая прошивка ЭБУ',
+    priceBase: 25000,
+    gains: '+20-30% мощности'
+  },
+  { 
+    id: 'stage2',
+    name: 'Stage 2',
+    description: 'Продвинутая прошивка + даунпайп',
+    priceBase: 45000,
+    gains: '+30-40% мощности'
+  }
+];
+
+const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTuningProps) {
+  const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
+  const [selectedStage, setSelectedStage] = useState<string | null>(null);
+
+  const handleReset = () => {
+    setSelectedSeries(null);
+    setSelectedStage(null);
+  };
+
+  const handleOrder = () => {
+    if (!selectedSeries || !selectedStage) return;
+    
+    const stage = stages.find(s => s.id === selectedStage);
+    if (!stage) return;
+
+    const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
+    
+    const message = `Чип-тюнинг BMW ${selectedSeries}\\n\\n${stage.name}\\n${stage.description}\\n${stage.gains}\\n\\nСтоимость: ${price.toLocaleString('ru-RU')} ₽`;
+    
+    const url = getTelegramLink(selectedCity, `чип-тюнинг BMW ${selectedSeries}`);
+    const separator = url.includes('?') ? '&' : '?';
+    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
+  };
 
   return (
-    <div className="mb-12 px-4 overflow-y-auto">
-      <div className="text-center mb-8">
+    <div className="mb-12 px-4">
+      <div className="text-center mb-6">
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Gauge" className="w-6 h-6 text-[#FF0040]" />
-          <h2 className="font-light text-white text-xl">Выберите серию и двигатель</h2>
+          <h2 className="font-light text-white text-xl">Чип-тюнинг</h2>
         </div>
-        <p className="text-white/60 text-xs">Цены включают полную диагностику перед работами</p>
+        <p className="text-white/60 text-xs">Подберите программу для вашего BMW</p>
       </div>
 
-      <ChipTuningFilters
-        generationFilter={generationFilter}
-        typeFilter={typeFilter}
-        onGenerationChange={setGenerationFilter}
-        onTypeChange={setTypeFilter}
-      />
-
-      {!selectedGroup ? (
-        <>
-          <div className="overflow-x-auto scrollbar-hide -mx-4 snap-x snap-mandatory touch-pan-x">
-            <div className="flex gap-4 px-4 pb-2" style={{ WebkitOverflowScrolling: 'touch' }}>
-              {filteredGroups.map((group, idx) => (
-                <div key={group.name} className="snap-center">
-                  <EngineGroupCard
-                    group={group}
-                    index={idx}
-                    onSelect={() => setSelectedGroup(group)}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="flex flex-col gap-3 mb-6">
-            <div 
-              className="px-4 py-2.5 rounded-lg flex items-center justify-between"
-              style={{
-                background: `linear-gradient(135deg, ${getTypeColor(selectedGroup.type)}, ${getTypeColor(selectedGroup.type)}CC)`,
-                boxShadow: `0 8px 32px ${getTypeColor(selectedGroup.type)}40`
-              }}
-            >
-              <div className="flex items-center gap-2">
-                <Icon name={selectedGroup.type === 'petrol' ? 'Flame' : 'Fuel'} className="w-4 h-4 text-black" />
-                <span className="text-black font-medium text-sm">{selectedGroup.name}</span>
-              </div>
+      {!selectedSeries ? (
+        <div className="space-y-3">
+          <p className="text-white/70 text-sm mb-4">Выберите серию:</p>
+          <div className="grid grid-cols-2 gap-3">
+            {seriesList.map((series) => (
               <button
-                onClick={() => setSelectedGroup(null)}
-                className="text-black/70 text-xs underline"
+                key={series}
+                onClick={() => setSelectedSeries(series)}
+                className="p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
+                  border: '1px solid rgba(255, 0, 64, 0.3)'
+                }}
               >
-                Изменить
+                <div className="text-white text-sm font-medium">{series}</div>
               </button>
-            </div>
-            <div className="text-white/50 text-xs text-center">{selectedGroup.description}</div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4">
-            {selectedGroup.variants.map((variant, idx) => (
-              <EngineVariantCard
-                key={idx}
-                variant={variant}
-                engineType={selectedGroup.type}
-                color={getTypeColor(selectedGroup.type)}
-                index={idx}
-                selectedCity={selectedCity}
-              />
             ))}
           </div>
-
-          <div 
-            className="mt-6 p-4 rounded-xl"
-            style={{
-              background: `linear-gradient(135deg, ${getTypeColor(selectedGroup.type)}0D, ${getTypeColor(selectedGroup.type)}05)`,
-              border: `1px solid ${getTypeColor(selectedGroup.type)}30`
-            }}
+        </div>
+      ) : (
+        <div className="space-y-4">
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
           >
-            <div className="flex items-start gap-3">
-              <Icon name="Info" className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: getTypeColor(selectedGroup.type) }} />
-              <div className="text-white/70 text-xs leading-relaxed">
-                <p className="mb-2"><strong className="text-white">Процесс 2-3 часа:</strong> диагностика, считывание прошивки через OBD, коррекция Stage 1, запись и тест-драйв.</p>
-                <p className="text-white/60 text-[10px]">Гарантия на работы. АИ-98 для бензина.</p>
-              </div>
-            </div>
+            <Icon name="ChevronLeft" className="w-4 h-4" />
+            <span>Назад</span>
+          </button>
+
+          <div className="p-4 rounded-xl" style={{
+            background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.1), rgba(255, 0, 64, 0.05))',
+            border: '1px solid rgba(255, 0, 64, 0.2)'
+          }}>
+            <p className="text-white/70 text-xs mb-1">Выбрана серия:</p>
+            <p className="text-white font-medium">{selectedSeries}</p>
           </div>
-        </>
+
+          <p className="text-white/70 text-sm">Выберите Stage:</p>
+
+          <div className="space-y-3">
+            {stages.map((stage) => {
+              const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
+              const isSelected = selectedStage === stage.id;
+
+              return (
+                <button
+                  key={stage.id}
+                  onClick={() => setSelectedStage(stage.id)}
+                  className="w-full p-5 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    background: isSelected 
+                      ? 'linear-gradient(135deg, rgba(255, 0, 64, 0.25), rgba(255, 0, 64, 0.15))'
+                      : 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
+                    border: isSelected 
+                      ? '2px solid rgba(255, 0, 64, 0.5)'
+                      : '1px solid rgba(255, 0, 64, 0.3)'
+                  }}
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className="text-white font-medium text-lg mb-1">{stage.name}</h3>
+                      <p className="text-white/60 text-xs">{stage.description}</p>
+                    </div>
+                    {isSelected && (
+                      <Icon name="Check" className="w-5 h-5 text-[#FF0040]" />
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/70 text-sm">{stage.gains}</span>
+                    <span className="text-white font-medium text-lg">{price.toLocaleString('ru-RU')} ₽</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedStage && (
+            <button
+              onClick={handleOrder}
+              className="w-full p-4 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              style={{
+                background: 'linear-gradient(135deg, #FF0040, #CC0033)',
+                border: '1px solid rgba(255, 0, 64, 0.5)'
+              }}
+            >
+              <Icon name="MessageCircle" className="w-5 h-5" />
+              <span>Заказать в Telegram</span>
+            </button>
+          )}
+        </div>
       )}
     </div>
   );
 });
 
 const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: ChipTuningProps) {
-  const [selectedGroup, setSelectedGroup] = useState<EngineGroup | null>(null);
-  const [generationFilter, setGenerationFilter] = useState<'all' | 'F' | 'G'>('all');
-  const [typeFilter, setTypeFilter] = useState<'all' | 'petrol' | 'diesel'>('all');
+  const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
+  const [selectedStage, setSelectedStage] = useState<string | null>(null);
 
-  const filteredGroups = engineGroups.filter(g => {
-    const typeMatch = typeFilter === 'all' || g.type === typeFilter;
-    const genMatch = generationFilter === 'all' || g.variants.some(v => v.generation === generationFilter);
-    return typeMatch && genMatch;
-  });
+  const handleReset = () => {
+    setSelectedSeries(null);
+    setSelectedStage(null);
+  };
+
+  const handleOrder = () => {
+    if (!selectedSeries || !selectedStage) return;
+    
+    const stage = stages.find(s => s.id === selectedStage);
+    if (!stage) return;
+
+    const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
+    
+    const message = `Чип-тюнинг BMW ${selectedSeries}\\n\\n${stage.name}\\n${stage.description}\\n${stage.gains}\\n\\nСтоимость: ${price.toLocaleString('ru-RU')} ₽`;
+    
+    const url = getTelegramLink(selectedCity, `чип-тюнинг BMW ${selectedSeries}`);
+    const separator = url.includes('?') ? '&' : '?';
+    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
+  };
 
   return (
-    <div className="mb-16">
-      <div className="text-center mb-12">
+    <div className="mb-16 max-w-6xl mx-auto">
+      <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Icon name="Gauge" className="w-8 h-8 text-[#FF0040]" />
-          <h2 className="font-light text-white text-3xl">Выберите серию и двигатель BMW</h2>
+          <h2 className="font-light text-white text-3xl">Чип-тюнинг</h2>
         </div>
-        <p className="text-white/60 text-sm">Все данные актуальны для прошивок 2025 года. Цены включают полную компьютерную диагностику перед началом работ</p>
+        <p className="text-white/60 text-base">Подберите программу для вашего BMW</p>
       </div>
 
-      <ChipTuningFilters
-        generationFilter={generationFilter}
-        typeFilter={typeFilter}
-        onGenerationChange={setGenerationFilter}
-        onTypeChange={setTypeFilter}
-      />
-
-      {!selectedGroup ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredGroups.map((group, idx) => (
-            <EngineGroupCard
-              key={group.name}
-              group={group}
-              index={idx}
-              onSelect={() => setSelectedGroup(group)}
-            />
-          ))}
-        </div>
-      ) : (
-        <>
-          <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-            <div className="flex items-center gap-4">
-              <div 
-                className="px-6 py-3 rounded-xl flex items-center gap-3"
-                style={{
-                  background: `linear-gradient(135deg, ${getTypeColor(selectedGroup.type)}, ${getTypeColor(selectedGroup.type)}CC)`,
-                  boxShadow: `0 8px 32px ${getTypeColor(selectedGroup.type)}40`
-                }}
-              >
-                <Icon name={selectedGroup.type === 'petrol' ? 'Flame' : 'Fuel'} className="w-5 h-5 text-black" />
-                <span className="text-black font-medium">{selectedGroup.name}</span>
-              </div>
+      {!selectedSeries ? (
+        <div className="space-y-4">
+          <p className="text-white/70 text-lg mb-6">Выберите серию:</p>
+          <div className="grid grid-cols-4 gap-4">
+            {seriesList.map((series) => (
               <button
-                onClick={() => setSelectedGroup(null)}
-                className="px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
+                key={series}
+                onClick={() => setSelectedSeries(series)}
+                className="p-6 rounded-xl transition-all duration-300 hover:scale-105"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  backdropFilter: 'blur(10px)'
+                  background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
+                  border: '1px solid rgba(255, 0, 64, 0.3)'
                 }}
               >
-                Изменить двигатель
+                <div className="text-white text-base font-medium">{series}</div>
               </button>
-            </div>
-            <div className="text-white/40 text-sm">{selectedGroup.description}</div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {selectedGroup.variants.map((variant, idx) => (
-              <EngineVariantCard
-                key={idx}
-                variant={variant}
-                engineType={selectedGroup.type}
-                color={getTypeColor(selectedGroup.type)}
-                index={idx}
-                selectedCity={selectedCity}
-              />
             ))}
           </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-8 space-y-4">
+            <button
+              onClick={handleReset}
+              className="flex items-center gap-2 text-white/60 hover:text-white transition-colors"
+            >
+              <Icon name="ChevronLeft" className="w-5 h-5" />
+              <span>Назад к выбору серии</span>
+            </button>
 
-          <div 
-            className="mt-8 p-6 rounded-2xl"
-            style={{
-              background: `linear-gradient(135deg, ${getTypeColor(selectedGroup.type)}0D, ${getTypeColor(selectedGroup.type)}05)`,
-              border: `1px solid ${getTypeColor(selectedGroup.type)}30`
-            }}
-          >
-            <div className="flex items-start gap-4">
-              <Icon name="Info" className="w-5 h-5 flex-shrink-0 mt-1" style={{ color: getTypeColor(selectedGroup.type) }} />
-              <div className="text-white/70 text-sm leading-relaxed">
-                <p className="mb-2"><strong className="text-white">Процесс занимает 2-3 часа:</strong> диагностика, считывание заводской прошивки через OBD-порт, коррекция параметров Stage 1, запись улучшенной программы и обязательный тест-драйв.</p>
-                <p className="mb-2">Работы проводятся без вскрытия блока управления. Для автомобилей после 07.2020 может потребоваться дополнительная разблокировка ECU.</p>
-                <p className="text-white/60 text-xs">Гарантия на все работы. Рекомендуется топливо АИ-98 для бензиновых двигателей.</p>
-              </div>
+            <div className="p-5 rounded-xl" style={{
+              background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.1), rgba(255, 0, 64, 0.05))',
+              border: '1px solid rgba(255, 0, 64, 0.2)'
+            }}>
+              <p className="text-white/70 text-sm mb-2">Выбрана серия:</p>
+              <p className="text-white font-medium text-xl">{selectedSeries}</p>
+            </div>
+
+            <p className="text-white/70 text-lg">Выберите Stage:</p>
+
+            <div className="space-y-4">
+              {stages.map((stage) => {
+                const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
+                const isSelected = selectedStage === stage.id;
+
+                return (
+                  <button
+                    key={stage.id}
+                    onClick={() => setSelectedStage(stage.id)}
+                    className="w-full p-6 rounded-xl text-left transition-all duration-300 hover:scale-[1.02]"
+                    style={{
+                      background: isSelected 
+                        ? 'linear-gradient(135deg, rgba(255, 0, 64, 0.25), rgba(255, 0, 64, 0.15))'
+                        : 'linear-gradient(135deg, rgba(255, 0, 64, 0.15), rgba(255, 0, 64, 0.05))',
+                      border: isSelected 
+                        ? '2px solid rgba(255, 0, 64, 0.5)'
+                        : '1px solid rgba(255, 0, 64, 0.3)'
+                    }}
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-white font-medium text-2xl mb-2">{stage.name}</h3>
+                        <p className="text-white/60 text-sm">{stage.description}</p>
+                      </div>
+                      {isSelected && (
+                        <Icon name="Check" className="w-6 h-6 text-[#FF0040]" />
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70">{stage.gains}</span>
+                      <span className="text-white font-medium text-2xl">{price.toLocaleString('ru-RU')} ₽</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
-        </>
+
+          <div className="col-span-4">
+            <div className="sticky top-6 p-6 rounded-xl" style={{
+              background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))',
+              border: '1px solid rgba(255, 0, 64, 0.3)'
+            }}>
+              <h3 className="text-white font-medium text-lg mb-4">Ваш выбор</h3>
+              
+              <div className="space-y-3 mb-6">
+                <div className="p-3 rounded-lg" style={{
+                  background: 'rgba(255, 0, 64, 0.1)',
+                  border: '1px solid rgba(255, 0, 64, 0.2)'
+                }}>
+                  <p className="text-white/60 text-xs mb-1">Серия</p>
+                  <p className="text-white font-medium">{selectedSeries}</p>
+                </div>
+
+                {selectedStage && (
+                  <>
+                    <div className="p-3 rounded-lg" style={{
+                      background: 'rgba(255, 0, 64, 0.1)',
+                      border: '1px solid rgba(255, 0, 64, 0.2)'
+                    }}>
+                      <p className="text-white/60 text-xs mb-1">Stage</p>
+                      <p className="text-white font-medium">
+                        {stages.find(s => s.id === selectedStage)?.name}
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-lg" style={{
+                      background: 'rgba(255, 0, 64, 0.15)',
+                      border: '1px solid rgba(255, 0, 64, 0.3)'
+                    }}>
+                      <p className="text-white/60 text-xs mb-2">Итого</p>
+                      <p className="text-white font-medium text-2xl">
+                        {(() => {
+                          const stage = stages.find(s => s.id === selectedStage);
+                          if (!stage) return '0';
+                          const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
+                          return price.toLocaleString('ru-RU');
+                        })()} ₽
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {selectedStage && (
+                <button
+                  onClick={handleOrder}
+                  className="w-full p-4 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+                  style={{
+                    background: 'linear-gradient(135deg, #FF0040, #CC0033)',
+                    border: '1px solid rgba(255, 0, 64, 0.5)'
+                  }}
+                >
+                  <Icon name="MessageCircle" className="w-5 h-5" />
+                  <span>Заказать в Telegram</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
 });
 
-const ChipTuning = memo(function ChipTuning({ selectedCity }: ChipTuningProps) {
+export default function ChipTuning({ selectedCity }: ChipTuningProps) {
   return (
     <Adaptive
       mobile={<ChipTuningMobile selectedCity={selectedCity} />}
       desktop={<ChipTuningDesktop selectedCity={selectedCity} />}
     />
   );
-});
-
-export default ChipTuning;
+}
