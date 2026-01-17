@@ -140,20 +140,15 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
           </DialogHeader>
           
           <div className="max-h-[60vh] overflow-y-auto pr-2 mt-4 pb-4" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255, 0, 64, 0.5) rgba(255, 255, 255, 0.1)' }}>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               {uniqueSeries.map((series) => (
                 <button
                   key={series}
                   onClick={() => handleSeriesSelect(series)}
-                  className="p-4 rounded-xl transition-transform duration-300 flex flex-col items-center justify-center overflow-hidden"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    backdropFilter: 'blur(10px)'
-                  }}
+                  className="chiptuning-glass-button p-5 rounded-2xl transition-opacity duration-300 active:opacity-70 flex flex-col items-center justify-center relative overflow-hidden"
                 >
-                  <Icon name="Waypoints" className="w-7 h-7 text-[#FF0040] mb-2" />
-                  <div className="text-white text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>{series.toUpperCase()}</div>
+                  <Icon name="Waypoints" className="w-7 h-7 text-[#FF0040] mb-2 relative z-10" />
+                  <div className="text-white text-xs relative z-10" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>{series.toUpperCase()}</div>
                 </button>
               ))}
             </div>
@@ -192,19 +187,15 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
       {step === 'body' && (
         <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 mb-4">
-          <div className="flex gap-3 pb-2" style={{ scrollSnapType: 'x mandatory' }}>
+          <div className="flex gap-4 pb-2" style={{ scrollSnapType: 'x mandatory' }}>
             {bodiesForSeries.map((body) => (
               <button
                 key={body.series}
                 onClick={() => handleBodySelect(body)}
-                className="snap-center min-w-[140px] p-4 rounded-xl transition-opacity duration-300 active:opacity-70 overflow-hidden"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
-                  border: '1px solid rgba(255, 255, 255, 0.15)'
-                }}
+                className="chiptuning-glass-button snap-center min-w-[140px] p-5 rounded-2xl transition-opacity duration-300 active:opacity-70 relative"
               >
-                <Icon name="Box" className="w-8 h-8 text-[#FF0040] mx-auto mb-2" />
-                <div className="text-white text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>{body.series.toUpperCase()}</div>
+                <Icon name="Box" className="w-8 h-8 text-[#FF0040] mx-auto mb-2 relative z-10" />
+                <div className="text-white text-sm relative z-10" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>{body.series.toUpperCase()}</div>
               </button>
             ))}
           </div>
@@ -212,16 +203,12 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       )}
 
       {step === 'engine' && selectedBody && (
-        <div className="space-y-2 pb-20">
+        <div className="space-y-3 pb-20">
           {selectedBody.modifications.map((mod, idx) => (
             <button
               key={idx}
               onClick={() => handleModSelect(mod)}
-              className="w-full p-4 rounded-xl transition-opacity duration-300 active:opacity-70 text-left overflow-hidden"
-              style={{
-                background: `linear-gradient(135deg, ${typeColor}15, ${typeColor}05)`,
-                border: `1px solid ${typeColor}30`
-              }}
+              className="chiptuning-glass-button w-full p-5 rounded-2xl transition-opacity duration-300 active:opacity-70 text-left"
             >
               <div className="flex items-center gap-3">
                 <Icon 
