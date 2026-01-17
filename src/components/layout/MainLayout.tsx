@@ -19,7 +19,8 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
         style={{
           background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.35) 25%, transparent 50%, rgba(255, 0, 13, 0.35) 75%, transparent 100%)',
           backgroundSize: '200% 100%',
-          animation: 'policeLights 2s linear infinite'
+          animation: 'policeLights 2s linear infinite',
+          filter: 'blur(80px)'
         }}
       />
       
