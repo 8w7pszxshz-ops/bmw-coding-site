@@ -78,7 +78,7 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                 className="relative p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-start justify-center text-left overflow-hidden"
                 style={{
                   background: 'rgba(0, 0, 0, 0.8)',
-                  border: '1px solid rgba(255, 0, 64, 0.3)',
+                  border: '1px solid rgba(255, 0, 13, 0.3)',
                   backdropFilter: 'blur(20px)',
                   minHeight: '90px'
                 }}
@@ -86,13 +86,13 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                 <div 
                   className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.08) 0%, transparent 50%, rgba(255, 0, 64, 0.05) 100%)'
+                    background: 'linear-gradient(135deg, rgba(255, 0, 13, 0.08) 0%, transparent 50%, rgba(255, 0, 13, 0.05) 100%)'
                   }}
                 />
                 <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none">
                   <defs>
                     <pattern id={`dots-mobile-${series.replace(/\s/g, '-')}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                      <circle cx="15" cy="15" r="1.5" fill="#FF0040" opacity="0.6">
+                      <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="0.6">
                         <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite" />
                       </circle>
                     </pattern>
@@ -257,7 +257,7 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                 className="relative p-5 rounded-xl transition-all duration-300 hover:scale-105 flex flex-col items-start justify-center text-left overflow-hidden"
                 style={{
                   background: 'rgba(0, 0, 0, 0.8)',
-                  border: '1px solid rgba(255, 0, 64, 0.3)',
+                  border: '1px solid rgba(255, 0, 13, 0.3)',
                   backdropFilter: 'blur(20px)',
                   minHeight: '110px'
                 }}
@@ -265,13 +265,13 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                 <div 
                   className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.08) 0%, transparent 50%, rgba(255, 0, 64, 0.05) 100%)'
+                    background: 'linear-gradient(135deg, rgba(255, 0, 13, 0.08) 0%, transparent 50%, rgba(255, 0, 13, 0.05) 100%)'
                   }}
                 />
                 <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none">
                   <defs>
                     <pattern id={`dots-desktop-${series.replace(/\s/g, '-')}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                      <circle cx="15" cy="15" r="1.5" fill="#FF0040" opacity="0.6">
+                      <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="0.6">
                         <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite" />
                       </circle>
                     </pattern>
