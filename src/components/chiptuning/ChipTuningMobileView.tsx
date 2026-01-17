@@ -28,20 +28,28 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [showPoliceLights, setShowPoliceLights] = useState(true);
 
   useEffect(() => {
+    console.log('[DEBUG] ChipTuning mounted, showPoliceLights:', true);
+    
     const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.25;
     audio.play().catch(() => {});
 
     const timer = setTimeout(() => {
+      console.log('[DEBUG] 15 seconds passed, turning off lights');
       setShowPoliceLights(false);
     }, 15000);
 
     return () => {
+      console.log('[DEBUG] ChipTuning unmounting');
       clearTimeout(timer);
       audio.pause();
       audio.src = '';
     };
   }, []);
+
+  useEffect(() => {
+    console.log('[DEBUG] showPoliceLights changed:', showPoliceLights);
+  }, [showPoliceLights]);
 
   const models = apiData;
 
@@ -78,6 +86,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     : [];
 
   const handleSeriesSelect = (series: string) => {
+    console.log('[DEBUG] Series selected:', series, 'changing step to body');
     setSelectedSeries(series);
     setStep('body');
   };
@@ -141,6 +150,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
           style={{
             backdropFilter: 'blur(20px)'
           }}
+          onOpenAutoFocus={() => console.log('[DEBUG] Dialog opened, lights class:', showPoliceLights ? 'with-police-lights' : 'none')}
         >
           <DialogHeader>
             <DialogTitle className="text-white flex flex-col items-center justify-center gap-3">
