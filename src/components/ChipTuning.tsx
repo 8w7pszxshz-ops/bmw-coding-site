@@ -75,11 +75,12 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-start gap-3 text-left overflow-hidden"
+                className="relative p-4 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-start justify-center text-left overflow-hidden"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(0, 0, 0, 0.8)',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
-                  backdropFilter: 'blur(20px)'
+                  backdropFilter: 'blur(20px)',
+                  minHeight: '90px'
                 }}
               >
                 <div 
@@ -98,15 +99,6 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
                   </defs>
                   <rect width="100%" height="100%" fill={`url(#dots-mobile-${series.replace(/\s/g, '-')})`} />
                 </svg>
-                <div 
-                  className="relative z-10 w-14 h-14 rounded-xl flex items-center justify-center"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)'
-                  }}
-                >
-                  <Icon name="GitBranch" className="w-7 h-7 text-[#FF0040]" />
-                </div>
                 <div className="relative z-10">
                   <div className="text-white text-base font-bold mb-1">{series}</div>
                   <div className="text-white/50 text-xs">Выбрать серию</div>
@@ -262,11 +254,12 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-5 rounded-xl transition-all duration-300 hover:scale-105 flex flex-col items-start gap-3 text-left overflow-hidden"
+                className="relative p-5 rounded-xl transition-all duration-300 hover:scale-105 flex flex-col items-start justify-center text-left overflow-hidden"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(0, 0, 0, 0.8)',
                   border: '1px solid rgba(255, 0, 64, 0.3)',
-                  backdropFilter: 'blur(20px)'
+                  backdropFilter: 'blur(20px)',
+                  minHeight: '110px'
                 }}
               >
                 <div 
@@ -285,15 +278,6 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
                   </defs>
                   <rect width="100%" height="100%" fill={`url(#dots-desktop-${series.replace(/\s/g, '-')})`} />
                 </svg>
-                <div 
-                  className="relative z-10 w-16 h-16 rounded-xl flex items-center justify-center"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)'
-                  }}
-                >
-                  <Icon name="GitBranch" className="w-8 h-8 text-[#FF0040]" />
-                </div>
                 <div className="relative z-10">
                   <div className="text-white text-lg font-bold mb-1">{series}</div>
                   <div className="text-white/50 text-sm">Выбрать серию</div>
