@@ -143,10 +143,11 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                   <div 
                     className="absolute inset-0 pointer-events-none z-0"
                     style={{
-                      background: 'linear-gradient(90deg, #FF000D 0%, transparent 20%, transparent 80%, #FF000D 100%)',
+                      background: 'linear-gradient(90deg, #FF000D 0%, transparent 25%, transparent 75%, #FF000D 100%)',
                       backgroundSize: '300% 100%',
                       animation: 'policeLights 0.8s linear infinite',
-                      opacity: 0.5,
+                      opacity: 0.8,
+                      filter: 'blur(80px)',
                       borderRadius: '1rem'
                     }}
                   />
@@ -154,19 +155,29 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                   <div 
                     className="absolute inset-0 pointer-events-none z-0"
                     style={{
-                      background: 'radial-gradient(ellipse at 20% 50%, #FF000D 0%, transparent 40%), radial-gradient(ellipse at 80% 50%, #FF000D 0%, transparent 40%)',
+                      background: 'radial-gradient(ellipse at 20% 50%, #FF000D 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, #FF000D 0%, transparent 50%)',
                       animation: 'policeLights 0.8s linear infinite',
-                      filter: 'blur(40px)',
-                      opacity: 0.7
+                      filter: 'blur(100px)',
+                      opacity: 0.9
                     }}
                   />
                   {/* Center pulse */}
                   <div 
                     className="absolute inset-0 pointer-events-none z-0"
                     style={{
-                      background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.9) 0%, transparent 30%)',
+                      background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 1) 0%, transparent 40%)',
                       animation: 'policeLights 0.8s linear infinite',
-                      filter: 'blur(60px)'
+                      filter: 'blur(120px)'
+                    }}
+                  />
+                  {/* Extra diffusion layer */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                      background: 'radial-gradient(ellipse at 50% 0%, #FF000D 0%, transparent 60%), radial-gradient(ellipse at 50% 100%, #FF000D 0%, transparent 60%)',
+                      animation: 'policeLights 0.8s linear infinite',
+                      filter: 'blur(150px)',
+                      opacity: 0.7
                     }}
                   />
                 </>
