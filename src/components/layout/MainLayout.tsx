@@ -13,6 +13,16 @@ interface MainLayoutProps {
 export default function MainLayout({ children, selectedCity, onCityChange, showCityPulse }: MainLayoutProps) {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Police lights background effect */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.15) 25%, transparent 50%, rgba(255, 0, 13, 0.15) 75%, transparent 100%)',
+          backgroundSize: '200% 100%',
+          animation: 'policeLights 2s linear infinite'
+        }}
+      />
+      
       <div 
         className="min-h-screen relative"
       >
