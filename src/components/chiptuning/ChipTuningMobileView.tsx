@@ -27,17 +27,20 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [showPoliceLights, setShowPoliceLights] = useState(false);
 
   useEffect(() => {
+    console.log('[ChipTuning] Component mounted, starting police lights');
     setShowPoliceLights(true);
     
     const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.25;
-    audio.play().catch(() => {});
+    audio.play().catch((err) => console.log('[ChipTuning] Audio play failed:', err));
 
     const lightsTimer = setTimeout(() => {
+      console.log('[ChipTuning] 15 seconds passed, stopping police lights');
       setShowPoliceLights(false);
     }, 15000);
 
     return () => {
+      console.log('[ChipTuning] Component unmounting, cleanup');
       clearTimeout(lightsTimer);
       audio.pause();
       audio.src = '';
@@ -79,6 +82,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     : [];
 
   const handleSeriesSelect = (series: string) => {
+    console.log('[ChipTuning] Series selected:', series, 'changing step to body');
     setSelectedSeries(series);
     setStep('body');
   };
