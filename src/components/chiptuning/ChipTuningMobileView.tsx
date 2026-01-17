@@ -31,15 +31,9 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     
     const audio = new Audio('/reborn-sound.mp3');
     audio.volume = 0.25;
-    
-    const lightsTimer = setTimeout(() => {
-      setShowPoliceLights(false);
-    }, 6500);
-    
     audio.play().catch(() => {});
 
     return () => {
-      clearTimeout(lightsTimer);
       audio.pause();
       audio.src = '';
     };
