@@ -100,7 +100,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
           <div 
             className="fixed inset-0 pointer-events-none z-10"
             style={{
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.5) 25%, transparent 50%, rgba(255, 0, 13, 0.5) 75%, transparent 100%)',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.8) 25%, transparent 50%, rgba(255, 0, 13, 0.8) 75%, transparent 100%)',
               backgroundSize: '200% 100%',
               animation: 'policeLights 1.5s linear infinite',
               filter: 'blur(100px)'
@@ -109,10 +109,19 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
           <div 
             className="fixed inset-0 pointer-events-none z-10"
             style={{
-              background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%)',
+              background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.7) 0%, transparent 50%)',
               backgroundSize: '200% 100%',
               animation: 'policeLights 1.5s linear infinite',
               filter: 'blur(80px)'
+            }}
+          />
+          <div 
+            className="fixed inset-0 pointer-events-none z-10"
+            style={{
+              background: 'linear-gradient(90deg, rgba(255, 0, 13, 0.3) 0%, rgba(255, 0, 13, 0.6) 50%, rgba(255, 0, 13, 0.3) 100%)',
+              backgroundSize: '200% 100%',
+              animation: 'policeLights 1s linear infinite',
+              filter: 'blur(60px)'
             }}
           />
         </>
@@ -164,25 +173,47 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                 <button
                   key={series}
                   onClick={() => setSelectedSeries(series)}
-                  className="group relative p-6 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95"
+                  className="group relative p-6 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-2xl"
                   style={{
-                    background: 'rgba(20, 20, 30, 0.8)',
-                    border: '1px solid rgba(255, 0, 13, 0.3)',
-                    backdropFilter: 'blur(20px)'
+                    background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(10, 10, 15, 0.95))',
+                    border: '1px solid rgba(255, 0, 13, 0.4)',
+                    backdropFilter: 'blur(20px)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
                   }}
                 >
+                  {/* Pulsating dot */}
+                  <div className="absolute top-3 right-3 z-20">
+                    <div 
+                      className="w-2 h-2 rounded-full"
+                      style={{
+                        background: '#FF000D',
+                        boxShadow: '0 0 10px rgba(255, 0, 13, 0.8), 0 0 20px rgba(255, 0, 13, 0.4)',
+                        animation: 'pulse 2s ease-in-out infinite'
+                      }}
+                    />
+                  </div>
+                  
                   <div 
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"
                     style={{
-                      background: 'radial-gradient(circle at center, rgba(255, 0, 13, 0.2), transparent 70%)'
+                      background: 'radial-gradient(circle at center, rgba(255, 0, 13, 0.3), transparent 70%)'
+                    }}
+                  />
+                  
+                  {/* Depth shadow */}
+                  <div 
+                    className="absolute inset-0 opacity-50 rounded-xl"
+                    style={{
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%)',
+                      pointerEvents: 'none'
                     }}
                   />
                   
                   <div className="relative z-10 flex flex-col items-center justify-center min-h-[100px]">
-                    <Icon name="Settings" className="w-10 h-10 mb-3" style={{ color: '#FF000D' }} />
+                    <Icon name="Settings" className="w-10 h-10 mb-3" style={{ color: '#FF000D', filter: 'drop-shadow(0 2px 8px rgba(255, 0, 13, 0.6))' }} />
                     <div 
                       className="text-white text-lg tracking-wider"
-                      style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                      style={{ fontFamily: '"Reborn Technologies", sans-serif', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)' }}
                     >
                       {series}
                     </div>
