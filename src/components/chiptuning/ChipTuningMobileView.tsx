@@ -25,6 +25,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedMod, setSelectedMod] = useState<EngineModification | null>(null);
   const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
   const [showPoliceLights, setShowPoliceLights] = useState(false);
+  const [isUserClosing, setIsUserClosing] = useState(false);
 
   useEffect(() => {
     setShowPoliceLights(true);
@@ -100,6 +101,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
   const handleSeriesSelect = (series: string) => {
     setSelectedSeries(series);
+    setIsUserClosing(false);
     setStep('body');
   };
 
@@ -154,11 +156,18 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
 
   const typeColor = '#FF0040';
 
+  const handleDialogClose = (open: boolean) => {
+    if (!open) {
+      if (isUserClosing && onClose) {
+        onClose();
+      }
+      setIsUserClosing(true);
+    }
+  };
+
   return (
     <div className="mb-12 px-4 min-h-screen">
-      <Dialog open={step === 'series'} onOpenChange={(open) => {
-        if (!open && onClose) onClose();
-      }}>
+      <Dialog open={step === 'series'} onOpenChange={handleDialogClose}>
         <DialogContent 
           className={`chiptuning-dialog border-0 max-w-[95vw] w-full max-h-[85vh] ${showPoliceLights ? 'with-police-lights' : ''}`}
           style={{
