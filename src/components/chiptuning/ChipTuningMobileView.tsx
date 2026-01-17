@@ -183,31 +183,31 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
       </Dialog>
 
       {step !== 'series' && (
-        <div className="text-center mb-6">
-          <img 
-            src="https://cdn.poehali.dev/files/rebornlogo.png" 
-            alt="Reborn Technologies" 
-            className="h-8 w-auto object-contain mx-auto mb-3"
-          />
-          <h2 className="text-white text-lg" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-            {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
-            {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
-          </h2>
-        </div>
-      )}
-
-      {step !== 'series' && (
-        <button
-          onClick={handleBack}
-          className="mb-4 px-3 py-2 rounded-lg text-white/60 text-xs flex items-center gap-2 mx-auto"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
-          }}
-        >
-          <Icon name="ArrowLeft" className="w-3 h-3" />
-          <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НАЗАД</span>
-        </button>
+        <>
+          <button
+            onClick={handleBack}
+            className="mb-4 px-3 py-2 rounded-lg text-white/60 text-xs flex items-center gap-2"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
+              border: '1px solid rgba(255, 255, 255, 0.1)'
+            }}
+          >
+            <Icon name="ArrowLeft" className="w-3 h-3" />
+            <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НАЗАД</span>
+          </button>
+          
+          <div className="text-center mb-6">
+            <img 
+              src="https://cdn.poehali.dev/files/rebornlogo.png" 
+              alt="Reborn Technologies" 
+              className="h-8 w-auto object-contain mx-auto mb-3"
+            />
+            <h2 className="text-white text-lg" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+              {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
+              {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
+            </h2>
+          </div>
+        </>
       )}
 
       {step === 'body' && (
@@ -247,15 +247,15 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                   border: `1px solid ${typeColor}30`
                 }}
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-center gap-3">
                   <Icon 
                     name={mod.engineType === 'petrol' ? 'Flame' : 'Fuel'} 
-                    className="w-5 h-5 flex-shrink-0 mt-0.5" 
+                    className="w-6 h-6 flex-shrink-0" 
                     style={{ color: typeColor }}
                   />
-                  <div className="flex-1 min-w-0">
+                  <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <div className="text-white font-medium text-sm uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                      <div className="text-white font-medium text-base uppercase" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
                         {mod.name}
                       </div>
                       {mod.isRestyling && (
@@ -264,19 +264,11 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
                         </span>
                       )}
                     </div>
-                    <div className="text-white/50 text-xs" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                      <div>{mod.powerBefore} → {mod.powerAfter} Л.С.</div>
-                      <div>{mod.torqueBefore} → {mod.torqueAfter} НМ</div>
+                    <div className="text-white/50 text-sm" style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
+                      {mod.powerBefore} Л.С. • {mod.torqueBefore} НМ
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <div className="text-right">
-                      <div className="font-bold text-sm" style={{ color: typeColor, fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>
-                        {totalPrice.toLocaleString()} ₽
-                      </div>
-                    </div>
-                    <Icon name="ChevronRight" className="w-4 h-4 text-white/30" />
-                  </div>
+                  <Icon name="ChevronRight" className="w-5 h-5 text-white/30 flex-shrink-0" />
                 </div>
               </button>
             );

@@ -166,31 +166,31 @@ const ChipTuningDesktopView = memo(function ChipTuningDesktopView({ selectedCity
       </Dialog>
 
       {step !== 'series' && (
-        <div className="text-center mb-10">
-          <img 
-            src="https://cdn.poehali.dev/files/rebornlogo.png" 
-            alt="Reborn Technologies" 
-            className="h-12 w-auto object-contain mx-auto mb-5"
-          />
-          <h2 className="text-white text-2xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
-            {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
-            {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
-          </h2>
-        </div>
-      )}
-
-      {step !== 'series' && (
-        <button
-          onClick={handleBack}
-          className="mb-6 px-5 py-2.5 rounded-xl text-white/60 hover:text-white transition-all duration-300 flex items-center gap-2 hover:scale-105"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
-          }}
-        >
-          <Icon name="ArrowLeft" className="w-4 h-4" />
-          <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НАЗАД</span>
-        </button>
+        <>
+          <button
+            onClick={handleBack}
+            className="mb-6 px-5 py-2.5 rounded-xl text-white/60 hover:text-white transition-all duration-300 flex items-center gap-2 hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
+              border: '1px solid rgba(255, 255, 255, 0.1)'
+            }}
+          >
+            <Icon name="ArrowLeft" className="w-4 h-4" />
+            <span style={{ fontFamily: '"Reborn Technologies", Arial, sans-serif' }}>НАЗАД</span>
+          </button>
+          
+          <div className="text-center mb-10">
+            <img 
+              src="https://cdn.poehali.dev/files/rebornlogo.png" 
+              alt="Reborn Technologies" 
+              className="h-12 w-auto object-contain mx-auto mb-5"
+            />
+            <h2 className="text-white text-2xl" style={{ fontFamily: '"Reborn Technologies", Impact, sans-serif', fontWeight: 'normal' }}>
+              {step === 'body' && 'ВЫБЕРИТЕ КУЗОВ'}
+              {step === 'engine' && 'ВЫБЕРИТЕ МОДИФИКАЦИЮ'}
+            </h2>
+          </div>
+        </>
       )}
 
       {step === 'body' && (
