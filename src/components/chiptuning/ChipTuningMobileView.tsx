@@ -1,4 +1,4 @@
-import { useState, memo, useEffect, useRef } from 'react';
+import { useState, memo } from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { useChiptuningData } from '@/hooks/useChiptuningData';
@@ -25,34 +25,6 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
   const [selectedBody, setSelectedBody] = useState<ModelData | null>(null);
   const [selectedMod, setSelectedMod] = useState<EngineModification | null>(null);
   const [selectedStage, setSelectedStage] = useState<StageOption | null>(null);
-  const [showPoliceLights, setShowPoliceLights] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const hasShownRef = useRef(false);
-
-  useEffect(() => {
-    if (step === 'series' && !hasShownRef.current) {
-      hasShownRef.current = true;
-      setShowPoliceLights(true);
-      
-      const audio = new Audio('/reborn-sound.mp3');
-      audio.volume = 0.25;
-      audioRef.current = audio;
-      
-      audio.addEventListener('ended', () => {
-        setShowPoliceLights(false);
-      });
-      
-      audio.play().catch(() => {});
-    }
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-        audioRef.current = null;
-      }
-    };
-  }, [step]);
 
   const models = apiData;
 
@@ -148,7 +120,7 @@ const ChipTuningMobileView = memo(function ChipTuningMobileView({ selectedCity, 
     <div className="mb-12 px-4 min-h-screen">
       <Dialog open={step === 'series'}>
         <DialogContent 
-          className={`chiptuning-dialog border-0 max-w-[95vw] w-full max-h-[85vh] ${showPoliceLights ? 'with-police-lights' : ''}`}
+          className="chiptuning-dialog border-0 max-w-[95vw] w-full max-h-[85vh]"
           style={{
             backdropFilter: 'blur(20px)'
           }}
