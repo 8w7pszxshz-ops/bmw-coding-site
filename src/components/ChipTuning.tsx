@@ -75,15 +75,22 @@ const ChipTuningMobile = memo(function ChipTuningMobile({ selectedCity }: ChipTu
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-6 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-center justify-center gap-3"
+                className="relative p-6 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 flex flex-col items-center justify-center gap-3 overflow-hidden"
                 style={{
-                  background: 'rgba(20, 20, 30, 0.8)',
-                  border: '1px solid rgba(255, 0, 64, 0.2)',
+                  background: 'rgba(0, 0, 0, 0.6)',
+                  border: '1px solid rgba(255, 0, 64, 0.3)',
+                  backdropFilter: 'blur(10px)',
                   minHeight: '110px'
                 }}
               >
-                <Icon name="Car" className="w-8 h-8 text-[#FF0040]" />
-                <div className="text-white text-sm font-bold uppercase tracking-wider">{series}</div>
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, transparent 50%, rgba(255, 0, 64, 0.1) 100%)'
+                  }}
+                />
+                <Icon name="GitBranch" className="w-8 h-8 text-[#FF0040] relative z-10" />
+                <div className="text-white text-sm font-bold uppercase tracking-wider relative z-10">{series}</div>
               </button>
             ))}
           </div>
@@ -235,15 +242,22 @@ const ChipTuningDesktop = memo(function ChipTuningDesktop({ selectedCity }: Chip
               <button
                 key={series}
                 onClick={() => setSelectedSeries(series)}
-                className="relative p-8 rounded-lg transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center gap-4"
+                className="relative p-8 rounded-lg transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center gap-4 overflow-hidden"
                 style={{
-                  background: 'rgba(20, 20, 30, 0.8)',
-                  border: '1px solid rgba(255, 0, 64, 0.2)',
+                  background: 'rgba(0, 0, 0, 0.6)',
+                  border: '1px solid rgba(255, 0, 64, 0.3)',
+                  backdropFilter: 'blur(10px)',
                   minHeight: '140px'
                 }}
               >
-                <Icon name="Car" className="w-10 h-10 text-[#FF0040]" />
-                <div className="text-white text-base font-bold uppercase tracking-wider">{series}</div>
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, transparent 50%, rgba(255, 0, 64, 0.1) 100%)'
+                  }}
+                />
+                <Icon name="GitBranch" className="w-10 h-10 text-[#FF0040] relative z-10" />
+                <div className="text-white text-base font-bold uppercase tracking-wider relative z-10">{series}</div>
               </button>
             ))}
           </div>
