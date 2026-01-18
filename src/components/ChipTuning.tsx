@@ -36,7 +36,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
       {/* Modal content */}
       <div 
-        className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto z-20"
+        className="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto z-20"
         style={{
           background: 'linear-gradient(135deg, #0a0a0f 0%, #1a0808 50%, #0a0a0f 100%)',
           border: '3px solid',
@@ -75,7 +75,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
           <Icon name="X" className="w-5 h-5 text-black group-hover:text-white transition-colors" />
         </button>
 
-        <div className="p-8">
+        <div className="p-6">
           {/* Header - NFS MW style */}
           <div className="relative mb-8">
             {/* Top accent bar */}

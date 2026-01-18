@@ -50,16 +50,15 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
         onClick={onReset}
         className="flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
         style={{
-          background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 51, 0.4) 50%, rgba(0, 212, 255, 0.3) 50%, rgba(56, 189, 248, 0.4) 100%)',
-          border: '2px solid',
-          borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 50%, rgba(0, 212, 255, 0.7) 50%, rgba(56, 189, 248, 0.7) 100%) 1',
+          background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 0, 51, 0.4))',
+          border: '2px solid rgba(255, 0, 0, 0.5)',
           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
-          boxShadow: '0 0 15px rgba(127, 106, 127, 0.5)'
+          boxShadow: '0 0 15px rgba(255, 0, 0, 0.4)'
         }}
       >
-        <Icon name="ChevronLeft" className="w-5 h-5 text-white" />
+        <Icon name="ChevronLeft" className="w-5 h-5 text-red-400" />
         <span 
-          className="tracking-wider text-white uppercase"
+          className="tracking-wider text-red-400 uppercase"
           style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
         >
           /// НАЗАД
@@ -200,10 +199,9 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
           onClick={handleOrder}
           className="w-full p-6 text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden group"
           style={{
-            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 25%, rgba(0, 212, 255, 0.9) 75%, rgba(56, 189, 248, 0.9) 100%)',
-            border: '3px solid',
-            borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 50%, rgba(0, 212, 255, 0.9) 50%, rgba(56, 189, 248, 0.9) 100%) 1',
-            boxShadow: '0 0 40px rgba(127, 106, 127, 0.8), inset 0 0 60px rgba(0, 0, 0, 0.3)',
+            background: 'linear-gradient(135deg, #ff0000 0%, #ff0033 50%, #ff0000 100%)',
+            border: '3px solid #ff0000',
+            boxShadow: '0 0 40px rgba(255, 0, 0, 0.7), inset 0 0 60px rgba(0, 0, 0, 0.3)',
             clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)'
           }}
         >
