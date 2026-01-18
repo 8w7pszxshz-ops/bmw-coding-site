@@ -24,6 +24,13 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
   const [isChipTuningOpen, setIsChipTuningOpen] = useState(false);
 
+  const handleChipTuningOpen = () => {
+    const audio = new Audio('/music/1.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(err => console.log('Audio play blocked:', err));
+    setIsChipTuningOpen(true);
+  };
+
   const calculators = [
     {
       id: 'key' as CalculatorType,
@@ -98,7 +105,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
               id={calc.id}
               onClick={() => {
                 if (calc.id === 'chiptuning') {
-                  setIsChipTuningOpen(true);
+                  handleChipTuningOpen();
                 } else {
                   setActiveCalculator(calc.id);
                 }

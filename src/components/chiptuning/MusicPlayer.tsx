@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface MusicPlayerProps {
   isOpen: boolean;
+  audioRef: React.RefObject<HTMLAudioElement | null>;
 }
 
 const playlist = [
@@ -11,9 +12,8 @@ const playlist = [
   '/music/track3.mp3'
 ];
 
-export default function MusicPlayer({ isOpen }: MusicPlayerProps) {
+export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [musicVolume, setMusicVolume] = useState(0.5);
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import MusicPlayer from './chiptuning/MusicPlayer';
@@ -13,6 +13,7 @@ interface ChipTuningProps {
 
 export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -60,7 +61,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
         />
 
         {/* Music player controls - top left */}
-        <MusicPlayer isOpen={isOpen} />
+        <MusicPlayer isOpen={isOpen} audioRef={audioRef} />
 
         {/* Close button */}
         <button
