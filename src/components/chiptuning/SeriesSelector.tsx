@@ -63,21 +63,9 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
       {seriesList.map((series, index) => {
         const colIndex = index % 4;
         
-        let borderGradient, glowColor;
-        
-        if (colIndex < 2) {
-          // Columns 1-2: Red
-          borderGradient = 'linear-gradient(135deg, rgba(255, 0, 0, 0.7), rgba(255, 0, 51, 0.7))';
-          glowColor = 'rgba(255, 0, 0, 0.5)';
-        } else if (colIndex === 2) {
-          // Column 3: Red to Cyan gradient (half and half)
-          borderGradient = 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 50%, rgba(0, 212, 255, 0.7) 50%, rgba(56, 189, 248, 0.7) 100%)';
-          glowColor = 'rgba(127, 106, 127, 0.5)';
-        } else {
-          // Column 4: NFS cyan
-          borderGradient = 'linear-gradient(135deg, rgba(0, 212, 255, 0.7), rgba(56, 189, 248, 0.7))';
-          glowColor = 'rgba(0, 212, 255, 0.5)';
-        }
+        // All columns: Red to Cyan gradient (half and half)
+        const borderGradient = 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 50%, rgba(0, 212, 255, 0.7) 50%, rgba(56, 189, 248, 0.7) 100%)';
+        const glowColor = 'rgba(127, 106, 127, 0.5)';
         
         return (
         <div key={series} className="relative">
