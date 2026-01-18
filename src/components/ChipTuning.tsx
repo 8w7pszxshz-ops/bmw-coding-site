@@ -150,7 +150,6 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                   src="https://cdn.poehali.dev/files/rebornlogo.png" 
                   alt="Reborn Technologies" 
                   className="h-16 md:h-20"
-                  style={{ filter: 'drop-shadow(0 0 15px rgba(255, 0, 0, 0.6))' }}
                 />
                 <p className="text-red-500 text-sm md:text-base uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                   /// ВЫБЕРИТЕ СЕРИЮ BMW
