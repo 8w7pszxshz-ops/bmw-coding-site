@@ -1,7 +1,9 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
-import { getTelegramLink } from '@/utils/cityConfig';
+import MusicPlayer from './chiptuning/MusicPlayer';
+import SeriesSelector, { type Series } from './chiptuning/SeriesSelector';
+import StageSelector from './chiptuning/StageSelector';
 
 interface ChipTuningProps {
   selectedCity: City;
@@ -9,87 +11,15 @@ interface ChipTuningProps {
   onClose: () => void;
 }
 
-type Series = '1 SERIES' | '2 SERIES' | '3 SERIES' | '4 SERIES' | '5 SERIES' | '6 SERIES' | '7 SERIES' | 'X1' | 'X3' | 'X4' | 'X5' | 'X6' | 'M2' | 'M3' | 'M4' | 'M5' | 'Z4';
-
-const seriesList: Series[] = [
-  '1 SERIES', '2 SERIES', '3 SERIES', '4 SERIES', 
-  '5 SERIES', '6 SERIES', '7 SERIES', 'M2',
-  'M3', 'M4', 'M5', 'M6',
-  'X1', 'X3', 'X4', 'X5', 'X6', 'Z4'
-];
-
-const stages = [
-  { 
-    id: 'stage1',
-    name: 'STAGE 1',
-    description: 'БАЗОВАЯ ПРОШИВКА ЭБУ',
-    priceBase: 25000,
-    gains: '+20-30% МОЩНОСТИ'
-  },
-  { 
-    id: 'stage2',
-    name: 'STAGE 2',
-    description: 'ПРОДВИНУТАЯ ПРОШИВКА + ДАУНПАЙП',
-    priceBase: 45000,
-    gains: '+30-40% МОЩНОСТИ'
-  }
-];
-
 export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
-  const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [showLights, setShowLights] = useState(false);
   const [audio] = useState(() => new Audio('/reborn-sound.mp3'));
-  
-  // Playlist setup
-  const playlist = [
-    '/music/track1.mp3',
-    '/music/track2.mp3',
-    '/music/track3.mp3',
-    '/music/track4.mp3',
-    '/music/track5.mp3'
-  ];
-  
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [bgMusic] = useState(() => new Audio(playlist[0]));
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [musicVolume, setMusicVolume] = useState(0.5);
-
-  useEffect(() => {
-    // Setup background music (no loop, auto-next track)
-    bgMusic.volume = musicVolume;
-    
-    const handleTrackEnd = () => {
-      // Go to next track
-      const nextIndex = (currentTrackIndex + 1) % playlist.length;
-      setCurrentTrackIndex(nextIndex);
-      bgMusic.src = playlist[nextIndex];
-      bgMusic.play();
-    };
-    
-    bgMusic.addEventListener('ended', handleTrackEnd);
-    
-    return () => {
-      bgMusic.removeEventListener('ended', handleTrackEnd);
-    };
-  }, [bgMusic, musicVolume, currentTrackIndex, playlist]);
 
   useEffect(() => {
     if (isOpen) {
       setShowLights(true);
       audio.play();
-      
-      // Always start from track 1
-      setCurrentTrackIndex(0);
-      bgMusic.src = playlist[0];
-      bgMusic.currentTime = 0;
-      
-      // Start background music
-      bgMusic.play().then(() => {
-        setIsMusicPlaying(true);
-      }).catch((err) => {
-        console.log('Music autoplay blocked:', err);
-      });
       
       const timer = setTimeout(() => {
         setShowLights(false);
@@ -103,49 +33,13 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
     } else {
       audio.pause();
       audio.currentTime = 0;
-      bgMusic.pause();
-      bgMusic.currentTime = 0;
-      setIsMusicPlaying(false);
       setShowLights(false);
       setSelectedSeries(null);
-      setSelectedStage(null);
     }
-  }, [isOpen, audio, bgMusic, playlist]);
-
-  const toggleMusic = () => {
-    if (isMusicPlaying) {
-      bgMusic.pause();
-      setIsMusicPlaying(false);
-    } else {
-      bgMusic.play();
-      setIsMusicPlaying(true);
-    }
-  };
-
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value);
-    setMusicVolume(newVolume);
-    bgMusic.volume = newVolume;
-  };
+  }, [isOpen, audio]);
 
   const handleReset = () => {
     setSelectedSeries(null);
-    setSelectedStage(null);
-  };
-
-  const handleOrder = () => {
-    if (!selectedSeries || !selectedStage) return;
-    
-    const stage = stages.find(s => s.id === selectedStage);
-    if (!stage) return;
-
-    const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
-    
-    const message = `ЧИП-ТЮНИНГ BMW ${selectedSeries}\n\n${stage.name}\n${stage.description}\n${stage.gains}\n\nСТОИМОСТЬ: ${price.toLocaleString('ru-RU')} ₽`;
-    
-    const url = getTelegramLink(selectedCity, `чип-тюнинг BMW ${selectedSeries}`);
-    const separator = url.includes('?') ? '&' : '?';
-    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
   };
 
   if (!isOpen) return null;
@@ -184,49 +78,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
         />
 
         {/* Music player controls - top left */}
-        <div 
-          className="absolute top-4 left-4 flex items-center gap-2 px-3 py-2 z-10"
-          style={{
-            background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(26, 8, 8, 0.9) 100%)',
-            border: '2px solid rgba(255, 0, 0, 0.4)',
-            clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)',
-            boxShadow: '0 0 15px rgba(255, 0, 0, 0.3)'
-          }}
-        >
-          {/* Track info */}
-          <span className="text-red-400 text-xs uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-            {currentTrackIndex + 1}/{playlist.length}
-          </span>
-          
-          {/* Play/Pause button */}
-          <button
-            onClick={toggleMusic}
-            className="w-8 h-8 flex items-center justify-center transition-all hover:scale-110"
-            style={{
-              background: isMusicPlaying ? 'rgba(255, 0, 0, 0.3)' : 'rgba(255, 0, 0, 0.1)',
-              border: '1px solid rgba(255, 0, 0, 0.5)'
-            }}
-          >
-            <Icon name={isMusicPlaying ? "Pause" : "Play"} className="w-4 h-4 text-red-400" />
-          </button>
-          
-          {/* Volume slider */}
-          <div className="flex items-center gap-2">
-            <Icon name="Volume2" className="w-4 h-4 text-red-400" />
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              value={musicVolume}
-              onChange={handleVolumeChange}
-              className="w-20 h-1 bg-red-900/30 rounded-lg appearance-none cursor-pointer"
-              style={{
-                accentColor: '#ff0000'
-              }}
-            />
-          </div>
-        </div>
+        <MusicPlayer isOpen={isOpen} />
 
         {/* Close button */}
         <button
@@ -277,314 +129,16 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
           </div>
 
           {!selectedSeries ? (
-            <div className="relative">
-              {/* Police lights behind buttons - 20 seconds - same as MainLayout */}
-              {showLights && (
-                <>
-                  {/* Layer 1 - Main gradient */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none z-0"
-                    style={{
-                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.6) 25%, transparent 50%, rgba(255, 0, 13, 0.6) 75%, transparent 100%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'policeLights 2s linear infinite',
-                      filter: 'blur(120px)',
-                      borderRadius: '1rem'
-                    }}
-                  />
-                  {/* Layer 2 - Radial ellipses */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none z-0"
-                    style={{
-                      background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'policeLights 2s linear infinite',
-                      filter: 'blur(100px)'
-                    }}
-                  />
-                  {/* Layer 3 - Slower gradient */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none z-0"
-                    style={{
-                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.35) 20%, transparent 40%, transparent 60%, rgba(255, 0, 13, 0.35) 80%, transparent 100%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'policeLights 2.5s linear infinite',
-                      filter: 'blur(150px)'
-                    }}
-                  />
-                  {/* Extra intensity layer */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none z-0"
-                    style={{
-                      background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.5) 0%, transparent 50%)',
-                      animation: 'policeLights 2s linear infinite',
-                      filter: 'blur(140px)'
-                    }}
-                  />
-                </>
-              )}
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
-              {seriesList.map((series, index) => (
-                <button
-                  key={series}
-                  onClick={() => setSelectedSeries(series)}
-                  className="group relative transition-all duration-300 hover:scale-105 active:scale-95"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 8, 8, 0.8) 100%)',
-                    backdropFilter: 'blur(10px)',
-                    border: '2px solid',
-                    borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4), rgba(255, 0, 51, 0.7), rgba(255, 0, 0, 0.4)) 1',
-                    boxShadow: '0 0 20px rgba(255, 0, 0, 0.3), inset 0 0 40px rgba(0, 0, 0, 0.6)',
-                    minHeight: '140px',
-                    clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
-                  }}
-                >
-                  {/* Corner cuts */}
-                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-red-600/40 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
-                  <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-red-600/40 to-transparent pointer-events-none" style={{ clipPath: 'polygon(0 100%, 100% 100%, 0 0)' }} />
-                  
-                  {/* Orange glow on hover */}
-                  <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    style={{
-                      background: 'radial-gradient(circle at center, rgba(255, 0, 0, 0.3), transparent 70%)',
-                      boxShadow: 'inset 0 0 60px rgba(255, 0, 0, 0.4)'
-                    }}
-                  />
-                  
-                  {/* Grunge texture overlay */}
-                  <div 
-                    className="absolute inset-0 opacity-20 pointer-events-none"
-                    style={{
-                      backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255, 0, 0, 0.15) 1px, rgba(255, 0, 0, 0.15) 2px)',
-                      mixBlendMode: 'overlay'
-                    }}
-                  />
-                  
-                  {/* Tech scanlines */}
-                  <div 
-                    className="absolute inset-0 opacity-10 pointer-events-none"
-                    style={{
-                      backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 0, 0.4) 2px, rgba(255, 0, 0, 0.4) 4px)'
-                    }}
-                  />
-                  
-                  {/* Content */}
-                  <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
-                    {/* Orange accent corner */}
-                    <div 
-                      className="absolute top-2 left-2 w-8 h-0.5 bg-red-500 group-hover:w-12 transition-all"
-                      style={{ boxShadow: '0 0 10px rgba(255, 0, 0, 0.8)' }}
-                    />
-                    <div 
-                      className="absolute top-2 left-2 w-0.5 h-8 bg-red-500 group-hover:h-12 transition-all"
-                      style={{ boxShadow: '0 0 10px rgba(255, 0, 0, 0.8)' }}
-                    />
-                    
-                    <div 
-                      className="text-white text-xl font-bold tracking-widest text-center uppercase group-hover:text-red-400 transition-colors"
-                      style={{ 
-                        fontFamily: '"Reborn Technologies", sans-serif',
-                        textShadow: '2px 2px 0 rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
-                      }}
-                    >
-                      {series}
-                    </div>
-                    
-                    {/* Bottom tech detail */}
-                    <div className="absolute bottom-2 right-2 flex gap-1">
-                      <div className="w-1 h-1 bg-red-500 opacity-50" />
-                      <div className="w-1 h-1 bg-red-500 opacity-70" />
-                      <div className="w-1 h-1 bg-red-500" style={{ boxShadow: '0 0 5px #ff0000' }} />
-                    </div>
-                  </div>
-                </button>
-              ))}
-              </div>
-            </div>
+            <SeriesSelector 
+              showLights={showLights}
+              onSelectSeries={setSelectedSeries}
+            />
           ) : (
-            <div className="space-y-6">
-              <button
-                onClick={handleReset}
-                className="flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 0, 51, 0.4))',
-                  border: '2px solid rgba(255, 0, 0, 0.5)',
-                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
-                  boxShadow: '0 0 15px rgba(255, 0, 0, 0.4)'
-                }}
-              >
-                <Icon name="ChevronLeft" className="w-5 h-5 text-red-400" />
-                <span 
-                  className="tracking-wider text-red-400 uppercase"
-                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                >
-                  /// НАЗАД
-                </span>
-              </button>
-
-              <div 
-                className="p-5 relative overflow-hidden"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(26, 8, 8, 0.9) 100%)',
-                  border: '2px solid',
-                  borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.5), rgba(255, 0, 51, 0.7)) 1',
-                  boxShadow: '0 0 30px rgba(255, 0, 0, 0.3), inset 0 0 40px rgba(0, 0, 0, 0.5)',
-                  clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%)'
-                }}
-              >
-                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-red-600/30 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
-                <p 
-                  className="text-red-500 text-xs mb-2 tracking-widest uppercase"
-                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                >
-                  /// ВЫБРАНА СЕРИЯ
-                </p>
-                <p 
-                  className="text-white text-2xl tracking-widest font-bold uppercase"
-                  style={{ 
-                    fontFamily: '"Reborn Technologies", sans-serif',
-                    textShadow: '2px 2px 0 rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.5)'
-                  }}
-                >
-                  {selectedSeries}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-1 h-8 bg-red-500" style={{ boxShadow: '0 0 10px #ff0000' }} />
-                <p 
-                  className="text-red-400 text-lg tracking-widest uppercase"
-                  style={{ 
-                    fontFamily: '"Reborn Technologies", sans-serif',
-                    textShadow: '0 0 10px rgba(255, 0, 0, 0.6)'
-                  }}
-                >
-                  /// ВЫБЕРИТЕ STAGE
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                {stages.map((stage) => {
-                  const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
-                  const isSelected = selectedStage === stage.id;
-
-                  return (
-                    <button
-                      key={stage.id}
-                      onClick={() => setSelectedStage(stage.id)}
-                      className="w-full p-6 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
-                      style={{
-                        background: isSelected
-                          ? 'linear-gradient(135deg, rgba(26, 8, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)'
-                          : 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
-                        border: '2px solid',
-                        borderImage: isSelected
-                          ? 'linear-gradient(135deg, #ff0000, #ff0033, #ff0000) 1'
-                          : 'linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 0, 51, 0.5), rgba(255, 0, 0, 0.3)) 1',
-                        boxShadow: isSelected 
-                          ? '0 0 40px rgba(255, 0, 0, 0.6), inset 0 0 60px rgba(255, 0, 0, 0.15)'
-                          : '0 0 20px rgba(255, 0, 0, 0.3), inset 0 0 40px rgba(0, 0, 0, 0.5)',
-                        clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
-                      }}
-                    >
-                      {/* Corner cuts */}
-                      <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none" style={{ 
-                        background: isSelected ? 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), transparent)' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), transparent)',
-                        clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
-                      }} />
-                      
-                      {/* Scanlines */}
-                      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
-                        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 0, 0.3) 2px, rgba(255, 0, 0, 0.3) 4px)'
-                      }} />
-                      
-                      <div className="flex items-start justify-between mb-4 relative z-10">
-                        <div>
-                          <h3 
-                            className="text-white text-2xl md:text-3xl mb-2 tracking-widest uppercase font-bold"
-                            style={{ 
-                              fontFamily: '"Reborn Technologies", sans-serif',
-                              textShadow: isSelected ? '2px 2px 0 #ff0000, 0 0 30px rgba(255, 0, 0, 0.7)' : '2px 2px 0 rgba(255, 0, 0, 0.3), 0 0 10px rgba(255, 0, 0, 0.4)'
-                            }}
-                          >
-                            {stage.name}
-                          </h3>
-                          <p 
-                            className="text-red-400/80 text-sm tracking-wider uppercase"
-                            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                          >
-                            /// {stage.description}
-                          </p>
-                        </div>
-                        {isSelected && (
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-red-500 animate-pulse" style={{ boxShadow: '0 0 10px #ff0000' }} />
-                            <Icon name="Check" className="w-6 h-6 text-red-500" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between relative z-10">
-                        <div className="flex items-center gap-2">
-                          <div className="w-1 h-6 bg-red-500" style={{ boxShadow: '0 0 8px #ff0000' }} />
-                          <span 
-                            className="text-red-400 tracking-widest uppercase text-sm"
-                            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                          >
-                            {stage.gains}
-                          </span>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-red-500/60 text-xs uppercase tracking-wider mb-1" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>СТОИМОСТЬ</div>
-                          <span 
-                            className="text-white text-2xl md:text-3xl tracking-wider font-bold"
-                            style={{ 
-                              fontFamily: '"Reborn Technologies", sans-serif',
-                              textShadow: '0 0 20px rgba(255, 0, 0, 0.5)'
-                            }}
-                          >
-                            {price.toLocaleString('ru-RU')} ₽
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {selectedStage && (
-                <button
-                  onClick={handleOrder}
-                  className="w-full p-6 text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden group"
-                  style={{
-                    background: 'linear-gradient(135deg, #ff0000 0%, #ff0033 50%, #ff0000 100%)',
-                    border: '3px solid #ff0000',
-                    boxShadow: '0 0 40px rgba(255, 0, 0, 0.7), inset 0 0 60px rgba(0, 0, 0, 0.3)',
-                    clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)'
-                  }}
-                >
-                  {/* Animated glow */}
-                  <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    style={{
-                      background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent 70%)'
-                    }}
-                  />
-                  
-                  <Icon name="MessageCircle" className="w-7 h-7 relative z-10" style={{ filter: 'drop-shadow(0 0 10px rgba(0, 0, 0, 0.5))' }} />
-                  <span 
-                    className="text-xl tracking-widest uppercase font-bold relative z-10"
-                    style={{ 
-                      fontFamily: '"Reborn Technologies", sans-serif',
-                      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.3)'
-                    }}
-                  >
-                    ЗАКАЗАТЬ В TELEGRAM
-                  </span>
-                </button>
-              )}
-            </div>
+            <StageSelector 
+              selectedSeries={selectedSeries}
+              selectedCity={selectedCity}
+              onReset={handleReset}
+            />
           )}
         </div>
       </div>
