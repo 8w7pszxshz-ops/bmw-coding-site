@@ -62,7 +62,34 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
-      {seriesList.map((series, index) => (
+      {seriesList.map((series, index) => {
+        // Column calculation (0-3 for 4 columns)
+        const colIndex = index % 4;
+        
+        // Column 0-1: Pure Apple style (blue → orange → purple)
+        // Column 2: Apple → NFS cyan-teal transition
+        // Column 3: Custom neon (green → pink → yellow)
+        
+        let borderGradient, boxShadowColor, animationName;
+        
+        if (colIndex < 2) {
+          // Columns 1-2: Pure Apple colors
+          borderGradient = 'linear-gradient(135deg, rgba(138, 180, 248, 0.6), rgba(251, 146, 60, 0.6), rgba(167, 139, 250, 0.6), rgba(34, 211, 238, 0.6))';
+          boxShadowColor = 'rgba(138, 180, 248, 0.4)';
+          animationName = 'appleGradient';
+        } else if (colIndex === 2) {
+          // Column 3: Apple → NFS cyan-teal
+          borderGradient = 'linear-gradient(135deg, rgba(138, 180, 248, 0.6), rgba(34, 211, 238, 0.7), rgba(20, 184, 166, 0.7), rgba(6, 182, 212, 0.6))';
+          boxShadowColor = 'rgba(34, 211, 238, 0.5)';
+          animationName = 'appleToNFS';
+        } else {
+          // Column 4: Custom neon mix
+          borderGradient = 'linear-gradient(135deg, rgba(74, 222, 128, 0.6), rgba(244, 114, 182, 0.6), rgba(251, 191, 36, 0.7), rgba(139, 92, 246, 0.6))';
+          boxShadowColor = 'rgba(74, 222, 128, 0.4)';
+          animationName = 'neonPulse';
+        }
+        
+        return (
         <button
           key={series}
           onClick={() => onSelectSeries(series)}
@@ -71,13 +98,13 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
             background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 8, 8, 0.8) 100%)',
             backdropFilter: 'blur(10px)',
             border: '2px solid transparent',
-            backgroundImage: 'linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 8, 8, 0.8) 100%), linear-gradient(135deg, rgba(138, 180, 248, 0.6), rgba(251, 146, 60, 0.6), rgba(167, 139, 250, 0.6), rgba(34, 211, 238, 0.6))',
+            backgroundImage: `linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 8, 8, 0.8) 100%), ${borderGradient}`,
             backgroundOrigin: 'border-box',
             backgroundClip: 'padding-box, border-box',
-            boxShadow: '0 0 30px rgba(138, 180, 248, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.6)',
+            boxShadow: `0 0 30px ${boxShadowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6)`,
             minHeight: '140px',
             clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
-            animation: 'appleGradient 6s ease infinite'
+            animation: `${animationName} 6s ease infinite`
           }}
         >
           {/* Corner cuts with Apple colors */}
@@ -152,7 +179,8 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
             </div>
           </div>
         </button>
-      ))}
+        );
+      })}
       </div>
     </div>
   );
