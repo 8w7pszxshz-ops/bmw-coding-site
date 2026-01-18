@@ -66,7 +66,12 @@ export default function MusicPlayer({ isOpen }: MusicPlayerProps) {
       setCurrentTrackIndex(0);
       audio.src = playlist[0];
       audio.currentTime = 0;
-      setIsMusicPlaying(false);
+      audio.play().then(() => {
+        setIsMusicPlaying(true);
+      }).catch(err => {
+        console.log('Auto-play blocked:', err);
+        setIsMusicPlaying(false);
+      });
     } else {
       audio.pause();
       audio.currentTime = 0;
