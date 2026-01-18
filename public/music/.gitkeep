@@ -2,8 +2,10 @@
 # 
 # MP3 файлы в плейлисте:
 # - 1.mp3  (воспроизводится первым ВСЕГДА)
-# - Ost — 24's (TJ) [NFS Underground] (www.lightaudio.ru).mp3
-# - Snoop Dogg OST-NFS Underground 2 — Riders On The Storm.mp3
+# - track2.mp3 (переименуйте "Ost — 24's (TJ) [NFS Underground] (www.lightaudio.ru).mp3")
+# - track3.mp3 (переименуйте "Snoop Dogg OST-NFS Underground 2 — Riders On The Storm.mp3")
 # 
 # Треки автоматически переключаются по порядку.
 # При каждом открытии модального окна плейлист начинается с первого трека
+#
+# Переименуйте файлы в GitHub в простые названия track2.mp3 и track3.mp3
