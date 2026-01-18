@@ -96,42 +96,93 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
       {/* Modal content */}
       <div 
-        className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl z-20"
+        className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto z-20"
         style={{
-          background: 'rgba(10, 10, 15, 0.95)',
-          border: '1px solid rgba(255, 0, 13, 0.3)',
-          boxShadow: '0 40px 100px rgba(0, 0, 0, 0.8)'
+          background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1108 50%, #0a0a0f 100%)',
+          border: '3px solid',
+          borderImage: 'linear-gradient(135deg, #ff8c00 0%, #ff6b00 50%, #ff8c00 100%) 1',
+          boxShadow: '0 0 40px rgba(255, 140, 0, 0.3), inset 0 0 80px rgba(0, 0, 0, 0.8), 0 40px 100px rgba(0, 0, 0, 0.8)',
+          clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
         }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Diagonal corner cuts - NFS MW style */}
+        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-600/40 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
+        <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-orange-600/40 to-transparent pointer-events-none" style={{ clipPath: 'polygon(0 100%, 100% 100%, 0 0)' }} />
+        
+        {/* Grunge scratches overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-20"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 140, 0, 0.1) 2px, rgba(255, 140, 0, 0.1) 4px), repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255, 140, 0, 0.05) 3px, rgba(255, 140, 0, 0.05) 6px)',
+            mixBlendMode: 'overlay'
+          }}
+        />
+
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-lg transition-colors z-10"
+          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center transition-all z-10 group"
           style={{
-            background: 'rgba(255, 0, 13, 0.1)',
-            border: '1px solid rgba(255, 0, 13, 0.3)'
+            background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%)',
+            clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+            boxShadow: '0 0 20px rgba(255, 140, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5)'
           }}
         >
-          <Icon name="X" className="w-5 h-5 text-white" />
+          <Icon name="X" className="w-5 h-5 text-black group-hover:text-white transition-colors" />
         </button>
 
         <div className="p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <img 
-                src="https://cdn.poehali.dev/projects/LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF6c1NlZ2w0STVnZmtRdDgxMWF0YgppYWhVQ0dkVEhyeGZ0aWp6Y25tK0svQlM3Z3VEa01Kd0EwNjJoZTlMQUxuY1NGVGJiMmNnSXB0M3FzdzRsUmhKCjBPNmdTTDRyUzJVZWVsb25pZnBCdW9oQjVMd2RDRGUzcU9SL3RKZDlmYzhYMkRDQ2FGczRVVSt2ZThCa0xRVzYKbjNNdWRZZThuRlVEWmtScFZuN3BnNU43T2Q1L3ZIOVByL09QamJ3ZnMvQk9hZjlnTktneC9WMDEvc2l1eGN5egpxbjJzQW9yU1gzR1Eyb2dCZ2xVUnVyb1pGWS9oeEp1OGR2aCtHNnczRFpGU2RjZUtzN1FCQllyeGhoTng0NUIzCkpLVGRJZTVyRXYrVCtxcDlDOGZsSzlMNlN5TFFaSHA5ekhWRWhzb3ZtNGxKdUh1cXd4S0QwWEhtVm1TRC8xSzAKU3dJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==/bucket/reborn_logo.png" 
-                alt="Reborn Technologies" 
-                className="h-12"
-              />
+          {/* Header - NFS MW style */}
+          <div className="relative mb-8">
+            {/* Orange accent bar */}
+            <div 
+              className="h-1 mb-6"
+              style={{
+                background: 'linear-gradient(90deg, transparent 0%, #ff8c00 20%, #ff6b00 50%, #ff8c00 80%, transparent 100%)',
+                boxShadow: '0 0 20px rgba(255, 140, 0, 0.6)'
+              }}
+            />
+            
+            <div className="flex items-center justify-between px-4">
+              <div className="flex items-center gap-4">
+                <img 
+                  src="https://cdn.poehali.dev/projects/LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF6c1NlZ2w0STVnZmtRdDgxMWF0YgppYWhVQ0dkVEhyeGZ0aWp6Y25tK0svQlM3Z3VEa01Kd0EwNjJoZTlMQUxuY1NGVGJiMmNnSXB0M3FzdzRsUmhKCjBPNmdTTDRyUzJVZWVsb25pZnBCdW9oQjVMd2RDRGUzcU9SL3RKZDlmYzhYMkRDQ2FGczRVVSt2ZThCa0xRVzYKbjNNdWRZZThuRlVEWmtScFZuN3BnNU43T2Q1L3ZIOVByL09QamJ3ZnMvQk9hZjlnTktneC9WMDEvc2l1eGN5egpxbjJzQW9yU1gzR1Eyb2dCZ2xVUnVyb1pGWS9oeEp1OGR2aCtHNnczRFpGU2RjZUtzN1FCQllyeGhoTng0NUIzCkpLVGRJZTVyRXYrVCtxcDlDOGZsSzlMNlN5TFFaSHA5ekhWRWhzb3ZtNGxKdUh1cXd4S0QwWEhtVm1TRC8xSzAKU3dJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==/bucket/reborn_logo.png" 
+                  alt="Reborn Technologies" 
+                  className="h-10"
+                  style={{ filter: 'drop-shadow(0 0 10px rgba(255, 140, 0, 0.5))' }}
+                />
+                <div>
+                  <h2 
+                    className="text-2xl md:text-3xl text-white uppercase tracking-widest"
+                    style={{ 
+                      fontFamily: '"Reborn Technologies", sans-serif',
+                      textShadow: '2px 2px 0 #ff8c00, 4px 4px 10px rgba(255, 140, 0, 0.5), 0 0 30px rgba(255, 140, 0, 0.3)'
+                    }}
+                  >
+                    CHIP TUNING
+                  </h2>
+                  <p className="text-orange-500 text-sm uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                    /// ВЫБЕРИТЕ СЕРИЮ BMW
+                  </p>
+                </div>
+              </div>
+              
+              {/* Decorative tech element */}
+              <div className="hidden md:flex items-center gap-2">
+                <div className="w-2 h-2 bg-orange-500 animate-pulse" style={{ boxShadow: '0 0 10px #ff8c00' }} />
+                <div className="w-12 h-0.5 bg-gradient-to-r from-orange-500 to-transparent" />
+              </div>
             </div>
-            <h2 
-              className="text-3xl text-white mb-2 tracking-wider"
-              style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-            >
-              ВЫБЕРИТЕ СЕРИЮ BMW
-            </h2>
+            
+            {/* Bottom accent bar */}
+            <div 
+              className="h-0.5 mt-6"
+              style={{
+                background: 'linear-gradient(90deg, #ff8c00 0%, transparent 50%, #ff8c00 100%)',
+                boxShadow: '0 0 10px rgba(255, 140, 0, 0.4)'
+              }}
+            />
           </div>
 
           {!selectedSeries ? (
@@ -187,78 +238,74 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                 <button
                   key={series}
                   onClick={() => setSelectedSeries(series)}
-                  className="group relative rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95"
+                  className="group relative transition-all duration-300 hover:scale-105 active:scale-95"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.15)',
-                    backdropFilter: 'blur(15px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: '0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 0, 13, 0.05)',
-                    minHeight: '180px',
-                    aspectRatio: '1 / 1'
+                    background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 17, 8, 0.8) 100%)',
+                    backdropFilter: 'blur(10px)',
+                    border: '2px solid',
+                    borderImage: 'linear-gradient(135deg, rgba(255, 140, 0, 0.3), rgba(255, 107, 0, 0.6), rgba(255, 140, 0, 0.3)) 1',
+                    boxShadow: '0 0 20px rgba(255, 140, 0, 0.2), inset 0 0 40px rgba(0, 0, 0, 0.6)',
+                    minHeight: '140px',
+                    clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
                   }}
                 >
-                  {/* Radial gradient glow */}
+                  {/* Corner cuts */}
+                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-orange-600/30 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
+                  <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-orange-600/30 to-transparent pointer-events-none" style={{ clipPath: 'polygon(0 100%, 100% 100%, 0 0)' }} />
+                  
+                  {/* Orange glow on hover */}
                   <div 
-                    className="absolute inset-0 opacity-30 group-hover:opacity-60 transition-opacity rounded-2xl pointer-events-none"
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle at center, #FF000D30, transparent 70%)',
-                      boxShadow: 'inset 0 0 60px #FF000D20',
-                      mixBlendMode: 'screen'
+                      background: 'radial-gradient(circle at center, rgba(255, 140, 0, 0.2), transparent 70%)',
+                      boxShadow: 'inset 0 0 60px rgba(255, 140, 0, 0.3)'
                     }}
                   />
                   
-                  {/* Top border glow */}
+                  {/* Grunge texture overlay */}
                   <div 
-                    className="absolute top-0 left-0 right-0 rounded-t-2xl pointer-events-none"
+                    className="absolute inset-0 opacity-20 pointer-events-none"
                     style={{
-                      height: '2px',
-                      background: 'linear-gradient(90deg, transparent 0%, #FF000D30 20%, #FF000D90 50%, #FF000D30 80%, transparent 100%)',
-                      boxShadow: '0 0 30px #FF000D60, 0 2px 20px #FF000D40'
+                      backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255, 140, 0, 0.1) 1px, rgba(255, 140, 0, 0.1) 2px)',
+                      mixBlendMode: 'overlay'
                     }}
                   />
                   
-                  {/* Bottom border glow */}
+                  {/* Tech scanlines */}
                   <div 
-                    className="absolute bottom-0 left-0 right-0 rounded-b-2xl pointer-events-none"
+                    className="absolute inset-0 opacity-10 pointer-events-none"
                     style={{
-                      height: '1px',
-                      background: 'linear-gradient(90deg, transparent 0%, #FF000D20 30%, #FF000D50 50%, #FF000D20 70%, transparent 100%)',
-                      boxShadow: '0 0 15px #FF000D30'
-                    }}
-                  />
-                  
-                  {/* Animated pattern - brighter pulsating dots */}
-                  <svg className="absolute inset-0 w-full h-full opacity-60 pointer-events-none rounded-2xl" style={{ mixBlendMode: 'screen' }}>
-                    <defs>
-                      <pattern id={`pattern-series-${index}`} x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                        <circle cx="15" cy="15" r="1.5" fill="#FF000D" opacity="1">
-                          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" />
-                        </circle>
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill={`url(#pattern-series-${index})`} />
-                  </svg>
-                  
-                  {/* Extra bright pulsating dots */}
-                  <div 
-                    className="absolute top-2 right-2 w-3 h-3 rounded-full pointer-events-none"
-                    style={{
-                      background: '#FF000D',
-                      boxShadow: '0 0 15px #FF000D, 0 0 30px rgba(255, 0, 13, 0.6)',
-                      animation: 'pulse 1.5s ease-in-out infinite'
+                      backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 140, 0, 0.3) 2px, rgba(255, 140, 0, 0.3) 4px)'
                     }}
                   />
                   
                   {/* Content */}
                   <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
+                    {/* Orange accent corner */}
                     <div 
-                      className="text-white text-lg tracking-wider text-center"
+                      className="absolute top-2 left-2 w-8 h-0.5 bg-orange-500 group-hover:w-12 transition-all"
+                      style={{ boxShadow: '0 0 10px rgba(255, 140, 0, 0.6)' }}
+                    />
+                    <div 
+                      className="absolute top-2 left-2 w-0.5 h-8 bg-orange-500 group-hover:h-12 transition-all"
+                      style={{ boxShadow: '0 0 10px rgba(255, 140, 0, 0.6)' }}
+                    />
+                    
+                    <div 
+                      className="text-white text-xl font-bold tracking-widest text-center uppercase group-hover:text-orange-400 transition-colors"
                       style={{ 
                         fontFamily: '"Reborn Technologies", sans-serif',
-                        textShadow: '0 0 20px rgba(255, 0, 13, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
+                        textShadow: '2px 2px 0 rgba(255, 140, 0, 0.3), 0 0 20px rgba(255, 140, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.8)'
                       }}
                     >
                       {series}
+                    </div>
+                    
+                    {/* Bottom tech detail */}
+                    <div className="absolute bottom-2 right-2 flex gap-1">
+                      <div className="w-1 h-1 bg-orange-500 opacity-50" />
+                      <div className="w-1 h-1 bg-orange-500 opacity-70" />
+                      <div className="w-1 h-1 bg-orange-500" style={{ boxShadow: '0 0 5px #ff8c00' }} />
                     </div>
                   </div>
                 </button>
@@ -269,44 +316,63 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
             <div className="space-y-6">
               <button
                 onClick={handleReset}
-                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors"
+                className="flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 107, 0, 0.3))',
+                  border: '2px solid rgba(255, 140, 0, 0.4)',
+                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+                  boxShadow: '0 0 15px rgba(255, 140, 0, 0.3)'
+                }}
               >
-                <Icon name="ChevronLeft" className="w-5 h-5" />
+                <Icon name="ChevronLeft" className="w-5 h-5 text-orange-400" />
                 <span 
-                  className="tracking-wider"
+                  className="tracking-wider text-orange-400 uppercase"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  НАЗАД
+                  /// НАЗАД
                 </span>
               </button>
 
               <div 
-                className="p-5 rounded-xl"
+                className="p-5 relative overflow-hidden"
                 style={{
-                  background: 'rgba(255, 0, 13, 0.1)',
-                  border: '1px solid rgba(255, 0, 13, 0.3)'
+                  background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(26, 17, 8, 0.9) 100%)',
+                  border: '2px solid',
+                  borderImage: 'linear-gradient(135deg, rgba(255, 140, 0, 0.4), rgba(255, 107, 0, 0.6)) 1',
+                  boxShadow: '0 0 30px rgba(255, 140, 0, 0.2), inset 0 0 40px rgba(0, 0, 0, 0.5)',
+                  clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%)'
                 }}
               >
+                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-orange-600/20 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
                 <p 
-                  className="text-white/70 text-sm mb-2 tracking-wider"
+                  className="text-orange-500 text-xs mb-2 tracking-widest uppercase"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  ВЫБРАНА СЕРИЯ:
+                  /// ВЫБРАНА СЕРИЯ
                 </p>
                 <p 
-                  className="text-white text-xl tracking-wider"
-                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                  className="text-white text-2xl tracking-widest font-bold uppercase"
+                  style={{ 
+                    fontFamily: '"Reborn Technologies", sans-serif',
+                    textShadow: '2px 2px 0 rgba(255, 140, 0, 0.3), 0 0 20px rgba(255, 140, 0, 0.4)'
+                  }}
                 >
                   {selectedSeries}
                 </p>
               </div>
 
-              <p 
-                className="text-white/70 text-lg tracking-wider"
-                style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-              >
-                ВЫБЕРИТЕ STAGE:
-              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-1 h-8 bg-orange-500" style={{ boxShadow: '0 0 10px #ff8c00' }} />
+                <p 
+                  className="text-orange-400 text-lg tracking-widest uppercase"
+                  style={{ 
+                    fontFamily: '"Reborn Technologies", sans-serif',
+                    textShadow: '0 0 10px rgba(255, 140, 0, 0.5)'
+                  }}
+                >
+                  /// ВЫБЕРИТЕ STAGE
+                </p>
+              </div>
 
               <div className="space-y-4">
                 {stages.map((stage) => {
@@ -317,49 +383,79 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
                     <button
                       key={stage.id}
                       onClick={() => setSelectedStage(stage.id)}
-                      className="w-full p-6 rounded-xl text-left transition-all duration-300 hover:scale-[1.02]"
+                      className="w-full p-6 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
                       style={{
-                        background: 'rgba(20, 20, 30, 0.8)',
-                        border: isSelected 
-                          ? '2px solid rgba(255, 0, 13, 0.6)'
-                          : '1px solid rgba(255, 0, 13, 0.3)',
+                        background: isSelected
+                          ? 'linear-gradient(135deg, rgba(26, 17, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)'
+                          : 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 17, 8, 0.7) 100%)',
+                        border: '2px solid',
+                        borderImage: isSelected
+                          ? 'linear-gradient(135deg, #ff8c00, #ff6b00, #ff8c00) 1'
+                          : 'linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 107, 0, 0.4), rgba(255, 140, 0, 0.2)) 1',
                         boxShadow: isSelected 
-                          ? '0 4px 30px rgba(255, 0, 13, 0.4)'
-                          : 'none'
+                          ? '0 0 40px rgba(255, 140, 0, 0.5), inset 0 0 60px rgba(255, 140, 0, 0.1)'
+                          : '0 0 20px rgba(255, 140, 0, 0.2), inset 0 0 40px rgba(0, 0, 0, 0.5)',
+                        clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
                       }}
                     >
-                      <div className="flex items-start justify-between mb-4">
+                      {/* Corner cuts */}
+                      <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none" style={{ 
+                        background: isSelected ? 'linear-gradient(to bottom right, rgba(255, 140, 0, 0.3), transparent)' : 'linear-gradient(to bottom right, rgba(255, 140, 0, 0.1), transparent)',
+                        clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
+                      }} />
+                      
+                      {/* Scanlines */}
+                      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+                        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 140, 0, 0.2) 2px, rgba(255, 140, 0, 0.2) 4px)'
+                      }} />
+                      
+                      <div className="flex items-start justify-between mb-4 relative z-10">
                         <div>
                           <h3 
-                            className="text-white text-2xl mb-2 tracking-wider"
-                            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                            className="text-white text-2xl md:text-3xl mb-2 tracking-widest uppercase font-bold"
+                            style={{ 
+                              fontFamily: '"Reborn Technologies", sans-serif',
+                              textShadow: isSelected ? '2px 2px 0 #ff8c00, 0 0 30px rgba(255, 140, 0, 0.6)' : '2px 2px 0 rgba(255, 140, 0, 0.2), 0 0 10px rgba(255, 140, 0, 0.3)'
+                            }}
                           >
                             {stage.name}
                           </h3>
                           <p 
-                            className="text-white/60 text-sm tracking-wider"
+                            className="text-orange-400/80 text-sm tracking-wider uppercase"
                             style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                           >
-                            {stage.description}
+                            /// {stage.description}
                           </p>
                         </div>
                         {isSelected && (
-                          <Icon name="Check" className="w-6 h-6" style={{ color: '#FF000D' }} />
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-orange-500 animate-pulse" style={{ boxShadow: '0 0 10px #ff8c00' }} />
+                            <Icon name="Check" className="w-6 h-6 text-orange-500" />
+                          </div>
                         )}
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span 
-                          className="text-white/70 tracking-wider"
-                          style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                        >
-                          {stage.gains}
-                        </span>
-                        <span 
-                          className="text-white text-2xl tracking-wider"
-                          style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                        >
-                          {price.toLocaleString('ru-RU')} ₽
-                        </span>
+                      <div className="flex items-center justify-between relative z-10">
+                        <div className="flex items-center gap-2">
+                          <div className="w-1 h-6 bg-orange-500" style={{ boxShadow: '0 0 8px #ff8c00' }} />
+                          <span 
+                            className="text-orange-400 tracking-widest uppercase text-sm"
+                            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                          >
+                            {stage.gains}
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-orange-500/60 text-xs uppercase tracking-wider mb-1" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>СТОИМОСТЬ</div>
+                          <span 
+                            className="text-white text-2xl md:text-3xl tracking-wider font-bold"
+                            style={{ 
+                              fontFamily: '"Reborn Technologies", sans-serif',
+                              textShadow: '0 0 20px rgba(255, 140, 0, 0.4)'
+                            }}
+                          >
+                            {price.toLocaleString('ru-RU')} ₽
+                          </span>
+                        </div>
                       </div>
                     </button>
                   );
@@ -369,17 +465,29 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
               {selectedStage && (
                 <button
                   onClick={handleOrder}
-                  className="w-full p-5 rounded-xl text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3"
+                  className="w-full p-6 text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden group"
                   style={{
-                    background: 'linear-gradient(135deg, #FF000D, #CC0000)',
-                    border: '1px solid rgba(255, 0, 13, 0.5)',
-                    boxShadow: '0 10px 40px rgba(255, 0, 13, 0.3)'
+                    background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b00 50%, #ff8c00 100%)',
+                    border: '3px solid #ff8c00',
+                    boxShadow: '0 0 40px rgba(255, 140, 0, 0.6), inset 0 0 60px rgba(0, 0, 0, 0.3)',
+                    clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)'
                   }}
                 >
-                  <Icon name="MessageCircle" className="w-6 h-6" />
+                  {/* Animated glow */}
+                  <div 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent 70%)'
+                    }}
+                  />
+                  
+                  <Icon name="MessageCircle" className="w-7 h-7 relative z-10" style={{ filter: 'drop-shadow(0 0 10px rgba(0, 0, 0, 0.5))' }} />
                   <span 
-                    className="text-lg tracking-wider"
-                    style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                    className="text-xl tracking-widest uppercase font-bold relative z-10"
+                    style={{ 
+                      fontFamily: '"Reborn Technologies", sans-serif',
+                      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.3)'
+                    }}
                   >
                     ЗАКАЗАТЬ В TELEGRAM
                   </span>
