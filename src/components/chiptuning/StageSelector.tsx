@@ -45,7 +45,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       <button
         onClick={onReset}
         className="flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
@@ -66,7 +66,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
       </button>
 
       <div 
-        className="p-5 relative overflow-hidden"
+        className="p-3 relative overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(26, 8, 8, 0.9) 100%)',
           border: '2px solid',
@@ -77,13 +77,13 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
       >
         <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.3), rgba(0, 212, 255, 0.3))', clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
         <p 
-          className="text-white text-xs mb-2 tracking-widest uppercase"
+          className="text-white text-xs mb-1 tracking-widest uppercase"
           style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
         >
           /// ВЫБРАНА СЕРИЯ
         </p>
         <p 
-          className="text-white text-2xl tracking-widest font-bold uppercase"
+          className="text-white text-xl tracking-widest font-bold uppercase"
           style={{ 
             fontFamily: '"Reborn Technologies", sans-serif',
             textShadow: '2px 2px 0 rgba(127, 106, 127, 0.4), 0 0 20px rgba(127, 106, 127, 0.5)'
@@ -93,10 +93,10 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
         </p>
       </div>
 
-      <div className="flex items-center gap-3">
-        <div className="w-1 h-8" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
+      <div className="flex items-center gap-2">
+        <div className="w-1 h-6" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
         <p 
-          className="text-white text-lg tracking-widest uppercase"
+          className="text-white text-sm tracking-widest uppercase"
           style={{ 
             fontFamily: '"Reborn Technologies", sans-serif',
             textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
@@ -106,7 +106,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2">
         {stages.map((stage) => {
           const price = selectedCity.value === 'moscow' ? stage.priceBase : Math.round(stage.priceBase * 0.9);
           const isSelected = selectedStage === stage.id;
@@ -115,24 +115,24 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
             <button
               key={stage.id}
               onClick={() => setSelectedStage(stage.id)}
-              className="w-full p-6 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
+              className="w-full p-4 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
               style={{
                 background: isSelected
-                  ? 'linear-gradient(135deg, rgba(26, 8, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)'
+                  ? (stage.id === 'stage1' ? 'linear-gradient(135deg, rgba(10, 30, 10, 0.9) 0%, rgba(15, 40, 15, 0.9) 100%)' : 'linear-gradient(135deg, rgba(26, 8, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)')
                   : 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
                 border: '2px solid',
                 borderImage: isSelected
                   ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 50%, rgba(0, 212, 255, 0.9) 50%, rgba(56, 189, 248, 0.9) 100%) 1'
                   : 'linear-gradient(135deg, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.5) 50%, rgba(56, 189, 248, 0.5) 100%) 1',
                 boxShadow: isSelected 
-                  ? '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)'
+                  ? (stage.id === 'stage1' ? '0 0 40px rgba(34, 197, 94, 0.5), inset 0 0 60px rgba(34, 197, 94, 0.1)' : '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)')
                   : '0 0 20px rgba(127, 106, 127, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.5)',
                 clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
               }}
             >
               {/* Corner cuts */}
-              <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none" style={{ 
-                background: isSelected ? 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(0, 212, 255, 0.2))' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), rgba(0, 212, 255, 0.1))',
+              <div className="absolute top-0 right-0 w-12 h-12 pointer-events-none" style={{ 
+                background: isSelected ? (stage.id === 'stage1' ? 'linear-gradient(to bottom right, rgba(34, 197, 94, 0.4), transparent)' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(0, 212, 255, 0.2))') : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), rgba(0, 212, 255, 0.1))',
                 clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
               }} />
               
@@ -141,10 +141,10 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                 backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(127, 106, 127, 0.3) 2px, rgba(127, 106, 127, 0.3) 4px)'
               }} />
               
-              <div className="flex items-start justify-between mb-4 relative z-10">
+              <div className="flex items-start justify-between mb-2 relative z-10">
                 <div>
                   <h3 
-                    className="text-white text-2xl md:text-3xl mb-2 tracking-widest uppercase font-bold"
+                    className="text-white text-xl mb-1 tracking-widest uppercase font-bold"
                     style={{ 
                       fontFamily: '"Reborn Technologies", sans-serif',
                       textShadow: isSelected ? '2px 2px 0 rgba(127, 106, 127, 0.7), 0 0 30px rgba(127, 106, 127, 0.7)' : '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
@@ -153,7 +153,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                     {stage.name}
                   </h3>
                   <p 
-                    className="text-white/80 text-sm tracking-wider uppercase"
+                    className="text-white/80 text-xs tracking-wider uppercase"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
                     /// {stage.description}
@@ -179,7 +179,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                 <div className="text-right">
                   <div className="text-white/60 text-xs uppercase tracking-wider mb-1" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>СТОИМОСТЬ</div>
                   <span 
-                    className="text-white text-2xl md:text-3xl tracking-wider font-bold"
+                    className="text-white text-xl tracking-wider font-bold"
                     style={{ 
                       fontFamily: '"Reborn Technologies", sans-serif',
                       textShadow: '0 0 20px rgba(127, 106, 127, 0.5)'
@@ -194,10 +194,10 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
         })}
       </div>
 
-      {selectedStage && (
-        <button
-          onClick={handleOrder}
-          className="w-full p-6 text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden group"
+      <button
+        onClick={selectedStage ? handleOrder : undefined}
+        disabled={!selectedStage}
+        className="w-full p-4 text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             background: 'linear-gradient(135deg, #ff0000 0%, #ff0033 50%, #ff0000 100%)',
             border: '3px solid #ff0000',
@@ -213,18 +213,17 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
             }}
           />
           
-          <Icon name="MessageCircle" className="w-7 h-7 relative z-10" style={{ filter: 'drop-shadow(0 0 10px rgba(0, 0, 0, 0.5))' }} />
-          <span 
-            className="text-xl tracking-widest uppercase font-bold relative z-10"
-            style={{ 
-              fontFamily: '"Reborn Technologies", sans-serif',
-              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.3)'
-            }}
-          >
-            ЗАКАЗАТЬ В TELEGRAM
-          </span>
-        </button>
-      )}
+        <Icon name="MessageCircle" className="w-6 h-6 relative z-10" style={{ filter: 'drop-shadow(0 0 10px rgba(0, 0, 0, 0.5))' }} />
+        <span 
+          className="text-lg tracking-widest uppercase font-bold relative z-10"
+          style={{ 
+            fontFamily: '"Reborn Technologies", sans-serif',
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.3)'
+          }}
+        >
+          {selectedStage ? 'ОТПРАВИТЬ ЗАЯВКУ' : 'ВЫБЕРИТЕ ОПЦИЮ'}
+        </span>
+      </button>
     </div>
   );
 }
