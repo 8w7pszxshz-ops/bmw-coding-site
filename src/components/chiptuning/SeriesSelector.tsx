@@ -66,24 +66,19 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
         // Column calculation (0-3 for 4 columns)
         const colIndex = index % 4;
         
-        // Column 0-1: Apple Services pink-magenta gradient (static)
-        // Column 2: NFS cyan-teal (static)
-        // Column 3: Custom orange-purple gradient
+        // Column 0-1: pink-magenta gradient
+        // Column 2-3: cyan-teal gradient
         
         let borderGradient, boxShadowColor;
         
         if (colIndex < 2) {
-          // Columns 1-2: Apple Services magenta-pink
+          // Columns 1-2: Pink-Magenta
           borderGradient = 'linear-gradient(135deg, rgba(219, 39, 119, 0.7), rgba(244, 63, 94, 0.7), rgba(251, 113, 133, 0.6))';
           boxShadowColor = 'rgba(219, 39, 119, 0.5)';
-        } else if (colIndex === 2) {
-          // Column 3: NFS cyan-teal blue
+        } else {
+          // Columns 3-4: Cyan-Teal
           borderGradient = 'linear-gradient(135deg, rgba(56, 189, 248, 0.7), rgba(34, 211, 238, 0.7), rgba(20, 184, 166, 0.6))';
           boxShadowColor = 'rgba(34, 211, 238, 0.5)';
-        } else {
-          // Column 4: Custom orange-purple
-          borderGradient = 'linear-gradient(135deg, rgba(251, 146, 60, 0.7), rgba(249, 115, 22, 0.7), rgba(168, 85, 247, 0.6))';
-          boxShadowColor = 'rgba(251, 146, 60, 0.5)';
         }
         
         return (
@@ -169,8 +164,8 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
                   }}
                 />
               </>
-            ) : colIndex === 2 ? (
-              // Column 3: Cyan-Teal
+            ) : (
+              // Columns 3-4: Cyan-Teal
               <>
                 <div 
                   className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
@@ -187,24 +182,6 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
                   }}
                 />
               </>
-            ) : (
-              // Column 4: Orange-Purple
-              <>
-                <div 
-                  className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
-                  style={{ 
-                    background: 'linear-gradient(90deg, rgba(251, 146, 60, 0.8), rgba(249, 115, 22, 0.8))',
-                    boxShadow: '0 0 10px rgba(251, 146, 60, 0.6)' 
-                  }}
-                />
-                <div 
-                  className="absolute top-2 left-2 w-0.5 h-8 group-hover:h-12 transition-all"
-                  style={{ 
-                    background: 'linear-gradient(180deg, rgba(251, 146, 60, 0.8), rgba(168, 85, 247, 0.8))',
-                    boxShadow: '0 0 10px rgba(251, 146, 60, 0.6)' 
-                  }}
-                />
-              </>
             )}
             
             <div 
@@ -213,9 +190,7 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
                 fontFamily: '"Reborn Technologies", sans-serif',
                 textShadow: colIndex < 2 
                   ? '2px 2px 0 rgba(219, 39, 119, 0.3), 0 0 20px rgba(219, 39, 119, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
-                  : colIndex === 2
-                  ? '2px 2px 0 rgba(56, 189, 248, 0.3), 0 0 20px rgba(56, 189, 248, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
-                  : '2px 2px 0 rgba(251, 146, 60, 0.3), 0 0 20px rgba(251, 146, 60, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
+                  : '2px 2px 0 rgba(56, 189, 248, 0.3), 0 0 20px rgba(56, 189, 248, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
               }}
             >
               {series}
@@ -230,19 +205,12 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
                   <div className="w-1 h-1 opacity-70" style={{ background: 'rgba(244, 63, 94, 0.8)' }} />
                   <div className="w-1 h-1" style={{ background: 'rgba(251, 113, 133, 0.9)', boxShadow: '0 0 5px rgba(219, 39, 119, 0.8)' }} />
                 </>
-              ) : colIndex === 2 ? (
+              ) : (
                 // Cyan-Teal dots
                 <>
                   <div className="w-1 h-1 opacity-50" style={{ background: 'rgba(56, 189, 248, 0.8)' }} />
                   <div className="w-1 h-1 opacity-70" style={{ background: 'rgba(34, 211, 238, 0.8)' }} />
                   <div className="w-1 h-1" style={{ background: 'rgba(20, 184, 166, 0.9)', boxShadow: '0 0 5px rgba(56, 189, 248, 0.8)' }} />
-                </>
-              ) : (
-                // Orange-Purple dots
-                <>
-                  <div className="w-1 h-1 opacity-50" style={{ background: 'rgba(251, 146, 60, 0.8)' }} />
-                  <div className="w-1 h-1 opacity-70" style={{ background: 'rgba(249, 115, 22, 0.8)' }} />
-                  <div className="w-1 h-1" style={{ background: 'rgba(168, 85, 247, 0.9)', boxShadow: '0 0 5px rgba(251, 146, 60, 0.8)' }} />
                 </>
               )}
             </div>
