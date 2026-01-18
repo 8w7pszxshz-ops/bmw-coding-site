@@ -26,6 +26,16 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const chipTuningAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleChipTuningOpen = () => {
+    // Создаем и запускаем аудио сразу при клике пользователя
+    if (!chipTuningAudioRef.current) {
+      chipTuningAudioRef.current = new Audio('/music/1.mp3');
+      chipTuningAudioRef.current.volume = 0.5;
+    }
+    
+    chipTuningAudioRef.current.play().catch(err => {
+      console.log('Audio play error:', err);
+    });
+    
     setIsChipTuningOpen(true);
   };
 

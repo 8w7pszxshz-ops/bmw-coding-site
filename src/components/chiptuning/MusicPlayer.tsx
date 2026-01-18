@@ -18,18 +18,16 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
   const [musicVolume, setMusicVolume] = useState(0.5);
 
   useEffect(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio(playlist[0]);
-      audioRef.current.volume = musicVolume;
-    }
-
     const audio = audioRef.current;
+    if (!audio) return;
 
     const handleTrackEnd = () => {
       const nextIndex = (currentTrackIndex + 1) % playlist.length;
       setCurrentTrackIndex(nextIndex);
       audio.src = playlist[nextIndex];
-      audio.play().catch(err => console.log('Play error:', err));
+      if (isMusicPlaying) {
+        audio.play().catch(err => console.log('Play error:', err));
+      }
     };
 
     audio.addEventListener('ended', handleTrackEnd);
@@ -55,11 +53,8 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
       audio.removeEventListener('ended', handleTrackEnd);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      audio.pause();
-      audio.currentTime = 0;
-      audio.src = '';
     };
-  }, []);
+  }, [currentTrackIndex, isMusicPlaying]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -75,17 +70,14 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
 
     if (isOpen) {
       setCurrentTrackIndex(0);
-      audio.src = playlist[0];
-      audio.currentTime = 0;
       audio.volume = musicVolume;
       
-      // Пытаемся запустить музыку при открытии
-      audio.play().then(() => {
+      // Проверяем, играет ли музыка
+      if (!audio.paused) {
         setIsMusicPlaying(true);
-      }).catch(err => {
-        console.log('Auto-play blocked:', err);
+      } else {
         setIsMusicPlaying(false);
-      });
+      }
     } else {
       // КРИТИЧНО: полностью останавливаем при закрытии
       audio.pause();
