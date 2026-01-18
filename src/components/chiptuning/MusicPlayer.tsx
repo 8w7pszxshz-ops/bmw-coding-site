@@ -69,13 +69,17 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
   }, [musicVolume]);
 
   useEffect(() => {
+    if (!audioRef.current) return;
+    
     const audio = audioRef.current;
-    if (!audio) return;
 
     if (isOpen) {
       setCurrentTrackIndex(0);
       audio.src = playlist[0];
       audio.currentTime = 0;
+      audio.volume = musicVolume;
+      
+      // Пытаемся запустить музыку при открытии
       audio.play().then(() => {
         setIsMusicPlaying(true);
       }).catch(err => {
@@ -83,11 +87,12 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
         setIsMusicPlaying(false);
       });
     } else {
+      // КРИТИЧНО: полностью останавливаем при закрытии
       audio.pause();
       audio.currentTime = 0;
       setIsMusicPlaying(false);
     }
-  }, [isOpen]);
+  }, [isOpen, musicVolume]);
 
   useEffect(() => {
     const audio = audioRef.current;

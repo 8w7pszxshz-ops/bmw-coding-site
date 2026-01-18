@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, lazy, Suspense, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import ChipTuning from './ChipTuning';
@@ -23,11 +23,9 @@ interface CalculatorHubProps {
 export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
   const [isChipTuningOpen, setIsChipTuningOpen] = useState(false);
+  const chipTuningAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleChipTuningOpen = () => {
-    const audio = new Audio('/music/1.mp3');
-    audio.volume = 0.5;
-    audio.play().catch(err => console.log('Audio play blocked:', err));
     setIsChipTuningOpen(true);
   };
 
@@ -202,6 +200,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
       selectedCity={selectedCity}
       isOpen={isChipTuningOpen}
       onClose={() => setIsChipTuningOpen(false)}
+      audioRef={chipTuningAudioRef}
     />
     </>
   );

@@ -9,11 +9,11 @@ interface ChipTuningProps {
   selectedCity: City;
   isOpen: boolean;
   onClose: () => void;
+  audioRef: React.RefObject<HTMLAudioElement | null>;
 }
 
-export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuningProps) {
+export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
