@@ -14,12 +14,10 @@ interface ChipTuningProps {
 export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
   const [showLights, setShowLights] = useState(false);
-  const [audio] = useState(() => new Audio('/reborn-sound.mp3'));
 
   useEffect(() => {
     if (isOpen) {
       setShowLights(true);
-      audio.play();
       
       const timer = setTimeout(() => {
         setShowLights(false);
@@ -27,16 +25,12 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
       return () => {
         clearTimeout(timer);
-        audio.pause();
-        audio.currentTime = 0;
       };
     } else {
-      audio.pause();
-      audio.currentTime = 0;
       setShowLights(false);
       setSelectedSeries(null);
     }
-  }, [isOpen, audio]);
+  }, [isOpen]);
 
   const handleReset = () => {
     setSelectedSeries(null);
