@@ -150,37 +150,101 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
           
           {/* Content */}
           <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
-            {/* Apple color accent corner */}
-            <div 
-              className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
-              style={{ 
-                background: 'linear-gradient(90deg, rgba(138, 180, 248, 0.8), rgba(251, 146, 60, 0.8))',
-                boxShadow: '0 0 10px rgba(138, 180, 248, 0.6)' 
-              }}
-            />
-            <div 
-              className="absolute top-2 left-2 w-0.5 h-8 group-hover:h-12 transition-all"
-              style={{ 
-                background: 'linear-gradient(180deg, rgba(138, 180, 248, 0.8), rgba(167, 139, 250, 0.8))',
-                boxShadow: '0 0 10px rgba(138, 180, 248, 0.6)' 
-              }}
-            />
+            {/* Color accent corner based on column */}
+            {colIndex < 2 ? (
+              // Columns 1-2: Pink-Magenta
+              <>
+                <div 
+                  className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
+                  style={{ 
+                    background: 'linear-gradient(90deg, rgba(219, 39, 119, 0.8), rgba(244, 63, 94, 0.8))',
+                    boxShadow: '0 0 10px rgba(219, 39, 119, 0.6)' 
+                  }}
+                />
+                <div 
+                  className="absolute top-2 left-2 w-0.5 h-8 group-hover:h-12 transition-all"
+                  style={{ 
+                    background: 'linear-gradient(180deg, rgba(219, 39, 119, 0.8), rgba(251, 113, 133, 0.8))',
+                    boxShadow: '0 0 10px rgba(219, 39, 119, 0.6)' 
+                  }}
+                />
+              </>
+            ) : colIndex === 2 ? (
+              // Column 3: Cyan-Teal
+              <>
+                <div 
+                  className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
+                  style={{ 
+                    background: 'linear-gradient(90deg, rgba(56, 189, 248, 0.8), rgba(34, 211, 238, 0.8))',
+                    boxShadow: '0 0 10px rgba(56, 189, 248, 0.6)' 
+                  }}
+                />
+                <div 
+                  className="absolute top-2 left-2 w-0.5 h-8 group-hover:h-12 transition-all"
+                  style={{ 
+                    background: 'linear-gradient(180deg, rgba(56, 189, 248, 0.8), rgba(20, 184, 166, 0.8))',
+                    boxShadow: '0 0 10px rgba(56, 189, 248, 0.6)' 
+                  }}
+                />
+              </>
+            ) : (
+              // Column 4: Orange-Purple
+              <>
+                <div 
+                  className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
+                  style={{ 
+                    background: 'linear-gradient(90deg, rgba(251, 146, 60, 0.8), rgba(249, 115, 22, 0.8))',
+                    boxShadow: '0 0 10px rgba(251, 146, 60, 0.6)' 
+                  }}
+                />
+                <div 
+                  className="absolute top-2 left-2 w-0.5 h-8 group-hover:h-12 transition-all"
+                  style={{ 
+                    background: 'linear-gradient(180deg, rgba(251, 146, 60, 0.8), rgba(168, 85, 247, 0.8))',
+                    boxShadow: '0 0 10px rgba(251, 146, 60, 0.6)' 
+                  }}
+                />
+              </>
+            )}
             
             <div 
               className="text-white text-xl font-bold tracking-widest text-center uppercase transition-colors"
               style={{ 
                 fontFamily: '"Reborn Technologies", sans-serif',
-                textShadow: '2px 2px 0 rgba(138, 180, 248, 0.3), 0 0 20px rgba(138, 180, 248, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
+                textShadow: colIndex < 2 
+                  ? '2px 2px 0 rgba(219, 39, 119, 0.3), 0 0 20px rgba(219, 39, 119, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
+                  : colIndex === 2
+                  ? '2px 2px 0 rgba(56, 189, 248, 0.3), 0 0 20px rgba(56, 189, 248, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
+                  : '2px 2px 0 rgba(251, 146, 60, 0.3), 0 0 20px rgba(251, 146, 60, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8)'
               }}
             >
               {series}
             </div>
             
-            {/* Bottom tech detail with Apple colors */}
+            {/* Bottom tech detail */}
             <div className="absolute bottom-2 right-2 flex gap-1">
-              <div className="w-1 h-1 opacity-50" style={{ background: 'rgba(138, 180, 248, 0.8)' }} />
-              <div className="w-1 h-1 opacity-70" style={{ background: 'rgba(251, 146, 60, 0.8)' }} />
-              <div className="w-1 h-1" style={{ background: 'rgba(167, 139, 250, 0.9)', boxShadow: '0 0 5px rgba(138, 180, 248, 0.8)' }} />
+              {colIndex < 2 ? (
+                // Pink-Magenta dots
+                <>
+                  <div className="w-1 h-1 opacity-50" style={{ background: 'rgba(219, 39, 119, 0.8)' }} />
+                  <div className="w-1 h-1 opacity-70" style={{ background: 'rgba(244, 63, 94, 0.8)' }} />
+                  <div className="w-1 h-1" style={{ background: 'rgba(251, 113, 133, 0.9)', boxShadow: '0 0 5px rgba(219, 39, 119, 0.8)' }} />
+                </>
+              ) : colIndex === 2 ? (
+                // Cyan-Teal dots
+                <>
+                  <div className="w-1 h-1 opacity-50" style={{ background: 'rgba(56, 189, 248, 0.8)' }} />
+                  <div className="w-1 h-1 opacity-70" style={{ background: 'rgba(34, 211, 238, 0.8)' }} />
+                  <div className="w-1 h-1" style={{ background: 'rgba(20, 184, 166, 0.9)', boxShadow: '0 0 5px rgba(56, 189, 248, 0.8)' }} />
+                </>
+              ) : (
+                // Orange-Purple dots
+                <>
+                  <div className="w-1 h-1 opacity-50" style={{ background: 'rgba(251, 146, 60, 0.8)' }} />
+                  <div className="w-1 h-1 opacity-70" style={{ background: 'rgba(249, 115, 22, 0.8)' }} />
+                  <div className="w-1 h-1" style={{ background: 'rgba(168, 85, 247, 0.9)', boxShadow: '0 0 5px rgba(251, 146, 60, 0.8)' }} />
+                </>
+              )}
             </div>
           </div>
         </button>
