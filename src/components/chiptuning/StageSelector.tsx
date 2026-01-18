@@ -118,21 +118,21 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
               className="w-full p-4 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
               style={{
                 background: isSelected
-                  ? (stage.id === 'stage1' ? 'linear-gradient(135deg, rgba(10, 30, 10, 0.9) 0%, rgba(15, 40, 15, 0.9) 100%)' : 'linear-gradient(135deg, rgba(26, 8, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)')
+                  ? (stage.id === 'stage1' ? 'linear-gradient(135deg, rgba(180, 255, 0, 0.15) 0%, rgba(180, 255, 0, 0.25) 100%)' : 'linear-gradient(135deg, rgba(26, 8, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)')
                   : 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
                 border: '2px solid',
                 borderImage: isSelected
-                  ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 50%, rgba(0, 212, 255, 0.9) 50%, rgba(56, 189, 248, 0.9) 100%) 1'
+                  ? (stage.id === 'stage1' ? 'linear-gradient(135deg, rgba(180, 255, 0, 0.9) 0%, rgba(180, 255, 0, 0.7) 50%, rgba(180, 255, 0, 0.9) 100%) 1' : 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 50%, rgba(0, 212, 255, 0.9) 50%, rgba(56, 189, 248, 0.9) 100%) 1')
                   : 'linear-gradient(135deg, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.5) 50%, rgba(56, 189, 248, 0.5) 100%) 1',
                 boxShadow: isSelected 
-                  ? (stage.id === 'stage1' ? '0 0 40px rgba(34, 197, 94, 0.5), inset 0 0 60px rgba(34, 197, 94, 0.1)' : '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)')
+                  ? (stage.id === 'stage1' ? '0 0 50px rgba(180, 255, 0, 0.6), inset 0 0 80px rgba(180, 255, 0, 0.2)' : '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)')
                   : '0 0 20px rgba(127, 106, 127, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.5)',
                 clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
               }}
             >
               {/* Corner cuts */}
               <div className="absolute top-0 right-0 w-12 h-12 pointer-events-none" style={{ 
-                background: isSelected ? (stage.id === 'stage1' ? 'linear-gradient(to bottom right, rgba(34, 197, 94, 0.4), transparent)' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(0, 212, 255, 0.2))') : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), rgba(0, 212, 255, 0.1))',
+                background: isSelected ? (stage.id === 'stage1' ? 'linear-gradient(to bottom right, rgba(180, 255, 0, 0.5), transparent)' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(0, 212, 255, 0.2))') : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), rgba(0, 212, 255, 0.1))',
                 clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
               }} />
               
