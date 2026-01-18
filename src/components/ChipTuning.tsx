@@ -18,8 +18,33 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
   useEffect(() => {
     if (!isOpen) {
       setSelectedSeries(null);
+      // Останавливаем музыку при закрытии
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    // Останавливаем музыку при закрытии/перезагрузке страницы
+    const handleBeforeUnload = () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
 
   const handleReset = () => {
     setSelectedSeries(null);

@@ -41,12 +41,22 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
       }
     };
 
+    const handleBeforeUnload = () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
       audio.removeEventListener('ended', handleTrackEnd);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
       audio.pause();
+      audio.currentTime = 0;
       audio.src = '';
     };
   }, []);
