@@ -40,11 +40,27 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [showLights, setShowLights] = useState(false);
   const [audio] = useState(() => new Audio('/reborn-sound.mp3'));
+  const [bgMusic] = useState(() => new Audio('/music/chiptuning-bg.mp3'));
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [musicVolume, setMusicVolume] = useState(0.5);
+
+  useEffect(() => {
+    // Setup background music loop
+    bgMusic.loop = true;
+    bgMusic.volume = musicVolume;
+  }, [bgMusic, musicVolume]);
 
   useEffect(() => {
     if (isOpen) {
       setShowLights(true);
       audio.play();
+      
+      // Start background music
+      bgMusic.play().then(() => {
+        setIsMusicPlaying(true);
+      }).catch((err) => {
+        console.log('Music autoplay blocked:', err);
+      });
       
       const timer = setTimeout(() => {
         setShowLights(false);
@@ -58,11 +74,30 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
     } else {
       audio.pause();
       audio.currentTime = 0;
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+      setIsMusicPlaying(false);
       setShowLights(false);
       setSelectedSeries(null);
       setSelectedStage(null);
     }
-  }, [isOpen, audio]);
+  }, [isOpen, audio, bgMusic]);
+
+  const toggleMusic = () => {
+    if (isMusicPlaying) {
+      bgMusic.pause();
+      setIsMusicPlaying(false);
+    } else {
+      bgMusic.play();
+      setIsMusicPlaying(true);
+    }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setMusicVolume(newVolume);
+    bgMusic.volume = newVolume;
+  };
 
   const handleReset = () => {
     setSelectedSeries(null);
@@ -118,6 +153,46 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
             mixBlendMode: 'overlay'
           }}
         />
+
+        {/* Music player controls - top left */}
+        <div 
+          className="absolute top-4 left-4 flex items-center gap-2 px-3 py-2 z-10"
+          style={{
+            background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(26, 8, 8, 0.9) 100%)',
+            border: '2px solid rgba(255, 0, 0, 0.4)',
+            clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)',
+            boxShadow: '0 0 15px rgba(255, 0, 0, 0.3)'
+          }}
+        >
+          {/* Play/Pause button */}
+          <button
+            onClick={toggleMusic}
+            className="w-8 h-8 flex items-center justify-center transition-all hover:scale-110"
+            style={{
+              background: isMusicPlaying ? 'rgba(255, 0, 0, 0.3)' : 'rgba(255, 0, 0, 0.1)',
+              border: '1px solid rgba(255, 0, 0, 0.5)'
+            }}
+          >
+            <Icon name={isMusicPlaying ? "Pause" : "Play"} className="w-4 h-4 text-red-400" />
+          </button>
+          
+          {/* Volume slider */}
+          <div className="flex items-center gap-2">
+            <Icon name="Volume2" className="w-4 h-4 text-red-400" />
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value={musicVolume}
+              onChange={handleVolumeChange}
+              className="w-20 h-1 bg-red-900/30 rounded-lg appearance-none cursor-pointer"
+              style={{
+                accentColor: '#ff0000'
+              }}
+            />
+          </div>
+        </div>
 
         {/* Close button */}
         <button
