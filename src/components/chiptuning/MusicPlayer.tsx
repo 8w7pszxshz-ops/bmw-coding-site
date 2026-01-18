@@ -6,11 +6,9 @@ interface MusicPlayerProps {
 }
 
 const playlist = [
-  '/music/track1.mp3',
-  '/music/track2.mp3',
-  '/music/track3.mp3',
-  '/music/track4.mp3',
-  '/music/track5.mp3'
+  '/music/1.mp3',
+  '/music/Ost — 24's (TJ) [NFS Underground] (www.lightaudio.ru).mp3',
+  '/music/Snoop Dogg OST-NFS Underground 2 — Riders On The Storm.mp3'
 ];
 
 export default function MusicPlayer({ isOpen }: MusicPlayerProps) {
