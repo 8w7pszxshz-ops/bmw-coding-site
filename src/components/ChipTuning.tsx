@@ -135,7 +135,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
         <div className="p-8">
           {/* Header - NFS MW style */}
           <div className="relative mb-8">
-            {/* Orange accent bar */}
+            {/* Top accent bar */}
             <div 
               className="h-1 mb-6"
               style={{
@@ -144,34 +144,17 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
               }}
             />
             
-            <div className="flex items-center justify-between px-4">
-              <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center px-4">
+              <div className="flex flex-col items-center gap-4">
                 <img 
-                  src="https://cdn.poehali.dev/projects/LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF6c1NlZ2w0STVnZmtRdDgxMWF0YgppYWhVQ0dkVEhyeGZ0aWp6Y25tK0svQlM3Z3VEa01Kd0EwNjJoZTlMQUxuY1NGVGJiMmNnSXB0M3FzdzRsUmhKCjBPNmdTTDRyUzJVZWVsb25pZnBCdW9oQjVMd2RDRGUzcU9SL3RKZDlmYzhYMkRDQ2FGczRVVSt2ZThCa0xRVzYKbjNNdWRZZThuRlVEWmtScFZuN3BnNU43T2Q1L3ZIOVByL09QamJ3ZnMvQk9hZjlnTktneC9WMDEvc2l1eGN5egpxbjJzQW9yU1gzR1Eyb2dCZ2xVUnVyb1pGWS9oeEp1OGR2aCtHNnczRFpGU2RjZUtzN1FCQllyeGhoTng0NUIzCkpLVGRJZTVyRXYrVCtxcDlDOGZsSzlMNlN5TFFaSHA5ekhWRWhzb3ZtNGxKdUh1cXd4S0QwWEhtVm1TRC8xSzAKU3dJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==/bucket/reborn_logo.png" 
+                  src="https://cdn.poehali.dev/files/rebornlogo.png" 
                   alt="Reborn Technologies" 
-                  className="h-10"
-                  style={{ filter: 'drop-shadow(0 0 10px rgba(255, 0, 0, 0.6))' }}
+                  className="h-16 md:h-20"
+                  style={{ filter: 'drop-shadow(0 0 15px rgba(255, 0, 0, 0.6))' }}
                 />
-                <div>
-                  <h2 
-                    className="text-2xl md:text-3xl text-white uppercase tracking-widest"
-                    style={{ 
-                      fontFamily: '"Reborn Technologies", sans-serif',
-                      textShadow: '2px 2px 0 #ff0000, 4px 4px 10px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.4)'
-                    }}
-                  >
-                    CHIP TUNING
-                  </h2>
-                  <p className="text-red-500 text-sm uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                    /// ВЫБЕРИТЕ СЕРИЮ BMW
-                  </p>
-                </div>
-              </div>
-              
-              {/* Decorative tech element */}
-              <div className="hidden md:flex items-center gap-2">
-                <div className="w-2 h-2 bg-red-500 animate-pulse" style={{ boxShadow: '0 0 10px #ff0000' }} />
-                <div className="w-12 h-0.5 bg-gradient-to-r from-red-500 to-transparent" />
+                <p className="text-red-500 text-sm md:text-base uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                  /// ВЫБЕРИТЕ СЕРИЮ BMW
+                </p>
               </div>
             </div>
             
