@@ -40,20 +40,49 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [showLights, setShowLights] = useState(false);
   const [audio] = useState(() => new Audio('/reborn-sound.mp3'));
-  const [bgMusic] = useState(() => new Audio('/music/chiptuning-bg.mp3'));
+  
+  // Playlist setup
+  const playlist = [
+    '/music/track1.mp3',
+    '/music/track2.mp3',
+    '/music/track3.mp3',
+    '/music/track4.mp3',
+    '/music/track5.mp3'
+  ];
+  
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [bgMusic] = useState(() => new Audio(playlist[0]));
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [musicVolume, setMusicVolume] = useState(0.5);
 
   useEffect(() => {
-    // Setup background music loop
-    bgMusic.loop = true;
+    // Setup background music (no loop, auto-next track)
     bgMusic.volume = musicVolume;
-  }, [bgMusic, musicVolume]);
+    
+    const handleTrackEnd = () => {
+      // Go to next track
+      const nextIndex = (currentTrackIndex + 1) % playlist.length;
+      setCurrentTrackIndex(nextIndex);
+      bgMusic.src = playlist[nextIndex];
+      bgMusic.play();
+    };
+    
+    bgMusic.addEventListener('ended', handleTrackEnd);
+    
+    return () => {
+      bgMusic.removeEventListener('ended', handleTrackEnd);
+    };
+  }, [bgMusic, musicVolume, currentTrackIndex, playlist]);
 
   useEffect(() => {
     if (isOpen) {
       setShowLights(true);
       audio.play();
+      
+      // Always start from track 1
+      setCurrentTrackIndex(0);
+      bgMusic.src = playlist[0];
+      bgMusic.currentTime = 0;
       
       // Start background music
       bgMusic.play().then(() => {
@@ -81,7 +110,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
       setSelectedSeries(null);
       setSelectedStage(null);
     }
-  }, [isOpen, audio, bgMusic]);
+  }, [isOpen, audio, bgMusic, playlist]);
 
   const toggleMusic = () => {
     if (isMusicPlaying) {
@@ -164,6 +193,11 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
             boxShadow: '0 0 15px rgba(255, 0, 0, 0.3)'
           }}
         >
+          {/* Track info */}
+          <span className="text-red-400 text-xs uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+            {currentTrackIndex + 1}/{playlist.length}
+          </span>
+          
           {/* Play/Pause button */}
           <button
             onClick={toggleMusic}
