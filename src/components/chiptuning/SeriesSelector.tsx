@@ -105,15 +105,95 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
               animation: 'breathePulse 3s ease-in-out infinite'
             }}
           >
+          {/* NFS Corner cuts with glow */}
+          <div 
+            className="absolute top-0 right-0 w-12 h-12 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
+            style={{ 
+              background: `linear-gradient(to bottom right, ${glowColor.replace('0.5', '0.6')}, transparent)`,
+              clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+              boxShadow: `0 0 20px ${glowColor}`
+            }} 
+          />
+          <div 
+            className="absolute bottom-0 left-0 w-12 h-12 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
+            style={{ 
+              background: `linear-gradient(to top right, ${glowColor.replace('0.5', '0.6')}, transparent)`,
+              clipPath: 'polygon(0 100%, 100% 100%, 0 0)',
+              boxShadow: `0 0 20px ${glowColor}`
+            }} 
+          />
+          
+          {/* NFS glow on hover */}
+          <div 
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+            style={{
+              background: `radial-gradient(circle at center, ${glowColor.replace('0.5', '0.3')}, transparent 70%)`,
+              boxShadow: `inset 0 0 60px ${glowColor.replace('0.5', '0.3')}`
+            }}
+          />
+          
+          {/* NFS scanlines */}
+          <div 
+            className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, ${glowColor.replace('0.5', '0.3')} 2px, ${glowColor.replace('0.5', '0.3')} 4px)`
+            }}
+          />
+          
           {/* Content */}
           <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
+            {/* NFS corner accent lines */}
             <div 
-              className="text-white text-xl font-bold tracking-widest text-center uppercase transition-colors"
+              className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
               style={{ 
-                fontFamily: '"Reborn Technologies", sans-serif'
+                background: borderGradient,
+                boxShadow: `0 0 10px ${glowColor}` 
+              }}
+            />
+            <div 
+              className="absolute top-2 left-2 w-0.5 h-8 group-hover:h-12 transition-all"
+              style={{ 
+                background: borderGradient,
+                boxShadow: `0 0 10px ${glowColor}` 
+              }}
+            />
+            
+            <div 
+              className="text-white text-xl font-bold tracking-widest text-center uppercase transition-colors group-hover:scale-110 transition-transform"
+              style={{ 
+                fontFamily: '"Reborn Technologies", sans-serif',
+                textShadow: `2px 2px 0 ${glowColor.replace('0.5', '0.3')}, 0 0 20px ${glowColor}, 0 2px 4px rgba(0, 0, 0, 0.8)`
               }}
             >
               {series}
+            </div>
+            
+            {/* NFS speed stripes - bottom right */}
+            <div className="absolute bottom-2 right-2 flex flex-col gap-0.5">
+              <div 
+                className="h-0.5 transition-all group-hover:w-8"
+                style={{ 
+                  width: '20px',
+                  background: borderGradient,
+                  boxShadow: `0 0 8px ${glowColor}`
+                }} 
+              />
+              <div 
+                className="h-0.5 transition-all group-hover:w-6"
+                style={{ 
+                  width: '16px',
+                  background: borderGradient,
+                  boxShadow: `0 0 8px ${glowColor}`
+                }} 
+              />
+              <div 
+                className="h-0.5 transition-all group-hover:w-4"
+                style={{ 
+                  width: '12px',
+                  background: borderGradient,
+                  boxShadow: `0 0 8px ${glowColor}`
+                }} 
+              />
             </div>
           </div>
         </button>
