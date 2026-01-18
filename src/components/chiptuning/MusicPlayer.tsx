@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface MusicPlayerProps {
@@ -13,63 +13,115 @@ const playlist = [
 
 export default function MusicPlayer({ isOpen }: MusicPlayerProps) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [bgMusic] = useState(() => new Audio(playlist[0]));
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [musicVolume, setMusicVolume] = useState(0.5);
 
   useEffect(() => {
-    // Setup background music (no loop, auto-next track)
-    bgMusic.volume = musicVolume;
-    
+    if (!audioRef.current) {
+      audioRef.current = new Audio(playlist[0]);
+      audioRef.current.volume = musicVolume;
+    }
+
+    const audio = audioRef.current;
+
     const handleTrackEnd = () => {
-      // Go to next track
       const nextIndex = (currentTrackIndex + 1) % playlist.length;
       setCurrentTrackIndex(nextIndex);
-      bgMusic.src = playlist[nextIndex];
-      bgMusic.play();
+      audio.src = playlist[nextIndex];
+      audio.play().catch(err => console.log('Play error:', err));
     };
-    
-    bgMusic.addEventListener('ended', handleTrackEnd);
-    
+
+    audio.addEventListener('ended', handleTrackEnd);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden && audio) {
+        audio.pause();
+        setIsMusicPlaying(false);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
-      bgMusic.removeEventListener('ended', handleTrackEnd);
+      audio.removeEventListener('ended', handleTrackEnd);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      audio.pause();
+      audio.src = '';
     };
-  }, [bgMusic, musicVolume, currentTrackIndex]);
+  }, []);
 
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = musicVolume;
+  }, [musicVolume]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isOpen) {
-      // Always start from track 1
       setCurrentTrackIndex(0);
-      bgMusic.src = playlist[0];
-      bgMusic.currentTime = 0;
+      audio.src = playlist[0];
+      audio.currentTime = 0;
       
-      // Start background music
-      bgMusic.play().then(() => {
+      audio.play().then(() => {
         setIsMusicPlaying(true);
       }).catch((err) => {
         console.log('Music autoplay blocked:', err);
+        setIsMusicPlaying(false);
       });
     } else {
-      bgMusic.pause();
-      bgMusic.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
       setIsMusicPlaying(false);
     }
-  }, [isOpen, bgMusic]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.src !== playlist[currentTrackIndex]) {
+      audio.src = playlist[currentTrackIndex];
+      if (isMusicPlaying) {
+        audio.play().catch(err => console.log('Play error:', err));
+      }
+    }
+  }, [currentTrackIndex, isMusicPlaying]);
 
   const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isMusicPlaying) {
-      bgMusic.pause();
+      audio.pause();
       setIsMusicPlaying(false);
     } else {
-      bgMusic.play();
-      setIsMusicPlaying(true);
+      audio.play().then(() => {
+        setIsMusicPlaying(true);
+      }).catch(err => {
+        console.log('Play error:', err);
+        setIsMusicPlaying(false);
+      });
     }
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(e.target.value);
     setMusicVolume(newVolume);
-    bgMusic.volume = newVolume;
+  };
+
+  const nextTrack = () => {
+    const nextIndex = (currentTrackIndex + 1) % playlist.length;
+    setCurrentTrackIndex(nextIndex);
+  };
+
+  const prevTrack = () => {
+    const prevIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    setCurrentTrackIndex(prevIndex);
   };
 
   return (
@@ -87,6 +139,18 @@ export default function MusicPlayer({ isOpen }: MusicPlayerProps) {
         {currentTrackIndex + 1}/{playlist.length}
       </span>
       
+      {/* Previous track button */}
+      <button
+        onClick={prevTrack}
+        className="w-7 h-7 flex items-center justify-center transition-all hover:scale-110"
+        style={{
+          background: 'rgba(255, 0, 0, 0.1)',
+          border: '1px solid rgba(255, 0, 0, 0.5)'
+        }}
+      >
+        <Icon name="ChevronLeft" className="w-4 h-4 text-red-400" />
+      </button>
+      
       {/* Play/Pause button */}
       <button
         onClick={toggleMusic}
@@ -97,6 +161,18 @@ export default function MusicPlayer({ isOpen }: MusicPlayerProps) {
         }}
       >
         <Icon name={isMusicPlaying ? "Pause" : "Play"} className="w-4 h-4 text-red-400" />
+      </button>
+      
+      {/* Next track button */}
+      <button
+        onClick={nextTrack}
+        className="w-7 h-7 flex items-center justify-center transition-all hover:scale-110"
+        style={{
+          background: 'rgba(255, 0, 0, 0.1)',
+          border: '1px solid rgba(255, 0, 0, 0.5)'
+        }}
+      >
+        <Icon name="ChevronRight" className="w-4 h-4 text-red-400" />
       </button>
       
       {/* Volume slider */}
