@@ -60,7 +60,25 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
       </>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
-      {seriesList.map((series) => {
+      {seriesList.map((series, index) => {
+        const colIndex = index % 4;
+        
+        let borderGradient, glowColor;
+        
+        if (colIndex < 2) {
+          // Columns 1-2: Red
+          borderGradient = 'linear-gradient(135deg, rgba(255, 0, 0, 0.7), rgba(255, 0, 51, 0.7))';
+          glowColor = 'rgba(255, 0, 0, 0.5)';
+        } else if (colIndex === 2) {
+          // Column 3: Apple CarPlay gradient
+          borderGradient = 'linear-gradient(135deg, rgba(255, 0, 64, 0.7), rgba(255, 20, 147, 0.6))';
+          glowColor = 'rgba(255, 0, 64, 0.5)';
+        } else {
+          // Column 4: NFS cyan
+          borderGradient = 'linear-gradient(135deg, rgba(0, 212, 255, 0.7), rgba(56, 189, 248, 0.7))';
+          glowColor = 'rgba(0, 212, 255, 0.5)';
+        }
+        
         return (
         <div key={series} className="relative">
           {/* Black backdrop */}
@@ -77,6 +95,11 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
             style={{
               background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(26, 8, 8, 0.95) 100%)',
               backdropFilter: 'blur(10px)',
+              border: '2px solid transparent',
+              backgroundImage: `linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(26, 8, 8, 0.95) 100%), ${borderGradient}`,
+              backgroundOrigin: 'border-box',
+              backgroundClip: 'padding-box, border-box',
+              boxShadow: `0 0 30px ${glowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6)`,
               minHeight: '140px',
               clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
               animation: 'breathePulse 3s ease-in-out infinite'
