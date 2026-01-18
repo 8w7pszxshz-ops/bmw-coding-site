@@ -50,15 +50,16 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
         onClick={onReset}
         className="flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
         style={{
-          background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 0, 51, 0.4))',
-          border: '2px solid rgba(255, 0, 0, 0.5)',
+          background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 51, 0.4) 50%, rgba(0, 212, 255, 0.3) 50%, rgba(56, 189, 248, 0.4) 100%)',
+          border: '2px solid',
+          borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 50%, rgba(0, 212, 255, 0.7) 50%, rgba(56, 189, 248, 0.7) 100%) 1',
           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
-          boxShadow: '0 0 15px rgba(255, 0, 0, 0.4)'
+          boxShadow: '0 0 15px rgba(127, 106, 127, 0.5)'
         }}
       >
-        <Icon name="ChevronLeft" className="w-5 h-5 text-red-400" />
+        <Icon name="ChevronLeft" className="w-5 h-5 text-white" />
         <span 
-          className="tracking-wider text-red-400 uppercase"
+          className="tracking-wider text-white uppercase"
           style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
         >
           /// НАЗАД
@@ -70,14 +71,14 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
         style={{
           background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(26, 8, 8, 0.9) 100%)',
           border: '2px solid',
-          borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.5), rgba(255, 0, 51, 0.7)) 1',
-          boxShadow: '0 0 30px rgba(255, 0, 0, 0.3), inset 0 0 40px rgba(0, 0, 0, 0.5)',
+          borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 50%, rgba(0, 212, 255, 0.7) 50%, rgba(56, 189, 248, 0.7) 100%) 1',
+          boxShadow: '0 0 30px rgba(127, 106, 127, 0.5), inset 0 0 40px rgba(0, 0, 0, 0.5)',
           clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%)'
         }}
       >
-        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-red-600/30 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
+        <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.3), rgba(0, 212, 255, 0.3))', clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
         <p 
-          className="text-red-500 text-xs mb-2 tracking-widest uppercase"
+          className="text-white text-xs mb-2 tracking-widest uppercase"
           style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
         >
           /// ВЫБРАНА СЕРИЯ
@@ -86,7 +87,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
           className="text-white text-2xl tracking-widest font-bold uppercase"
           style={{ 
             fontFamily: '"Reborn Technologies", sans-serif',
-            textShadow: '2px 2px 0 rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.5)'
+            textShadow: '2px 2px 0 rgba(127, 106, 127, 0.4), 0 0 20px rgba(127, 106, 127, 0.5)'
           }}
         >
           {selectedSeries}
@@ -94,12 +95,12 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="w-1 h-8 bg-red-500" style={{ boxShadow: '0 0 10px #ff0000' }} />
+        <div className="w-1 h-8" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
         <p 
-          className="text-red-400 text-lg tracking-widest uppercase"
+          className="text-white text-lg tracking-widest uppercase"
           style={{ 
             fontFamily: '"Reborn Technologies", sans-serif',
-            textShadow: '0 0 10px rgba(255, 0, 0, 0.6)'
+            textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
           }}
         >
           /// ВЫБЕРИТЕ STAGE
@@ -122,23 +123,23 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                   : 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
                 border: '2px solid',
                 borderImage: isSelected
-                  ? 'linear-gradient(135deg, #ff0000, #ff0033, #ff0000) 1'
-                  : 'linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 0, 51, 0.5), rgba(255, 0, 0, 0.3)) 1',
+                  ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 50%, rgba(0, 212, 255, 0.9) 50%, rgba(56, 189, 248, 0.9) 100%) 1'
+                  : 'linear-gradient(135deg, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.5) 50%, rgba(56, 189, 248, 0.5) 100%) 1',
                 boxShadow: isSelected 
-                  ? '0 0 40px rgba(255, 0, 0, 0.6), inset 0 0 60px rgba(255, 0, 0, 0.15)'
-                  : '0 0 20px rgba(255, 0, 0, 0.3), inset 0 0 40px rgba(0, 0, 0, 0.5)',
+                  ? '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)'
+                  : '0 0 20px rgba(127, 106, 127, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.5)',
                 clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
               }}
             >
               {/* Corner cuts */}
               <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none" style={{ 
-                background: isSelected ? 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), transparent)' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), transparent)',
+                background: isSelected ? 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(0, 212, 255, 0.2))' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), rgba(0, 212, 255, 0.1))',
                 clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
               }} />
               
               {/* Scanlines */}
               <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
-                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 0, 0.3) 2px, rgba(255, 0, 0, 0.3) 4px)'
+                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(127, 106, 127, 0.3) 2px, rgba(127, 106, 127, 0.3) 4px)'
               }} />
               
               <div className="flex items-start justify-between mb-4 relative z-10">
@@ -147,13 +148,13 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                     className="text-white text-2xl md:text-3xl mb-2 tracking-widest uppercase font-bold"
                     style={{ 
                       fontFamily: '"Reborn Technologies", sans-serif',
-                      textShadow: isSelected ? '2px 2px 0 #ff0000, 0 0 30px rgba(255, 0, 0, 0.7)' : '2px 2px 0 rgba(255, 0, 0, 0.3), 0 0 10px rgba(255, 0, 0, 0.4)'
+                      textShadow: isSelected ? '2px 2px 0 rgba(127, 106, 127, 0.7), 0 0 30px rgba(127, 106, 127, 0.7)' : '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
                     }}
                   >
                     {stage.name}
                   </h3>
                   <p 
-                    className="text-red-400/80 text-sm tracking-wider uppercase"
+                    className="text-white/80 text-sm tracking-wider uppercase"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
                     /// {stage.description}
@@ -161,28 +162,28 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                 </div>
                 {isSelected && (
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-red-500 animate-pulse" style={{ boxShadow: '0 0 10px #ff0000' }} />
-                    <Icon name="Check" className="w-6 h-6 text-red-500" />
+                    <div className="w-2 h-2 animate-pulse" style={{ background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
+                    <Icon name="Check" className="w-6 h-6 text-white" />
                   </div>
                 )}
               </div>
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center gap-2">
-                  <div className="w-1 h-6 bg-red-500" style={{ boxShadow: '0 0 8px #ff0000' }} />
+                  <div className="w-1 h-6" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 8px rgba(127, 106, 127, 0.7)' }} />
                   <span 
-                    className="text-red-400 tracking-widest uppercase text-sm"
+                    className="text-white tracking-widest uppercase text-sm"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
                     {stage.gains}
                   </span>
                 </div>
                 <div className="text-right">
-                  <div className="text-red-500/60 text-xs uppercase tracking-wider mb-1" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>СТОИМОСТЬ</div>
+                  <div className="text-white/60 text-xs uppercase tracking-wider mb-1" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>СТОИМОСТЬ</div>
                   <span 
                     className="text-white text-2xl md:text-3xl tracking-wider font-bold"
                     style={{ 
                       fontFamily: '"Reborn Technologies", sans-serif',
-                      textShadow: '0 0 20px rgba(255, 0, 0, 0.5)'
+                      textShadow: '0 0 20px rgba(127, 106, 127, 0.5)'
                     }}
                   >
                     {price.toLocaleString('ru-RU')} ₽
@@ -199,9 +200,10 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
           onClick={handleOrder}
           className="w-full p-6 text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden group"
           style={{
-            background: 'linear-gradient(135deg, #ff0000 0%, #ff0033 50%, #ff0000 100%)',
-            border: '3px solid #ff0000',
-            boxShadow: '0 0 40px rgba(255, 0, 0, 0.7), inset 0 0 60px rgba(0, 0, 0, 0.3)',
+            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 25%, rgba(0, 212, 255, 0.9) 75%, rgba(56, 189, 248, 0.9) 100%)',
+            border: '3px solid',
+            borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 50%, rgba(0, 212, 255, 0.9) 50%, rgba(56, 189, 248, 0.9) 100%) 1',
+            boxShadow: '0 0 40px rgba(127, 106, 127, 0.8), inset 0 0 60px rgba(0, 0, 0, 0.3)',
             clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)'
           }}
         >
