@@ -13,21 +13,9 @@ interface ChipTuningProps {
 
 export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
-  const [showLights, setShowLights] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      setShowLights(true);
-      
-      const timer = setTimeout(() => {
-        setShowLights(false);
-      }, 20000);
-
-      return () => {
-        clearTimeout(timer);
-      };
-    } else {
-      setShowLights(false);
+    if (!isOpen) {
       setSelectedSeries(null);
     }
   }, [isOpen]);
@@ -124,7 +112,6 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
           {!selectedSeries ? (
             <SeriesSelector 
-              showLights={showLights}
               onSelectSeries={setSelectedSeries}
             />
           ) : (

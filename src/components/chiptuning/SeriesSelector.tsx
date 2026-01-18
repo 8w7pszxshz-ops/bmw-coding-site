@@ -12,54 +12,52 @@ interface SeriesSelectorProps {
   onSelectSeries: (series: Series) => void;
 }
 
-export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSelectorProps) {
+export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) {
   return (
     <div className="relative">
-      {/* Police lights behind buttons - 20 seconds - same as MainLayout */}
-      {showLights && (
-        <>
-          {/* Layer 1 - Main gradient */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-0"
-            style={{
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.6) 25%, transparent 50%, rgba(255, 0, 13, 0.6) 75%, transparent 100%)',
-              backgroundSize: '200% 100%',
-              animation: 'policeLights 2s linear infinite',
-              filter: 'blur(120px)',
-              borderRadius: '1rem'
-            }}
-          />
-          {/* Layer 2 - Radial ellipses */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-0"
-            style={{
-              background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%)',
-              backgroundSize: '200% 100%',
-              animation: 'policeLights 2s linear infinite',
-              filter: 'blur(100px)'
-            }}
-          />
-          {/* Layer 3 - Slower gradient */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-0"
-            style={{
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.35) 20%, transparent 40%, transparent 60%, rgba(255, 0, 13, 0.35) 80%, transparent 100%)',
-              backgroundSize: '200% 100%',
-              animation: 'policeLights 2.5s linear infinite',
-              filter: 'blur(150px)'
-            }}
-          />
-          {/* Extra intensity layer */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-0"
-            style={{
-              background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.5) 0%, transparent 50%)',
-              animation: 'policeLights 2s linear infinite',
-              filter: 'blur(140px)'
-            }}
-          />
-        </>
-      )}
+      {/* Police lights behind buttons - always on */}
+      <>
+        {/* Layer 1 - Main gradient */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.6) 25%, transparent 50%, rgba(255, 0, 13, 0.6) 75%, transparent 100%)',
+            backgroundSize: '200% 100%',
+            animation: 'policeLights 2s linear infinite',
+            filter: 'blur(120px)',
+            borderRadius: '1rem'
+          }}
+        />
+        {/* Layer 2 - Radial ellipses */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%)',
+            backgroundSize: '200% 100%',
+            animation: 'policeLights 2s linear infinite',
+            filter: 'blur(100px)'
+          }}
+        />
+        {/* Layer 3 - Slower gradient */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.35) 20%, transparent 40%, transparent 60%, rgba(255, 0, 13, 0.35) 80%, transparent 100%)',
+            backgroundSize: '200% 100%',
+            animation: 'policeLights 2.5s linear infinite',
+            filter: 'blur(150px)'
+          }}
+        />
+        {/* Extra intensity layer */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.5) 0%, transparent 50%)',
+            animation: 'policeLights 2s linear infinite',
+            filter: 'blur(140px)'
+          }}
+        />
+      </>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
       {seriesList.map((series) => {
