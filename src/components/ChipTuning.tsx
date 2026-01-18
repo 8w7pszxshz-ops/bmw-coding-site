@@ -28,7 +28,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose }: ChipTuning
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 pt-20"
       onClick={onClose}
     >
       {/* Backdrop blur */}
