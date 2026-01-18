@@ -87,23 +87,31 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
         }
         
         return (
-        <button
-          key={series}
-          onClick={() => onSelectSeries(series)}
-          className="group relative transition-all duration-300 hover:scale-105 active:scale-95"
-          style={{
-            background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 8, 8, 0.8) 100%)',
-            backdropFilter: 'blur(10px)',
-            border: '2px solid transparent',
-            backgroundImage: `linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 8, 8, 0.8) 100%), ${borderGradient}`,
-            backgroundOrigin: 'border-box',
-            backgroundClip: 'padding-box, border-box',
-            boxShadow: `0 0 30px ${boxShadowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6)`,
-            minHeight: '140px',
-            clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
-            animation: 'breathePulse 3s ease-in-out infinite'
-          }}
-        >
+        <div key={series} className="relative">
+          {/* Black backdrop */}
+          <div 
+            className="absolute inset-0 bg-black rounded-lg"
+            style={{
+              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
+            }}
+          />
+          
+          <button
+            onClick={() => onSelectSeries(series)}
+            className="group relative transition-all duration-300 hover:scale-105 active:scale-95 w-full"
+            style={{
+              background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(26, 8, 8, 0.95) 100%)',
+              backdropFilter: 'blur(10px)',
+              border: '2px solid transparent',
+              backgroundImage: `linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(26, 8, 8, 0.95) 100%), ${borderGradient}`,
+              backgroundOrigin: 'border-box',
+              backgroundClip: 'padding-box, border-box',
+              boxShadow: `0 0 30px ${boxShadowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6)`,
+              minHeight: '140px',
+              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
+              animation: 'breathePulse 3s ease-in-out infinite'
+            }}
+          >
           {/* Corner cuts with Apple colors */}
           <div className="absolute top-0 right-0 w-12 h-12 pointer-events-none" style={{ 
             background: 'linear-gradient(to bottom right, rgba(138, 180, 248, 0.4), transparent)',
@@ -176,6 +184,7 @@ export default function SeriesSelector({ showLights, onSelectSeries }: SeriesSel
             </div>
           </div>
         </button>
+        </div>
         );
       })}
       </div>
