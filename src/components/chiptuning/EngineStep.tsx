@@ -72,48 +72,48 @@ export default function EngineStep({ engines, selectedBody, onSelectEngine, onBa
         </p>
       </div>
 
-      <div className="space-y-1.5">
+      <div className="space-y-1">
         {engines.map((engine, idx) => (
           <button
             key={idx}
             onClick={() => onSelectEngine(engine)}
-            className="w-full p-2 text-left transition-all duration-300 hover:scale-[1.01] relative overflow-hidden"
+            className="w-full p-1.5 text-left transition-all duration-300 hover:scale-[1.01] relative overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
               border: '1px solid',
               borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
               boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
-              clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
+              clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)'
             }}
           >
-            <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none" style={{ 
+            <div className="absolute top-0 right-0 w-6 h-6 pointer-events-none" style={{ 
               background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.2), transparent)',
               clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
             }} />
             
             <div className="relative z-10">
               <p 
-                className="text-white text-xs mb-1 tracking-wider font-medium"
+                className="text-white text-[10px] mb-0.5 tracking-wider font-medium"
                 style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
               >
                 {engine.engine_code}
               </p>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <p 
-                  className="text-white/70 text-[10px] tracking-wide"
+                  className="text-white/70 text-[9px] tracking-wide"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
                   СТОК: {engine.stock.power} Л.С. / {engine.stock.torque} НМ
                 </p>
                 <p 
-                  className="text-white/70 text-[10px] tracking-wide"
+                  className="text-white/70 text-[9px] tracking-wide"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
                   STAGE 1: {engine.stage1.power} Л.С. / {engine.stage1.torque} НМ
                 </p>
                 {engine.stage2 && (
                   <p 
-                    className="text-white/70 text-[10px] tracking-wide"
+                    className="text-white/70 text-[9px] tracking-wide"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
                     STAGE 2: {engine.stage2.power} Л.С. / {engine.stage2.torque} НМ
