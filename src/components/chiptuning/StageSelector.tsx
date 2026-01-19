@@ -21,6 +21,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
   const [engines, setEngines] = React.useState<ChiptuningData[]>([]);
   const [selectedEngine, setSelectedEngine] = React.useState<ChiptuningData | null>(null);
   const [selectedStage, setSelectedStage] = React.useState<'stage1' | 'stage2' | null>(null);
+  const [euro2Enabled, setEuro2Enabled] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
 
   const apiSeries = convertSeriesForAPI(selectedSeries);
@@ -66,16 +67,16 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
   };
 
   // Заказ
-  const handleOrder = () => {
+  const handleOrder = (finalPrice: number) => {
     if (!selectedStage || !selectedEngine) return;
 
     const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
     if (!stageData) return;
 
-    const price = selectedCity.value === 'moscow' ? stageData.price : Math.round(stageData.price * 0.9);
     const gains = `${selectedEngine.stock.power} → ${stageData.power} л.с. | ${selectedEngine.stock.torque} → ${stageData.torque} Нм`;
+    const euro2Text = euro2Enabled ? '\nEURO 2: Да' : '';
     
-    const message = `ЧИП-ТЮНИНГ BMW ${selectedSeries}\n\n${selectedEngine.engine_code} (${selectedEngine.body_type})\n${selectedStage.toUpperCase()}\n\n${gains}\n\nСТОИМОСТЬ: ${price.toLocaleString('ru-RU')} ₽`;
+    const message = `ЧИП-ТЮНИНГ BMW ${selectedSeries}\n\n${selectedEngine.engine_code} (${selectedEngine.body_type})\n${selectedStage.toUpperCase()}${euro2Text}\n\n${gains}\n\nСТОИМОСТЬ: ${finalPrice.toLocaleString('ru-RU')} ₽`;
     
     const url = getTelegramLink(selectedCity, `чип-тюнинг BMW ${selectedSeries}`);
     const separator = url.includes('?') ? '&' : '?';
@@ -164,11 +165,14 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
               selectedSeries={selectedSeries}
               selectedCity={selectedCity}
               selectedStage={selectedStage}
+              euro2Enabled={euro2Enabled}
               onSelectStage={setSelectedStage}
+              onEuro2Change={setEuro2Enabled}
               onBack={() => {
                 setStep('engine');
                 setSelectedEngine(null);
                 setSelectedStage(null);
+                setEuro2Enabled(false);
               }}
               onOrder={handleOrder}
             />

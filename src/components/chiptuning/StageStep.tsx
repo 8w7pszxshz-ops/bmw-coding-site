@@ -10,24 +10,43 @@ interface StageStepProps {
   selectedSeries: Series;
   selectedCity: City;
   selectedStage: 'stage1' | 'stage2' | null;
+  euro2Enabled: boolean;
   onSelectStage: (stage: 'stage1' | 'stage2') => void;
+  onEuro2Change: (enabled: boolean) => void;
   onBack: () => void;
-  onOrder: () => void;
+  onOrder: (finalPrice: number) => void;
 }
 
 export default function StageStep({ 
   selectedEngine, 
   selectedSeries, 
   selectedCity, 
-  selectedStage, 
-  onSelectStage, 
+  selectedStage,
+  euro2Enabled,
+  onSelectStage,
+  onEuro2Change,
   onBack,
   onOrder 
 }: StageStepProps) {
+  
   const stages = [
     { id: 'stage1', name: 'STAGE 1', data: selectedEngine.stage1 },
     ...(selectedEngine.stage2 ? [{ id: 'stage2', name: 'STAGE 2', data: selectedEngine.stage2 }] : [])
   ];
+
+  const calculatePrice = (basePrice: number, stageId: string) => {
+    let price = selectedCity.value === 'moscow' ? basePrice : Math.round(basePrice * 0.9);
+    
+    if (euro2Enabled) {
+      if (stageId === 'stage1') {
+        price += 5000;
+      } else {
+        price += 12000;
+      }
+    }
+    
+    return price;
+  };
 
   return (
     <>
@@ -91,9 +110,34 @@ export default function StageStep({
         </p>
       </div>
 
+      <div className="p-3 mb-2 relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
+          border: '1px solid',
+          borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
+          boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
+          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
+        }}
+      >
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={euro2Enabled}
+            onChange={(e) => onEuro2Change(e.target.checked)}
+            className="w-4 h-4 accent-red-500"
+          />
+          <span
+            className="text-white text-xs tracking-wider uppercase"
+            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+          >
+            /// EURO 2 (STAGE 1: +5000₽ / STAGE 2: +12000₽)
+          </span>
+        </label>
+      </div>
+
       <div className="space-y-2">
         {stages.map((stage) => {
-          const price = selectedCity.value === 'moscow' ? stage.data.price : Math.round(stage.data.price * 0.9);
+          const price = calculatePrice(stage.data.price, stage.id);
           const isSelected = selectedStage === stage.id;
 
           return (
@@ -169,7 +213,12 @@ export default function StageStep({
 
       {selectedStage && (
         <button
-          onClick={onOrder}
+          onClick={() => {
+            const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
+            if (!stageData) return;
+            const finalPrice = calculatePrice(stageData.price, selectedStage);
+            onOrder(finalPrice);
+          }}
           className="w-full py-3 px-4 transition-all hover:scale-[1.02] relative overflow-hidden group"
           style={{
             background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.4) 100%)',

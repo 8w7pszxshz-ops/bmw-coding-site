@@ -101,18 +101,28 @@ export default function EngineStep({ engines, selectedBody, onSelectEngine, onBa
               >
                 {engine.engine_code}
               </p>
-              <p 
-                className="text-white/70 text-[10px] tracking-wide"
-                style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-              >
-                СТОК: {engine.stock.power} л.с. / {engine.stock.torque} Нм
-              </p>
-              <p 
-                className="text-white/70 text-[10px] tracking-wide"
-                style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-              >
-                STAGE 1: {engine.stage1.power} л.с. / {engine.stage1.torque} Нм
-              </p>
+              <div className="flex items-center gap-3">
+                <p 
+                  className="text-white/70 text-[10px] tracking-wide"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                >
+                  СТОК: {engine.stock.power} л.с. / {engine.stock.torque} Нм
+                </p>
+                <p 
+                  className="text-white/70 text-[10px] tracking-wide"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                >
+                  STAGE 1: {engine.stage1.power} л.с. / {engine.stage1.torque} Нм
+                </p>
+                {engine.stage2 && (
+                  <p 
+                    className="text-white/70 text-[10px] tracking-wide"
+                    style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                  >
+                    STAGE 2: {engine.stage2.power} л.с. / {engine.stage2.torque} Нм
+                  </p>
+                )}
+              </div>
             </div>
           </button>
         ))}
