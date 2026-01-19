@@ -35,7 +35,9 @@ def handler(event: dict, context) -> dict:
     
     # Получаем параметры запроса
     params = event.get('queryStringParameters') or {}
-    series = params.get('series', '')  # например: "3-series"
+    action = params.get('action', 'list')  # list, bodies, engines
+    series = params.get('series', '')
+    body_type = params.get('body_type', '')
     
     try:
         # Подключение к БД
@@ -43,33 +45,31 @@ def handler(event: dict, context) -> dict:
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         
         # Нормализуем название серии: "3 SERIES" -> "3-series"
-        series_normalized = series.replace(' SERIES', '').lower()
-        if series_normalized and not series_normalized.endswith('-series'):
-            series_normalized = f"{series_normalized}-series"
+        def normalize_series(s):
+            if not s:
+                return ''
+            s = s.upper().replace(' SERIES', '').strip()
+            # Исключения для M и X серий
+            if s in ['M2', 'M3', 'M4', 'M5', 'M6', 'M8', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'Z4', 'X3M', 'X4M', 'X5M', 'X6M', 'XM']:
+                return s
+            return f"{s}-series"
         
-        # Запрос с фильтром по серии
-        if series_normalized:
+        series_normalized = normalize_series(series)
+        
+        if action == 'bodies':
+            # Получить список кузовов для серии
             query = """
-                SELECT 
-                    model_name,
-                    series,
-                    body_type,
-                    engine_code,
-                    stock_power,
-                    stock_torque,
-                    stage1_power,
-                    stage1_torque,
-                    stage1_price,
-                    stage2_power,
-                    stage2_torque,
-                    stage_type
+                SELECT DISTINCT body_type
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
-                WHERE LOWER(series) = %s AND status = 1
-                ORDER BY stock_power ASC
+                WHERE LOWER(series) = LOWER(%s) AND status = 1
+                ORDER BY body_type
             """
             cursor.execute(query, (series_normalized,))
-        else:
-            # Все записи
+            records = cursor.fetchall()
+            result = [r['body_type'] for r in records]
+            
+        elif action == 'engines':
+            # Получить список двигателей для серии и кузова
             query = """
                 SELECT 
                     model_name,
@@ -85,39 +85,48 @@ def handler(event: dict, context) -> dict:
                     stage2_torque,
                     stage_type
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
+                WHERE LOWER(series) = LOWER(%s) AND body_type = %s AND status = 1
+                ORDER BY stock_power ASC
+            """
+            cursor.execute(query, (series_normalized, body_type))
+            records = cursor.fetchall()
+            
+            result = []
+            for record in records:
+                result.append({
+                    'model_name': record['model_name'],
+                    'series': record['series'],
+                    'body_type': record['body_type'],
+                    'engine_code': record['engine_code'],
+                    'stock': {
+                        'power': record['stock_power'],
+                        'torque': record['stock_torque']
+                    },
+                    'stage1': {
+                        'power': record['stage1_power'],
+                        'torque': record['stage1_torque'],
+                        'price': record['stage1_price']
+                    },
+                    'stage2': {
+                        'power': record['stage2_power'],
+                        'torque': record['stage2_torque']
+                    } if record['stage2_power'] and record['stage2_torque'] else None,
+                    'stage_type': record['stage_type']
+                })
+        else:
+            # Список всех серий
+            query = """
+                SELECT DISTINCT series
+                FROM t_p937713_bmw_coding_site.bmw_chiptuning
                 WHERE status = 1
-                ORDER BY series, stock_power ASC
-                LIMIT 100
+                ORDER BY series
             """
             cursor.execute(query)
+            records = cursor.fetchall()
+            result = [r['series'] for r in records]
         
-        records = cursor.fetchall()
         cursor.close()
         conn.close()
-        
-        # Преобразуем записи в список словарей
-        result = []
-        for record in records:
-            result.append({
-                'model_name': record['model_name'],
-                'series': record['series'],
-                'body_type': record['body_type'],
-                'engine_code': record['engine_code'],
-                'stock': {
-                    'power': record['stock_power'],
-                    'torque': record['stock_torque']
-                },
-                'stage1': {
-                    'power': record['stage1_power'],
-                    'torque': record['stage1_torque'],
-                    'price': record['stage1_price']
-                },
-                'stage2': {
-                    'power': record['stage2_power'],
-                    'torque': record['stage2_torque']
-                } if record['stage2_power'] and record['stage2_torque'] else None,
-                'stage_type': record['stage_type']
-            })
         
         return {
             'statusCode': 200,

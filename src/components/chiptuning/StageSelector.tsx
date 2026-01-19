@@ -31,54 +31,78 @@ interface StageSelectorProps {
   onReset: () => void;
 }
 
+const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
+
 export default function StageSelector({ selectedSeries, selectedCity, onReset }: StageSelectorProps) {
-  const [selectedStage, setSelectedStage] = React.useState<string | null>(null);
-  const [selectedModel, setSelectedModel] = React.useState<ChiptuningData | null>(null);
-  const [chiptuningData, setChiptuningData] = React.useState<ChiptuningData[]>([]);
+  const [step, setStep] = React.useState<'body' | 'engine' | 'stage'>('body');
+  const [bodyTypes, setBodyTypes] = React.useState<string[]>([]);
+  const [selectedBody, setSelectedBody] = React.useState<string | null>(null);
+  const [engines, setEngines] = React.useState<ChiptuningData[]>([]);
+  const [selectedEngine, setSelectedEngine] = React.useState<ChiptuningData | null>(null);
+  const [selectedStage, setSelectedStage] = React.useState<'stage1' | 'stage2' | null>(null);
   const [loading, setLoading] = React.useState(true);
 
-  // Загружаем данные из БД при выборе серии
+  // Шаг 1: Загружаем типы кузовов
   React.useEffect(() => {
-    const loadChiptuningData = async () => {
+    const loadBodyTypes = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0?series=${encodeURIComponent(selectedSeries)}`
-        );
+        const response = await fetch(`${API_URL}?action=bodies&series=${encodeURIComponent(selectedSeries)}`);
         const data = await response.json();
-        setChiptuningData(data);
+        setBodyTypes(data);
       } catch (error) {
-        console.error('Failed to load chiptuning data:', error);
+        console.error('Failed to load body types:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    loadChiptuningData();
+    loadBodyTypes();
   }, [selectedSeries]);
 
+  // Шаг 2: Загружаем двигатели при выборе кузова
+  const handleBodySelect = async (body: string) => {
+    setSelectedBody(body);
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}?action=engines&series=${encodeURIComponent(selectedSeries)}&body_type=${encodeURIComponent(body)}`);
+      const data = await response.json();
+      setEngines(data);
+      setStep('engine');
+    } catch (error) {
+      console.error('Failed to load engines:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Шаг 3: Выбор двигателя
+  const handleEngineSelect = (engine: ChiptuningData) => {
+    setSelectedEngine(engine);
+    setStep('stage');
+  };
+
+  // Заказ
   const handleOrder = () => {
-    if (!selectedStage || !selectedModel) return;
+    if (!selectedStage || !selectedEngine) return;
 
-    const stage = selectedStage === 'stage1' ? selectedModel.stage1 : selectedModel.stage2;
-    if (!stage) return;
+    const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
+    if (!stageData) return;
 
-    const price = selectedCity.value === 'moscow' ? stage.price : Math.round(stage.price * 0.9);
-    const gains = `${selectedModel.stock.power} → ${stage.power} л.с. | ${selectedModel.stock.torque} → ${stage.torque} Нм`;
+    const price = selectedCity.value === 'moscow' ? stageData.price : Math.round(stageData.price * 0.9);
+    const gains = `${selectedEngine.stock.power} → ${stageData.power} л.с. | ${selectedEngine.stock.torque} → ${stageData.torque} Нм`;
     
-    const message = `ЧИП-ТЮНИНГ BMW ${selectedSeries}\n\n${selectedModel.model_name}\n${selectedStage.toUpperCase()}\n\n${gains}\n\nСТОИМОСТЬ: ${price.toLocaleString('ru-RU')} ₽`;
+    const message = `ЧИП-ТЮНИНГ BMW ${selectedSeries}\n\n${selectedEngine.engine_code} (${selectedEngine.body_type})\n${selectedStage.toUpperCase()}\n\n${gains}\n\nСТОИМОСТЬ: ${price.toLocaleString('ru-RU')} ₽`;
     
     const url = getTelegramLink(selectedCity, `чип-тюнинг BMW ${selectedSeries}`);
     const separator = url.includes('?') ? '&' : '?';
     window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  const availableStages = selectedModel 
-    ? [
-        { id: 'stage1', name: 'STAGE 1', data: selectedModel.stage1 },
-        ...(selectedModel.stage2 ? [{ id: 'stage2', name: 'STAGE 2', data: selectedModel.stage2 }] : [])
-      ]
-    : [];
+  const stages = selectedEngine ? [
+    { id: 'stage1', name: 'STAGE 1', data: selectedEngine.stage1 },
+    ...(selectedEngine.stage2 ? [{ id: 'stage2', name: 'STAGE 2', data: selectedEngine.stage2 }] : [])
+  ] : [];
 
   return (
     <div className="space-y-2">
@@ -135,16 +159,10 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
             /// ЗАГРУЗКА ДАННЫХ...
           </p>
         </div>
-      ) : chiptuningData.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-white/60 text-sm tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-            /// НЕТ ДАННЫХ ДЛЯ ЭТОЙ СЕРИИ
-          </p>
-        </div>
       ) : (
         <>
-          {/* Выбор модели двигателя */}
-          {!selectedModel && (
+          {/* ШАГ 1: Выбор кузова */}
+          {step === 'body' && (
             <>
               <div className="flex items-center gap-1.5">
                 <div className="w-0.5 h-4" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
@@ -155,59 +173,61 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                     textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
                   }}
                 >
-                  /// ВЫБЕРИТЕ МОДЕЛЬ ДВИГАТЕЛЯ
+                  /// ШАГ 1: ВЫБЕРИТЕ КУЗОВ
                 </p>
               </div>
 
-              <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1" style={{ 
-                scrollbarWidth: 'thin',
-                scrollbarColor: 'rgba(255, 0, 0, 0.5) rgba(0, 0, 0, 0.3)'
-              }}>
-                {chiptuningData.map((model, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedModel(model)}
-                    className="w-full p-2 text-left transition-all duration-300 hover:scale-[1.01] relative overflow-hidden"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
-                      border: '1px solid',
-                      borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
-                      boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
-                      clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
-                    }}
-                  >
-                    <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none" style={{ 
-                      background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.2), transparent)',
-                      clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
-                    }} />
-                    
-                    <div className="relative z-10">
-                      <p 
-                        className="text-white text-xs mb-1 tracking-wider font-medium"
-                        style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                      >
-                        {model.engine_code} • {model.body_type}
-                      </p>
-                      <p 
-                        className="text-white/70 text-[10px] tracking-wide"
-                        style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                      >
-                        {model.stock.power} л.с. / {model.stock.torque} Нм → {model.stage1.power} л.с. / {model.stage1.torque} Нм
-                      </p>
-                    </div>
-                  </button>
-                ))}
-              </div>
+              {bodyTypes.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-white/60 text-sm tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                    /// НЕТ ДАННЫХ ДЛЯ ЭТОЙ СЕРИИ
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {bodyTypes.map((body) => (
+                    <button
+                      key={body}
+                      onClick={() => handleBodySelect(body)}
+                      className="w-full p-3 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
+                        border: '2px solid',
+                        borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.5) 0%, rgba(0, 212, 255, 0.5) 100%) 1',
+                        boxShadow: '0 0 20px rgba(127, 106, 127, 0.4)',
+                        clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)'
+                      }}
+                    >
+                      <div className="absolute top-0 right-0 w-10 h-10 pointer-events-none" style={{ 
+                        background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.3), transparent)',
+                        clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
+                      }} />
+                      
+                      <div className="relative z-10">
+                        <p 
+                          className="text-white text-base tracking-widest font-bold uppercase"
+                          style={{ 
+                            fontFamily: '"Reborn Technologies", sans-serif',
+                            textShadow: '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
+                          }}
+                        >
+                          {body}
+                        </p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </>
           )}
 
-          {/* Выбор Stage после выбора модели */}
-          {selectedModel && (
+          {/* ШАГ 2: Выбор двигателя */}
+          {step === 'engine' && (
             <>
               <button
                 onClick={() => {
-                  setSelectedModel(null);
-                  setSelectedStage(null);
+                  setStep('body');
+                  setSelectedBody(null);
                 }}
                 className="flex items-center gap-2 px-3 py-1.5 transition-all hover:scale-105"
                 style={{
@@ -222,7 +242,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                   className="tracking-wider text-red-400 uppercase text-xs"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  /// ДРУГАЯ МОДЕЛЬ
+                  /// НАЗАД К КУЗОВУ
                 </span>
               </button>
 
@@ -244,13 +264,13 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                   className="text-white/80 text-[10px] mb-1 tracking-widest uppercase"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  /// {selectedModel.engine_code} • {selectedModel.body_type}
+                  /// КУЗОВ
                 </p>
                 <p 
-                  className="text-white text-sm tracking-wider"
+                  className="text-white text-sm tracking-wider font-bold"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  СТОК: {selectedModel.stock.power} л.с. / {selectedModel.stock.torque} Нм
+                  {selectedBody}
                 </p>
               </div>
 
@@ -263,19 +283,134 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                     textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
                   }}
                 >
-                  /// ВЫБЕРИТЕ STAGE
+                  /// ШАГ 2: ВЫБЕРИТЕ ДВИГАТЕЛЬ
+                </p>
+              </div>
+
+              <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1" style={{ 
+                scrollbarWidth: 'thin',
+                scrollbarColor: 'rgba(255, 0, 0, 0.5) rgba(0, 0, 0, 0.3)'
+              }}>
+                {engines.map((engine, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleEngineSelect(engine)}
+                    className="w-full p-2 text-left transition-all duration-300 hover:scale-[1.01] relative overflow-hidden"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
+                      border: '1px solid',
+                      borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
+                      boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
+                      clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
+                    }}
+                  >
+                    <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none" style={{ 
+                      background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.2), transparent)',
+                      clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
+                    }} />
+                    
+                    <div className="relative z-10">
+                      <p 
+                        className="text-white text-xs mb-1 tracking-wider font-medium"
+                        style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                      >
+                        {engine.engine_code}
+                      </p>
+                      <p 
+                        className="text-white/70 text-[10px] tracking-wide"
+                        style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                      >
+                        СТОК: {engine.stock.power} л.с. / {engine.stock.torque} Нм
+                      </p>
+                      <p 
+                        className="text-white/70 text-[10px] tracking-wide"
+                        style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                      >
+                        STAGE 1: {engine.stage1.power} л.с. / {engine.stage1.torque} Нм
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* ШАГ 3: Выбор Stage */}
+          {step === 'stage' && selectedEngine && (
+            <>
+              <button
+                onClick={() => {
+                  setStep('engine');
+                  setSelectedEngine(null);
+                  setSelectedStage(null);
+                }}
+                className="flex items-center gap-2 px-3 py-1.5 transition-all hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 51, 0.3))',
+                  border: '1px solid rgba(255, 0, 0, 0.4)',
+                  clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))',
+                  boxShadow: '0 0 10px rgba(255, 0, 0, 0.3)'
+                }}
+              >
+                <Icon name="ChevronLeft" className="w-4 h-4 text-red-400" />
+                <span 
+                  className="tracking-wider text-red-400 uppercase text-xs"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                >
+                  /// ДРУГОЙ ДВИГАТЕЛЬ
+                </span>
+              </button>
+
+              <div 
+                className="p-2 relative overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(26, 8, 8, 0.8) 100%)',
+                  border: '2px solid',
+                  borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.6) 0%, rgba(0, 212, 255, 0.6) 100%) 1',
+                  boxShadow: '0 0 20px rgba(127, 106, 127, 0.4)',
+                  clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)'
+                }}
+              >
+                <div className="absolute top-0 right-0 w-10 h-10 pointer-events-none" style={{ 
+                  background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.3), rgba(0, 212, 255, 0.2))',
+                  clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
+                }} />
+                <p 
+                  className="text-white/80 text-[10px] mb-1 tracking-widest uppercase"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                >
+                  /// {selectedEngine.engine_code} • {selectedEngine.body_type}
+                </p>
+                <p 
+                  className="text-white text-sm tracking-wider"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                >
+                  СТОК: {selectedEngine.stock.power} л.с. / {selectedEngine.stock.torque} Нм
+                </p>
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <div className="w-0.5 h-4" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
+                <p 
+                  className="text-white text-xs tracking-widest uppercase"
+                  style={{ 
+                    fontFamily: '"Reborn Technologies", sans-serif',
+                    textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
+                  }}
+                >
+                  /// ШАГ 3: ВЫБЕРИТЕ STAGE
                 </p>
               </div>
 
               <div className="space-y-2">
-                {availableStages.map((stage) => {
+                {stages.map((stage) => {
                   const price = selectedCity.value === 'moscow' ? stage.data.price : Math.round(stage.data.price * 0.9);
                   const isSelected = selectedStage === stage.id;
 
                   return (
                     <button
                       key={stage.id}
-                      onClick={() => setSelectedStage(stage.id)}
+                      onClick={() => setSelectedStage(stage.id as 'stage1' | 'stage2')}
                       className="w-full p-3 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
                       style={{
                         background: stage.id === 'stage1'
