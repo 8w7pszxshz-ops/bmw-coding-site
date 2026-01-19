@@ -44,24 +44,15 @@ def handler(event: dict, context) -> dict:
         conn = psycopg2.connect(os.environ['DATABASE_URL'])
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         
-        # Нормализуем название серии: "3 SERIES" -> "3-series"
-        def normalize_series(s):
-            if not s:
-                return ''
-            s = s.upper().replace(' SERIES', '').strip()
-            # Исключения для M и X серий
-            if s in ['M2', 'M3', 'M4', 'M5', 'M6', 'M8', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'Z4', 'X3M', 'X4M', 'X5M', 'X6M', 'XM']:
-                return s
-            return f"{s}-series"
-        
-        series_normalized = normalize_series(series)
+        # Нормализуем название серии: уже приходит в правильном формате из фронтенда
+        series_normalized = series
         
         if action == 'bodies':
             # Получить список кузовов для серии
             query = """
                 SELECT DISTINCT body_type
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
-                WHERE LOWER(series) = LOWER(%s) AND status = 1
+                WHERE series = %s AND status = 1
                 ORDER BY body_type
             """
             cursor.execute(query, (series_normalized,))
@@ -85,7 +76,7 @@ def handler(event: dict, context) -> dict:
                     stage2_torque,
                     stage_type
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
-                WHERE LOWER(series) = LOWER(%s) AND body_type = %s AND status = 1
+                WHERE series = %s AND body_type = %s AND status = 1
                 ORDER BY stock_power ASC
             """
             cursor.execute(query, (series_normalized, body_type))
