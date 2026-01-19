@@ -94,7 +94,7 @@ export default function StageStep({
           className="text-white text-sm tracking-wider"
           style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
         >
-          СТОК: {selectedEngine.stock.power} л.с. / {selectedEngine.stock.torque} Нм
+          СТОК: {selectedEngine.stock.power} Л.С. / {selectedEngine.stock.torque} НМ
         </p>
       </div>
 
@@ -131,7 +131,7 @@ export default function StageStep({
             className="text-white text-xs tracking-wider uppercase"
             style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
           >
-            /// EURO 2 (БЕЗ STAGE: 12000₽ / СО STAGE: +5000₽)
+            /// EURO 2 (БЕЗ STAGE: 12000 / СО STAGE: +5000)
           </span>
         </label>
       </div>
@@ -203,7 +203,7 @@ export default function StageStep({
                     className="text-white text-lg font-bold tracking-wider"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
-                    {price.toLocaleString('ru-RU')} ₽
+                    {price.toLocaleString('ru-RU')}
                   </p>
                 </div>
               </div>

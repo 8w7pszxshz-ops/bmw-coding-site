@@ -72,10 +72,7 @@ export default function EngineStep({ engines, selectedBody, onSelectEngine, onBa
         </p>
       </div>
 
-      <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1" style={{ 
-        scrollbarWidth: 'thin',
-        scrollbarColor: 'rgba(255, 0, 0, 0.5) rgba(0, 0, 0, 0.3)'
-      }}>
+      <div className="space-y-1.5">
         {engines.map((engine, idx) => (
           <button
             key={idx}
@@ -106,20 +103,20 @@ export default function EngineStep({ engines, selectedBody, onSelectEngine, onBa
                   className="text-white/70 text-[10px] tracking-wide"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  СТОК: {engine.stock.power} л.с. / {engine.stock.torque} Нм
+                  СТОК: {engine.stock.power} Л.С. / {engine.stock.torque} НМ
                 </p>
                 <p 
                   className="text-white/70 text-[10px] tracking-wide"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  STAGE 1: {engine.stage1.power} л.с. / {engine.stage1.torque} Нм
+                  STAGE 1: {engine.stage1.power} Л.С. / {engine.stage1.torque} НМ
                 </p>
                 {engine.stage2 && (
                   <p 
                     className="text-white/70 text-[10px] tracking-wide"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
-                    STAGE 2: {engine.stage2.power} л.с. / {engine.stage2.torque} Нм
+                    STAGE 2: {engine.stage2.power} Л.С. / {engine.stage2.torque} НМ
                   </p>
                 )}
               </div>
