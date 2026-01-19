@@ -1,0 +1,26 @@
+{
+  "tests": [
+    {
+      "name": "Get chiptuning data for 3-series",
+      "method": "GET",
+      "path": "/?series=3-series",
+      "expectedStatus": 200,
+      "expectedBody": [
+        {
+          "model_name": "string",
+          "series": "string",
+          "stock": {
+            "power": "number",
+            "torque": "number"
+          },
+          "stage1": {
+            "power": "number",
+            "torque": "number",
+            "price": "number"
+          }
+        }
+      ],
+      "bodyMatcher": "partial"
+    }
+  ]
+}
