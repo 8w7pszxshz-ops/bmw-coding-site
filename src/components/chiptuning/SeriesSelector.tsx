@@ -1,12 +1,9 @@
-type Series = '1 SERIES' | '2 SERIES' | '2 SERIES M' | '3 SERIES' | '3 SERIES M' | '4 SERIES' | '4 SERIES M' | '5 SERIES' | '5 SERIES M' | '6 SERIES' | '7 SERIES' | '8 SERIES' | '8 SERIES M' | 'X1' | 'X2' | 'X3' | 'X3 M' | 'X4' | 'X4 M' | 'X5' | 'X5 M' | 'X6' | 'X6 M' | 'X7' | 'XM' | 'Z4';
+type Series = '1 SERIES' | '2 SERIES' | '3 SERIES' | '4 SERIES' | '5 SERIES' | '6 SERIES' | '7 SERIES' | '8 SERIES' | 'X1' | 'X2' | 'X3' | 'X4' | 'X5' | 'X6' | 'X7' | 'XM' | 'Z4';
 
 const seriesList: Series[] = [
-  '1 SERIES', '2 SERIES', '2 SERIES M', '3 SERIES', 
-  '3 SERIES M', '4 SERIES', '4 SERIES M', '5 SERIES',
-  '5 SERIES M', '6 SERIES', '7 SERIES', '8 SERIES',
-  '8 SERIES M', 'X1', 'X2', 'X3', 'X3 M',
-  'X4', 'X4 M', 'X5', 'X5 M', 'X6', 'X6 M',
-  'X7', 'XM', 'Z4'
+  '1 SERIES', '2 SERIES', '3 SERIES', '4 SERIES', 
+  '5 SERIES', '6 SERIES', '7 SERIES', '8 SERIES',
+  'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'XM', 'Z4'
 ];
 
 interface SeriesSelectorProps {
