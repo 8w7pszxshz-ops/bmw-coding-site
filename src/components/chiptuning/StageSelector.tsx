@@ -33,6 +33,39 @@ interface StageSelectorProps {
 
 const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
 
+// Преобразование из фронтенд-формата в API-формат
+function convertSeriesForAPI(series: Series): string {
+  const mapping: Record<string, string> = {
+    '1 SERIES': '1-series',
+    '2 SERIES': '2-series',
+    '2 SERIES M': 'M2',
+    '3 SERIES': '3-series',
+    '3 SERIES M': 'M3',
+    '4 SERIES': '4-series',
+    '4 SERIES M': 'M4',
+    '5 SERIES': '5-series',
+    '5 SERIES M': 'M5',
+    '6 SERIES': '6-series',
+    '7 SERIES': '7-series',
+    '8 SERIES': '8-series',
+    '8 SERIES M': 'M8',
+    'X1': 'X1',
+    'X2': 'X2',
+    'X3': 'X3',
+    'X3 M': 'X3M',
+    'X4': 'X4',
+    'X4 M': 'X4M',
+    'X5': 'X5',
+    'X5 M': 'X5M',
+    'X6': 'X6',
+    'X6 M': 'X6M',
+    'X7': 'X7',
+    'XM': 'XM',
+    'Z4': 'Z4'
+  };
+  return mapping[series] || series;
+}
+
 export default function StageSelector({ selectedSeries, selectedCity, onReset }: StageSelectorProps) {
   const [step, setStep] = React.useState<'body' | 'engine' | 'stage'>('body');
   const [bodyTypes, setBodyTypes] = React.useState<string[]>([]);
@@ -42,12 +75,14 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
   const [selectedStage, setSelectedStage] = React.useState<'stage1' | 'stage2' | null>(null);
   const [loading, setLoading] = React.useState(true);
 
+  const apiSeries = convertSeriesForAPI(selectedSeries);
+
   // Шаг 1: Загружаем типы кузовов
   React.useEffect(() => {
     const loadBodyTypes = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${API_URL}?action=bodies&series=${encodeURIComponent(selectedSeries)}`);
+        const response = await fetch(`${API_URL}?action=bodies&series=${encodeURIComponent(apiSeries)}`);
         const data = await response.json();
         setBodyTypes(data);
       } catch (error) {
@@ -58,14 +93,14 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
     };
 
     loadBodyTypes();
-  }, [selectedSeries]);
+  }, [apiSeries]);
 
   // Шаг 2: Загружаем двигатели при выборе кузова
   const handleBodySelect = async (body: string) => {
     setSelectedBody(body);
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}?action=engines&series=${encodeURIComponent(selectedSeries)}&body_type=${encodeURIComponent(body)}`);
+      const response = await fetch(`${API_URL}?action=engines&series=${encodeURIComponent(apiSeries)}&body_type=${encodeURIComponent(body)}`);
       const data = await response.json();
       setEngines(data);
       setStep('engine');
