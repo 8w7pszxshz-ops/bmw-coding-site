@@ -35,19 +35,19 @@ export default function StageStep({
   ];
 
   const calculatePrice = (basePrice: number, stageId: string) => {
-    // Если стейдж выбран И Euro2 включен = 5000₽
+    // Базовая цена стейджа с учетом города
+    let price = selectedCity.value === 'moscow' ? basePrice : Math.round(basePrice * 0.9);
+    
+    // Если выбран стейдж И включен Euro2 - добавляем 5000₽
     if (selectedStage && euro2Enabled) {
-      return 5000;
+      price += 5000;
     }
     
-    // Если стейдж НЕ выбран но Euro2 включен = 12000₽
-    if (!selectedStage && euro2Enabled) {
-      return 12000;
-    }
-    
-    // Обычная цена с учетом города
-    return selectedCity.value === 'moscow' ? basePrice : Math.round(basePrice * 0.9);
+    return price;
   };
+  
+  // Цена только Euro2 без стейджа
+  const euro2OnlyPrice = 12000;
 
   return (
     <>
@@ -131,7 +131,7 @@ export default function StageStep({
             className="text-white text-xs tracking-wider uppercase"
             style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
           >
-            /// EURO 2 (БЕЗ STAGE: 12000₽ / СО STAGE: 5000₽)
+            /// EURO 2 (БЕЗ STAGE: 12000₽ / СО STAGE: +5000₽)
           </span>
         </label>
       </div>
