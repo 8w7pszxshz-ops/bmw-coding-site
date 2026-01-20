@@ -283,7 +283,7 @@ def handler(event: dict, context) -> dict:
             query = """
                 SELECT DISTINCT body_type
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
-                WHERE series = %s AND status = 1
+                WHERE series = %s AND status = '1'
                 ORDER BY body_type
             """
             cursor.execute(query, (series_normalized,))
@@ -307,7 +307,7 @@ def handler(event: dict, context) -> dict:
                     stage2_torque,
                     stage_type
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
-                WHERE series = %s AND body_type = %s AND status = 1
+                WHERE series = %s AND body_type = %s AND status = '1'
                 ORDER BY stock_power ASC
             """
             cursor.execute(query, (series_normalized, body_type))
@@ -340,7 +340,7 @@ def handler(event: dict, context) -> dict:
             query = """
                 SELECT DISTINCT series
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
-                WHERE status = 1
+                WHERE status = '1'
                 ORDER BY series
             """
             cursor.execute(query)
