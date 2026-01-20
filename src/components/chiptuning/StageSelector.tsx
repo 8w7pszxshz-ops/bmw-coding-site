@@ -22,6 +22,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
   const [selectedEngine, setSelectedEngine] = React.useState<ChiptuningData | null>(null);
   const [selectedStage, setSelectedStage] = React.useState<'stage1' | 'stage2' | null>(null);
   const [euro2Enabled, setEuro2Enabled] = React.useState(false);
+  const [dieselOptions, setDieselOptions] = React.useState({ egr: false, dpf: false, flaps: false, adblue: false });
   const [loading, setLoading] = React.useState(true);
 
   const apiSeries = convertSeriesForAPI(selectedSeries);
@@ -68,16 +69,29 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
 
   // Заказ
   const handleOrder = (finalPrice: number) => {
-    if (!selectedStage || !selectedEngine) return;
+    if (!selectedEngine) return;
 
-    const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
-    if (!stageData) return;
+    const messageLines = [`ЧИП-ТЮНИНГ BMW ${selectedSeries}`, '', `${selectedEngine.engine_code} (${selectedEngine.body_type})`];
 
-    const gains = `${selectedEngine.stock.power} → ${stageData.power} л.с. | ${selectedEngine.stock.torque} → ${stageData.torque} Нм`;
-    const euro2Text = euro2Enabled ? '\nEURO 2: Да' : '';
+    if (selectedStage) {
+      const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
+      if (stageData) {
+        const gains = `${selectedEngine.stock.power} → ${stageData.power} л.с. | ${selectedEngine.stock.torque} → ${stageData.torque} Нм`;
+        messageLines.push(selectedStage.toUpperCase());
+        messageLines.push(gains);
+      }
+    }
+
+    if (euro2Enabled) messageLines.push('EURO 2: Да');
+    if (dieselOptions.egr) messageLines.push('EGR: Да');
+    if (dieselOptions.dpf) messageLines.push('DPF: Да');
+    if (dieselOptions.flaps) messageLines.push('FLAPS: Да');
+    if (dieselOptions.adblue) messageLines.push('ADBLUE: Да');
+
+    messageLines.push('');
+    messageLines.push(`СТОИМОСТЬ: ${finalPrice.toLocaleString('ru-RU')} ₽`);
     
-    const message = `ЧИП-ТЮНИНГ BMW ${selectedSeries}\n\n${selectedEngine.engine_code} (${selectedEngine.body_type})\n${selectedStage.toUpperCase()}${euro2Text}\n\n${gains}\n\nСТОИМОСТЬ: ${finalPrice.toLocaleString('ru-RU')} ₽`;
-    
+    const message = messageLines.join('\n');
     const url = getTelegramLink(selectedCity, `чип-тюнинг BMW ${selectedSeries}`);
     const separator = url.includes('?') ? '&' : '?';
     window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
@@ -166,13 +180,18 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
               selectedCity={selectedCity}
               selectedStage={selectedStage}
               euro2Enabled={euro2Enabled}
+              dieselOptions={dieselOptions}
               onSelectStage={setSelectedStage}
               onEuro2Change={setEuro2Enabled}
+              onDieselOptionChange={(option, enabled) => {
+                setDieselOptions(prev => ({ ...prev, [option]: enabled }));
+              }}
               onBack={() => {
                 setStep('engine');
                 setSelectedEngine(null);
                 setSelectedStage(null);
                 setEuro2Enabled(false);
+                setDieselOptions({ egr: false, dpf: false, flaps: false, adblue: false });
               }}
               onOrder={handleOrder}
             />

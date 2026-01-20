@@ -11,8 +11,10 @@ interface StageStepProps {
   selectedCity: City;
   selectedStage: 'stage1' | 'stage2' | null;
   euro2Enabled: boolean;
+  dieselOptions: { egr: boolean; dpf: boolean; flaps: boolean; adblue: boolean };
   onSelectStage: (stage: 'stage1' | 'stage2') => void;
   onEuro2Change: (enabled: boolean) => void;
+  onDieselOptionChange: (option: 'egr' | 'dpf' | 'flaps' | 'adblue', enabled: boolean) => void;
   onBack: () => void;
   onOrder: (finalPrice: number) => void;
 }
@@ -23,8 +25,10 @@ export default function StageStep({
   selectedCity, 
   selectedStage,
   euro2Enabled,
+  dieselOptions,
   onSelectStage,
   onEuro2Change,
+  onDieselOptionChange,
   onBack,
   onOrder 
 }: StageStepProps) {
@@ -33,6 +37,8 @@ export default function StageStep({
     { id: 'stage1', name: 'STAGE 1', data: selectedEngine.stage1 },
     ...(selectedEngine.stage2 ? [{ id: 'stage2', name: 'STAGE 2', data: selectedEngine.stage2 }] : [])
   ];
+
+  const isDiesel = selectedEngine.engine_code?.toLowerCase().includes('d') || false;
 
   const calculatePrice = (basePrice: number, stageId: string) => {
     // Базовая цена стейджа с учетом города
@@ -43,11 +49,29 @@ export default function StageStep({
       price += 5000;
     }
     
+    // Дизельные опции (только если выбран стейдж)
+    if (selectedStage && isDiesel) {
+      if (dieselOptions.egr) price += 5000;
+      if (dieselOptions.dpf) price += 5000;
+      if (dieselOptions.flaps) price += 5000;
+      if (dieselOptions.adblue) price += 20000;
+    }
+    
     return price;
   };
   
   // Цена только Euro2 без стейджа
   const euro2OnlyPrice = 12000;
+  
+  // Цена дизельных опций без стейджа
+  const dieselOnlyPrice = () => {
+    let price = 0;
+    if (dieselOptions.egr) price += 12000;
+    if (dieselOptions.dpf) price += 12000;
+    if (dieselOptions.flaps) price += 12000;
+    if (dieselOptions.adblue) price += 20000;
+    return price;
+  };
 
   return (
     <>
@@ -75,6 +99,42 @@ export default function StageStep({
           </span>
         </label>
       </div>
+
+      {isDiesel && (
+        <div className="space-y-2 mb-2">
+          {[
+            { key: 'egr' as const, label: 'EGR', price: 12000, withStage: 5000 },
+            { key: 'dpf' as const, label: 'DPF', price: 12000, withStage: 5000 },
+            { key: 'flaps' as const, label: 'FLAPS', price: 12000, withStage: 5000 },
+            { key: 'adblue' as const, label: 'ADBLUE', price: 20000, withStage: 20000 }
+          ].map(option => (
+            <div key={option.key} className="p-3 relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
+                border: '1px solid',
+                borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
+                boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
+                clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
+              }}
+            >
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={dieselOptions[option.key]}
+                  onChange={(e) => onDieselOptionChange(option.key, e.target.checked)}
+                  className="w-6 h-6 accent-red-500 cursor-pointer"
+                />
+                <span
+                  className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+                >
+                  {option.label} (БЕЗ STAGE: {option.price} / СО STAGE: +{option.withStage})
+                </span>
+              </label>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="space-y-1">
         {stages.map((stage) => {
@@ -167,22 +227,24 @@ export default function StageStep({
             finalPrice = calculatePrice(stageData.price, selectedStage);
           } else if (euro2Enabled) {
             finalPrice = euro2OnlyPrice;
+          } else if (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)) {
+            finalPrice = dieselOnlyPrice();
           } else {
             return;
           }
           onOrder(finalPrice);
         }}
-        disabled={!selectedStage && !euro2Enabled}
+        disabled={!selectedStage && !euro2Enabled && !(isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))}
         className="w-full py-2 px-4 transition-all hover:scale-[1.02] relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         style={{
-          background: (selectedStage || euro2Enabled)
+          background: (selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
             ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.4) 100%)'
             : 'linear-gradient(135deg, rgba(50, 50, 50, 0.4) 0%, rgba(70, 70, 70, 0.5) 50%, rgba(50, 50, 50, 0.4) 100%)',
           border: '2px solid',
-          borderImage: (selectedStage || euro2Enabled)
+          borderImage: (selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
             ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(0, 212, 255, 0.9) 100%) 1'
             : 'linear-gradient(135deg, rgba(100, 100, 100, 0.5) 0%, rgba(150, 150, 150, 0.5) 100%) 1',
-          boxShadow: (selectedStage || euro2Enabled)
+          boxShadow: (selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
             ? '0 0 40px rgba(127, 106, 127, 0.6), inset 0 0 40px rgba(127, 106, 127, 0.2)'
             : '0 0 10px rgba(100, 100, 100, 0.3)',
           clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)'
@@ -192,7 +254,7 @@ export default function StageStep({
           backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.1) 10px, rgba(255, 255, 255, 0.1) 20px)'
         }} />
         <div className="flex items-center justify-center gap-2 relative z-10">
-          <Icon name={(selectedStage || euro2Enabled) ? "Send" : "AlertCircle"} className="w-4 h-4 text-white" />
+          <Icon name={(selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) ? "Send" : "AlertCircle"} className="w-4 h-4 text-white" />
           <span 
             className="text-white text-xs tracking-widest uppercase font-bold"
             style={{ 
@@ -200,7 +262,7 @@ export default function StageStep({
               textShadow: '2px 2px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(127, 106, 127, 0.7)'
             }}
           >
-            {(selectedStage || euro2Enabled) ? '/// ЗАКАЗАТЬ' : '/// ВЫБЕРИТЕ ОПЦИЮ'}
+            {(selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) ? '/// ЗАКАЗАТЬ' : '/// ВЫБЕРИТЕ ОПЦИЮ'}
           </span>
         </div>
       </button>
