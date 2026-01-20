@@ -4,7 +4,7 @@
 @font-face {
   font-family: "Reborn Technologies";
   src: url("/fonts/Reborn Technologies.ttf") format("truetype");
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0000-FFFF;
