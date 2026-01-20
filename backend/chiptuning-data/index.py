@@ -11,22 +11,11 @@ from datetime import datetime
 
 def get_cors_headers(origin=None):
     """Возвращает стандартные CORS заголовки"""
-    allowed_origins = [
-        'https://reborn-bmw.tech',
-        'http://localhost:5173',
-        'http://127.0.0.1:5173'
-    ]
-    
-    # Если origin в списке разрешённых, используем его, иначе *
-    allow_origin = '*'
-    if origin and origin in allowed_origins:
-        allow_origin = origin
-    
     return {
-        'Access-Control-Allow-Origin': allow_origin,
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Credentials': 'false',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Max-Age': '86400',
         'Content-Type': 'application/json'
     }
 
