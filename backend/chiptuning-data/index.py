@@ -6,6 +6,15 @@ import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
+def get_cors_headers():
+    """Возвращает стандартные CORS заголовки"""
+    return {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Content-Type': 'application/json'
+    }
+
 def handler(event: dict, context) -> dict:
     method = event.get('httpMethod', 'GET')
     
@@ -13,11 +22,7 @@ def handler(event: dict, context) -> dict:
     if method == 'OPTIONS':
         return {
             'statusCode': 200,
-            'headers': {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type'
-            },
+            'headers': get_cors_headers(),
             'body': '',
             'isBase64Encoded': False
         }
@@ -88,10 +93,7 @@ def handler(event: dict, context) -> dict:
             
             return {
                 'statusCode': 200,
-                'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
+                'headers': get_cors_headers(),
                 'body': json.dumps(result, ensure_ascii=False),
                 'isBase64Encoded': False
             }
@@ -149,10 +151,7 @@ def handler(event: dict, context) -> dict:
                 
                 return {
                     'statusCode': 200,
-                    'headers': {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    },
+                    'headers': get_cors_headers(),
                     'body': json.dumps({'success': True}),
                     'isBase64Encoded': False
                 }
@@ -167,10 +166,7 @@ def handler(event: dict, context) -> dict:
                 
                 return {
                     'statusCode': 200,
-                    'headers': {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    },
+                    'headers': get_cors_headers(),
                     'body': json.dumps({'success': True}),
                     'isBase64Encoded': False
                 }
@@ -181,10 +177,7 @@ def handler(event: dict, context) -> dict:
                 
                 return {
                     'statusCode': 200,
-                    'headers': {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    },
+                    'headers': get_cors_headers(),
                     'body': json.dumps({'updated': 0, 'added': 0, 'message': 'Sync not implemented yet'}),
                     'isBase64Encoded': False
                 }
@@ -271,10 +264,7 @@ def handler(event: dict, context) -> dict:
         
         return {
             'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
+            'headers': get_cors_headers(),
             'body': json.dumps(result, ensure_ascii=False),
             'isBase64Encoded': False
         }
@@ -282,10 +272,7 @@ def handler(event: dict, context) -> dict:
     except Exception as e:
         return {
             'statusCode': 500,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
+            'headers': get_cors_headers(),
             'body': json.dumps({'error': str(e)}),
             'isBase64Encoded': False
         }
