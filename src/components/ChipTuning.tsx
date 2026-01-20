@@ -114,16 +114,11 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
             />
             
             <div className="flex items-center justify-center px-4">
-              <div className="flex flex-col items-center gap-4">
-                <img 
-                  src="https://cdn.poehali.dev/files/rebornlogo.png" 
-                  alt="Reborn Technologies" 
-                  className="h-16 md:h-20"
-                />
-                <p className="text-red-500 text-sm md:text-base uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                  /// ВЫБЕРИТЕ СЕРИЮ BMW
-                </p>
-              </div>
+              <img 
+                src="https://cdn.poehali.dev/files/rebornlogo.png" 
+                alt="Reborn Technologies" 
+                className="h-16 md:h-20"
+              />
             </div>
             
             {/* Bottom accent bar */}
