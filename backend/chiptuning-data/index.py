@@ -60,7 +60,8 @@ def handler(event: dict, context) -> dict:
                     stage2_torque,
                     stage_type,
                     is_restyling,
-                    status
+                    status,
+                    show_stage2
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
                 ORDER BY id
             """
@@ -91,7 +92,8 @@ def handler(event: dict, context) -> dict:
                     } if r['stage2_power'] and r['stage2_torque'] else None,
                     'stage_type': r['stage_type'],
                     'is_restyling': r['is_restyling'],
-                    'status': r['status']
+                    'status': r['status'],
+                    'show_stage2': r['show_stage2']
                 })
             
             cursor.close()
@@ -130,7 +132,8 @@ def handler(event: dict, context) -> dict:
                         stage2_torque = %s,
                         stage_type = %s,
                         is_restyling = %s,
-                        status = %s
+                        status = %s,
+                        show_stage2 = %s
                     WHERE id = %s
                 """
                 cursor.execute(query, (
@@ -149,6 +152,7 @@ def handler(event: dict, context) -> dict:
                     data['stage_type'],
                     data['is_restyling'],
                     data['status'],
+                    data['show_stage2'],
                     record_id
                 ))
                 conn.commit()

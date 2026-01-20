@@ -17,6 +17,7 @@ interface ChiptuningRecord {
   stage_type: string;
   is_restyling: boolean;
   status: string;
+  show_stage2: boolean;
 }
 
 export default function Admin() {
@@ -68,6 +69,46 @@ export default function Admin() {
     setEditValue(String(currentValue ?? ''));
   };
 
+  const saveRecord = async (updatedRecord: ChiptuningRecord) => {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'update',
+          id: updatedRecord.id,
+          data: {
+            model_name: updatedRecord.model_name,
+            series: updatedRecord.series,
+            body_type: updatedRecord.body_type,
+            engine_code: updatedRecord.engine_code,
+            article_code: updatedRecord.article_code,
+            stock_power: updatedRecord.stock.power,
+            stock_torque: updatedRecord.stock.torque,
+            stage1_power: updatedRecord.stage1.power,
+            stage1_torque: updatedRecord.stage1.torque,
+            stage1_price: updatedRecord.stage1.price,
+            stage2_power: updatedRecord.stage2?.power ?? null,
+            stage2_torque: updatedRecord.stage2?.torque ?? null,
+            stage_type: updatedRecord.stage_type,
+            is_restyling: updatedRecord.is_restyling,
+            status: updatedRecord.status,
+            show_stage2: updatedRecord.show_stage2
+          }
+        })
+      });
+
+      if (response.ok) {
+        setRecords(prev => prev.map(r => r.id === updatedRecord.id ? updatedRecord : r));
+        return true;
+      }
+    } catch (error) {
+      console.error('Ошибка сохранения:', error);
+      alert('Ошибка сохранения');
+    }
+    return false;
+  };
+
   const handleCellSave = async () => {
     if (!editingCell) return;
 
@@ -90,58 +131,21 @@ export default function Admin() {
       }
     } else {
       const field = editingCell.field as keyof ChiptuningRecord;
-      if (field === 'is_restyling') {
-        (updatedRecord[field] as any) = editValue === 'true' || editValue === '1';
-      } else if (field === 'status') {
-        (updatedRecord[field] as any) = editValue;
-      } else {
-        (updatedRecord[field] as any) = editValue;
-      }
+      (updatedRecord[field] as any) = editValue;
     }
 
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'update',
-          id: editingCell.id,
-          data: {
-            model_name: updatedRecord.model_name,
-            series: updatedRecord.series,
-            body_type: updatedRecord.body_type,
-            engine_code: updatedRecord.engine_code,
-            article_code: updatedRecord.article_code,
-            stock_power: updatedRecord.stock.power,
-            stock_torque: updatedRecord.stock.torque,
-            stage1_power: updatedRecord.stage1.power,
-            stage1_torque: updatedRecord.stage1.torque,
-            stage1_price: updatedRecord.stage1.price,
-            stage2_power: updatedRecord.stage2?.power ?? null,
-            stage2_torque: updatedRecord.stage2?.torque ?? null,
-            stage_type: updatedRecord.stage_type,
-            is_restyling: updatedRecord.is_restyling,
-            status: updatedRecord.status
-          }
-        })
-      });
-
-      if (response.ok) {
-        setRecords(prev => prev.map(r => r.id === editingCell.id ? updatedRecord : r));
-        
-        const cellKey = `${editingCell.id}-${editingCell.field}`;
-        setSavedCells(prev => new Set(prev).add(cellKey));
-        setTimeout(() => {
-          setSavedCells(prev => {
-            const newSet = new Set(prev);
-            newSet.delete(cellKey);
-            return newSet;
-          });
-        }, 2000);
-      }
-    } catch (error) {
-      console.error('Ошибка сохранения:', error);
-      alert('Ошибка сохранения');
+    const success = await saveRecord(updatedRecord);
+    
+    if (success) {
+      const cellKey = `${editingCell.id}-${editingCell.field}`;
+      setSavedCells(prev => new Set(prev).add(cellKey));
+      setTimeout(() => {
+        setSavedCells(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(cellKey);
+          return newSet;
+        });
+      }, 2000);
     }
 
     setEditingCell(null);
@@ -171,11 +175,11 @@ export default function Admin() {
   };
 
   const handleExport = () => {
-    const headers = ['Модель', 'Серия', 'Кузов', 'Двигатель', 'Артикул', 'Сток л.с.', 'Сток Нм', 'Stage1 л.с.', 'Stage1 Нм', 'Цена Stage1', 'Stage2 л.с.', 'Stage2 Нм', 'Тип', 'Рестайлинг', 'Статус'];
+    const headers = ['Модель', 'Серия', 'Кузов', 'Двигатель', 'Артикул', 'Сток л.с.', 'Сток Нм', 'Stage1 л.с.', 'Stage1 Нм', 'Цена Stage1', 'Stage2 л.с.', 'Stage2 Нм', 'Тип', 'Рестайлинг', 'Статус', 'Показ Stage2'];
     const rows = records.map(r => [
       r.model_name, r.series, r.body_type, r.engine_code, r.article_code,
       r.stock.power, r.stock.torque, r.stage1.power, r.stage1.torque, r.stage1.price,
-      r.stage2?.power ?? '', r.stage2?.torque ?? '', r.stage_type, r.is_restyling ? '1' : '0', r.status
+      r.stage2?.power ?? '', r.stage2?.torque ?? '', r.stage_type, r.is_restyling ? '1' : '0', r.status, r.show_stage2 ? '1' : '0'
     ]);
     
     const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
@@ -194,9 +198,8 @@ export default function Admin() {
       const lines = text.split('\n').slice(1);
       
       for (const line of lines) {
-        const [model_name, series, body_type, engine_code, article_code, stock_power, stock_torque, stage1_power, stage1_torque, stage1_price, stage2_power, stage2_torque, stage_type, is_restyling, status] = line.split(',');
-        
-        if (!model_name) continue;
+        const parts = line.split(',');
+        if (parts.length < 15) continue;
 
         try {
           await fetch(API_URL, {
@@ -205,15 +208,22 @@ export default function Admin() {
             body: JSON.stringify({
               action: 'add',
               data: {
-                model_name, series, body_type, engine_code, article_code,
-                stock_power: parseFloat(stock_power),
-                stock_torque: parseFloat(stock_torque),
-                stage1_power: parseFloat(stage1_power),
-                stage1_torque: parseFloat(stage1_torque),
-                stage1_price: parseFloat(stage1_price),
-                stage2_power: stage2_power ? parseFloat(stage2_power) : null,
-                stage2_torque: stage2_torque ? parseFloat(stage2_torque) : null,
-                stage_type, is_restyling: is_restyling === '1', status
+                model_name: parts[0],
+                series: parts[1],
+                body_type: parts[2],
+                engine_code: parts[3],
+                article_code: parts[4],
+                stock_power: parseFloat(parts[5]),
+                stock_torque: parseFloat(parts[6]),
+                stage1_power: parseFloat(parts[7]),
+                stage1_torque: parseFloat(parts[8]),
+                stage1_price: parseFloat(parts[9]),
+                stage2_power: parts[10] ? parseFloat(parts[10]) : null,
+                stage2_torque: parts[11] ? parseFloat(parts[11]) : null,
+                stage_type: parts[12],
+                is_restyling: parts[13] === '1',
+                status: parts[14],
+                show_stage2: parts[15] === '1'
               }
             })
           });
@@ -258,54 +268,30 @@ export default function Admin() {
     );
   };
 
-  const renderCheckbox = (record: ChiptuningRecord, field: string, checked: boolean) => {
+  const renderCheckbox = (record: ChiptuningRecord, field: 'status' | 'show_stage2', checked: boolean) => {
     const cellKey = `${record.id}-${field}`;
     const isSaved = savedCells.has(cellKey);
 
     const toggleCheckbox = async () => {
-      const updatedRecord = { ...record, [field]: field === 'status' ? (checked ? 'draft' : 'active') : !checked };
+      let updatedRecord: ChiptuningRecord;
       
-      try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'update',
-            id: record.id,
-            data: {
-              model_name: updatedRecord.model_name,
-              series: updatedRecord.series,
-              body_type: updatedRecord.body_type,
-              engine_code: updatedRecord.engine_code,
-              article_code: updatedRecord.article_code,
-              stock_power: updatedRecord.stock.power,
-              stock_torque: updatedRecord.stock.torque,
-              stage1_power: updatedRecord.stage1.power,
-              stage1_torque: updatedRecord.stage1.torque,
-              stage1_price: updatedRecord.stage1.price,
-              stage2_power: updatedRecord.stage2?.power ?? null,
-              stage2_torque: updatedRecord.stage2?.torque ?? null,
-              stage_type: updatedRecord.stage_type,
-              is_restyling: updatedRecord.is_restyling,
-              status: updatedRecord.status
-            }
-          })
-        });
-
-        if (response.ok) {
-          setRecords(prev => prev.map(r => r.id === record.id ? updatedRecord as ChiptuningRecord : r));
-          
-          setSavedCells(prev => new Set(prev).add(cellKey));
-          setTimeout(() => {
-            setSavedCells(prev => {
-              const newSet = new Set(prev);
-              newSet.delete(cellKey);
-              return newSet;
-            });
-          }, 2000);
-        }
-      } catch (error) {
-        console.error('Ошибка сохранения:', error);
+      if (field === 'status') {
+        updatedRecord = { ...record, status: checked ? 'draft' : 'active' };
+      } else {
+        updatedRecord = { ...record, show_stage2: !checked };
+      }
+      
+      const success = await saveRecord(updatedRecord);
+      
+      if (success) {
+        setSavedCells(prev => new Set(prev).add(cellKey));
+        setTimeout(() => {
+          setSavedCells(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(cellKey);
+            return newSet;
+          });
+        }, 2000);
       }
     };
 
@@ -444,6 +430,7 @@ export default function Admin() {
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 л.с.</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 Нм</th>
                   <th className="px-4 py-3 text-center text-white/80 font-medium">На сайте</th>
+                  <th className="px-4 py-3 text-center text-white/80 font-medium">Stage2 на сайте</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Действия</th>
                 </tr>
               </thead>
@@ -463,6 +450,7 @@ export default function Admin() {
                     {renderCell(record, 'stage2.power', record.stage2?.power)}
                     {renderCell(record, 'stage2.torque', record.stage2?.torque)}
                     {renderCheckbox(record, 'status', record.status === 'active')}
+                    {renderCheckbox(record, 'show_stage2', record.show_stage2)}
                     <td className="px-4 py-3">
                       <Button
                         onClick={async () => {
