@@ -18,8 +18,23 @@ export function useAdminLogic() {
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_URL}?admin=1`);
+      console.log('Loading data from:', `${API_URL}?admin=1`);
+      
+      const response = await fetch(`${API_URL}?admin=1`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      console.log('Loaded records:', data.length);
       
       const tableRecords: ChiptuningRecord[] = [];
       data.forEach((item: any) => {
@@ -38,15 +53,15 @@ export function useAdminLogic() {
           stage2_power: item.stage2?.power || null,
           stage2_torque: item.stage2?.torque || null,
           stage_type: item.stage_type,
-          is_restyling: item.is_restyling,
-          status: 1
+          is_restyling: Boolean(item.is_restyling),
+          status: Number(item.status) || 1
         });
       });
       
       setRecords(tableRecords);
     } catch (error) {
       console.error('Failed to load data:', error);
-      alert('Ошибка загрузки данных');
+      alert(`Ошибка загрузки данных: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
