@@ -13,6 +13,7 @@ export function useAdminLogic() {
   const [cellValue, setCellValue] = useState('');
   const [savedCell, setSavedCell] = useState<{ id: number; field: string } | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [syncing, setSyncing] = useState(false);
 
   const loadData = useCallback(async () => {
     try {
@@ -196,6 +197,28 @@ export function useAdminLogic() {
     }
   };
 
+  const handleSyncCSV = async () => {
+    setSyncing(true);
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'sync_csv' })
+      });
+
+      if (!response.ok) throw new Error('Sync failed');
+
+      const result = await response.json();
+      alert(`Синхронизация завершена!\nОбновлено: ${result.updated || 0} записей\nДобавлено: ${result.added || 0} записей`);
+      loadData();
+    } catch (error) {
+      console.error('Sync error:', error);
+      alert('Ошибка синхронизации с сайтом');
+    } finally {
+      setSyncing(false);
+    }
+  };
+
   const handleCellClick = (record: ChiptuningRecord, field: keyof ChiptuningRecord) => {
     setEditingCell({ id: record.id, field });
     setCellValue(String(record[field] ?? ''));
@@ -304,7 +327,9 @@ export function useAdminLogic() {
     handleCellSave,
     savedCell,
     uploading,
+    syncing,
     handleExportCSV,
-    handleImportCSV
+    handleImportCSV,
+    handleSyncCSV
   };
 }

@@ -32,8 +32,10 @@ export default function Admin() {
     handleCellSave,
     savedCell,
     uploading,
+    syncing,
     handleExportCSV,
-    handleImportCSV
+    handleImportCSV,
+    handleSyncCSV
   } = useAdminLogic();
 
   if (loading) {
@@ -50,6 +52,15 @@ export default function Admin() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-white">Админ-панель Чип-тюнинга</h1>
           <div className="flex gap-3">
+            <Button 
+              onClick={handleSyncCSV}
+              variant="outline"
+              className="bg-blue-600/20 hover:bg-blue-600/30 border-blue-500/50 text-blue-300"
+              disabled={syncing}
+            >
+              <Icon name="RefreshCw" className={`w-5 h-5 mr-2 ${syncing ? 'animate-spin' : ''}`} />
+              {syncing ? 'Синхронизация...' : 'Синхронизировать с сайтом'}
+            </Button>
             <Button 
               onClick={handleExportCSV} 
               variant="outline"
