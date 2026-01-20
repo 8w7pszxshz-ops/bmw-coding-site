@@ -146,13 +146,20 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
             />
             
             <div 
-              className="text-white text-xl font-bold tracking-widest text-center uppercase transition-colors group-hover:scale-110 transition-transform"
+              className="text-white text-xl font-bold tracking-widest text-center uppercase transition-colors group-hover:scale-110 transition-transform flex flex-col items-center leading-tight"
               style={{ 
                 fontFamily: '"Reborn Technologies", sans-serif',
                 textShadow: `2px 2px 0 ${glowColor.replace('0.5', '0.3')}, 0 0 20px ${glowColor}, 0 2px 4px rgba(0, 0, 0, 0.8)`
               }}
             >
-              {series}
+              {series.includes('SERIES') ? (
+                <>
+                  <span>{series.split(' ')[0]}</span>
+                  <span className="text-sm opacity-80">{series.split(' ')[1]}</span>
+                </>
+              ) : (
+                series
+              )}
             </div>
             
             {/* NFS speed stripes - bottom right */}
