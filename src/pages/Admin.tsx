@@ -276,7 +276,7 @@ export default function Admin() {
       let updatedRecord: ChiptuningRecord;
       
       if (field === 'status') {
-        updatedRecord = { ...record, status: checked ? 'draft' : 'active' };
+        updatedRecord = { ...record, status: checked ? '0' : '1' };
       } else {
         updatedRecord = { ...record, show_stage2: !checked };
       }
@@ -394,8 +394,8 @@ export default function Admin() {
             className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
           >
             <option value="all" style={{ background: '#1e293b' }}>Все статусы</option>
-            <option value="active" style={{ background: '#1e293b' }}>Показывать</option>
-            <option value="draft" style={{ background: '#1e293b' }}>Скрыть</option>
+            <option value="1" style={{ background: '#1e293b' }}>Показывать</option>
+            <option value="0" style={{ background: '#1e293b' }}>Скрыть</option>
           </select>
           <Button 
             onClick={() => {
@@ -449,7 +449,7 @@ export default function Admin() {
                     {renderCell(record, 'stage1.price', record.stage1.price)}
                     {renderCell(record, 'stage2.power', record.stage2?.power)}
                     {renderCell(record, 'stage2.torque', record.stage2?.torque)}
-                    {renderCheckbox(record, 'status', record.status === 'active')}
+                    {renderCheckbox(record, 'status', record.status === '1')}
                     {renderCheckbox(record, 'show_stage2', record.show_stage2)}
                     <td className="px-4 py-3">
                       <Button

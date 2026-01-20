@@ -305,7 +305,8 @@ def handler(event: dict, context) -> dict:
                     stage1_price,
                     stage2_power,
                     stage2_torque,
-                    stage_type
+                    stage_type,
+                    show_stage2
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
                 WHERE series = %s AND body_type = %s AND status = '1'
                 ORDER BY stock_power ASC
@@ -332,7 +333,7 @@ def handler(event: dict, context) -> dict:
                     'stage2': {
                         'power': record['stage2_power'],
                         'torque': record['stage2_torque']
-                    } if record['stage2_power'] and record['stage2_torque'] else None,
+                    } if record['stage2_power'] and record['stage2_torque'] and record['show_stage2'] else None,
                     'stage_type': record['stage_type']
                 })
         else:
