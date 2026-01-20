@@ -26,6 +26,11 @@ export default function Admin() {
   const [editingCell, setEditingCell] = useState<{ id: number; field: string } | null>(null);
   const [editValue, setEditValue] = useState('');
   const [savedCells, setSavedCells] = useState<Set<string>>(new Set());
+  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterSeries, setFilterSeries] = useState('all');
+  const [filterBodyType, setFilterBodyType] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('all');
 
   useEffect(() => {
     loadData();
@@ -44,6 +49,20 @@ export default function Admin() {
     }
   };
 
+  const filteredRecords = records.filter(r => {
+    const matchSearch = searchTerm === '' || 
+      r.model_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      r.engine_code.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchSeries = filterSeries === 'all' || r.series === filterSeries;
+    const matchBodyType = filterBodyType === 'all' || r.body_type === filterBodyType;
+    const matchStatus = filterStatus === 'all' || r.status === filterStatus;
+    
+    return matchSearch && matchSeries && matchBodyType && matchStatus;
+  });
+
+  const uniqueSeries = Array.from(new Set(records.map(r => r.series))).sort();
+  const uniqueBodyTypes = Array.from(new Set(records.map(r => r.body_type))).sort();
+
   const handleCellClick = (id: number, field: string, currentValue: any) => {
     setEditingCell({ id, field });
     setEditValue(String(currentValue ?? ''));
@@ -61,6 +80,9 @@ export default function Admin() {
     if (fieldPath.length === 2) {
       const [parent, child] = fieldPath;
       if (parent === 'stock' || parent === 'stage1' || parent === 'stage2') {
+        if (!updatedRecord[parent]) {
+          updatedRecord[parent] = { power: 0, torque: 0 };
+        }
         updatedRecord[parent] = {
           ...updatedRecord[parent],
           [child]: parseFloat(editValue) || 0
@@ -70,6 +92,8 @@ export default function Admin() {
       const field = editingCell.field as keyof ChiptuningRecord;
       if (field === 'is_restyling') {
         (updatedRecord[field] as any) = editValue === 'true' || editValue === '1';
+      } else if (field === 'status') {
+        (updatedRecord[field] as any) = editValue;
       } else {
         (updatedRecord[field] as any) = editValue;
       }
@@ -234,6 +258,76 @@ export default function Admin() {
     );
   };
 
+  const renderCheckbox = (record: ChiptuningRecord, field: string, checked: boolean) => {
+    const cellKey = `${record.id}-${field}`;
+    const isSaved = savedCells.has(cellKey);
+
+    const toggleCheckbox = async () => {
+      const updatedRecord = { ...record, [field]: field === 'status' ? (checked ? 'draft' : 'active') : !checked };
+      
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'update',
+            id: record.id,
+            data: {
+              model_name: updatedRecord.model_name,
+              series: updatedRecord.series,
+              body_type: updatedRecord.body_type,
+              engine_code: updatedRecord.engine_code,
+              article_code: updatedRecord.article_code,
+              stock_power: updatedRecord.stock.power,
+              stock_torque: updatedRecord.stock.torque,
+              stage1_power: updatedRecord.stage1.power,
+              stage1_torque: updatedRecord.stage1.torque,
+              stage1_price: updatedRecord.stage1.price,
+              stage2_power: updatedRecord.stage2?.power ?? null,
+              stage2_torque: updatedRecord.stage2?.torque ?? null,
+              stage_type: updatedRecord.stage_type,
+              is_restyling: updatedRecord.is_restyling,
+              status: updatedRecord.status
+            }
+          })
+        });
+
+        if (response.ok) {
+          setRecords(prev => prev.map(r => r.id === record.id ? updatedRecord as ChiptuningRecord : r));
+          
+          setSavedCells(prev => new Set(prev).add(cellKey));
+          setTimeout(() => {
+            setSavedCells(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(cellKey);
+              return newSet;
+            });
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Ошибка сохранения:', error);
+      }
+    };
+
+    return (
+      <td
+        key={field}
+        className={`px-4 py-3 text-center cursor-pointer hover:bg-white/10 transition-colors ${
+          isSaved ? 'bg-green-500/30 animate-pulse' : ''
+        }`}
+        onClick={toggleCheckbox}
+      >
+        <div className="flex items-center justify-center">
+          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+            checked ? 'bg-green-500 border-green-500' : 'border-white/30'
+          }`}>
+            {checked && <Icon name="Check" className="w-4 h-4 text-white" />}
+          </div>
+        </div>
+      </td>
+    );
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 flex items-center justify-center">
@@ -280,6 +374,58 @@ export default function Admin() {
           </div>
         </div>
 
+        <div className="bg-white/5 backdrop-blur-lg rounded-xl p-4 mb-6 flex gap-4">
+          <input
+            type="text"
+            placeholder="Поиск по модели или двигателю..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50"
+          />
+          <select
+            value={filterSeries}
+            onChange={(e) => setFilterSeries(e.target.value)}
+            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
+          >
+            <option value="all" style={{ background: '#1e293b' }}>Все серии</option>
+            {uniqueSeries.map(series => (
+              <option key={series} value={series} style={{ background: '#1e293b' }}>{series}</option>
+            ))}
+          </select>
+          <select
+            value={filterBodyType}
+            onChange={(e) => setFilterBodyType(e.target.value)}
+            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
+          >
+            <option value="all" style={{ background: '#1e293b' }}>Все кузова</option>
+            {uniqueBodyTypes.map(bodyType => (
+              <option key={bodyType} value={bodyType} style={{ background: '#1e293b' }}>{bodyType}</option>
+            ))}
+          </select>
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
+          >
+            <option value="all" style={{ background: '#1e293b' }}>Все статусы</option>
+            <option value="active" style={{ background: '#1e293b' }}>Показывать</option>
+            <option value="draft" style={{ background: '#1e293b' }}>Скрыть</option>
+          </select>
+          <Button 
+            onClick={() => {
+              setSearchTerm('');
+              setFilterSeries('all');
+              setFilterBodyType('all');
+              setFilterStatus('all');
+            }}
+            variant="outline"
+            className="bg-white/5 hover:bg-white/10 border-white/20 text-white"
+          >
+            <Icon name="X" className="w-4 h-4 mr-2" />
+            Сбросить
+          </Button>
+        </div>
+
         <div className="bg-white/5 backdrop-blur-lg rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -295,11 +441,14 @@ export default function Admin() {
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Stage1 л.с.</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Stage1 Нм</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Цена</th>
+                  <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 л.с.</th>
+                  <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 Нм</th>
+                  <th className="px-4 py-3 text-center text-white/80 font-medium">На сайте</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Действия</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10">
-                {records.map((record) => (
+                {filteredRecords.map((record) => (
                   <tr key={record.id} className="hover:bg-white/5">
                     <td className="px-4 py-3 text-white/60">{record.id}</td>
                     {renderCell(record, 'model_name', record.model_name)}
@@ -311,6 +460,9 @@ export default function Admin() {
                     {renderCell(record, 'stage1.power', record.stage1.power)}
                     {renderCell(record, 'stage1.torque', record.stage1.torque)}
                     {renderCell(record, 'stage1.price', record.stage1.price)}
+                    {renderCell(record, 'stage2.power', record.stage2?.power)}
+                    {renderCell(record, 'stage2.torque', record.stage2?.torque)}
+                    {renderCheckbox(record, 'status', record.status === 'active')}
                     <td className="px-4 py-3">
                       <Button
                         onClick={async () => {
@@ -338,7 +490,7 @@ export default function Admin() {
         </div>
 
         <div className="mt-4 text-white/60 text-sm">
-          Показано записей: {records.length}
+          Показано записей: {filteredRecords.length} из {records.length}
         </div>
       </div>
     </div>
