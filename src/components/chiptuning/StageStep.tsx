@@ -51,25 +51,6 @@ export default function StageStep({
 
   return (
     <>
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 px-3 py-1.5 transition-all hover:scale-105"
-        style={{
-          background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 51, 0.3))',
-          border: '1px solid rgba(255, 0, 0, 0.4)',
-          clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))',
-          boxShadow: '0 0 10px rgba(255, 0, 0, 0.3)'
-        }}
-      >
-        <Icon name="ChevronLeft" className="w-4 h-4 text-red-400" />
-        <span 
-          className="tracking-wider text-red-400 uppercase text-xs"
-          style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-        >
-          /// ДРУГОЙ ДВИГАТЕЛЬ
-        </span>
-      </button>
-
       <div 
         className="p-2 relative overflow-hidden"
         style={{
