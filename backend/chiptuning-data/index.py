@@ -6,23 +6,37 @@ import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-def get_cors_headers():
+def get_cors_headers(origin=None):
     """Возвращает стандартные CORS заголовки"""
+    allowed_origins = [
+        'https://reborn-bmw.tech',
+        'http://localhost:5173',
+        'http://127.0.0.1:5173'
+    ]
+    
+    # Если origin в списке разрешённых, используем его, иначе *
+    allow_origin = '*'
+    if origin and origin in allowed_origins:
+        allow_origin = origin
+    
     return {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': allow_origin,
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Credentials': 'false',
         'Content-Type': 'application/json'
     }
 
 def handler(event: dict, context) -> dict:
     method = event.get('httpMethod', 'GET')
+    headers = event.get('headers', {})
+    origin = headers.get('origin') or headers.get('Origin')
     
     # CORS preflight
     if method == 'OPTIONS':
         return {
             'statusCode': 200,
-            'headers': get_cors_headers(),
+            'headers': get_cors_headers(origin),
             'body': '',
             'isBase64Encoded': False
         }
@@ -93,7 +107,7 @@ def handler(event: dict, context) -> dict:
             
             return {
                 'statusCode': 200,
-                'headers': get_cors_headers(),
+                'headers': get_cors_headers(origin),
                 'body': json.dumps(result, ensure_ascii=False),
                 'isBase64Encoded': False
             }
@@ -151,7 +165,7 @@ def handler(event: dict, context) -> dict:
                 
                 return {
                     'statusCode': 200,
-                    'headers': get_cors_headers(),
+                    'headers': get_cors_headers(origin),
                     'body': json.dumps({'success': True}),
                     'isBase64Encoded': False
                 }
@@ -166,7 +180,7 @@ def handler(event: dict, context) -> dict:
                 
                 return {
                     'statusCode': 200,
-                    'headers': get_cors_headers(),
+                    'headers': get_cors_headers(origin),
                     'body': json.dumps({'success': True}),
                     'isBase64Encoded': False
                 }
@@ -177,7 +191,7 @@ def handler(event: dict, context) -> dict:
                 
                 return {
                     'statusCode': 200,
-                    'headers': get_cors_headers(),
+                    'headers': get_cors_headers(origin),
                     'body': json.dumps({'updated': 0, 'added': 0, 'message': 'Sync not implemented yet'}),
                     'isBase64Encoded': False
                 }
@@ -264,7 +278,7 @@ def handler(event: dict, context) -> dict:
         
         return {
             'statusCode': 200,
-            'headers': get_cors_headers(),
+            'headers': get_cors_headers(origin),
             'body': json.dumps(result, ensure_ascii=False),
             'isBase64Encoded': False
         }
@@ -272,7 +286,7 @@ def handler(event: dict, context) -> dict:
     except Exception as e:
         return {
             'statusCode': 500,
-            'headers': get_cors_headers(),
+            'headers': get_cors_headers(origin),
             'body': json.dumps({'error': str(e)}),
             'isBase64Encoded': False
         }
