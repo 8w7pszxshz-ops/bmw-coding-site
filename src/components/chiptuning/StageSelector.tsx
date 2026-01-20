@@ -34,9 +34,10 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
       try {
         const response = await fetch(`${API_URL}?action=bodies&series=${encodeURIComponent(apiSeries)}`);
         const data = await response.json();
-        setBodyTypes(data);
+        setBodyTypes(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Failed to load body types:', error);
+        setBodyTypes([]);
       } finally {
         setLoading(false);
       }
@@ -52,10 +53,11 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
     try {
       const response = await fetch(`${API_URL}?action=engines&series=${encodeURIComponent(apiSeries)}&body_type=${encodeURIComponent(body)}`);
       const data = await response.json();
-      setEngines(data);
+      setEngines(Array.isArray(data) ? data : []);
       setStep('engine');
     } catch (error) {
       console.error('Failed to load engines:', error);
+      setEngines([]);
     } finally {
       setLoading(false);
     }
