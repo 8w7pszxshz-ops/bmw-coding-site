@@ -79,20 +79,7 @@ export default function StageStep({
         </p>
       </div>
 
-      <div className="flex items-center gap-1.5">
-        <div className="w-0.5 h-4" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
-        <p 
-          className="text-white text-xs tracking-widest uppercase"
-          style={{ 
-            fontFamily: '"Reborn Technologies", sans-serif',
-            textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
-          }}
-        >
-          /// ШАГ 3: ВЫБЕРИТЕ STAGE
-        </p>
-      </div>
-
-      <div className="p-3 mb-2 relative overflow-hidden"
+      <div className="p-4 mb-2 relative overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
           border: '1px solid',
@@ -101,18 +88,18 @@ export default function StageStep({
           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
         }}
       >
-        <label className="flex items-center gap-2 cursor-pointer">
+        <label className="flex items-center gap-3 cursor-pointer group">
           <input
             type="checkbox"
             checked={euro2Enabled}
             onChange={(e) => onEuro2Change(e.target.checked)}
-            className="w-4 h-4 accent-red-500"
+            className="w-6 h-6 accent-red-500 cursor-pointer"
           />
           <span
-            className="text-white text-xs tracking-wider uppercase"
+            className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
             style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
           >
-            /// EURO 2 (БЕЗ STAGE: 12000 / СО STAGE: +5000)
+            EURO 2 (БЕЗ STAGE: 12000 / СО STAGE: +5000)
           </span>
         </label>
       </div>
@@ -125,8 +112,14 @@ export default function StageStep({
           return (
             <button
               key={stage.id}
-              onClick={() => onSelectStage(stage.id as 'stage1' | 'stage2')}
-              className="w-full p-2 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
+              onClick={() => {
+                if (isSelected) {
+                  onSelectStage(null as any);
+                } else {
+                  onSelectStage(stage.id as 'stage1' | 'stage2');
+                }
+              }}
+              className="w-full p-3 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
               style={{
                 background: stage.id === 'stage1'
                   ? (isSelected ? 'linear-gradient(135deg, rgba(0, 255, 0, 0.25) 0%, rgba(0, 255, 0, 0.35) 100%)' : 'linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 255, 0, 0.15) 100%)')
@@ -152,10 +145,10 @@ export default function StageStep({
                 backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(127, 106, 127, 0.3) 2px, rgba(127, 106, 127, 0.3) 4px)'
               }} />
               
-              <div className="flex items-start justify-between mb-0.5 relative z-10">
+              <div className="flex items-start justify-between mb-1 relative z-10">
                 <div>
                   <h3 
-                    className="text-white text-sm mb-0.5 tracking-widest uppercase font-bold"
+                    className="text-white text-base mb-1 tracking-widest uppercase font-bold"
                     style={{ 
                       fontFamily: '"Reborn Technologies", sans-serif',
                       textShadow: isSelected ? '2px 2px 0 rgba(127, 106, 127, 0.7), 0 0 30px rgba(127, 106, 127, 0.7)' : '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
@@ -164,10 +157,10 @@ export default function StageStep({
                     {stage.name}
                   </h3>
                   <p 
-                    className="text-white/80 text-[9px] tracking-wider uppercase"
+                    className="text-white/90 text-xs tracking-wider uppercase font-medium"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
-                    /// {stage.data.power} Л.С. / {stage.data.torque} НМ
+                    {stage.data.power} Л.С. / {stage.data.torque} НМ
                   </p>
                 </div>
                 {isSelected && (
@@ -178,10 +171,10 @@ export default function StageStep({
                 )}
               </div>
               <div className="flex items-center justify-between relative z-10">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-0.5 h-3" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.8), rgba(0, 212, 255, 0.8))' }} />
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-4" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.8), rgba(0, 212, 255, 0.8))' }} />
                   <p 
-                    className="text-white text-sm font-bold tracking-wider"
+                    className="text-white text-lg font-bold tracking-wider"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
                     {price.toLocaleString('ru-RU')}
