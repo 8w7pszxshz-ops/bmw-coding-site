@@ -40,19 +40,6 @@ export default function EngineStep({ engines, selectedBody, onSelectEngine, onBa
         </p>
       </div>
 
-      <div className="flex items-center gap-1.5">
-        <div className="w-0.5 h-4" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
-        <p 
-          className="text-white text-xs tracking-widest uppercase"
-          style={{ 
-            fontFamily: '"Reborn Technologies", sans-serif',
-            textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
-          }}
-        >
-          /// ШАГ 2: ВЫБЕРИТЕ ДВИГАТЕЛЬ
-        </p>
-      </div>
-
       <div className="space-y-1">
         {engines.map((engine, idx) => (
           <button

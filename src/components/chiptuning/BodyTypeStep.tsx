@@ -8,19 +8,6 @@ interface BodyTypeStepProps {
 export default function BodyTypeStep({ bodyTypes, onSelectBody }: BodyTypeStepProps) {
   return (
     <>
-      <div className="flex items-center gap-1.5">
-        <div className="w-0.5 h-4" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
-        <p 
-          className="text-white text-xs tracking-widest uppercase"
-          style={{ 
-            fontFamily: '"Reborn Technologies", sans-serif',
-            textShadow: '0 0 10px rgba(127, 106, 127, 0.6)'
-          }}
-        >
-          /// ШАГ 1: ВЫБЕРИТЕ КУЗОВ
-        </p>
-      </div>
-
       {bodyTypes.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-white/60 text-sm tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
