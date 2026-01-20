@@ -1,0 +1,276 @@
+model_name,series,body_type,engine_code,article_code,stock_power,stock_torque,stage1_power,stage1_torque,stage1_price,stage2_power,stage2_torque,stage_type,is_restyling,status
+BMW 1-series E8x 116d 115 л.с. 260 Нм,1-series,E8x,116 D,BMW 1-series E8x 116d 115 л.с. 260 Нм,115,260,180,400,30000,190,420,St.1,0,active
+BMW 1-series E8x 118d 143 л.с. 300 Нм,1-series,E8x,118 D,BMW 1-series E8x 118d 143 л.с. 300 Нм,143,300,180,400,30000,190,420,St.1,0,active
+BMW 1-series E8x 120d 177 л.с. 350 Нм,1-series,E8x,120 D,BMW 1-series E8x 120d 177 л.с. 350 Нм,177,350,210,420,30000,220,440,St.1,0,active
+BMW 1-series E8x 123d 204 л.с. 400 Нм,1-series,E8x,123 D,BMW 1-series E8x 123d 204 л.с. 400 Нм,204,400,245,450,30000,255,460,St.1,0,active
+BMW 1-series E8x 135i N54 306 л.с. 400 Нм,1-series,E8x,135i N54,BMW 1-series E8x 135i N54 306 л.с. 400 Нм,306,400,370,500,30000,390,520,St.1,0,active
+BMW 1-series E8x 1M 3.0i Biturbo 340 л.с. 500 Нм,1-series,E8x,1M 3.0i Biturbo,BMW 1-series E8x 1M 3.0i Biturbo 340 л.с. 500 Нм,340,500,375,560,30000,400,580,St.1,0,active
+BMW 1-series F2x 114d 95 л.с. 235 Нм,1-series,F2x,114 D,BMW 1-series F2x 114d 95 л.с. 235 Нм,95,235,150,320,30000,160,330,St.1,0,draft
+BMW 1-series F2x 114i 102 л.с. 180 Нм,1-series,F2x,114i,BMW 1-series F2x 114i 102 л.с. 180 Нм,102,180,225,330,30000,240,350,St.1,0,draft
+BMW 1-series F2x 116d N47D20 116 л.с. 260 Нм,1-series,F2x,116 D N47D20,BMW 1-series F2x 116d N47D20 116 л.с. 260 Нм,116,260,190,400,30000,205,420,St.1,0,draft
+BMW 1-series F2x 116i 136 л.с. 220 Нм,1-series,F2x,116i,BMW 1-series F2x 116i 136 л.с. 220 Нм,136,220,225,330,30000,240,350,St.1,0,active
+BMW 1-series F2x 118d 143 л.с. 320 Нм,1-series,F2x,118 D,BMW 1-series F2x 118d 143 л.с. 320 Нм,143,320,190,400,30000,205,420,St.1,0,draft
+BMW 1-series F2x 118i 170 л.с. 250 Нм,1-series,F2x,118i,BMW 1-series F2x 118i 170 л.с. 250 Нм,170,250,225,330,30000,240,350,St.1,0,active
+BMW 1-series F2x 120d 184 л.с. 380 Нм,1-series,F2x,120 D,BMW 1-series F2x 120d 184 л.с. 380 Нм,184,380,220,440,30000,235,460,St.1,0,active
+BMW 1-series F2x 125d 218 л.с. 450 Нм,1-series,F2x,125 D,BMW 1-series F2x 125d 218 л.с. 450 Нм,218,450,270,500,30000,285,520,St.1,0,active
+BMW 1-series F2x 125i 218 л.с. 310 Нм,1-series,F2x,125i,BMW 1-series F2x 125i 218 л.с. 310 Нм,218,310,260,440,30000,290,480,St.1,0,draft
+BMW 1-series F2x M135i 320 л.с. 450 Нм,1-series,F2x,M135i,BMW 1-series F2x M135i 320 л.с. 450 Нм,320,450,365,520,30000,385,540,St.1,0,active
+BMW 1-series F2x LCI 114d 95 л.с. 220 Нм,1-series,F2x LCI,114 D,BMW 1-series F2x LCI 114d 95 л.с. 220 Нм,95,220,150,330,30000,148,340,St.1,1,active
+BMW 1-series F2x LCI 116d 116 л.с. 270 Нм,1-series,F2x LCI,116 D,BMW 1-series F2x LCI 116d 116 л.с. 270 Нм,116,270,150,330,30000,,,St.1,1,active
+BMW 1-series F2x LCI 116i 109 л.с. 180 Нм,1-series,F2x LCI,116i,BMW 1-series F2x LCI 116i 109 л.с. 180 Нм,109,180,170,280,30000,164,300,St.1,1,active
+BMW 1-series F2x LCI 118d 150 л.с. 320 Нм,1-series,F2x LCI,118 D,BMW 1-series F2x LCI 118d 150 л.с. 320 Нм,150,320,190,400,30000,172,400,St.1,1,active
+BMW 1-series F2x LCI 118i 136 л.с. 220 Нм,1-series,F2x LCI,118i,BMW 1-series F2x LCI 118i 136 л.с. 220 Нм,136,220,170,280,30000,168,275,St.1,1,active
+BMW 1-series F2x LCI 120d 190 л.с. 400 Нм,1-series,F2x LCI,120 D,BMW 1-series F2x LCI 120d 190 л.с. 400 Нм,190,400,490,440,223,220,1,St.1,1,active
+BMW 1-series F2x LCI 120i (B48) 184 л.с. 270 Нм,1-series,F2x LCI,120i (B48),BMW 1-series F2x LCI 120i (B48) 184 л.с. 270 Нм,184,270,500,420,390,270,1,St.1,1,active
+BMW 1-series F2x LCI 125d 224 л.с. 450 Нм,1-series,F2x LCI,125 D,BMW 1-series F2x LCI 125d 224 л.с. 450 Нм,224,450,270,500,30000,268,500,St.1,1,active
+BMW 1-series F2x LCI M135i 326 л.с. 450 Нм,1-series,M135i LCI,F2x,BMW 1-series F2x LCI M135i 326 л.с. 450 Нм,326,450,380,520,30000,400,540,St.1,1,active
+BMW 1-series F2x LCI M140i 340 л.с. 500 Нм,1-series,M140i LCI,F2x,BMW 1-series F2x LCI M140i 340 л.с. 500 Нм,340,500,580,500,390,400,1,St.1,1,active
+BMW 1-series F2x LCI M140i 340 л.с. 500 Нм,1-series,M140i LCI,F2x,BMW 1-series F2x LCI M140i 340 л.с. 500 Нм,340,500,370,500,30000,420,620,St.2,1,active
+BMW 1-series F4x 116d 116 л.с. 270 Нм,1-series,F4x,116 D,BMW 1-series F4x 116d 116 л.с. 270 Нм,116,270,150,330,30000,155,350,St.1,0,active
+BMW 1-series F4x 118d 150 л.с. 350 Нм,1-series,F4x,118 D,BMW 1-series F4x 118d 150 л.с. 350 Нм,150,350,190,400,30000,205,420,St.1,0,active
+BMW 1-series F4x 118i 136 л.с. 220 Нм,1-series,F4x,118i,BMW 1-series F4x 118i 136 л.с. 220 Нм,136,220,170,280,30000,170,280,St.1,0,active
+BMW 1-series F4x 118i 136 л.с. 220 Нм,1-series,F4x,118i,BMW 1-series F4x 118i 136 л.с. 220 Нм,136,220,170,280,30000,170,280,St.2,0,active
+BMW 1-series F4x 120d 190 л.с. 400 Нм,1-series,F4x,120 D,BMW 1-series F4x 120d 190 л.с. 400 Нм,190,400,490,480,240,230,1,St.1,0,active
+BMW 1-series F4x M135i 306 л.с. 450 Нм,1-series,F4x,M135i,BMW 1-series F4x M135i 306 л.с. 450 Нм,306,450,500,500,500,1,335,St.1,0,active
+BMW 2-series F2x 218d 150 л.с. 360 Нм,2-series,F2x,218 D,BMW 2-series F2x 218d 150 л.с. 360 Нм,150,360,190,400,30000,205,420,St.1,0,active
+BMW 2-series F2x 218i 136 л.с. 220 Нм,2-series,F2x,218i,BMW 2-series F2x 218i 136 л.с. 220 Нм,136,220,225,330,30000,168,275,St.1,0,active
+BMW 2-series F2x 220d 190 л.с. 400 Нм,2-series,F2x,220 D,BMW 2-series F2x 220d 190 л.с. 400 Нм,190,400,490,440,223,220,1,St.1,0,active
+BMW 2-series F2x 220i (B48) 184 л.с. 270 Нм,2-series,F2x,220i (B48),BMW 2-series F2x 220i (B48) 184 л.с. 270 Нм,184,270,480,420,310,270,1,St.1,0,active
+BMW 2-series F2x 220i 184 л.с. 270 Нм,2-series,F2x,220i,BMW 2-series F2x 220i 184 л.с. 270 Нм,184,270,260,440,30000,280,480,St.1,0,active
+BMW 2-series F2x 225d 224 л.с. 450 Нм,2-series,F2x,225 D,BMW 2-series F2x 225d 224 л.с. 450 Нм,224,450,270,500,30000,268,500,St.1,0,active
+BMW 2-series F2x 228i 245 л.с. 350 Нм,2-series,F2x,228i,BMW 2-series F2x 228i 245 л.с. 350 Нм,245,350,280,460,30000,290,490,St.1,0,active
+BMW 2-series F2x 230i (B48) 249 л.с. 350 Нм,2-series,F2x,230i (B48),BMW 2-series F2x 230i (B48) 249 л.с. 350 Нм,249,350,270,420,30000,,,St.1,0,active
+BMW 2-series F2x M235i 326 л.с. 450 Нм,2-series,F2x,M235i,BMW 2-series F2x M235i 326 л.с. 450 Нм,326,450,380,520,30000,400,540,St.1,0,active
+BMW 2-series F2x M240i 340 л.с. 500 Нм,2-series,F2x,M240i,BMW 2-series F2x M240i 340 л.с. 500 Нм,340,500,400,580,30000,420,620,St.1,0,active
+BMW 2-series GC 218i 140 л.с. 220 Нм,2-series,F44,18i,BMW 2-series GC 218i 140 л.с. 220 Нм,140,220,170,280,30000,170,280,St.1,0,active
+BMW 2-series GC 220d 190 л.с. 400 Нм,2-series,F44,20 D,BMW 2-series GC 220d 190 л.с. 400 Нм,190,400,240,480,30000,240,480,St.1,0,active
+BMW 2-series GC M235i 306 л.с. 450 Нм,2-series,F44,M235i,BMW 2-series GC M235i 306 л.с. 450 Нм,306,450,500,500,500,1,335,St.1,0,active
+BMW 2-series G42 220d 190 л.с. 400 Нм,2-series,G42,220 D,BMW 2-series G42 220d 190 л.с. 400 Нм,190,400,230,490,30000,,,St.1,0,active
+BMW 2-series G42 220i 184 л.с. 300 Нм,2-series,G42,220i,BMW 2-series G42 220i 184 л.с. 300 Нм,184,300,280,420,30000,,,St.1,0,active
+BMW 2-series G42 M240i 374 л.с. 500 Нм,2-series,G42,M240i,BMW 2-series G42 M240i 374 л.с. 500 Нм,374,500,420,650,30000,440,680,St.1,0,active
+BMW 2-series G42 M240i M Special 387 л.с. 500 Нм,2-series,G42,M240i M Special,BMW 2-series G42 M240i M Special 387 л.с. 500 Нм,387,500,420,650,470,1,440,St.1,0,active
+BMW 3-series F3x 316d 116 л.с. 260 Нм,3-series,F3x,316 D,BMW 3-series F3x 316d 116 л.с. 260 Нм,116,260,190,400,30000,205,420,St.1,0,draft
+BMW 3-series F3x 316i 136 л.с. 220 Нм,3-series,F3x,316i,BMW 3-series F3x 316i 136 л.с. 220 Нм,136,220,225,330,30000,240,350,St.1,0,active
+BMW 3-series F3x 318d 143 л.с. 320 Нм,3-series,F3x,318 D,BMW 3-series F3x 318d 143 л.с. 320 Нм,143,320,190,400,30000,205,420,St.1,0,draft
+BMW 3-series F3x 320d 184 л.с. 380 Нм,3-series,F3x,320 D,BMW 3-series F3x 320d 184 л.с. 380 Нм,184,380,220,440,30000,235,460,St.1,0,active
+BMW 3-series F3x 320i 184 л.с. 270 Нм,3-series,F3x,320i,BMW 3-series F3x 320i 184 л.с. 270 Нм,184,270,260,440,30000,280,480,St.1,0,active
+BMW 3-series F3x 325d 218 л.с. 450 Нм,3-series,F3x,325 D,BMW 3-series F3x 325d 218 л.с. 450 Нм,218,450,270,500,30000,285,520,St.1,0,draft
+BMW 3-series F3x 328i 245 л.с. 350 Нм,3-series,F3x,328i,BMW 3-series F3x 328i 245 л.с. 350 Нм,245,350,290,450,30000,300,490,St.1,0,active
+BMW 3-series F3x 330d 258 л.с. 560 Нм,3-series,F3x,330 D,BMW 3-series F3x 330d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW 3-series F3x 335d 313 л.с. 630 Нм,3-series,F3x,335 D,BMW 3-series F3x 335d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,draft
+BMW 3-series F3x 335i 306 л.с. 400 Нм,3-series,F3x,335i,BMW 3-series F3x 335i 306 л.с. 400 Нм,306,400,365,520,30000,385,540,St.1,0,active
+BMW 3-series F3x M3 431 л.с. 550 Нм,3-series,F3x,M3,BMW 3-series F3x M3 431 л.с. 550 Нм,431,550,500,680,30000,520,720,St.1,0,active
+BMW 3-series F3x LCI 316d 116 л.с. 270 Нм,3-series,F3x LCI,316 D,BMW 3-series F3x LCI 316d 116 л.с. 270 Нм,116,270,190,400,30000,180,400,St.1,1,draft
+BMW 3-series F3x LCI 318d 150 л.с. 320 Нм,3-series,F3x LCI,318 D,BMW 3-series F3x LCI 318d 150 л.с. 320 Нм,150,320,190,400,30000,190,400,St.1,1,draft
+BMW 3-series F3x LCI 318i B38 136 л.с. 220 Нм,3-series,F3x LCI,318i B38,BMW 3-series F3x LCI 318i B38 136 л.с. 220 Нм,136,220,170,280,280,162,298,St.1,1,active
+BMW 3-series F3x LCI 320d B47 190 л.с. 400 Нм,3-series,F3x LCI,320 D B47,BMW 3-series F3x LCI 320d B47 190 л.с. 400 Нм,190,400,440,460,220,240,230,St.1,1,active
+BMW 3-series F3x LCI 320i B48 184 л.с. 270 Нм,3-series,F3x LCI,320i B48,BMW 3-series F3x LCI 320i B48 184 л.с. 270 Нм,184,270,280,420,265,1,310,St.1,1,active
+BMW 3-series F3x LCI 325d 218 л.с. 450 Нм,3-series,F3x LCI,325 D,BMW 3-series F3x LCI 325d 218 л.с. 450 Нм,218,450,270,500,30000,258,500,St.1,1,draft
+BMW 3-series F3x LCI 330i B48 249 л.с. 350 Нм,3-series,F3x LCI,330i B48,BMW 3-series F3x LCI 330i B48 249 л.с. 350 Нм,249,350,280,420,0,1,,St.1,1,active
+BMW 3-series F3x LCI 335d 313 л.с. 630 Нм,3-series,F3x LCI,335 D,BMW 3-series F3x LCI 335d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,1,draft
+BMW 3-series F3x LCI 340i B58 326 л.с. 450 Нм,3-series,F3x LCI,340i B58,BMW 3-series F3x LCI 340i B58 326 л.с. 450 Нм,326,450,520,580,420,365,1,St.1,1,active
+BMW 3-series G20 318d 150 л.с. 320 Нм,3-series,G20,318 D,BMW 3-series G20 318d 150 л.с. 320 Нм,150,320,190,400,30000,190,400,St.1,0,active
+BMW 3-series G20 318i 156 л.с. 250 Нм,3-series,G20,318i,BMW 3-series G20 318i 156 л.с. 250 Нм,156,250,260,420,30000,260,420,St.1,0,active
+BMW 3-series G20 320d 190 л.с. 400 Нм,3-series,G20,320 D,BMW 3-series G20 320d 190 л.с. 400 Нм,190,400,440,460,220,240,230,St.1,0,active
+BMW 3-series G20 320i 184 л.с. 270 Нм,3-series,G20,320i,BMW 3-series G20 320i 184 л.с. 270 Нм,184,270,280,420,440,310,,St.1,0,active
+BMW 3-series G20 330d 265 л.с. 580 Нм,3-series,G20,330 D,BMW 3-series G20 330d 265 л.с. 580 Нм,265,580,340,770,30000,375,820,St.1,0,active
+BMW 3-series G20 330i 258 л.с. 400 Нм,3-series,G20,330i,BMW 3-series G20 330i 258 л.с. 400 Нм,258,400,290,460,30000,310,510,St.1,0,active
+BMW 3-series G20 M340D 340 л.с. 700 Нм,3-series,G20,M340D,BMW 3-series G20 M340D 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,0,active
+BMW 3-series G20 M340i 374 л.с. 500 Нм,3-series,G20,M340i,BMW 3-series G20 M340i 374 л.с. 500 Нм,374,500,650,520,1,420,450,St.1,0,active
+BMW 3-series G20 M340i M Special 387 л.с. 500 Нм,3-series,G20,M340i M Special,BMW 3-series G20 M340i M Special 387 л.с. 500 Нм,387,500,420,650,500,1,440,St.1,0,active
+BMW 4-series F32 F33 418d 150 л.с. 320 Нм,4-series,F32,F33 418 D,BMW 4-series F32 F33 418d 150 л.с. 320 Нм,150,320,190,400,30000,190,400,St.1,0,active
+BMW 4-series F32 F33 420d (B47) 190 л.с. 400 Нм,4-series,F32,F33 420 D (B47),BMW 4-series F32 F33 420d (B47) 190 л.с. 400 Нм,190,400,440,460,220,240,230,St.1,0,active
+BMW 4-series F32 F33 420d 184 л.с. 380 Нм,4-series,F32,F33 420 D,BMW 4-series F32 F33 420d 184 л.с. 380 Нм,184,380,220,440,30000,235,460,St.1,0,active
+BMW 4-series F32 F33 420i (B48) 184 л.с. 270 Нм,4-series,F32,F33 420i (B48),BMW 4-series F32 F33 420i (B48) 184 л.с. 270 Нм,184,270,280,420,0,1,310,St.1,0,active
+BMW 4-series F32 F33 420i 184 л.с. 270 Нм,4-series,F32,F33 420i,BMW 4-series F32 F33 420i 184 л.с. 270 Нм,184,270,260,440,30000,280,480,St.1,0,active
+BMW 4-series F32 F33 425d 224 л.с. 450 Нм,4-series,F32,F33 425 D,BMW 4-series F32 F33 425d 224 л.с. 450 Нм,224,450,270,500,30000,,,St.1,0,active
+BMW 4-series F32 F33 428i 245 л.с. 350 Нм,4-series,F32,F33 428i,BMW 4-series F32 F33 428i 245 л.с. 350 Нм,245,350,290,450,30000,300,490,St.1,0,active
+BMW 4-series F32 F33 430d 258 л.с. 560 Нм,4-series,F32,F33 430 D,BMW 4-series F32 F33 430d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW 4-series F32 F33 430i (B46) 252 л.с. 350 Нм,4-series,F32,F33 430i (B46),BMW 4-series F32 F33 430i (B46) 252 л.с. 350 Нм,252,350,290,460,30000,310,510,St.1,0,active
+BMW 4-series F32 F33 435d 313 л.с. 630 Нм,4-series,F32,F33 435 D,BMW 4-series F32 F33 435d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,active
+BMW 4-series F32 F33 435i 306 л.с. 400 Нм,4-series,F32,F33 435i,BMW 4-series F32 F33 435i 306 л.с. 400 Нм,306,400,365,520,30000,385,540,St.1,0,active
+BMW 4-series F32 F33 M4 431 л.с. 550 Нм,4-series,F32,F33 M4,BMW 4-series F32 F33 M4 431 л.с. 550 Нм,431,550,500,680,30000,520,720,St.1,0,active
+BMW 4-series G22/G23 420d 190 л.с. 400 Нм,4-series,G22/G23,420 D,BMW 4-series G22/G23 420d 190 л.с. 400 Нм,190,400,490,460,190,230,1,St.1,0,active
+BMW 4-series G22/G23 420i 184 л.с. 270 Нм,4-series,G22/G23,420i,BMW 4-series G22/G23 420i 184 л.с. 270 Нм,184,270,280,420,480,310,440,St.1,0,active
+BMW 4-series G22/G23 430d 286 л.с. 650 Нм,4-series,G22/G23,430 D,BMW 4-series G22/G23 430d 286 л.с. 650 Нм,286,650,800,770,375,340,1,St.1,0,active
+BMW 4-series G22/G23 430i 258 л.с. 400 Нм,4-series,G22/G23,430i,BMW 4-series G22/G23 430i 258 л.с. 400 Нм,258,400,290,460,30000,310,510,St.1,0,active
+BMW 4-series G22/G23 M440D 340 л.с. 700 Нм,4-series,G22/G23,M440D,BMW 4-series G22/G23 M440D 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,0,active
+BMW 4-series G22/G23 M440i 374 л.с. 500 Нм,4-series,G22/G23,M440i,BMW 4-series G22/G23 M440i 374 л.с. 500 Нм,374,500,420,650,470,1,440,St.1,0,active
+BMW 4-series G22/G23 M440i M Special 387 л.с. 500 Нм,4-series,G22/G23,M440i M Special,BMW 4-series G22/G23 M440i M Special 387 л.с. 500 Нм,387,500,420,650,470,1,440,St.1,0,active
+BMW 5-series E60 530d 245 л.с. 520 Нм,5-series,E60,530 D,BMW 5-series E60 530d 245 л.с. 520 Нм,245,520,300,600,30000,310,620,Stage 1,0,draft
+BMW 5-series E60 535d 286 л.с. 580 Нм,5-series,E60,535 D,BMW 5-series E60 535d 286 л.с. 580 Нм,286,580,340,680,30000,360,700,St.1,0,active
+BMW 5-series F10 518d 150 л.с. 360 Нм,5-series,F10,518 D,BMW 5-series F10 518d 150 л.с. 360 Нм,150,360,220,440,30000,172,400,St.1,0,active
+BMW 5-series F10 520d 190 л.с. 400 Нм,5-series,F10,520 D,BMW 5-series F10 520d 190 л.с. 400 Нм,190,400,490,440,223,220,1,St.1,0,active
+BMW 5-series F10 520i 184 л.с. 270 Нм,5-series,F10,520i,BMW 5-series F10 520i 184 л.с. 270 Нм,184,270,260,440,30000,280,480,St.1,0,active
+BMW 5-series F10 525d 313 л.с. 630 Нм,5-series,F10,525 D,BMW 5-series F10 525d 313 л.с. 630 Нм,313,630,360,720,30000,380,750,St.1,0,active
+BMW 5-series F10 525i 218 л.с. 270 Нм,5-series,F10,525i,BMW 5-series F10 525i 218 л.с. 270 Нм,218,270,265,315,30000,,,St.1,0,active
+BMW 5-series F10 528i 245 л.с. 350 Нм,5-series,F10,528i,BMW 5-series F10 528i 245 л.с. 350 Нм,245,350,290,450,30000,300,490,St.1,0,active
+BMW 5-series F10 530d 258 л.с. 560 Нм,5-series,F10,530 D,BMW 5-series F10 530d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW 5-series F10 530d PP 286 л.с. 600 Нм,5-series,F10,530 D PP,BMW 5-series F10 530d PP 286 л.с. 600 Нм,286,600,310,650,30000,333,730,St.1,0,active
+BMW 5-series F10 535d 306 л.с. 600 Нм,5-series,F10,535 D,BMW 5-series F10 535d 306 л.с. 600 Нм,306,600,340,680,30000,365,700,St.1,0,active
+BMW 5-series F10 535i 306 л.с. 400 Нм,5-series,F10,535i,BMW 5-series F10 535i 306 л.с. 400 Нм,306,400,365,520,30000,385,540,St.1,0,active
+BMW 5-series F10 m550xD 381 л.с. 740 Нм,5-series,F10,m550xD,BMW 5-series F10 m550xD 381 л.с. 740 Нм,381,740,420,800,30000,440,840,St.1,0,active
+BMW 5-series G30 520d 190 л.с. 400 Нм,5-series,G30,520 D,BMW 5-series G30 520d 190 л.с. 400 Нм,190,400,480,440,220,240,230,St.1,0,active
+BMW 5-series G30 520i 184 л.с. 290 Нм,5-series,G30,520i,BMW 5-series G30 520i 184 л.с. 290 Нм,184,290,440,420,310,270,1,St.1,0,active
+BMW 5-series G30 530d 286 л.с. 650 Нм,5-series,G30,530 D,BMW 5-series G30 530d 286 л.с. 650 Нм,286,650,360,800,30000,380,820,St.1,0,active
+BMW 5-series G30 530i 252 л.с. 350 Нм,5-series,G30,530i,BMW 5-series G30 530i 252 л.с. 350 Нм,252,350,290,460,510,1,310,St.1,0,active
+BMW 5-series G30 540d 320 л.с. 680 Нм,5-series,G30,540 D,BMW 5-series G30 540d 320 л.с. 680 Нм,320,680,730,820,420,360,1,St.1,0,active
+BMW 5-series G30 540i 340 л.с. 450 Нм,5-series,G30,540i,BMW 5-series G30 540i 340 л.с. 450 Нм,340,450,600,580,420,420,1,St.1,0,active
+BMW 5-series G30 m550d 400 л.с. 760 Нм,5-series,G30,m550 D,BMW 5-series G30 m550d 400 л.с. 760 Нм,400,760,820,840,0,460,1,St.1,0,active
+BMW 5-series G30 m550i 530 л.с. 750 Нм,5-series,G30,m550i,BMW 5-series G30 m550i 530 л.с. 750 Нм,530,750,780,840,680,900,540,St.1,0,active
+BMW 530e G30 292 л.с. 420 Нм,5-series,G30,530e,BMW 530e G30 292 л.с. 420 Нм,292,420,400,700,30000,410,740,St.1,0,active
+BMW 520d G60 197 л.с. 400 Нм,5-series,G60,520 D,BMW 520d G60 197 л.с. 400 Нм,197,400,270,560,30000,290,580,St.1,0,active
+BMW 520i G60 190 л.с. 330 Нм,5-series,G60,520i,BMW 520i G60 190 л.с. 330 Нм,190,330,290,460,330,190,870,St.1,0,active
+BMW 523d G60 197 л.с. 400 Нм,5-series,G60,523 D,BMW 523d G60 197 л.с. 400 Нм,197,400,270,560,30000,290,580,St.1,0,active
+BMW 530i G60 258 л.с. 400 Нм,5-series,G60,530i,BMW 530i G60 258 л.с. 400 Нм,258,400,290,460,30000,258,400,St.1,0,active
+BMW 540d G60 303 л.с. 670 Нм,5-series,G60,540 D,BMW 540d G60 303 л.с. 670 Нм,303,670,360,800,30000,380,820,St.1,0,active
+BMW 540i G60 375 л.с. 540 Нм,5-series,G60,540i,BMW 540i G60 375 л.с. 540 Нм,375,540,440,640,30000,375,540,St.1,0,active
+BMW 6-series E63 635d 306 л.с. 600 Нм,6-series,E63,635 D,BMW 6-series E63 635d 306 л.с. 600 Нм,306,600,340,680,30000,350,700,St.1,0,active
+BMW 6-series F12 640d 313 л.с. 630 Нм,6-series,F12,640 D,BMW 6-series F12 640d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,active
+BMW 6-series F12 640i 320 л.с. 450 Нм,6-series,F12,640i,BMW 6-series F12 640i 320 л.с. 450 Нм,320,450,365,520,30000,385,540,St.1,0,active
+BMW 6-series G32 620d 190 л.с. 400 Нм,6-series,G32,620 D,BMW 6-series G32 620d 190 л.с. 400 Нм,190,400,490,480,230,230,1,St.1,0,active
+BMW 6-series G32 630d 265 л.с. 620 Нм,6-series,G32,630 D,BMW 6-series G32 630d 265 л.с. 620 Нм,265,620,340,770,30000,375,820,St.1,0,active
+BMW 6-series G32 630i 249 л.с. 350 Нм,6-series,G32,630i,BMW 6-series G32 630i 249 л.с. 350 Нм,249,350,280,420,500,310,,St.1,0,active
+BMW 6-series G32 640d 320 л.с. 680 Нм,6-series,G32,640 D,BMW 6-series G32 640d 320 л.с. 680 Нм,320,680,400,820,30000,420,880,St.1,0,active
+BMW 6-series G32 640i 340 л.с. 450 Нм,6-series,G32,640i,BMW 6-series G32 640i 340 л.с. 450 Нм,340,450,650,580,420,450,1,St.1,0,active
+BMW 6-series G32 LCI 630d MHEV 286 л.с. 650 Нм,6-series,G32 LCI,630 D MHEV,BMW 6-series G32 LCI 630d MHEV 286 л.с. 650 Нм,286,650,360,800,30000,380,820,St.1,1,active
+BMW 6-series G32 LCI 640d 340 л.с. 700 Нм,6-series,G32 LCI,640 D,BMW 6-series G32 LCI 640d 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,1,active
+BMW 7-series F01 730d 258 л.с. 560 Нм,7-series,F01,730 D,BMW 7-series F01 730d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW 7-series F01 740d 313 л.с. 630 Нм,7-series,F01,740 D,BMW 7-series F01 740d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,active
+BMW 7-series F01 750d 381 л.с. 740 Нм,7-series,F01,750 D,BMW 7-series F01 750d 381 л.с. 740 Нм,381,740,420,800,30000,440,840,St.1,0,active
+BMW 730d G11 / G12 265 л.с. 620 Нм,7-series,G11/G12,730 D,BMW 730d G11 / G12 265 л.с. 620 Нм,265,620,340,770,30000,375,820,St.1,0,active
+BMW 730d MHEV G11 / G12 286 л.с. 650 Нм,7-series,G11/G12,730 D MHEV,BMW 730d MHEV G11 / G12 286 л.с. 650 Нм,286,650,360,800,30000,380,820,St.1,0,active
+BMW 730i G11 / G12 249 л.с. 400 Нм,7-series,G11/G12,730D,BMW 730i G11 / G12 249 л.с. 400 Нм,249,400,280,420,0,1,310,St.1,0,active
+BMW 740d G11 / G12 340 л.с. 700 Нм,7-series,G11/G12,740 D,BMW 740d G11 / G12 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,0,active
+BMW 740i G11 / G12 326 л.с. 450 Нм,7-series,G11/G12,740I,BMW 740i G11 / G12 326 л.с. 450 Нм,326,450,400,580,620,420,,St.1,0,active
+BMW 740i G11 G12 340 л.с. 700 Нм,7-series,G11/12,740I,BMW 740i G11 G12 340 л.с. 700 Нм,340,700,450,650,30000,470,680,St.1,0,active
+BMW 745e G11 G12 394 л.с. 600 Нм,7-series,G11/G12,745E,BMW 745e G11 G12 394 л.с. 600 Нм,394,600,530,850,30000,550,890,St.1,0,active
+BMW 750d G11 / G12 400 л.с. 750 Нм,7-series,G11/G12,50D,BMW 750d G11 / G12 400 л.с. 750 Нм,400,750,430,840,0,1,,St.1,0,active
+BMW M750i G11 / G12 530 л.с. 750 Нм,7-series,G11/G12,M750I,BMW M750i G11 / G12 530 л.с. 750 Нм,530,750,680,900,30000,,,St.1,0,active
+BMW 740i G70 380 л.с. 540 Нм,7-series,G70,740i,BMW 740i G70 380 л.с. 540 Нм,380,540,450,650,30000,,,St.1,0,active
+BMW 760i G70 544 л.с. 750 Нм,7-series,G70,760i,BMW 760i G70 544 л.с. 750 Нм,544,750,650,880,30000,700,900,St.1,0,active
+BMW 8-series G14/G15 840d 340 л.с. 700 НM,8-series,G14/G15,840 D,BMW 8-series G14/G15 840d 340 л.с. 700 НM,340,700,420,820,30000,440,880,St.1,0,active
+BMW 8-series G14/G15 840i 340 л.с. 450 Нм,8-series,G14/G15,840i,BMW 8-series G14/G15 840i 340 л.с. 450 Нм,340,450,650,580,420,450,1,St.1,0,active
+BMW 8-series G14/G15 m850i 530 л.с. 750 Нм,8-series,G14/G15,m850i,BMW 8-series G14/G15 m850i 530 л.с. 750 Нм,530,750,680,900,30000,720,940,St.1,0,active
+BMW X1 E84 16d 116 л.с. 260 Нм,X1,E84,16 D,BMW X1 E84 16d 116 л.с. 260 Нм,116,260,190,400,30000,205,420,St.1,0,active
+BMW X1 E84 18d 143 л.с. 320 Нм,X1,E84,18 D,BMW X1 E84 18d 143 л.с. 320 Нм,143,320,190,400,30000,205,420,St.1,0,active
+BMW X1 E84 20d 184 л.с. 380 Нм,X1,E84,20 D,BMW X1 E84 20d 184 л.с. 380 Нм,184,380,210,420,30000,235,460,St.1,0,active
+BMW X1 E84 20i 184 л.с. 270 Нм,X1,E84,20i,BMW X1 E84 20i 184 л.с. 270 Нм,184,270,260,440,30000,280,480,St.1,0,active
+BMW X1 E84 25d 218 л.с. 450 Нм,X1,E84,25 D,BMW X1 E84 25d 218 л.с. 450 Нм,218,450,270,500,30000,285,520,St.1,0,active
+BMW X1 E84 28i 245 л.с. 350 Нм,X1,E84,28i,BMW X1 E84 28i 245 л.с. 350 Нм,245,350,290,450,30000,300,490,St.1,0,active
+BMW X1 F48 16d 116 л.с. 270 Нм,X1,F48,16 D,BMW X1 F48 16d 116 л.с. 270 Нм,116,270,150,330,30000,,,St.1,0,active
+BMW X1 F48 18d 150 л.с. 320 Нм,X1,F48,18 D,BMW X1 F48 18d 150 л.с. 320 Нм,150,320,190,400,30000,172,400,St.1,0,active
+BMW X1 F48 18i 136 л.с. 220 Нм,X1,F48,18i,BMW X1 F48 18i 136 л.с. 220 Нм,136,220,165,300,30000,,,St.1,0,active
+BMW X1 F48 20d 190 л.с. 400 Нм,X1,F48,20 D,BMW X1 F48 20d 190 л.с. 400 Нм,190,400,480,440,220,240,230,St.1,0,active
+BMW X1 F48 20i 192 л.с. 280 Нм,X1,F48,20i,BMW X1 F48 20i 192 л.с. 280 Нм,192,280,260,400,30000,250,398,St.1,0,active
+BMW X1 F48 25d 231 л.с. 450 Нм,X1,F48,25 D,BMW X1 F48 25d 231 л.с. 450 Нм,231,450,270,500,30000,268,496,St.1,0,active
+BMW X1 F48 25i 231 л.с. 350 Нм,X1,F48,25i,BMW X1 F48 25i 231 л.с. 350 Нм,231,350,260,400,30000,264,438,St.1,0,active
+BMW X2 F39 18d 150 л.с. 320 Нм,X2,F39,18 D,BMW X2 F39 18d 150 л.с. 320 Нм,150,320,190,400,30000,,,St.1,0,active
+BMW X2 F39 18i 136 л.с. 220 Нм,X2,F39,18i,BMW X2 F39 18i 136 л.с. 220 Нм,136,220,165,300,30000,,,St.1,0,active
+BMW X2 F39 20d 190 л.с. 400 Нм,X2,F39,20 D,BMW X2 F39 20d 190 л.с. 400 Нм,190,400,480,440,220,240,230,St.1,0,active
+BMW X2 F39 20i 192 л.с. 280 Нм,X2,F39,20i,BMW X2 F39 20i 192 л.с. 280 Нм,192,280,270,420,30000,,,St.1,0,active
+BMW X2 F39 25d 231 л.с. 450 Нм,X2,F39,25 D,BMW X2 F39 25d 231 л.с. 450 Нм,231,450,270,500,30000,,,St.1,0,active
+BMW X3 E83 18d 143 л.с. 350 Нм,X3,E83,18 D,BMW X3 E83 18d 143 л.с. 350 Нм,143,350,210,420,30000,190,410,St.1,0,active
+BMW X3 E83 20d 177 л.с. 350 Нм,X3,E83,20 D,BMW X3 E83 20d 177 л.с. 350 Нм,177,350,210,420,30000,220,430,St.1,0,active
+BMW X3 E83 30d 286 л.с. 580 Нм,X3,E83,30 D,BMW X3 E83 30d 286 л.с. 580 Нм,286,580,340,680,30000,314,650,St.1,0,active
+BMW X3 F25 18d 150 л.с. 320 Нм,X3,F25,18 D,BMW X3 F25 18d 150 л.с. 320 Нм,150,320,220,440,30000,172,400,St.1,0,active
+BMW X3 F25 20d 190 л.с. 400 Нм,X3,F25,20 D,BMW X3 F25 20d 190 л.с. 400 Нм,190,400,490,440,223,220,1,St.1,0,active
+BMW X3 F25 20i 184 л.с. 270 Нм,X3,F25,20i,BMW X3 F25 20i 184 л.с. 270 Нм,184,270,260,440,30000,280,480,St.1,0,active
+BMW X3 F25 28i 245 л.с. 350 Нм,X3,F25,28i,BMW X3 F25 28i 245 л.с. 350 Нм,245,350,290,450,30000,300,490,St.1,0,active
+BMW X3 F25 30d 258 л.с. 560 Нм,X3,F25,30 D,BMW X3 F25 30d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW X3 F25 35d 313 л.с. 630 Нм,X3,F25,35 D,BMW X3 F25 35d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,active
+BMW X3 F25 35i 306 л.с. 400 Нм,X3,F25,35i,BMW X3 F25 35i 306 л.с. 400 Нм,306,400,365,520,30000,365,520,St.1,0,active
+BMW X3 G01 20d 190 л.с. 400 Нм,X3,G01,20 D,BMW X3 G01 20d 190 л.с. 400 Нм,190,400,480,440,220,240,230,St.1,0,active
+BMW X3 G01 20i 184 л.с. 270 Нм,X3,G01,20i,BMW X3 G01 20i 184 л.с. 270 Нм,184,270,270,420,440,310,,St.1,0,active
+BMW X3 G01 30d 286 л.с. 650 Нм,X3,G01,30 D,BMW X3 G01 30d 286 л.с. 650 Нм,286,650,800,360,820,1,380,St.1,0,active
+BMW X3 G01 30i 249 л.с. 350 Нм,X3,G01,30i,BMW X3 G01 30i 249 л.с. 350 Нм,249,350,270,420,350,249,,St.1,0,active
+BMW X3 G01 M40d 340 л.с. 700 Нм,X3,G01,M40 D,BMW X3 G01 M40d 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,0,active
+BMW X3 G01 M40i 387 л.с. 500 Нм,X3,G01,M40i,BMW X3 G01 M40i 387 л.с. 500 Нм,387,500,450,650,30000,470,680,St.1,0,active
+BMW X3 20d G45 190 л.с. 400 Нм,X3,G45,20 D,BMW X3 20d G45 190 л.с. 400 Нм,190,400,270,560,30000,290,580,St.1,0,active
+BMW X4 F26 20d 190 л.с. 400 Нм,X4,F26,20 D,BMW X4 F26 20d 190 л.с. 400 Нм,190,400,480,440,220,240,230,St.1,0,active
+BMW X4 F26 20i (B48) 184 л.с. 270 Нм,X4,F26,20i (B48),BMW X4 F26 20i (B48) 184 л.с. 270 Нм,184,270,270,420,440,310,,St.1,0,active
+BMW X4 F26 20i 184 л.с. 270 Нм,X4,F26,20i,BMW X4 F26 20i 184 л.с. 270 Нм,184,270,260,440,30000,280,480,St.1,0,active
+BMW X4 F26 28i 245 л.с. 350 Нм,X4,F26,28i,BMW X4 F26 28i 245 л.с. 350 Нм,245,350,290,450,30000,300,490,St.1,0,active
+BMW X4 F26 30d 258 л.с. 560 Нм,X4,F26,30 D,BMW X4 F26 30d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW X4 F26 30i (B48) 249 л.с. 350 Нм,X4,F26,30i (B48),BMW X4 F26 30i (B48) 249 л.с. 350 Нм,249,350,270,420,30000,,,St.1,0,active
+BMW X4 F26 35d 313 л.с. 630 Нм,X4,F26,35 D,BMW X4 F26 35d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,active
+BMW X4 F26 35i 306 л.с. 400 Нм,X4,F26,35i,BMW X4 F26 35i 306 л.с. 400 Нм,306,400,365,520,30000,365,520,St.1,0,active
+BMW X4 G02 20d 190 л.с. 400 Нм,X4,G02,20 D,BMW X4 G02 20d 190 л.с. 400 Нм,190,400,490,480,230,230,1,St.1,0,active
+BMW X4 G02 30d 286 л.с. 650 Нм,X4,G02,30 D,BMW X4 G02 30d 286 л.с. 650 Нм,286,650,360,800,30000,380,820,St.1,0,active
+BMW X4 G02 30i 249 л.с. 350 Нм,X4,G02,30i,BMW X4 G02 30i 249 л.с. 350 Нм,249,350,270,420,30000,249,350,St.1,0,active
+BMW X4 G02 M40d 340 л.с. 700 Нм,X4,G02,M40 D,BMW X4 G02 M40d 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,0,active
+BMW X4 G02 M40i 387 л.с. 500 Нм,X4,G02,M40i,BMW X4 G02 M40i 387 л.с. 500 Нм,387,500,450,650,30000,470,680,St.1,0,active
+BMW X5 E70 30d 245 л.с. 540 Нм,X5,E70,30 D,BMW X5 E70 30d 245 л.с. 540 Нм,245,540,300,620,30000,298,600,St.1,0,active
+BMW X5 E70 40d 306 л.с. 600 Нм,X5,E70,40 D,BMW X5 E70 40d 306 л.с. 600 Нм,306,600,340,680,30000,350,700,St.1,0,active
+BMW X5 E70 50d 381 л.с. 740 Нм,X5,E70,50 D,BMW X5 E70 50d 381 л.с. 740 Нм,381,740,420,800,30000,440,840,St.1,0,active
+BMW X5 F15 25d (N57D30) 218 л.с. 500 Нм,X5,F15,25 D (N57D30),BMW X5 F15 25d (N57D30) 218 л.с. 500 Нм,218,500,310,650,30000,258,500,St.1,0,active
+BMW X5 F15 25d 231 л.с. 500 Нм,X5,F15,25 D,BMW X5 F15 25d 231 л.с. 500 Нм,231,500,270,550,30000,,,St.1,0,active
+BMW X5 F15 30d 258 л.с. 560 Нм,X5,F15,30 D,BMW X5 F15 30d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW X5 F15 35i 306 л.с. 400 Нм,X5,F15,35i,BMW X5 F15 35i 306 л.с. 400 Нм,306,400,365,520,30000,365,520,St.1,0,active
+BMW X5 F15 40d 313 л.с. 630 Нм,X5,F15,40 D,BMW X5 F15 40d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,active
+BMW X5 F15 50d 381 л.с. 740 Нм,X5,F15,50 D,BMW X5 F15 50d 381 л.с. 740 Нм,381,740,420,800,30000,440,840,St.1,0,active
+BMW X5 30d G05 LCI 298 л.с. 670 Нм,X5,G05 LCI,X5,BMW X5 30d G05 LCI 298 л.с. 670 Нм,298,670,360,800,30000,360,800,St.1,1,active
+BMW X5 40d G05 LCI 340 л.с. 700 Нм,X5,G05 LCI,40 D,BMW X5 40d G05 LCI 340 л.с. 700 Нм,340,700,420,840,880,1,440,St.1,1,active
+BMW X5 40i G05 LCI 381 л.с. 540 Нм,X5,G05 LCI,40i,BMW X5 40i G05 LCI 381 л.с. 540 Нм,381,540,640,800,360,440,1,St.1,1,active
+BMW X5 40i G05 LCI 381 л.с. 540 Нм,X5,G05 LCI,40i,BMW X5 40i G05 LCI 381 л.с. 540 Нм,381,540,360,800,30000,360,800,St.2,1,active
+BMW X5 45e G05 394 л.с. 600 Нм,X5,G05,45e,BMW X5 45e G05 394 л.с. 600 Нм,394,600,530,850,30000,550,890,St.1,0,active
+BMW X5 G05 25d 231 л.с. 500 Нм,X5,G05,25 D,BMW X5 G05 25d 231 л.с. 500 Нм,231,500,500,580,30000,270,1,St.1,0,active
+BMW X5 G05 30d 265 л.с. 620 Нм,X5,G05,30 D,BMW X5 G05 30d 265 л.с. 620 Нм,265,620,340,770,30000,375,820,St.1,0,active
+BMW X5 G05 30d MHEV 286 л.с. 650 Нм,X5,G05,30 D MHEV,BMW X5 G05 30d MHEV 286 л.с. 650 Нм,286,650,360,800,30000,380,820,St.1,0,active
+BMW X5 G05 40d 340 л.с. 700 Нм,X5,G05,40 D,BMW X5 G05 40d 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,0,active
+BMW X5 G05 40i 340 л.с. 450 Нм,X5,G05,40i,BMW X5 G05 40i 340 л.с. 450 Нм,340,450,650,580,0,450,1,St.1,0,active
+BMW X5 G05 m50d 400 л.с. 760 Нм,X5,G05,m50 D,BMW X5 G05 m50d 400 л.с. 760 Нм,400,760,820,840,30000,460,1,St.1,0,active
+BMW X5 M60i G05 LCI 530 л.с. 750 Нм,X5,M60i LCI,X5,BMW X5 M60i G05 LCI 530 л.с. 750 Нм,530,750,650,880,30000,700,900,St.1,1,active
+BMW X6 E71 30d 245 л.с. 540 Нм,X6,E71,30 D,BMW X6 E71 30d 245 л.с. 540 Нм,245,540,300,620,30000,298,600,St.1,0,active
+BMW X6 E71 40d 306 л.с. 600 Нм,X6,E71,40 D,BMW X6 E71 40d 306 л.с. 600 Нм,306,600,340,680,30000,350,700,St.1,0,active
+BMW X6 E71 50d 381 л.с. 740 Нм,X6,E71,50 D,BMW X6 E71 50d 381 л.с. 740 Нм,381,740,420,800,30000,440,840,St.1,0,active
+BMW X6 F16 25d (N57D30) 218 л.с. 500 Нм,X6,F16,25 D (N57D30),BMW X6 F16 25d (N57D30) 218 л.с. 500 Нм,218,500,650,500,298,310,1,St.1,0,active
+BMW X6 F16 25d 231 л.с. 500 Нм,X6,F16,25 D,BMW X6 F16 25d 231 л.с. 500 Нм,231,500,270,550,30000,,,St.1,0,active
+BMW X6 F16 30d 258 л.с. 560 Нм,X6,F16,30 D,BMW X6 F16 30d 258 л.с. 560 Нм,258,560,310,650,30000,333,730,St.1,0,active
+BMW X6 F16 35i 306 л.с. 400 Нм,X6,F16,35i,BMW X6 F16 35i 306 л.с. 400 Нм,306,400,365,520,30000,365,520,St.1,0,active
+BMW X6 F16 40d 313 л.с. 630 Нм,X6,F16,40 D,BMW X6 F16 40d 313 л.с. 630 Нм,313,630,360,700,30000,380,730,St.1,0,active
+BMW X6 F16 50d 381 л.с. 740 Нм,X6,F16,50 D,BMW X6 F16 50d 381 л.с. 740 Нм,381,740,420,800,30000,440,840,St.1,0,active
+BMW X6 30d G06 LCI 298 л.с. 670 Нм,X6,G06 LCI,30 D,BMW X6 30d G06 LCI 298 л.с. 670 Нм,298,670,360,800,30000,360,800,St.1,1,active
+BMW X6 40d G06 LCI 340 л.с. 700 Нм,X6,G06 LCI,40 D,BMW X6 40d G06 LCI 340 л.с. 700 Нм,340,700,420,840,880,1,440,St.1,1,active
+BMW X6 40i G06 LCI 381 л.с. 540 Нм,X6,G06 LCI,40i,BMW X6 40i G06 LCI 381 л.с. 540 Нм,381,540,440,640,540,440,381,St.1,1,active
+BMW X6 40i G06 LCI 381 л.с. 540 Нм,X6,G06 LCI,40i,BMW X6 40i G06 LCI 381 л.с. 540 Нм,381,540,360,800,30000,360,800,St.2,1,active
+BMW X6 G06 30d 286 л.с. 650 Нм,X6,G06,30 D,BMW X6 G06 30d 286 л.с. 650 Нм,286,650,360,800,30000,380,820,St.1,0,active
+BMW X6 G06 40d 340 л.с. 700 Нм,X6,G06,40 D,BMW X6 G06 40d 340 л.с. 700 Нм,340,700,420,820,880,440,,St.1,0,active
+BMW X6 G06 40i 340 л.с. 450 Нм,X6,G06,40i,BMW X6 G06 40i 340 л.с. 450 Нм,340,450,650,580,0,450,1,St.1,0,active
+BMW X6 G06 m50d 400 л.с. 760 Нм,X6,G06,m50 D,BMW X6 G06 m50d 400 л.с. 760 Нм,400,760,460,840,30000,,,St.1,0,active
+BMW X6 M60i G06 LCI 530 л.с. 750 Нм,X6,M60i LCI,X6,BMW X6 M60i G06 LCI 530 л.с. 750 Нм,530,750,650,880,30000,700,900,St.1,1,active
+BMW X7 30d 249 л.с. 620 Нм,X7,G07,30 D,BMW X7 30d 249 л.с. 620 Нм,249,620,750,770,375,330,1,St.1,0,active
+BMW X7 40d 340 л.с. 700 Нм,X7,G07,40 D,BMW X7 40d 340 л.с. 700 Нм,340,700,420,820,30000,440,880,St.1,0,active
+BMW X7 40d G07 rest 340 л.с. 700 Нм,X7,G07 LCI,40 D,BMW X7 40d G07 rest 340 л.с. 700 Нм,340,700,820,840,440,440,1,St.1,1,active
+BMW X7 40i 340 л.с. 450 Нм,X7,G07,40i,BMW X7 40i 340 л.с. 450 Нм,340,450,650,580,0,450,1,St.1,0,active
+BMW X7 40i G07 rest 380 л.с. 520 Нм,X7,G07 LCI,40i,BMW X7 40i G07 rest 380 л.с. 520 Нм,380,520,450,650,30000,,,St.1,1,active
+BMW X7 60i G07 rest 530 л.с. 750 Нм,X7,G06 LCI,60i,BMW X7 60i G07 rest 530 л.с. 750 Нм,530,750,880,850,670,670,1,St.1,1,active
+BMW X7 m50d 400 л.с. 760 Нм,X7,G07,m50 D,BMW X7 m50d 400 л.с. 760 Нм,400,760,820,840,30000,460,1,St.1,0,active
+BMW Z4 G29 20i 197 л.с. 320 Нм,Z4,G29,20i,BMW Z4 G29 20i 197 л.с. 320 Нм,197,320,280,420,30000,312,440,St.1,0,active
+BMW Z4 G29 30i 258 л.с. 400 Нм,Z4,G29,30i,BMW Z4 G29 30i 258 л.с. 400 Нм,258,400,290,440,30000,,,St.1,0,active
+BMW Z4 G29 M40i 340 л.с. 500 Нм,Z4,G29,M40i,BMW Z4 G29 M40i 340 л.с. 500 Нм,340,500,650,580,400,450,1,St.1,0,active
+BMW Z4 G29 M40i M Special 387 л.с. 500 Нм,Z4,G29,M40i M Special,BMW Z4 G29 M40i M Special 387 л.с. 500 Нм,387,500,420,650,470,1,440,St.1,0,active
+BMW M2 F87 370 л.с. 465 Нм,2-series,F87,M2,BMW M2 F87 370 л.с. 465 Нм,370,465,410,580,30000,430,600,St.1,0,active
+BMW M2 F87 CS 455 л.с. 550 Нм,2-series,F87,CS,BMW M2 F87 CS 455 л.с. 550 Нм,455,550,500,700,30000,520,720,St.1,0,active
+BMW M3 Competition G80 510 л.с. 650 Нм,3-series,G80,Competition,BMW M3 Competition G80 510 л.с. 650 Нм,510,650,750,800,1,600,660,St.1,0,active
+BMW M3 G80 480 л.с. 550 Нм,3-series,G80,M3,BMW M3 G80 480 л.с. 550 Нм,480,550,750,800,1,600,660,St.1,0,active
+BMW M4 Competition G82 510 л.с. 650 Нм,4-series,G82,M Competition,BMW M4 Competition G82 510 л.с. 650 Нм,510,650,750,800,650,1,640,St.1,0,active
+BMW M4 G82 480 л.с. 550 Нм,4-series,G82,M4,BMW M4 G82 480 л.с. 550 Нм,480,550,750,800,650,1,640,St.1,0,active
+BMW M5 F90 600 л.с. 750 Нм,5-series,F90,M5,BMW M5 F90 600 л.с. 750 Нм,600,750,750,900,30000,790,980,St.1,0,active
+BMW M5 F90 Competition 625 л.с. 750 Нм,5-series,F90,Competition,BMW M5 F90 Competition 625 л.с. 750 Нм,625,750,750,900,980,790,980,St.1,0,active
+BMW M5 F90 CS 635 л.с. 750 Нм,5-series,F90,CS,BMW M5 F90 CS 635 л.с. 750 Нм,635,750,750,900,30000,790,980,St.1,0,active
+BMW M5 G90 727 л.с. 1000 Нм,5-series,G90,M5,BMW M5 G90 727 л.с. 1000 Нм,727,1000,727,1000,30000,727,1000,St.1,0,active
+BMW M8 F91/F92/F93 600 л.с. 750 Нм,8-series,F91/F92/F93,M8,BMW M8 F91/F92/F93 600 л.с. 750 Нм,600,750,750,900,30000,,,St.1,0,active
+BMW X3M Competition F97 510 л.с. 600 Нм,X3,F97,M Competition,BMW X3M Competition F97 510 л.с. 600 Нм,510,600,750,800,650,1,640,St.1,0,active
+BMW X3M Competition LCI F97 510 л.с. 650 Нм,X3,F97 LCI,Competition,BMW X3M Competition LCI F97 510 л.с. 650 Нм,510,650,750,800,650,1,640,St.1,1,active
+BMW X3M F97 480 л.с. 600 Нм,X3,F97,X3M,BMW X3M F97 480 л.с. 600 Нм,480,600,800,580,1,400,600,St.1,0,active
+BMW X4M Competition LCI F98 510 л.с. 650 Нм,X4,F98 LCI,Competition,BMW X4M Competition LCI F98 510 л.с. 650 Нм,510,650,750,800,650,1,640,St.1,1,active
+BMW X4M F98 480 л.с. 600 Нм,X4,F98,X4M,BMW X4M F98 480 л.с. 600 Нм,480,600,600,750,30000,650,780,St.1,0,active
+BMW X4M F98 Competition 510 л.с. 600 Нм,X4,F98,Competition,BMW X4M F98 Competition 510 л.с. 600 Нм,510,600,600,750,30000,650,780,St.1,0,active
+BMW X5M Competition F95 LCI 625 л.с. 750 Нм,X5,F95,M Competition,BMW X5M Competition F95 LCI 625 л.с. 750 Нм,625,750,750,950,30000,790,980,St.1,1,active
+BMW X5M F95 600 л.с. 750 Нм,X5,F95,X5M,BMW X5M F95 600 л.с. 750 Нм,600,750,950,900,980,1,790,St.1,0,active
+BMW X5M F95 Competition 625 л.с. 750 Нм,X5,F95,Competition,BMW X5M F95 Competition 625 л.с. 750 Нм,625,750,950,900,980,1,790,St.1,0,active
+BMW X6M Competition F96 LCI 625 л.с. 750 Нм,X6,F96,M Competition,BMW X6M Competition F96 LCI 625 л.с. 750 Нм,625,750,750,950,30000,790,980,St.1,1,active
+BMW X6M F96 600 л.с. 750 Нм,X6,F96,X6M,BMW X6M F96 600 л.с. 750 Нм,600,750,750,950,30000,,,St.1,0,active
+BMW X6M F96 Competition 625 л.с. 750 Нм,X6,F96,Competition,BMW X6M F96 Competition 625 л.с. 750 Нм,625,750,750,950,30000,,,St.1,0,active
+BMW XM 653 л.с. 800 Нм,XM,G09,XM,BMW XM 653 л.с. 800 Нм,653,800,770,950,30000,780,950,St.1,0,active
