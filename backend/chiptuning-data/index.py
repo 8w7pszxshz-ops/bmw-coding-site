@@ -15,34 +15,184 @@ def handler(event: dict, context) -> dict:
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type'
             },
             'body': '',
             'isBase64Encoded': False
         }
     
-    if method != 'GET':
-        return {
-            'statusCode': 405,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            'body': json.dumps({'error': 'Method not allowed'}),
-            'isBase64Encoded': False
-        }
-    
     # Получаем параметры запроса
     params = event.get('queryStringParameters') or {}
-    action = params.get('action', 'list')  # list, bodies, engines
-    series = params.get('series', '')
-    body_type = params.get('body_type', '')
     
     try:
         # Подключение к БД
         conn = psycopg2.connect(os.environ['DATABASE_URL'])
         cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # Админка - GET запрос с admin=1
+        if method == 'GET' and params.get('admin') == '1':
+            query = """
+                SELECT 
+                    id,
+                    model_name,
+                    series,
+                    body_type,
+                    engine_code,
+                    article_code,
+                    stock_power,
+                    stock_torque,
+                    stage1_power,
+                    stage1_torque,
+                    stage1_price,
+                    stage2_power,
+                    stage2_torque,
+                    stage_type,
+                    is_restyling,
+                    status
+                FROM t_p937713_bmw_coding_site.bmw_chiptuning
+                ORDER BY id
+            """
+            cursor.execute(query)
+            records = cursor.fetchall()
+            
+            result = []
+            for r in records:
+                result.append({
+                    'id': r['id'],
+                    'model_name': r['model_name'],
+                    'series': r['series'],
+                    'body_type': r['body_type'],
+                    'engine_code': r['engine_code'],
+                    'article_code': r['article_code'],
+                    'stock': {
+                        'power': r['stock_power'],
+                        'torque': r['stock_torque']
+                    },
+                    'stage1': {
+                        'power': r['stage1_power'],
+                        'torque': r['stage1_torque'],
+                        'price': r['stage1_price']
+                    },
+                    'stage2': {
+                        'power': r['stage2_power'],
+                        'torque': r['stage2_torque']
+                    } if r['stage2_power'] and r['stage2_torque'] else None,
+                    'stage_type': r['stage_type'],
+                    'is_restyling': r['is_restyling'],
+                    'status': r['status']
+                })
+            
+            cursor.close()
+            conn.close()
+            
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps(result, ensure_ascii=False),
+                'isBase64Encoded': False
+            }
+        
+        # POST запросы для админки
+        if method == 'POST':
+            body = json.loads(event.get('body', '{}'))
+            action = body.get('action')
+            
+            if action == 'update':
+                record_id = body.get('id')
+                data = body.get('data')
+                
+                query = """
+                    UPDATE t_p937713_bmw_coding_site.bmw_chiptuning
+                    SET 
+                        model_name = %s,
+                        series = %s,
+                        body_type = %s,
+                        engine_code = %s,
+                        article_code = %s,
+                        stock_power = %s,
+                        stock_torque = %s,
+                        stage1_power = %s,
+                        stage1_torque = %s,
+                        stage1_price = %s,
+                        stage2_power = %s,
+                        stage2_torque = %s,
+                        stage_type = %s,
+                        is_restyling = %s,
+                        status = %s
+                    WHERE id = %s
+                """
+                cursor.execute(query, (
+                    data['model_name'],
+                    data['series'],
+                    data['body_type'],
+                    data['engine_code'],
+                    data['article_code'],
+                    data['stock_power'],
+                    data['stock_torque'],
+                    data['stage1_power'],
+                    data['stage1_torque'],
+                    data['stage1_price'],
+                    data['stage2_power'],
+                    data['stage2_torque'],
+                    data['stage_type'],
+                    data['is_restyling'],
+                    data['status'],
+                    record_id
+                ))
+                conn.commit()
+                cursor.close()
+                conn.close()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps({'success': True}),
+                    'isBase64Encoded': False
+                }
+            
+            elif action == 'delete':
+                record_id = body.get('id')
+                query = "DELETE FROM t_p937713_bmw_coding_site.bmw_chiptuning WHERE id = %s"
+                cursor.execute(query, (record_id,))
+                conn.commit()
+                cursor.close()
+                conn.close()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps({'success': True}),
+                    'isBase64Encoded': False
+                }
+            
+            elif action == 'sync_csv':
+                cursor.close()
+                conn.close()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps({'updated': 0, 'added': 0, 'message': 'Sync not implemented yet'}),
+                    'isBase64Encoded': False
+                }
+        
+        # Обычные GET запросы
+        action = params.get('action', 'list')
+        series = params.get('series', '')
+        body_type = params.get('body_type', '')
         
         # Нормализуем название серии: уже приходит в правильном формате из фронтенда
         series_normalized = series

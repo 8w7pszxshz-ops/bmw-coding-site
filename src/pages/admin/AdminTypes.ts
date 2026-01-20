@@ -35,4 +35,4 @@ export interface EditFormData {
   status: string;
 }
 
-export const API_URL = 'https://functions.poehali.dev/8f9e18f2-51fd-4835-a3a1-c9b410946229';
+export const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
