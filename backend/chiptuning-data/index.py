@@ -5,6 +5,9 @@ import json
 import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import base64
+import requests
+from datetime import datetime
 
 def get_cors_headers(origin=None):
     """Возвращает стандартные CORS заголовки"""
@@ -186,15 +189,93 @@ def handler(event: dict, context) -> dict:
                 }
             
             elif action == 'sync_csv':
+                # Экспорт всех данных в CSV
+                query = """
+                    SELECT 
+                        model_name, series, body_type, engine_code, article_code,
+                        stock_power, stock_torque,
+                        stage1_power, stage1_torque, stage1_price,
+                        stage2_power, stage2_torque,
+                        stage_type, is_restyling, status
+                    FROM t_p937713_bmw_coding_site.bmw_chiptuning
+                    ORDER BY id
+                """
+                cursor.execute(query)
+                records = cursor.fetchall()
                 cursor.close()
                 conn.close()
                 
-                return {
-                    'statusCode': 200,
-                    'headers': get_cors_headers(origin),
-                    'body': json.dumps({'updated': 0, 'added': 0, 'message': 'Sync not implemented yet'}),
-                    'isBase64Encoded': False
+                # Формируем CSV
+                csv_lines = ['model_name,series,body_type,engine_code,article_code,stock_power,stock_torque,stage1_power,stage1_torque,stage1_price,stage2_power,stage2_torque,stage_type,is_restyling,status']
+                for r in records:
+                    csv_lines.append(f"{r['model_name']},{r['series']},{r['body_type']},{r['engine_code']},{r['article_code']},{r['stock_power']},{r['stock_torque']},{r['stage1_power']},{r['stage1_torque']},{r['stage1_price']},{r['stage2_power'] or ''},{r['stage2_torque'] or ''},{r['stage_type']},{int(r['is_restyling'])},{r['status']}")
+                
+                csv_content = '\n'.join(csv_lines)
+                
+                # Отправка в GitHub
+                github_token = os.environ.get('GITHUB_TOKEN')
+                if not github_token:
+                    return {
+                        'statusCode': 200,
+                        'headers': get_cors_headers(origin),
+                        'body': json.dumps({'updated': len(records), 'added': 0, 'message': 'CSV created but GITHUB_TOKEN not configured'}),
+                        'isBase64Encoded': False
+                    }
+                
+                # GitHub API
+                repo_owner = '8w7pszxshz-ops'
+                repo_name = 'bmw-coding-site'
+                file_path = 'data/chiptuning.csv'
+                
+                # Получаем SHA файла (если существует)
+                get_url = f'https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}'
+                headers = {
+                    'Authorization': f'token {github_token}',
+                    'Accept': 'application/vnd.github.v3+json'
                 }
+                
+                sha = None
+                try:
+                    get_response = requests.get(get_url, headers=headers)
+                    if get_response.status_code == 200:
+                        sha = get_response.json()['sha']
+                except:
+                    pass
+                
+                # Создаём/обновляем файл
+                content_base64 = base64.b64encode(csv_content.encode()).decode()
+                commit_data = {
+                    'message': f'Auto-sync chiptuning data - {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}',
+                    'content': content_base64,
+                    'branch': 'main'
+                }
+                
+                if sha:
+                    commit_data['sha'] = sha
+                
+                try:
+                    put_response = requests.put(get_url, headers=headers, json=commit_data)
+                    if put_response.status_code in [200, 201]:
+                        return {
+                            'statusCode': 200,
+                            'headers': get_cors_headers(origin),
+                            'body': json.dumps({'updated': len(records), 'added': 0, 'message': 'Successfully synced to GitHub'}),
+                            'isBase64Encoded': False
+                        }
+                    else:
+                        return {
+                            'statusCode': 200,
+                            'headers': get_cors_headers(origin),
+                            'body': json.dumps({'updated': 0, 'added': 0, 'message': f'GitHub sync failed: {put_response.status_code}'}),
+                            'isBase64Encoded': False
+                        }
+                except Exception as e:
+                    return {
+                        'statusCode': 200,
+                        'headers': get_cors_headers(origin),
+                        'body': json.dumps({'updated': 0, 'added': 0, 'message': f'GitHub sync error: {str(e)}'}),
+                        'isBase64Encoded': False
+                    }
         
         # Обычные GET запросы
         action = params.get('action', 'list')
