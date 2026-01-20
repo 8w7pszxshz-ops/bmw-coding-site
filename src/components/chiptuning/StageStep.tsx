@@ -160,23 +160,29 @@ export default function StageStep({
 
       <button
         onClick={() => {
-          if (!selectedStage) return;
-          const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
-          if (!stageData) return;
-          const finalPrice = calculatePrice(stageData.price, selectedStage);
+          let finalPrice;
+          if (selectedStage) {
+            const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
+            if (!stageData) return;
+            finalPrice = calculatePrice(stageData.price, selectedStage);
+          } else if (euro2Enabled) {
+            finalPrice = euro2OnlyPrice;
+          } else {
+            return;
+          }
           onOrder(finalPrice);
         }}
-        disabled={!selectedStage}
+        disabled={!selectedStage && !euro2Enabled}
         className="w-full py-2 px-4 transition-all hover:scale-[1.02] relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         style={{
-          background: selectedStage 
+          background: (selectedStage || euro2Enabled)
             ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.4) 100%)'
             : 'linear-gradient(135deg, rgba(50, 50, 50, 0.4) 0%, rgba(70, 70, 70, 0.5) 50%, rgba(50, 50, 50, 0.4) 100%)',
           border: '2px solid',
-          borderImage: selectedStage
+          borderImage: (selectedStage || euro2Enabled)
             ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(0, 212, 255, 0.9) 100%) 1'
             : 'linear-gradient(135deg, rgba(100, 100, 100, 0.5) 0%, rgba(150, 150, 150, 0.5) 100%) 1',
-          boxShadow: selectedStage
+          boxShadow: (selectedStage || euro2Enabled)
             ? '0 0 40px rgba(127, 106, 127, 0.6), inset 0 0 40px rgba(127, 106, 127, 0.2)'
             : '0 0 10px rgba(100, 100, 100, 0.3)',
           clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)'
@@ -186,7 +192,7 @@ export default function StageStep({
           backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.1) 10px, rgba(255, 255, 255, 0.1) 20px)'
         }} />
         <div className="flex items-center justify-center gap-2 relative z-10">
-          <Icon name={selectedStage ? "Send" : "AlertCircle"} className="w-4 h-4 text-white" />
+          <Icon name={(selectedStage || euro2Enabled) ? "Send" : "AlertCircle"} className="w-4 h-4 text-white" />
           <span 
             className="text-white text-xs tracking-widest uppercase font-bold"
             style={{ 
@@ -194,7 +200,7 @@ export default function StageStep({
               textShadow: '2px 2px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(127, 106, 127, 0.7)'
             }}
           >
-            {selectedStage ? '/// ЗАКАЗАТЬ' : '/// ВЫБЕРИТЕ ОПЦИЮ'}
+            {(selectedStage || euro2Enabled) ? '/// ЗАКАЗАТЬ' : '/// ВЫБЕРИТЕ ОПЦИЮ'}
           </span>
         </div>
       </button>
