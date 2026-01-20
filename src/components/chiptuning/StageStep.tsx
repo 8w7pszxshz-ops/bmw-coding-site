@@ -75,30 +75,32 @@ export default function StageStep({
 
   return (
     <>
-      <div className="p-3 mb-2 relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
-          border: '1px solid',
-          borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
-          boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
-          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
-        }}
-      >
-        <label className="flex items-center gap-3 cursor-pointer group">
-          <input
-            type="checkbox"
-            checked={euro2Enabled}
-            onChange={(e) => onEuro2Change(e.target.checked)}
-            className="w-6 h-6 accent-red-500 cursor-pointer"
-          />
-          <span
-            className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
-            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-          >
-            EURO 2 (БЕЗ STAGE: 12000 / СО STAGE: +5000)
-          </span>
-        </label>
-      </div>
+      {!isDiesel && (
+        <div className="p-3 mb-2 relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
+            border: '1px solid',
+            borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
+            boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
+            clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
+          }}
+        >
+          <label className="flex items-center gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              checked={euro2Enabled}
+              onChange={(e) => onEuro2Change(e.target.checked)}
+              className="w-6 h-6 accent-red-500 cursor-pointer"
+            />
+            <span
+              className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
+              style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+            >
+              EURO 2 (БЕЗ STAGE: 12000 / СО STAGE: +5000)
+            </span>
+          </label>
+        </div>
+      )}
 
       {isDiesel && (
         <div className="space-y-2 mb-2">
