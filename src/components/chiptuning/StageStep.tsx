@@ -261,9 +261,14 @@ export default function StageStep({
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       EURO 2
                     </span>
-                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                      +5,000 ₽
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white/40 line-through text-xs" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                        12,000 ₽
+                      </span>
+                      <span className="text-green-400 font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                        +5,000 ₽
+                      </span>
+                    </div>
                   </div>
                 )}
 
@@ -283,9 +288,20 @@ export default function StageStep({
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       EGR
                     </span>
-                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                      {selectedStage ? '+5,000 ₽' : '12,000 ₽'}
-                    </span>
+                    {selectedStage ? (
+                      <div className="flex items-center gap-2">
+                        <span className="text-white/40 line-through text-xs" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                          12,000 ₽
+                        </span>
+                        <span className="text-green-400 font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                          +5,000 ₽
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                        12,000 ₽
+                      </span>
+                    )}
                   </div>
                 )}
 
@@ -294,9 +310,20 @@ export default function StageStep({
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       DPF
                     </span>
-                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                      {selectedStage ? '+5,000 ₽' : '12,000 ₽'}
-                    </span>
+                    {selectedStage ? (
+                      <div className="flex items-center gap-2">
+                        <span className="text-white/40 line-through text-xs" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                          12,000 ₽
+                        </span>
+                        <span className="text-green-400 font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                          +5,000 ₽
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                        12,000 ₽
+                      </span>
+                    )}
                   </div>
                 )}
 
@@ -305,9 +332,20 @@ export default function StageStep({
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       FLAPS
                     </span>
-                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                      {selectedStage ? '+5,000 ₽' : '12,000 ₽'}
-                    </span>
+                    {selectedStage ? (
+                      <div className="flex items-center gap-2">
+                        <span className="text-white/40 line-through text-xs" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                          12,000 ₽
+                        </span>
+                        <span className="text-green-400 font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                          +5,000 ₽
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                        12,000 ₽
+                      </span>
+                    )}
                   </div>
                 )}
 
