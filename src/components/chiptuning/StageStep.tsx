@@ -96,7 +96,7 @@ export default function StageStep({
               className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
               style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
             >
-              EURO 2 (БЕЗ STAGE: 12000 / СО STAGE: +5000)
+              EURO 2
             </span>
           </label>
         </div>
@@ -130,7 +130,7 @@ export default function StageStep({
                   className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
-                  {option.label} (БЕЗ STAGE: {option.price} / СО STAGE: +{option.withStage})
+                  {option.label}
                 </span>
               </label>
             </div>
@@ -138,22 +138,23 @@ export default function StageStep({
         </div>
       )}
 
-      <div className="space-y-1">
-        {stages.map((stage) => {
-          const price = calculatePrice(stage.data.price, stage.id);
-          const isSelected = selectedStage === stage.id;
+      <div className="space-y-2">
+        <div className="space-y-1">
+          {stages.map((stage) => {
+            const price = calculatePrice(stage.data.price, stage.id);
+            const isSelected = selectedStage === stage.id;
 
-          return (
-            <button
-              key={stage.id}
-              onClick={() => {
-                if (isSelected) {
-                  onSelectStage(null as any);
-                } else {
-                  onSelectStage(stage.id as 'stage1' | 'stage2');
-                }
-              }}
-              className="w-full p-2 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
+            return (
+              <button
+                key={stage.id}
+                onClick={() => {
+                  if (isSelected) {
+                    onSelectStage(null as any);
+                  } else {
+                    onSelectStage(stage.id as 'stage1' | 'stage2');
+                  }
+                }}
+                className="w-full p-2 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
               style={{
                 background: stage.id === 'stage1'
                   ? (isSelected ? 'linear-gradient(135deg, rgba(0, 255, 0, 0.25) 0%, rgba(0, 255, 0, 0.35) 100%)' : 'linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 255, 0, 0.15) 100%)')
@@ -204,20 +205,159 @@ export default function StageStep({
                   </div>
                 )}
               </div>
-              <div className="flex items-center justify-between relative z-10">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-0.5 h-3" style={{ background: 'linear-gradient(180deg, rgba(255, 0, 0, 0.8), rgba(0, 212, 255, 0.8))' }} />
-                  <p 
-                    className="text-white text-sm font-bold tracking-wider"
-                    style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                  >
-                    {price.toLocaleString('ru-RU')}
-                  </p>
-                </div>
-              </div>
+
             </button>
-          );
-        })}
+            );
+          })}
+        </div>
+
+        {/* Итоговый блок стоимости */}
+        {(selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) && (
+          <div 
+            className="p-4 relative overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, rgba(26, 8, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)',
+              border: '2px solid',
+              borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(0, 212, 255, 0.9) 100%) 1',
+              boxShadow: '0 0 40px rgba(127, 106, 127, 0.6), inset 0 0 40px rgba(127, 106, 127, 0.2)',
+              clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))'
+            }}
+          >
+            <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none" style={{ 
+              background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(0, 212, 255, 0.2))',
+              clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
+            }} />
+            <div className="absolute bottom-0 left-0 w-16 h-16 pointer-events-none" style={{ 
+              background: 'linear-gradient(to top left, rgba(0, 212, 255, 0.3), transparent)',
+              clipPath: 'polygon(0 100%, 100% 100%, 0 0)' 
+            }} />
+            
+            <div className="relative z-10 space-y-2">
+              <p 
+                className="text-white/60 text-xs tracking-widest uppercase mb-1"
+                style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+              >
+                /// ИТОГОВАЯ СТОИМОСТЬ
+              </p>
+              
+              <div className="space-y-1">
+                {selectedStage && (() => {
+                  const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
+                  const basePrice = selectedCity.value === 'moscow' ? stageData.price : Math.round(stageData.price * 0.9);
+                  return (
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                        {selectedStage.toUpperCase()}
+                      </span>
+                      <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                        {basePrice.toLocaleString('ru-RU')} ₽
+                      </span>
+                    </div>
+                  );
+                })()}
+
+                {selectedStage && euro2Enabled && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      EURO 2
+                    </span>
+                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      +5,000 ₽
+                    </span>
+                  </div>
+                )}
+
+                {!selectedStage && euro2Enabled && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      EURO 2 (без Stage)
+                    </span>
+                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      {euro2OnlyPrice.toLocaleString('ru-RU')} ₽
+                    </span>
+                  </div>
+                )}
+
+                {isDiesel && dieselOptions.egr && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      EGR
+                    </span>
+                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      {selectedStage ? '+5,000 ₽' : '12,000 ₽'}
+                    </span>
+                  </div>
+                )}
+
+                {isDiesel && dieselOptions.dpf && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      DPF
+                    </span>
+                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      {selectedStage ? '+5,000 ₽' : '12,000 ₽'}
+                    </span>
+                  </div>
+                )}
+
+                {isDiesel && dieselOptions.flaps && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      FLAPS
+                    </span>
+                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      {selectedStage ? '+5,000 ₽' : '12,000 ₽'}
+                    </span>
+                  </div>
+                )}
+
+                {isDiesel && dieselOptions.adblue && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      ADBLUE
+                    </span>
+                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      {selectedStage ? '+20,000 ₽' : '20,000 ₽'}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div 
+                className="h-px my-3"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 0, 0.5) 20%, rgba(0, 212, 255, 0.5) 80%, transparent 100%)'
+                }}
+              />
+
+              <div className="flex items-center justify-between">
+                <span 
+                  className="text-white text-base tracking-widest uppercase font-bold"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif', textShadow: '0 0 20px rgba(255, 255, 255, 0.5)' }}
+                >
+                  ИТОГО
+                </span>
+                <span 
+                  className="text-white text-xl tracking-wider font-bold"
+                  style={{ fontFamily: '"Reborn Technologies", sans-serif', textShadow: '0 0 25px rgba(127, 106, 127, 0.8)' }}
+                >
+                  {(() => {
+                    let finalPrice;
+                    if (selectedStage) {
+                      const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
+                      finalPrice = calculatePrice(stageData.price, selectedStage);
+                    } else if (euro2Enabled) {
+                      finalPrice = euro2OnlyPrice;
+                    } else if (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)) {
+                      finalPrice = dieselOnlyPrice();
+                    }
+                    return finalPrice?.toLocaleString('ru-RU');
+                  })()} ₽
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <button
