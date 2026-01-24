@@ -19,18 +19,32 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
   const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
-    if (selectedSeries && !audioRef.current) {
-      audioRef.current = new Audio('/music/1.mp3');
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.12;
-      audioRef.current.play().catch(() => {});
-    }
-    return () => {
+    if (selectedSeries) {
+      if (!audioRef.current) {
+        audioRef.current = new Audio('/music/1.mp3');
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.12;
+        audioRef.current.play().catch(() => {});
+      }
+
+      const handleVisibilityChange = () => {
+        if (document.hidden && audioRef.current) {
+          audioRef.current.pause();
+          setIsMuted(true);
+        }
+      };
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      };
+    } else {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-    };
+    }
   }, [selectedSeries]);
 
   const toggleMute = () => {
@@ -132,18 +146,32 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
   const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
-    if (selectedSeries && !audioRef.current) {
-      audioRef.current = new Audio('/music/1.mp3');
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.12;
-      audioRef.current.play().catch(() => {});
-    }
-    return () => {
+    if (selectedSeries) {
+      if (!audioRef.current) {
+        audioRef.current = new Audio('/music/1.mp3');
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.12;
+        audioRef.current.play().catch(() => {});
+      }
+
+      const handleVisibilityChange = () => {
+        if (document.hidden && audioRef.current) {
+          audioRef.current.pause();
+          setIsMuted(true);
+        }
+      };
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      };
+    } else {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-    };
+    }
   }, [selectedSeries]);
 
   const toggleMute = () => {
