@@ -107,7 +107,7 @@ export default function StageStep({
                 className="w-6 h-6 accent-red-500 cursor-pointer"
               />
               <span
-                className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
+                className="text-white text-base tracking-wider uppercase font-bold group-hover:text-red-400 transition-colors"
                 style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
               >
                 EURO 2
@@ -133,10 +133,10 @@ export default function StageStep({
               className="w-6 h-6 accent-red-500 cursor-pointer"
             />
             <span
-              className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
+              className="text-white text-base tracking-wider uppercase font-bold group-hover:text-red-400 transition-colors"
               style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
             >
-              ЧИП ТЮНИНГ АКПП
+              ЧИП-ТЮНИНГ АКПП
             </span>
           </label>
         </div>
@@ -167,7 +167,7 @@ export default function StageStep({
                   className="w-6 h-6 accent-red-500 cursor-pointer"
                 />
                 <span
-                  className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
+                  className="text-white text-base tracking-wider uppercase font-bold group-hover:text-red-400 transition-colors"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
                   {option.label}
@@ -230,7 +230,7 @@ export default function StageStep({
               <div className="flex items-start justify-between mb-0.5 relative z-10">
                 <div>
                   <h3 
-                    className="text-white text-sm mb-0.5 tracking-widest uppercase font-bold"
+                    className="text-white text-base mb-0.5 tracking-widest uppercase font-bold"
                     style={{ 
                       fontFamily: '"Reborn Technologies", sans-serif',
                       textShadow: isSelected ? '2px 2px 0 rgba(127, 106, 127, 0.7), 0 0 30px rgba(127, 106, 127, 0.7)' : '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
@@ -239,7 +239,7 @@ export default function StageStep({
                     {stage.name}
                   </h3>
                   <p 
-                    className="text-white/90 text-[10px] tracking-wider uppercase font-medium"
+                    className="text-white/90 text-sm tracking-wider uppercase font-medium"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
                     {stage.data.power} Л.С. / {stage.data.torque} НМ
@@ -292,7 +292,7 @@ export default function StageStep({
                   const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
                   const basePrice = selectedCity.value === 'moscow' ? stageData.price : Math.round(stageData.price * 0.9);
                   return (
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-base">
                       <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                         {selectedStage.toUpperCase()}
                       </span>
@@ -304,7 +304,7 @@ export default function StageStep({
                 })()}
 
                 {selectedStage && euro2Enabled && (
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-base">
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       EURO 2
                     </span>
@@ -320,9 +320,9 @@ export default function StageStep({
                 )}
 
                 {!selectedStage && euro2Enabled && (
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-base">
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                      EURO 2 (без Stage)
+                      EURO 2 (БЕЗ STAGE)
                     </span>
                     <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       {euro2OnlyPrice.toLocaleString('ru-RU')} ₽
@@ -331,7 +331,7 @@ export default function StageStep({
                 )}
 
                 {isDiesel && dieselOptions.egr && (
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-base">
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       EGR
                     </span>
@@ -353,7 +353,7 @@ export default function StageStep({
                 )}
 
                 {isDiesel && dieselOptions.dpf && (
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-base">
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       DPF
                     </span>
@@ -375,7 +375,7 @@ export default function StageStep({
                 )}
 
                 {isDiesel && dieselOptions.flaps && (
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-base">
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       FLAPS
                     </span>
@@ -397,7 +397,7 @@ export default function StageStep({
                 )}
 
                 {isDiesel && dieselOptions.adblue && (
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-base">
                     <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       ADBLUE
                     </span>
@@ -408,9 +408,9 @@ export default function StageStep({
                 )}
 
                 {transmissionTuningEnabled && (
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-                      ЧИП ТЮНИНГ АКПП
+                  <div className="flex items-center justify-between text-base">
+                    <span className="text-white/80 text-base" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      ЧИП-ТЮНИНГ АКПП
                     </span>
                     <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
                       {selectedStage ? '+27,000 ₽' : '27,000 ₽'}
