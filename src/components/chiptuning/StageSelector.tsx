@@ -23,6 +23,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
   const [selectedStage, setSelectedStage] = React.useState<'stage1' | 'stage2' | null>(null);
   const [euro2Enabled, setEuro2Enabled] = React.useState(false);
   const [dieselOptions, setDieselOptions] = React.useState({ egr: false, dpf: false, flaps: false, adblue: false });
+  const [transmissionTuningEnabled, setTransmissionTuningEnabled] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
 
   const apiSeries = convertSeriesForAPI(selectedSeries);
@@ -183,17 +184,20 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
               selectedStage={selectedStage}
               euro2Enabled={euro2Enabled}
               dieselOptions={dieselOptions}
+              transmissionTuningEnabled={transmissionTuningEnabled}
               onSelectStage={setSelectedStage}
               onEuro2Change={setEuro2Enabled}
               onDieselOptionChange={(option, enabled) => {
                 setDieselOptions(prev => ({ ...prev, [option]: enabled }));
               }}
+              onTransmissionTuningChange={setTransmissionTuningEnabled}
               onBack={() => {
                 setStep('engine');
                 setSelectedEngine(null);
                 setSelectedStage(null);
                 setEuro2Enabled(false);
                 setDieselOptions({ egr: false, dpf: false, flaps: false, adblue: false });
+                setTransmissionTuningEnabled(false);
               }}
               onOrder={handleOrder}
             />

@@ -13,9 +13,11 @@ interface StageStepProps {
   selectedStage: 'stage1' | 'stage2' | null;
   euro2Enabled: boolean;
   dieselOptions: { egr: boolean; dpf: boolean; flaps: boolean; adblue: boolean };
+  transmissionTuningEnabled: boolean;
   onSelectStage: (stage: 'stage1' | 'stage2') => void;
   onEuro2Change: (enabled: boolean) => void;
   onDieselOptionChange: (option: 'egr' | 'dpf' | 'flaps' | 'adblue', enabled: boolean) => void;
+  onTransmissionTuningChange: (enabled: boolean) => void;
   onBack: () => void;
   onOrder: (finalPrice: number) => void;
 }
@@ -27,9 +29,11 @@ export default function StageStep({
   selectedStage,
   euro2Enabled,
   dieselOptions,
+  transmissionTuningEnabled,
   onSelectStage,
   onEuro2Change,
   onDieselOptionChange,
+  onTransmissionTuningChange,
   onBack,
   onOrder 
 }: StageStepProps) {
@@ -58,6 +62,11 @@ export default function StageStep({
       if (dieselOptions.adblue) price += 20000;
     }
     
+    // Чип-тюнинг АКПП (только если выбран стейдж)
+    if (selectedStage && transmissionTuningEnabled) {
+      price += 27000;
+    }
+    
     return price;
   };
   
@@ -73,11 +82,41 @@ export default function StageStep({
     if (dieselOptions.adblue) price += 20000;
     return price;
   };
+  
+  // Цена чип-тюнинга АКПП без стейджа
+  const transmissionOnlyPrice = transmissionTuningEnabled ? 27000 : 0;
 
   return (
     <>
-      {!isDiesel && (
-        <div className="p-3 mb-2 relative overflow-hidden"
+      <div className="space-y-2 mb-2">
+        {!isDiesel && (
+          <div className="p-3 relative overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
+              border: '1px solid',
+              borderImage: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1',
+              boxShadow: '0 0 15px rgba(127, 106, 127, 0.3)',
+              clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
+            }}
+          >
+            <label className="flex items-center gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                checked={euro2Enabled}
+                onChange={(e) => onEuro2Change(e.target.checked)}
+                className="w-6 h-6 accent-red-500 cursor-pointer"
+              />
+              <span
+                className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
+                style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+              >
+                EURO 2
+              </span>
+            </label>
+          </div>
+        )}
+        
+        <div className="p-3 relative overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)',
             border: '1px solid',
@@ -89,19 +128,19 @@ export default function StageStep({
           <label className="flex items-center gap-3 cursor-pointer group">
             <input
               type="checkbox"
-              checked={euro2Enabled}
-              onChange={(e) => onEuro2Change(e.target.checked)}
+              checked={transmissionTuningEnabled}
+              onChange={(e) => onTransmissionTuningChange(e.target.checked)}
               className="w-6 h-6 accent-red-500 cursor-pointer"
             />
             <span
               className="text-white text-sm tracking-wider uppercase font-medium group-hover:text-red-400 transition-colors"
               style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
             >
-              EURO 2
+              ЧИП ТЮНИНГ АКПП
             </span>
           </label>
         </div>
-      )}
+      </div>
 
       {isDiesel && (
         <div className="space-y-2 mb-2">
@@ -220,7 +259,7 @@ export default function StageStep({
         </div>
 
         {/* Итоговый блок стоимости */}
-        {(selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) && (
+        {(selectedStage || euro2Enabled || transmissionTuningEnabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) && (
           <div 
             className="p-4 relative overflow-hidden"
             style={{
@@ -367,6 +406,17 @@ export default function StageStep({
                     </span>
                   </div>
                 )}
+
+                {transmissionTuningEnabled && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white/80" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      ЧИП ТЮНИНГ АКПП
+                    </span>
+                    <span className="text-white font-medium" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                      {selectedStage ? '+27,000 ₽' : '27,000 ₽'}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div 
@@ -392,10 +442,11 @@ export default function StageStep({
                     if (selectedStage) {
                       const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
                       finalPrice = calculatePrice(stageData.price, selectedStage);
-                    } else if (euro2Enabled) {
-                      finalPrice = euro2OnlyPrice;
-                    } else if (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)) {
-                      finalPrice = dieselOnlyPrice();
+                    } else {
+                      finalPrice = 0;
+                      if (euro2Enabled) finalPrice += euro2OnlyPrice;
+                      if (isDiesel) finalPrice += dieselOnlyPrice();
+                      if (transmissionTuningEnabled) finalPrice += transmissionOnlyPrice;
                     }
                     return finalPrice?.toLocaleString('ru-RU');
                   })()} ₽
@@ -413,12 +464,12 @@ export default function StageStep({
             const stageData = selectedStage === 'stage1' ? selectedEngine.stage1 : selectedEngine.stage2;
             if (!stageData) return;
             finalPrice = calculatePrice(stageData.price, selectedStage);
-          } else if (euro2Enabled) {
-            finalPrice = euro2OnlyPrice;
-          } else if (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)) {
-            finalPrice = dieselOnlyPrice();
           } else {
-            return;
+            finalPrice = 0;
+            if (euro2Enabled) finalPrice += euro2OnlyPrice;
+            if (isDiesel) finalPrice += dieselOnlyPrice();
+            if (transmissionTuningEnabled) finalPrice += transmissionOnlyPrice;
+            if (finalPrice === 0) return;
           }
           
           // Отправка цели в Яндекс.Метрику
@@ -434,23 +485,24 @@ export default function StageStep({
             stage: selectedStage || undefined,
             euro2: euro2Enabled,
             diesel: dieselOptionsList.length > 0 ? dieselOptionsList : undefined,
+            transmission: transmissionTuningEnabled,
             city: selectedCity,
             price: finalPrice
           });
           
           onOrder(finalPrice);
         }}
-        disabled={!selectedStage && !euro2Enabled && !(isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))}
+        disabled={!selectedStage && !euro2Enabled && !transmissionTuningEnabled && !(isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))}
         className="w-full py-2 px-4 transition-all hover:scale-[1.02] relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         style={{
-          background: (selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
+          background: (selectedStage || euro2Enabled || transmissionTuningEnabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
             ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.4) 100%)'
             : 'linear-gradient(135deg, rgba(50, 50, 50, 0.4) 0%, rgba(70, 70, 70, 0.5) 50%, rgba(50, 50, 50, 0.4) 100%)',
           border: '2px solid',
-          borderImage: (selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
+          borderImage: (selectedStage || euro2Enabled || transmissionTuningEnabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
             ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(0, 212, 255, 0.9) 100%) 1'
             : 'linear-gradient(135deg, rgba(100, 100, 100, 0.5) 0%, rgba(150, 150, 150, 0.5) 100%) 1',
-          boxShadow: (selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
+          boxShadow: (selectedStage || euro2Enabled || transmissionTuningEnabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue)))
             ? '0 0 40px rgba(127, 106, 127, 0.6), inset 0 0 40px rgba(127, 106, 127, 0.2)'
             : '0 0 10px rgba(100, 100, 100, 0.3)',
           clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)'
@@ -460,7 +512,7 @@ export default function StageStep({
           backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.1) 10px, rgba(255, 255, 255, 0.1) 20px)'
         }} />
         <div className="flex items-center justify-center gap-2 relative z-10">
-          <Icon name={(selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) ? "Send" : "AlertCircle"} className="w-4 h-4 text-white" />
+          <Icon name={(selectedStage || euro2Enabled || transmissionTuningEnabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) ? "Send" : "AlertCircle"} className="w-4 h-4 text-white" />
           <span 
             className="text-white text-xs tracking-widest uppercase font-bold"
             style={{ 
@@ -468,7 +520,7 @@ export default function StageStep({
               textShadow: '2px 2px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(127, 106, 127, 0.7)'
             }}
           >
-            {(selectedStage || euro2Enabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) ? '/// ЗАКАЗАТЬ' : '/// ВЫБЕРИТЕ ОПЦИЮ'}
+            {(selectedStage || euro2Enabled || transmissionTuningEnabled || (isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))) ? '/// ЗАКАЗАТЬ' : '/// ВЫБЕРИТЕ ОПЦИЮ'}
           </span>
         </div>
       </button>
