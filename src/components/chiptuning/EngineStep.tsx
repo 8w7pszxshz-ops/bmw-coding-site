@@ -61,27 +61,27 @@ export default function EngineStep({ engines, selectedBody, onSelectEngine, onBa
             
             <div className="relative z-10">
               <p 
-                className="text-white text-[10px] mb-0.5 tracking-wider font-medium"
+                className="text-white text-sm mb-0.5 tracking-wider font-bold uppercase"
                 style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
               >
                 {engine.engine_code}
               </p>
               <div className="flex items-center gap-2">
                 <p 
-                  className="text-white/70 text-[9px] tracking-wide"
+                  className="text-white/70 text-xs tracking-wide uppercase font-medium"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
                   СТОК: {engine.stock.power} Л.С. / {engine.stock.torque} НМ
                 </p>
                 <p 
-                  className="text-white/70 text-[9px] tracking-wide"
+                  className="text-white/70 text-xs tracking-wide uppercase font-medium"
                   style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                 >
                   STAGE 1: {engine.stage1.power} Л.С. / {engine.stage1.torque} НМ
                 </p>
                 {engine.stage2 && (
                   <p 
-                    className="text-white/70 text-[9px] tracking-wide"
+                    className="text-white/70 text-xs tracking-wide uppercase font-medium"
                     style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
                   >
                     STAGE 2: {engine.stage2.power} Л.С. / {engine.stage2.torque} НМ
