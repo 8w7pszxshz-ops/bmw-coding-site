@@ -30,44 +30,49 @@ export default function StageCard({
           : (isSelected ? 'linear-gradient(135deg, rgba(26, 8, 8, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%)' : 'linear-gradient(135deg, rgba(10, 10, 15, 0.7) 0%, rgba(26, 8, 8, 0.7) 100%)'),
         border: '2px solid',
         borderImage: stageId === 'stage1'
-          ? (isSelected ? 'linear-gradient(135deg, rgba(0, 255, 0, 0.8) 0%, rgba(0, 255, 0, 0.6) 100%) 1' : 'linear-gradient(135deg, rgba(0, 255, 0, 0.4) 0%, rgba(0, 255, 0, 0.2) 100%) 1')
-          : (isSelected ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.8) 0%, rgba(0, 212, 255, 0.8) 100%) 1' : 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.4) 100%) 1'),
-        boxShadow: isSelected 
-          ? '0 0 30px rgba(127, 106, 127, 0.5), inset 0 0 20px rgba(127, 106, 127, 0.2)'
-          : '0 0 10px rgba(100, 100, 100, 0.3)',
-        clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)'
+          ? (isSelected ? 'linear-gradient(135deg, rgba(0, 255, 0, 1) 0%, rgba(0, 255, 0, 0.8) 50%, rgba(0, 255, 0, 1) 100%) 1' : 'linear-gradient(135deg, rgba(0, 255, 0, 0.6) 0%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 255, 0, 0.6) 100%) 1')
+          : (isSelected ? 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 50%, rgba(0, 212, 255, 0.9) 50%, rgba(56, 189, 248, 0.9) 100%) 1' : 'linear-gradient(135deg, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 51, 0.5) 50%, rgba(0, 212, 255, 0.5) 50%, rgba(56, 189, 248, 0.5) 100%) 1'),
+        boxShadow: stageId === 'stage1'
+          ? (isSelected ? '0 0 60px rgba(0, 255, 0, 0.8), inset 0 0 80px rgba(0, 255, 0, 0.25)' : '0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 50px rgba(0, 255, 0, 0.15)')
+          : (isSelected ? '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)' : '0 0 20px rgba(127, 106, 127, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.5)'),
+        clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
       }}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex-1">
+      <div className="absolute top-0 right-0 w-12 h-12 pointer-events-none" style={{ 
+        background: stageId === 'stage1'
+          ? (isSelected ? 'linear-gradient(to bottom right, rgba(0, 255, 0, 0.6), transparent)' : 'linear-gradient(to bottom right, rgba(0, 255, 0, 0.3), transparent)')
+          : (isSelected ? 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.4), rgba(0, 212, 255, 0.2))' : 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.15), rgba(0, 212, 255, 0.1))'),
+        clipPath: 'polygon(100% 0, 100% 100%, 0 0)' 
+      }} />
+      
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(127, 106, 127, 0.3) 2px, rgba(127, 106, 127, 0.3) 4px)'
+      }} />
+      
+      <div className="flex items-start justify-between mb-0.5 relative z-10">
+        <div>
           <h3 
-            className="text-white text-base font-bold tracking-wider uppercase mb-0.5"
-            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
+            className="text-white text-base mb-0.5 tracking-widest uppercase font-bold"
+            style={{ 
+              fontFamily: '"Reborn Technologies", sans-serif',
+              textShadow: isSelected ? '2px 2px 0 rgba(127, 106, 127, 0.7), 0 0 30px rgba(127, 106, 127, 0.7)' : '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
+            }}
           >
             {stageName}
           </h3>
-          <div className="flex gap-3 text-xs">
-            <span className="text-white/70 flex items-center gap-1">
-              <Icon name="Zap" className="w-3 h-3" />
-              {power}
-            </span>
-            <span className="text-white/70 flex items-center gap-1">
-              <Icon name="Gauge" className="w-3 h-3" />
-              {torque}
-            </span>
-          </div>
-        </div>
-        <div className="text-right">
-          <div 
-            className="text-lg font-bold"
-            style={{ 
-              fontFamily: '"Reborn Technologies", sans-serif',
-              color: stageId === 'stage1' ? '#00FF00' : '#FF0040'
-            }}
+          <p 
+            className="text-white/90 text-sm tracking-wider uppercase font-medium"
+            style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
           >
-            {price.toLocaleString('ru-RU')}₽
-          </div>
+            {power} Л.С. / {torque} НМ
+          </p>
         </div>
+        {isSelected && (
+          <div className="flex items-center gap-1">
+            <div className="w-1.5 h-1.5 animate-pulse" style={{ background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
+            <Icon name="Check" className="w-5 h-5 text-white" />
+          </div>
+        )}
       </div>
     </button>
   );
