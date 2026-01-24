@@ -53,7 +53,7 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
 
     if (isOpen) {
       setCurrentTrackIndex(0);
-      audio.volume = 0.2; // 60% ниже от 0.5 = 0.2
+      audio.volume = 0.12;
     } else {
       audio.pause();
       audio.currentTime = 0;
@@ -78,6 +78,7 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
     if (!audio) return;
 
     if (isMuted) {
+      audio.volume = 0.12;
       audio.play().catch(err => console.log('Play error:', err));
       setIsMuted(false);
     } else {

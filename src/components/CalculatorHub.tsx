@@ -29,7 +29,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
     // Создаем и запускаем аудио track3.mp3 для чип-тюнинга
     if (!chipTuningAudioRef.current) {
       chipTuningAudioRef.current = new Audio('/music/track3.mp3');
-      chipTuningAudioRef.current.volume = 0.2;
+      chipTuningAudioRef.current.volume = 0.12;
     }
     
     chipTuningAudioRef.current.play().catch(err => {
