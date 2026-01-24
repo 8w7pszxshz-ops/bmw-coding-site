@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 import SeriesSelector from './coding/SeriesSelector';
@@ -15,6 +15,22 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
   const [selectedSeries, setSelectedSeries] = useState<'F' | 'G' | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (selectedSeries && !audioRef.current) {
+      audioRef.current = new Audio('/music/1.mp3');
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.3;
+      audioRef.current.play().catch(() => {});
+    }
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, [selectedSeries]);
 
   const toggleOption = (optionId: string) => {
     const newSelected = new Set(selectedOptions);
@@ -90,6 +106,22 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
   const [selectedSeries, setSelectedSeries] = useState<'F' | 'G' | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (selectedSeries && !audioRef.current) {
+      audioRef.current = new Audio('/music/1.mp3');
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.3;
+      audioRef.current.play().catch(() => {});
+    }
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, [selectedSeries]);
 
   const toggleOption = (optionId: string) => {
     const newSelected = new Set(selectedOptions);
