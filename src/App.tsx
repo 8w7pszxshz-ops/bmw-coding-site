@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ChatGPT from "./pages/ChatGPT";
 import Admin from "./pages/Admin";
+import ErrorCodes from "./pages/ErrorCodes";
+import ErrorCodeDetail from "./pages/ErrorCodeDetail";
 import NotFound from "./pages/NotFound";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
@@ -23,6 +25,8 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/chatgpt" element={<ChatGPT />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/error-codes" element={<ErrorCodes />} />
+            <Route path="/error-codes/:code" element={<ErrorCodeDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

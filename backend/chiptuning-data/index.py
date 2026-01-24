@@ -35,12 +35,104 @@ def handler(event: dict, context) -> dict:
     
     # Получаем параметры запроса
     params = event.get('queryStringParameters') or {}
+    action = params.get('action', '')
     
     try:
         # Подключение к БД
         conn = psycopg2.connect(os.environ['DATABASE_URL'])
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         
+        # === ERROR CODES HANDLING ===
+        if action == 'get_popular_errors':
+            cursor.execute("""
+                SELECT id, code, title, description, severity, category, search_count
+                FROM error_codes
+                ORDER BY search_count DESC, id
+                LIMIT 20
+            """)
+            errors = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            return {
+                'statusCode': 200,
+                'headers': get_cors_headers(origin),
+                'body': json.dumps([dict(e) for e in errors], ensure_ascii=False),
+                'isBase64Encoded': False
+            }
+        
+        elif action == 'get_error':
+            code = params.get('code', '').upper()
+            if not code:
+                return {
+                    'statusCode': 400,
+                    'headers': get_cors_headers(origin),
+                    'body': json.dumps({'error': 'Code required'}),
+                    'isBase64Encoded': False
+                }
+            
+            cursor.execute("""
+                SELECT id, code, title, description, severity, common_causes, 
+                       symptoms, solutions, related_systems, category
+                FROM error_codes
+                WHERE UPPER(code) = %s
+            """, (code,))
+            error = cursor.fetchone()
+            
+            # Log search
+            user_ip = event.get('requestContext', {}).get('identity', {}).get('sourceIp', '')
+            user_agent = headers.get('user-agent', '')
+            cursor.execute("""
+                INSERT INTO error_code_searches (code, found, user_ip, user_agent)
+                VALUES (%s, %s, %s, %s)
+            """, (code, error is not None, user_ip, user_agent))
+            
+            if error:
+                cursor.execute("UPDATE error_codes SET search_count = search_count + 1 WHERE id = %s", (error['id'],))
+            
+            conn.commit()
+            cursor.close()
+            conn.close()
+            
+            if error:
+                return {
+                    'statusCode': 200,
+                    'headers': get_cors_headers(origin),
+                    'body': json.dumps({'found': True, 'error': dict(error)}, ensure_ascii=False),
+                    'isBase64Encoded': False
+                }
+            else:
+                return {
+                    'statusCode': 200,
+                    'headers': get_cors_headers(origin),
+                    'body': json.dumps({'found': False}),
+                    'isBase64Encoded': False
+                }
+        
+        elif action == 'ask_ai' and method == 'POST':
+            body = json.loads(event.get('body', '{}'))
+            question = body.get('question', '').lower()
+            code = body.get('code', '')
+            
+            # Simple fallback responses
+            fallback_answers = {
+                'можно': f"При ошибке {code} рекомендуется обратиться в сервис для диагностики. Продолжать движение можно только в крайнем случае.",
+                'сколько': "Стоимость ремонта определяется после диагностики. Запишитесь на проверку — специалисты назовут точную цену.",
+                'срочно': "Рекомендуем не откладывать визит в сервис, чтобы избежать более серьёзных последствий."
+            }
+            
+            answer = next((v for k, v in fallback_answers.items() if k in question), 
+                         f"Для точного ответа необходима диагностика. Запишитесь в наш сервис для полной проверки BMW.")
+            
+            cursor.close()
+            conn.close()
+            return {
+                'statusCode': 200,
+                'headers': get_cors_headers(origin),
+                'body': json.dumps({'answer': answer}, ensure_ascii=False),
+                'isBase64Encoded': False
+            }
+        
+        # === CHIPTUNING DATA ===
         # Админка - GET запрос с admin=1
         if method == 'GET' and params.get('admin') == '1':
             query = """
