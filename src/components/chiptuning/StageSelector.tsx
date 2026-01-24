@@ -141,8 +141,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
         <p 
           className="text-white text-lg tracking-widest font-bold uppercase"
           style={{ 
-            fontFamily: '"Reborn Technologies", sans-serif',
-            textShadow: '2px 2px 0 rgba(127, 106, 127, 0.4), 0 0 20px rgba(127, 106, 127, 0.5)'
+            fontFamily: '"Reborn Technologies", sans-serif'
           }}
         >
           {selectedSeries}

@@ -38,8 +38,7 @@ export default function BodyTypeStep({ bodyTypes, onSelectBody }: BodyTypeStepPr
                 <p 
                   className="text-white text-base tracking-widest font-bold uppercase"
                   style={{ 
-                    fontFamily: '"Reborn Technologies", sans-serif',
-                    textShadow: '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
+                    fontFamily: '"Reborn Technologies", sans-serif'
                   }}
                 >
                   {body}

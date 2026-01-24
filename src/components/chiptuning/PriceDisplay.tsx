@@ -64,8 +64,7 @@ export default function PriceDisplay({
         <span 
           className="text-white text-xs tracking-widest uppercase font-bold"
           style={{ 
-            fontFamily: '"Reborn Technologies", sans-serif',
-            textShadow: '2px 2px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(127, 106, 127, 0.7)'
+            fontFamily: '"Reborn Technologies", sans-serif'
           }}
         >
           {hasAnyOption ? '/// ЗАКАЗАТЬ' : '/// ВЫБЕРИТЕ ОПЦИЮ'}
@@ -83,8 +82,7 @@ export default function PriceDisplay({
           className="text-2xl font-bold tracking-wider"
           style={{ 
             fontFamily: '"Reborn Technologies", sans-serif',
-            color: hasAnyOption ? '#00FF00' : '#666666',
-            textShadow: hasAnyOption ? '0 0 20px rgba(0, 255, 0, 0.5)' : 'none'
+            color: hasAnyOption ? '#00FF00' : '#666666'
           }}
         >
           {finalPrice.toLocaleString('ru-RU')}₽

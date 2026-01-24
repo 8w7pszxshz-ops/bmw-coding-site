@@ -54,8 +54,7 @@ export default function StageCard({
           <h3 
             className="text-white text-base mb-0.5 tracking-widest uppercase font-bold"
             style={{ 
-              fontFamily: '"Reborn Technologies", sans-serif',
-              textShadow: isSelected ? '2px 2px 0 rgba(127, 106, 127, 0.7), 0 0 30px rgba(127, 106, 127, 0.7)' : '2px 2px 0 rgba(127, 106, 127, 0.3), 0 0 10px rgba(127, 106, 127, 0.4)'
+              fontFamily: '"Reborn Technologies", sans-serif'
             }}
           >
             {stageName}
