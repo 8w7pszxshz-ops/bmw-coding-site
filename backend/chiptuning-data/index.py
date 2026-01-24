@@ -61,7 +61,8 @@ def handler(event: dict, context) -> dict:
                     stage_type,
                     is_restyling,
                     status,
-                    show_stage2
+                    show_stage2,
+                    firmware_type
                 FROM t_p937713_bmw_coding_site.bmw_chiptuning
                 ORDER BY id
             """
@@ -93,7 +94,8 @@ def handler(event: dict, context) -> dict:
                     'stage_type': r['stage_type'],
                     'is_restyling': r['is_restyling'],
                     'status': r['status'],
-                    'show_stage2': r['show_stage2']
+                    'show_stage2': r['show_stage2'],
+                    'firmware_type': r['firmware_type'] or '30I'
                 })
             
             cursor.close()
@@ -133,7 +135,8 @@ def handler(event: dict, context) -> dict:
                         stage_type = %s,
                         is_restyling = %s,
                         status = %s,
-                        show_stage2 = %s
+                        show_stage2 = %s,
+                        firmware_type = %s
                     WHERE id = %s
                 """
                 cursor.execute(query, (
@@ -153,6 +156,7 @@ def handler(event: dict, context) -> dict:
                     data['is_restyling'],
                     data['status'],
                     data['show_stage2'],
+                    data.get('firmware_type', '30I'),
                     record_id
                 ))
                 conn.commit()
@@ -163,6 +167,48 @@ def handler(event: dict, context) -> dict:
                     'statusCode': 200,
                     'headers': get_cors_headers(origin),
                     'body': json.dumps({'success': True}),
+                    'isBase64Encoded': False
+                }
+            
+            elif action == 'add':
+                data = body.get('data')
+                
+                query = """
+                    INSERT INTO t_p937713_bmw_coding_site.bmw_chiptuning
+                    (model_name, series, body_type, engine_code, article_code,
+                     stock_power, stock_torque, stage1_power, stage1_torque, stage1_price,
+                     stage2_power, stage2_torque, stage_type, is_restyling, status, show_stage2, firmware_type)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    RETURNING id
+                """
+                cursor.execute(query, (
+                    data['model_name'],
+                    data['series'],
+                    data['body_type'],
+                    data['engine_code'],
+                    data['article_code'],
+                    data['stock_power'],
+                    data['stock_torque'],
+                    data['stage1_power'],
+                    data['stage1_torque'],
+                    data['stage1_price'],
+                    data.get('stage2_power'),
+                    data.get('stage2_torque'),
+                    data.get('stage_type', 'St.1'),
+                    data.get('is_restyling', False),
+                    data.get('status', '1'),
+                    data.get('show_stage2', False),
+                    data.get('firmware_type', '30I')
+                ))
+                new_id = cursor.fetchone()[0]
+                conn.commit()
+                cursor.close()
+                conn.close()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': get_cors_headers(origin),
+                    'body': json.dumps({'success': True, 'id': new_id}),
                     'isBase64Encoded': False
                 }
             

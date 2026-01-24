@@ -2,6 +2,236 @@ import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 
+function AddCarForm({ onAdd, onCancel }: { onAdd: (data: any) => Promise<boolean>, onCancel: () => void }) {
+  const [formData, setFormData] = useState({
+    model_name: '',
+    series: '',
+    body_type: '',
+    engine_code: '',
+    article_code: '',
+    stock_power: '',
+    stock_torque: '',
+    stage1_power: '',
+    stage1_torque: '',
+    stage1_price: '30000',
+    stage2_power: '',
+    stage2_torque: '',
+    stage_type: 'St.1',
+    firmware_type: '30I',
+    is_restyling: false,
+    status: '1',
+    show_stage2: false
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const newData = {
+      model_name: formData.model_name,
+      series: formData.series,
+      body_type: formData.body_type,
+      engine_code: formData.engine_code,
+      article_code: formData.article_code,
+      stock: {
+        power: parseInt(formData.stock_power) || 0,
+        torque: parseInt(formData.stock_torque) || 0
+      },
+      stage1: {
+        power: parseInt(formData.stage1_power) || 0,
+        torque: parseInt(formData.stage1_torque) || 0,
+        price: parseInt(formData.stage1_price) || 30000
+      },
+      stage2: formData.stage2_power && formData.stage2_torque ? {
+        power: parseInt(formData.stage2_power),
+        torque: parseInt(formData.stage2_torque)
+      } : null,
+      stage_type: formData.stage_type,
+      firmware_type: formData.firmware_type,
+      is_restyling: formData.is_restyling,
+      status: formData.status,
+      show_stage2: formData.show_stage2
+    };
+
+    await onAdd(newData);
+  };
+
+  return (
+    <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 mb-6">
+      <h2 className="text-xl font-bold text-white mb-4">Добавить новый автомобиль</h2>
+      <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-4">
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Модель</label>
+          <input
+            type="text"
+            value={formData.model_name}
+            onChange={(e) => setFormData(prev => ({ ...prev, model_name: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Серия</label>
+          <input
+            type="text"
+            value={formData.series}
+            onChange={(e) => setFormData(prev => ({ ...prev, series: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Кузов</label>
+          <input
+            type="text"
+            value={formData.body_type}
+            onChange={(e) => setFormData(prev => ({ ...prev, body_type: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Двигатель</label>
+          <input
+            type="text"
+            value={formData.engine_code}
+            onChange={(e) => setFormData(prev => ({ ...prev, engine_code: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Артикул</label>
+          <input
+            type="text"
+            value={formData.article_code}
+            onChange={(e) => setFormData(prev => ({ ...prev, article_code: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Тип прошивки</label>
+          <select
+            value={formData.firmware_type}
+            onChange={(e) => setFormData(prev => ({ ...prev, firmware_type: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+          >
+            <option value="30I" style={{ background: '#1e293b' }}>30I</option>
+            <option value="28I" style={{ background: '#1e293b' }}>28I</option>
+          </select>
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Сток л.с.</label>
+          <input
+            type="number"
+            value={formData.stock_power}
+            onChange={(e) => setFormData(prev => ({ ...prev, stock_power: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Сток Нм</label>
+          <input
+            type="number"
+            value={formData.stock_torque}
+            onChange={(e) => setFormData(prev => ({ ...prev, stock_torque: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Тип Stage</label>
+          <select
+            value={formData.stage_type}
+            onChange={(e) => setFormData(prev => ({ ...prev, stage_type: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+          >
+            <option value="St.1" style={{ background: '#1e293b' }}>Stage 1</option>
+            <option value="St.2" style={{ background: '#1e293b' }}>Stage 2</option>
+          </select>
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Stage1 л.с.</label>
+          <input
+            type="number"
+            value={formData.stage1_power}
+            onChange={(e) => setFormData(prev => ({ ...prev, stage1_power: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Stage1 Нм</label>
+          <input
+            type="number"
+            value={formData.stage1_torque}
+            onChange={(e) => setFormData(prev => ({ ...prev, stage1_torque: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Цена Stage1</label>
+          <input
+            type="number"
+            value={formData.stage1_price}
+            onChange={(e) => setFormData(prev => ({ ...prev, stage1_price: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+            required
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Stage2 л.с. (опционально)</label>
+          <input
+            type="number"
+            value={formData.stage2_power}
+            onChange={(e) => setFormData(prev => ({ ...prev, stage2_power: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Stage2 Нм (опционально)</label>
+          <input
+            type="number"
+            value={formData.stage2_torque}
+            onChange={(e) => setFormData(prev => ({ ...prev, stage2_torque: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+          />
+        </div>
+        <div className="col-span-3 flex gap-4 items-center">
+          <label className="flex items-center gap-2 text-white cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.show_stage2}
+              onChange={(e) => setFormData(prev => ({ ...prev, show_stage2: e.target.checked }))}
+              className="w-4 h-4"
+            />
+            <span>Показывать Stage2</span>
+          </label>
+          <label className="flex items-center gap-2 text-white cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.is_restyling}
+              onChange={(e) => setFormData(prev => ({ ...prev, is_restyling: e.target.checked }))}
+              className="w-4 h-4"
+            />
+            <span>Рестайлинг</span>
+          </label>
+        </div>
+        <div className="col-span-3 flex gap-3 justify-end">
+          <Button type="button" onClick={onCancel} variant="outline" className="bg-white/5 border-white/20 text-white hover:bg-white/10">
+            Отмена
+          </Button>
+          <Button type="submit" className="bg-green-600 hover:bg-green-700">
+            Добавить
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
 
 interface ChiptuningRecord {
@@ -18,11 +248,13 @@ interface ChiptuningRecord {
   is_restyling: boolean;
   status: string;
   show_stage2: boolean;
+  firmware_type: string;
 }
 
 export default function Admin() {
   const [records, setRecords] = useState<ChiptuningRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddForm, setShowAddForm] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [editingCell, setEditingCell] = useState<{ id: number; field: string } | null>(null);
   const [editValue, setEditValue] = useState('');
@@ -93,7 +325,8 @@ export default function Admin() {
             stage_type: updatedRecord.stage_type,
             is_restyling: updatedRecord.is_restyling,
             status: updatedRecord.status,
-            show_stage2: updatedRecord.show_stage2
+            show_stage2: updatedRecord.show_stage2,
+            firmware_type: updatedRecord.firmware_type
           }
         })
       });
@@ -105,6 +338,48 @@ export default function Admin() {
     } catch (error) {
       console.error('Ошибка сохранения:', error);
       alert('Ошибка сохранения');
+    }
+    return false;
+  };
+
+  const addNewRecord = async (newData: Omit<ChiptuningRecord, 'id'>) => {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'add',
+          data: {
+            model_name: newData.model_name,
+            series: newData.series,
+            body_type: newData.body_type,
+            engine_code: newData.engine_code,
+            article_code: newData.article_code,
+            stock_power: newData.stock.power,
+            stock_torque: newData.stock.torque,
+            stage1_power: newData.stage1.power,
+            stage1_torque: newData.stage1.torque,
+            stage1_price: newData.stage1.price,
+            stage2_power: newData.stage2?.power ?? null,
+            stage2_torque: newData.stage2?.torque ?? null,
+            stage_type: newData.stage_type,
+            is_restyling: newData.is_restyling,
+            status: newData.status,
+            show_stage2: newData.show_stage2,
+            firmware_type: newData.firmware_type
+          }
+        })
+      });
+
+      if (response.ok) {
+        alert('✅ Автомобиль успешно добавлен!');
+        loadData();
+        setShowAddForm(false);
+        return true;
+      }
+    } catch (error) {
+      console.error('Ошибка добавления:', error);
+      alert('Ошибка добавления записи');
     }
     return false;
   };
@@ -329,6 +604,13 @@ export default function Admin() {
           <h1 className="text-3xl font-bold text-white">Админ-панель чип-тюнинга</h1>
           <div className="flex gap-3">
             <Button 
+              onClick={() => setShowAddForm(!showAddForm)}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              <Icon name={showAddForm ? 'X' : 'Plus'} className="w-5 h-5 mr-2" />
+              {showAddForm ? 'Отменить' : 'Добавить автомобиль'}
+            </Button>
+            <Button 
               onClick={handleSync}
               className="bg-blue-600 hover:bg-blue-700"
               disabled={syncing}
@@ -359,6 +641,8 @@ export default function Admin() {
             </Button>
           </div>
         </div>
+
+        {showAddForm && <AddCarForm onAdd={addNewRecord} onCancel={() => setShowAddForm(false)} />}
 
         <div className="bg-white/5 backdrop-blur-lg rounded-xl p-4 mb-6 flex gap-4">
           <input
@@ -422,6 +706,7 @@ export default function Admin() {
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Серия</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Кузов</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Двигатель</th>
+                  <th className="px-4 py-3 text-left text-white/80 font-medium">Прошивка</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Сток л.с.</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Сток Нм</th>
                   <th className="px-4 py-3 text-left text-white/80 font-medium">Stage1 л.с.</th>
@@ -442,6 +727,7 @@ export default function Admin() {
                     {renderCell(record, 'series', record.series)}
                     {renderCell(record, 'body_type', record.body_type)}
                     {renderCell(record, 'engine_code', record.engine_code)}
+                    {renderCell(record, 'firmware_type', record.firmware_type)}
                     {renderCell(record, 'stock.power', record.stock.power)}
                     {renderCell(record, 'stock.torque', record.stock.torque)}
                     {renderCell(record, 'stage1.power', record.stage1.power)}
