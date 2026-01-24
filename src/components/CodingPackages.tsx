@@ -22,7 +22,7 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
     if (selectedSeries && !audioRef.current) {
       audioRef.current = new Audio('/music/1.mp3');
       audioRef.current.loop = true;
-      audioRef.current.volume = 0.2;
+      audioRef.current.volume = 0.12;
       audioRef.current.play().catch(() => {});
     }
     return () => {
@@ -36,6 +36,7 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
   const toggleMute = () => {
     if (!audioRef.current) return;
     if (isMuted) {
+      audioRef.current.volume = 0.12;
       audioRef.current.play().catch(() => {});
       setIsMuted(false);
     } else {
