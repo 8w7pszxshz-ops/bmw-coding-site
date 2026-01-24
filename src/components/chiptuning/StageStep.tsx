@@ -20,7 +20,6 @@ interface StageStepProps {
   onEuro2Change: (enabled: boolean) => void;
   onDieselOptionChange: (option: 'egr' | 'dpf' | 'flaps' | 'adblue', enabled: boolean) => void;
   onTransmissionTuningChange: (enabled: boolean) => void;
-  onBack: () => void;
   onOrder: (finalPrice: number) => void;
 }
 
@@ -36,7 +35,6 @@ export default function StageStep({
   onEuro2Change,
   onDieselOptionChange,
   onTransmissionTuningChange,
-  onBack,
   onOrder 
 }: StageStepProps) {
   

@@ -6,10 +6,9 @@ interface EngineStepProps {
   engines: ChiptuningData[];
   selectedBody: string | null;
   onSelectEngine: (engine: ChiptuningData) => void;
-  onBack: () => void;
 }
 
-export default function EngineStep({ engines, selectedBody, onSelectEngine, onBack }: EngineStepProps) {
+export default function EngineStep({ engines, selectedBody, onSelectEngine }: EngineStepProps) {
   return (
     <>
       <div 

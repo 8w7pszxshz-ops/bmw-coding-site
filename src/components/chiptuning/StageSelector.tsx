@@ -100,10 +100,27 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
     window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
   };
 
+  const handleBack = () => {
+    if (step === 'stage') {
+      setStep('engine');
+      setSelectedEngine(null);
+      setSelectedStage(null);
+      setEuro2Enabled(false);
+      setDieselOptions({ egr: false, dpf: false, flaps: false, adblue: false });
+      setTransmissionTuningEnabled(false);
+    } else if (step === 'engine') {
+      setStep('body');
+      setSelectedBody(null);
+    } else {
+      // Если на шаге выбора кузова - возвращаемся к выбору серии
+      onReset();
+    }
+  };
+
   return (
     <div className="space-y-2">
       <button
-        onClick={onReset}
+        onClick={handleBack}
         className="flex items-center gap-2 px-3 py-1.5 transition-all hover:scale-105"
         style={{
           background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 0, 51, 0.4))',
@@ -168,10 +185,6 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
               engines={engines}
               selectedBody={selectedBody}
               onSelectEngine={handleEngineSelect}
-              onBack={() => {
-                setStep('body');
-                setSelectedBody(null);
-              }}
             />
           )}
 
@@ -190,14 +203,6 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset }:
                 setDieselOptions(prev => ({ ...prev, [option]: enabled }));
               }}
               onTransmissionTuningChange={setTransmissionTuningEnabled}
-              onBack={() => {
-                setStep('engine');
-                setSelectedEngine(null);
-                setSelectedStage(null);
-                setEuro2Enabled(false);
-                setDieselOptions({ egr: false, dpf: false, flaps: false, adblue: false });
-                setTransmissionTuningEnabled(false);
-              }}
               onOrder={handleOrder}
             />
           )}
