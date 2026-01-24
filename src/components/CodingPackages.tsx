@@ -115,6 +115,11 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
     setSelectedOptions(new Set());
   };
 
+  const handleBack = () => {
+    setSelectedSeries(null);
+    setSelectedOptions(new Set());
+  };
+
   return (
     <div className="mb-12 px-4 relative">
       {selectedSeries && (
@@ -145,6 +150,7 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
           onToggleOption={toggleOption}
 
           onSendConfig={handleSendConfig}
+          onBack={handleBack}
         />
       )}
     </div>
@@ -255,6 +261,11 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
     setSelectedOptions(new Set());
   };
 
+  const handleBack = () => {
+    setSelectedSeries(null);
+    setSelectedOptions(new Set());
+  };
+
   return (
     <div className="mb-16 relative">
       {selectedSeries && (
@@ -285,6 +296,7 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
           onToggleOption={toggleOption}
 
           onSendConfig={handleSendConfig}
+          onBack={handleBack}
         />
       )}
 

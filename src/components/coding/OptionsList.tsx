@@ -8,6 +8,7 @@ interface OptionsListProps {
   onCategoryChange: (category: string) => void;
   onToggleOption: (optionId: string) => void;
   onSendConfig: () => void;
+  onBack: () => void;
 }
 
 export default function OptionsList({
@@ -16,7 +17,8 @@ export default function OptionsList({
   activeCategory,
   onCategoryChange,
   onToggleOption,
-  onSendConfig
+  onSendConfig,
+  onBack
 }: OptionsListProps) {
   const filteredOptions = options.filter(
     o => o.category === activeCategory && (o.series === selectedSeries || o.series === 'both')
@@ -27,6 +29,19 @@ export default function OptionsList({
 
   return (
     <>
+      <button
+        onClick={onBack}
+        className="flex items-center gap-2 px-4 py-2 mb-6 rounded-lg text-white/80 hover:text-white transition-all hover:scale-105"
+        style={{
+          background: 'linear-gradient(135deg, rgba(129, 196, 255, 0.1), rgba(22, 88, 142, 0.1))',
+          border: '1px solid rgba(129, 196, 255, 0.3)',
+          backdropFilter: 'blur(10px)'
+        }}
+      >
+        <Icon name="ChevronLeft" className="w-5 h-5 text-blue-400" />
+        <span className="text-sm">Назад</span>
+      </button>
+
       <div className="flex items-center justify-center mb-8">
         <div 
           className="px-6 py-3 rounded-xl flex items-center gap-3"
