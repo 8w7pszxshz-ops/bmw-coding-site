@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { getTelegramLink } from '@/utils/cityConfig';
+import { trackChiptuningOrder, trackGoal, goals } from '@/utils/analytics';
 import type { Series } from './SeriesSelector';
 import type { ChiptuningData } from './types';
 
@@ -152,6 +153,13 @@ export default function StageStep({
                     onSelectStage(null as any);
                   } else {
                     onSelectStage(stage.id as 'stage1' | 'stage2');
+                    // Трекинг выбора Stage
+                    trackGoal(goals.chiptuningStageSelected, {
+                      series: selectedSeries,
+                      engine: selectedEngine.engine_code,
+                      stage: stage.id,
+                      city: selectedCity
+                    });
                   }
                 }}
                 className="w-full p-2 text-left transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
@@ -412,6 +420,24 @@ export default function StageStep({
           } else {
             return;
           }
+          
+          // Отправка цели в Яндекс.Метрику
+          const dieselOptionsList = [];
+          if (dieselOptions.egr) dieselOptionsList.push('EGR');
+          if (dieselOptions.dpf) dieselOptionsList.push('DPF');
+          if (dieselOptions.flaps) dieselOptionsList.push('FLAPS');
+          if (dieselOptions.adblue) dieselOptionsList.push('ADBLUE');
+          
+          trackChiptuningOrder({
+            series: selectedSeries,
+            engine: selectedEngine.engine_code,
+            stage: selectedStage || undefined,
+            euro2: euro2Enabled,
+            diesel: dieselOptionsList.length > 0 ? dieselOptionsList : undefined,
+            city: selectedCity,
+            price: finalPrice
+          });
+          
           onOrder(finalPrice);
         }}
         disabled={!selectedStage && !euro2Enabled && !(isDiesel && (dieselOptions.egr || dieselOptions.dpf || dieselOptions.flaps || dieselOptions.adblue))}

@@ -4,6 +4,7 @@ import { MobileOnly } from '@/components/ui/responsive';
 import { City } from '@/components/CitySelector';
 import { getTelegramLink } from '@/utils/cityConfig';
 import { getCityConfig } from '@/utils/cityConfig';
+import { trackContactClick } from '@/utils/analytics';
 
 const vibrate = (pattern: number | number[] = 10) => {
   if ('vibrate' in navigator) {
@@ -55,7 +56,10 @@ export default function StickyContactButton({ selectedCity }: StickyContactButto
           <div className="absolute bottom-16 right-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl shadow-2xl p-3 mb-2 animate-in fade-in slide-in-from-bottom-4 duration-200">
             <a 
               href={`tel:${cityConfig.phone}`}
-              onClick={handleLinkClick}
+              onClick={() => {
+                handleLinkClick();
+                trackContactClick('phone', selectedCity);
+              }}
               className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-xl transition-all active:scale-95 min-h-[44px]"
             >
               <Icon name="Phone" className="w-5 h-5 text-white" />
@@ -66,7 +70,10 @@ export default function StickyContactButton({ selectedCity }: StickyContactButto
               href={getTelegramLink(selectedCity, 'консультация')}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={handleLinkClick}
+              onClick={() => {
+                handleLinkClick();
+                trackContactClick('telegram', selectedCity);
+              }}
               className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-xl transition-all active:scale-95 min-h-[44px] mt-1"
             >
               <Icon name="Send" className="w-5 h-5 text-white" />
