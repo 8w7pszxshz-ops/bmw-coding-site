@@ -1,264 +1,17 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-
-function AddCarForm({ onAdd, onCancel }: { onAdd: (data: any) => Promise<boolean>, onCancel: () => void }) {
-  const [formData, setFormData] = useState({
-    model_name: '',
-    series: '',
-    body_type: '',
-    engine_code: '',
-    article_code: '',
-    stock_power: '',
-    stock_torque: '',
-    stage1_power: '',
-    stage1_torque: '',
-    stage1_price: '30000',
-    stage2_power: '',
-    stage2_torque: '',
-    stage_type: 'St.1',
-    firmware_type: '30I',
-    is_restyling: false,
-    status: '1',
-    show_stage2: false
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const newData = {
-      model_name: formData.model_name,
-      series: formData.series,
-      body_type: formData.body_type,
-      engine_code: formData.engine_code,
-      article_code: formData.article_code,
-      stock: {
-        power: parseInt(formData.stock_power) || 0,
-        torque: parseInt(formData.stock_torque) || 0
-      },
-      stage1: {
-        power: parseInt(formData.stage1_power) || 0,
-        torque: parseInt(formData.stage1_torque) || 0,
-        price: parseInt(formData.stage1_price) || 30000
-      },
-      stage2: formData.stage2_power && formData.stage2_torque ? {
-        power: parseInt(formData.stage2_power),
-        torque: parseInt(formData.stage2_torque)
-      } : null,
-      stage_type: formData.stage_type,
-      firmware_type: formData.firmware_type,
-      is_restyling: formData.is_restyling,
-      status: formData.status,
-      show_stage2: formData.show_stage2
-    };
-
-    await onAdd(newData);
-  };
-
-  return (
-    <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 mb-6">
-      <h2 className="text-xl font-bold text-white mb-4">Добавить новый автомобиль</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-4">
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Модель</label>
-          <input
-            type="text"
-            value={formData.model_name}
-            onChange={(e) => setFormData(prev => ({ ...prev, model_name: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Серия</label>
-          <input
-            type="text"
-            value={formData.series}
-            onChange={(e) => setFormData(prev => ({ ...prev, series: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Кузов</label>
-          <input
-            type="text"
-            value={formData.body_type}
-            onChange={(e) => setFormData(prev => ({ ...prev, body_type: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Двигатель</label>
-          <input
-            type="text"
-            value={formData.engine_code}
-            onChange={(e) => setFormData(prev => ({ ...prev, engine_code: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Артикул</label>
-          <input
-            type="text"
-            value={formData.article_code}
-            onChange={(e) => setFormData(prev => ({ ...prev, article_code: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Тип прошивки</label>
-          <select
-            value={formData.firmware_type}
-            onChange={(e) => setFormData(prev => ({ ...prev, firmware_type: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-          >
-            <option value="30I" style={{ background: '#1e293b' }}>30I</option>
-            <option value="28I" style={{ background: '#1e293b' }}>28I</option>
-          </select>
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Сток л.с.</label>
-          <input
-            type="number"
-            value={formData.stock_power}
-            onChange={(e) => setFormData(prev => ({ ...prev, stock_power: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Сток Нм</label>
-          <input
-            type="number"
-            value={formData.stock_torque}
-            onChange={(e) => setFormData(prev => ({ ...prev, stock_torque: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Тип Stage</label>
-          <select
-            value={formData.stage_type}
-            onChange={(e) => setFormData(prev => ({ ...prev, stage_type: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-          >
-            <option value="St.1" style={{ background: '#1e293b' }}>Stage 1</option>
-            <option value="St.2" style={{ background: '#1e293b' }}>Stage 2</option>
-          </select>
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Stage1 л.с.</label>
-          <input
-            type="number"
-            value={formData.stage1_power}
-            onChange={(e) => setFormData(prev => ({ ...prev, stage1_power: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Stage1 Нм</label>
-          <input
-            type="number"
-            value={formData.stage1_torque}
-            onChange={(e) => setFormData(prev => ({ ...prev, stage1_torque: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Цена Stage1</label>
-          <input
-            type="number"
-            value={formData.stage1_price}
-            onChange={(e) => setFormData(prev => ({ ...prev, stage1_price: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-            required
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Stage2 л.с. (опционально)</label>
-          <input
-            type="number"
-            value={formData.stage2_power}
-            onChange={(e) => setFormData(prev => ({ ...prev, stage2_power: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-          />
-        </div>
-        <div>
-          <label className="text-white/70 text-sm mb-1 block">Stage2 Нм (опционально)</label>
-          <input
-            type="number"
-            value={formData.stage2_torque}
-            onChange={(e) => setFormData(prev => ({ ...prev, stage2_torque: e.target.value }))}
-            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
-          />
-        </div>
-        <div className="col-span-3 flex gap-4 items-center">
-          <label className="flex items-center gap-2 text-white cursor-pointer">
-            <input
-              type="checkbox"
-              checked={formData.show_stage2}
-              onChange={(e) => setFormData(prev => ({ ...prev, show_stage2: e.target.checked }))}
-              className="w-4 h-4"
-            />
-            <span>Показывать Stage2</span>
-          </label>
-          <label className="flex items-center gap-2 text-white cursor-pointer">
-            <input
-              type="checkbox"
-              checked={formData.is_restyling}
-              onChange={(e) => setFormData(prev => ({ ...prev, is_restyling: e.target.checked }))}
-              className="w-4 h-4"
-            />
-            <span>Рестайлинг</span>
-          </label>
-        </div>
-        <div className="col-span-3 flex gap-3 justify-end">
-          <Button type="button" onClick={onCancel} variant="outline" className="bg-white/5 border-white/20 text-white hover:bg-white/10">
-            Отмена
-          </Button>
-          <Button type="submit" className="bg-green-600 hover:bg-green-700">
-            Добавить
-          </Button>
-        </div>
-      </form>
-    </div>
-  );
-}
+import AddCarForm, { type ChiptuningRecord } from '@/components/admin/AddCarForm';
+import AdminFilters from '@/components/admin/AdminFilters';
+import AdminTable from '@/components/admin/AdminTable';
 
 const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
-
-interface ChiptuningRecord {
-  id: number;
-  model_name: string;
-  series: string;
-  body_type: string;
-  engine_code: string;
-  article_code: string;
-  stock: { power: number; torque: number };
-  stage1: { power: number; torque: number; price: number };
-  stage2: { power: number; torque: number } | null;
-  stage_type: string;
-  is_restyling: boolean;
-  status: string;
-  show_stage2: boolean;
-  firmware_type: string;
-}
 
 export default function Admin() {
   const [records, setRecords] = useState<ChiptuningRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const [syncing, setSyncing] = useState(false);
-  const [editingCell, setEditingCell] = useState<{ id: number; field: string } | null>(null);
-  const [editValue, setEditValue] = useState('');
-  const [savedCells, setSavedCells] = useState<Set<string>>(new Set());
   
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSeries, setFilterSeries] = useState('all');
@@ -295,11 +48,6 @@ export default function Admin() {
 
   const uniqueSeries = Array.from(new Set(records.map(r => r.series))).sort();
   const uniqueBodyTypes = Array.from(new Set(records.map(r => r.body_type))).sort();
-
-  const handleCellClick = (id: number, field: string, currentValue: any) => {
-    setEditingCell({ id, field });
-    setEditValue(String(currentValue ?? ''));
-  };
 
   const saveRecord = async (updatedRecord: ChiptuningRecord) => {
     try {
@@ -382,48 +130,6 @@ export default function Admin() {
       alert('Ошибка добавления записи');
     }
     return false;
-  };
-
-  const handleCellSave = async () => {
-    if (!editingCell) return;
-
-    const record = records.find(r => r.id === editingCell.id);
-    if (!record) return;
-
-    const updatedRecord = { ...record };
-    const fieldPath = editingCell.field.split('.');
-    
-    if (fieldPath.length === 2) {
-      const [parent, child] = fieldPath;
-      if (parent === 'stock' || parent === 'stage1' || parent === 'stage2') {
-        if (!updatedRecord[parent]) {
-          updatedRecord[parent] = { power: 0, torque: 0 };
-        }
-        updatedRecord[parent] = {
-          ...updatedRecord[parent],
-          [child]: parseFloat(editValue) || 0
-        };
-      }
-    } else {
-      const field = editingCell.field as keyof ChiptuningRecord;
-      (updatedRecord[field] as any) = editValue;
-    }
-
-    const success = await saveRecord(updatedRecord);
-    
-    if (success) {
-      const cellKey = `${editingCell.id}-${editingCell.field}`;
-      setSavedCells(prev => new Set(prev).add(cellKey));
-      setTimeout(() => {
-        setSavedCells(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(cellKey);
-          return newSet;
-        });
-      }, 2000);
-    }
-
-    setEditingCell(null);
   };
 
   const handleSync = async () => {
@@ -513,80 +219,20 @@ export default function Admin() {
     reader.readAsText(file);
   };
 
-  const renderCell = (record: ChiptuningRecord, field: string, value: any) => {
-    const cellKey = `${record.id}-${field}`;
-    const isEditing = editingCell?.id === record.id && editingCell?.field === field;
-    const isSaved = savedCells.has(cellKey);
-
-    return (
-      <td
-        key={field}
-        className={`px-4 py-3 text-white/90 cursor-pointer hover:bg-white/10 transition-colors ${
-          isSaved ? 'bg-green-500/30 animate-pulse' : ''
-        }`}
-        onClick={() => !isEditing && handleCellClick(record.id, field, value)}
-      >
-        {isEditing ? (
-          <input
-            type="text"
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            onBlur={handleCellSave}
-            onKeyDown={(e) => e.key === 'Enter' && handleCellSave()}
-            autoFocus
-            className="w-full bg-blue-600/30 border border-blue-500 rounded px-2 py-1 text-white"
-          />
-        ) : (
-          <span>{value ?? '-'}</span>
-        )}
-      </td>
-    );
+  const handleDelete = async (id: number) => {
+    await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id })
+    });
+    loadData();
   };
 
-  const renderCheckbox = (record: ChiptuningRecord, field: 'status' | 'show_stage2', checked: boolean) => {
-    const cellKey = `${record.id}-${field}`;
-    const isSaved = savedCells.has(cellKey);
-
-    const toggleCheckbox = async () => {
-      let updatedRecord: ChiptuningRecord;
-      
-      if (field === 'status') {
-        updatedRecord = { ...record, status: checked ? '0' : '1' };
-      } else {
-        updatedRecord = { ...record, show_stage2: !checked };
-      }
-      
-      const success = await saveRecord(updatedRecord);
-      
-      if (success) {
-        setSavedCells(prev => new Set(prev).add(cellKey));
-        setTimeout(() => {
-          setSavedCells(prev => {
-            const newSet = new Set(prev);
-            newSet.delete(cellKey);
-            return newSet;
-          });
-        }, 2000);
-      }
-    };
-
-    return (
-      <td
-        key={field}
-        className={`px-4 py-3 text-center cursor-pointer hover:bg-white/10 transition-colors ${
-          isSaved ? 'bg-green-500/30 animate-pulse' : ''
-        }`}
-        onClick={toggleCheckbox}
-      >
-        <div className="flex items-center justify-center">
-          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-            checked ? 'bg-green-500 border-green-500' : 'border-white/30'
-          }`}>
-            {checked && <Icon name="Check" className="w-4 h-4 text-white" />}
-          </div>
-        </div>
-      </td>
-    );
+  const handleResetFilters = () => {
+    setSearchTerm('');
+    setFilterSeries('all');
+    setFilterBodyType('all');
+    setFilterStatus('all');
   };
 
   if (loading) {
@@ -644,124 +290,25 @@ export default function Admin() {
 
         {showAddForm && <AddCarForm onAdd={addNewRecord} onCancel={() => setShowAddForm(false)} />}
 
-        <div className="bg-white/5 backdrop-blur-lg rounded-xl p-4 mb-6 flex gap-4">
-          <input
-            type="text"
-            placeholder="Поиск по модели или двигателю..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50"
-          />
-          <select
-            value={filterSeries}
-            onChange={(e) => setFilterSeries(e.target.value)}
-            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
-          >
-            <option value="all" style={{ background: '#1e293b' }}>Все серии</option>
-            {uniqueSeries.map(series => (
-              <option key={series} value={series} style={{ background: '#1e293b' }}>{series}</option>
-            ))}
-          </select>
-          <select
-            value={filterBodyType}
-            onChange={(e) => setFilterBodyType(e.target.value)}
-            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
-          >
-            <option value="all" style={{ background: '#1e293b' }}>Все кузова</option>
-            {uniqueBodyTypes.map(bodyType => (
-              <option key={bodyType} value={bodyType} style={{ background: '#1e293b' }}>{bodyType}</option>
-            ))}
-          </select>
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
-          >
-            <option value="all" style={{ background: '#1e293b' }}>Все статусы</option>
-            <option value="1" style={{ background: '#1e293b' }}>Показывать</option>
-            <option value="0" style={{ background: '#1e293b' }}>Скрыть</option>
-          </select>
-          <Button 
-            onClick={() => {
-              setSearchTerm('');
-              setFilterSeries('all');
-              setFilterBodyType('all');
-              setFilterStatus('all');
-            }}
-            variant="outline"
-            className="bg-white/5 hover:bg-white/10 border-white/20 text-white"
-          >
-            <Icon name="X" className="w-4 h-4 mr-2" />
-            Сбросить
-          </Button>
-        </div>
+        <AdminFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          filterSeries={filterSeries}
+          setFilterSeries={setFilterSeries}
+          filterBodyType={filterBodyType}
+          setFilterBodyType={setFilterBodyType}
+          filterStatus={filterStatus}
+          setFilterStatus={setFilterStatus}
+          uniqueSeries={uniqueSeries}
+          uniqueBodyTypes={uniqueBodyTypes}
+          onReset={handleResetFilters}
+        />
 
-        <div className="bg-white/5 backdrop-blur-lg rounded-xl overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-white/10">
-                <tr>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">ID</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Модель</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Серия</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Кузов</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Двигатель</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Прошивка</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Сток л.с.</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Сток Нм</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Stage1 л.с.</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Stage1 Нм</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Цена</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 л.с.</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 Нм</th>
-                  <th className="px-4 py-3 text-center text-white/80 font-medium">На сайте</th>
-                  <th className="px-4 py-3 text-center text-white/80 font-medium">Stage2 на сайте</th>
-                  <th className="px-4 py-3 text-left text-white/80 font-medium">Действия</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                {filteredRecords.map((record) => (
-                  <tr key={record.id} className="hover:bg-white/5">
-                    <td className="px-4 py-3 text-white/60">{record.id}</td>
-                    {renderCell(record, 'model_name', record.model_name)}
-                    {renderCell(record, 'series', record.series)}
-                    {renderCell(record, 'body_type', record.body_type)}
-                    {renderCell(record, 'engine_code', record.engine_code)}
-                    {renderCell(record, 'firmware_type', record.firmware_type)}
-                    {renderCell(record, 'stock.power', record.stock.power)}
-                    {renderCell(record, 'stock.torque', record.stock.torque)}
-                    {renderCell(record, 'stage1.power', record.stage1.power)}
-                    {renderCell(record, 'stage1.torque', record.stage1.torque)}
-                    {renderCell(record, 'stage1.price', record.stage1.price)}
-                    {renderCell(record, 'stage2.power', record.stage2?.power)}
-                    {renderCell(record, 'stage2.torque', record.stage2?.torque)}
-                    {renderCheckbox(record, 'status', record.status === '1')}
-                    {renderCheckbox(record, 'show_stage2', record.show_stage2)}
-                    <td className="px-4 py-3">
-                      <Button
-                        onClick={async () => {
-                          if (confirm('Удалить запись?')) {
-                            await fetch(API_URL, {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({ action: 'delete', id: record.id })
-                            });
-                            loadData();
-                          }
-                        }}
-                        variant="ghost"
-                        size="sm"
-                        className="text-red-400 hover:text-red-300 hover:bg-red-500/20"
-                      >
-                        <Icon name="Trash2" className="w-4 h-4" />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <AdminTable
+          records={filteredRecords}
+          onSave={saveRecord}
+          onDelete={handleDelete}
+        />
 
         <div className="mt-4 text-white/60 text-sm">
           Показано записей: {filteredRecords.length} из {records.length}
