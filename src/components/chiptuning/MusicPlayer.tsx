@@ -7,9 +7,9 @@ interface MusicPlayerProps {
 }
 
 const playlist = [
-  '/music/1.mp3',
+  '/music/track3.mp3',
   '/music/track2.mp3',
-  '/music/track3.mp3'
+  '/music/1.mp3'
 ];
 
 export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
