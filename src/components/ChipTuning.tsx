@@ -35,10 +35,26 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
       }
     };
 
+    const handlePageHide = () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden && audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+
     window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('pagehide', handlePageHide);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('pagehide', handlePageHide);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;

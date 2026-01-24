@@ -34,10 +34,28 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
         }
       };
 
+      const handleBeforeUnload = () => {
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }
+      };
+
+      const handlePageHide = () => {
+        if (audioRef.current) {
+          audioRef.current.pause();
+          setIsMuted(true);
+        }
+      };
+
       document.addEventListener('visibilitychange', handleVisibilityChange);
+      window.addEventListener('beforeunload', handleBeforeUnload);
+      window.addEventListener('pagehide', handlePageHide);
 
       return () => {
         document.removeEventListener('visibilitychange', handleVisibilityChange);
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        window.removeEventListener('pagehide', handlePageHide);
       };
     } else {
       if (audioRef.current) {
@@ -161,10 +179,28 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
         }
       };
 
+      const handleBeforeUnload = () => {
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }
+      };
+
+      const handlePageHide = () => {
+        if (audioRef.current) {
+          audioRef.current.pause();
+          setIsMuted(true);
+        }
+      };
+
       document.addEventListener('visibilitychange', handleVisibilityChange);
+      window.addEventListener('beforeunload', handleBeforeUnload);
+      window.addEventListener('pagehide', handlePageHide);
 
       return () => {
         document.removeEventListener('visibilitychange', handleVisibilityChange);
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        window.removeEventListener('pagehide', handlePageHide);
       };
     } else {
       if (audioRef.current) {
