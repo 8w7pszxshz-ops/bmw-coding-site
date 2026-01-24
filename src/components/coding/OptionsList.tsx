@@ -7,7 +7,6 @@ interface OptionsListProps {
   activeCategory: string;
   onCategoryChange: (category: string) => void;
   onToggleOption: (optionId: string) => void;
-  onResetSeries: () => void;
   onSendConfig: () => void;
 }
 
@@ -17,7 +16,6 @@ export default function OptionsList({
   activeCategory,
   onCategoryChange,
   onToggleOption,
-  onResetSeries,
   onSendConfig
 }: OptionsListProps) {
   const filteredOptions = options.filter(
@@ -29,7 +27,7 @@ export default function OptionsList({
 
   return (
     <>
-      <div className="flex items-center justify-center gap-4 mb-8">
+      <div className="flex items-center justify-center mb-8">
         <div 
           className="px-6 py-3 rounded-xl flex items-center gap-3"
           style={{
@@ -39,17 +37,6 @@ export default function OptionsList({
         >
           <span className="text-white font-medium">BMW {selectedSeries}-series</span>
         </div>
-        <button
-          onClick={onResetSeries}
-          className="px-4 py-2 rounded-lg text-white/60 hover:text-white transition-colors text-sm hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)'
-          }}
-        >
-          Изменить серию
-        </button>
       </div>
 
       <div className="flex gap-3 mb-8 overflow-x-auto pb-2">

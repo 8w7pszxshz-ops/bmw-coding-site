@@ -115,11 +115,6 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
     setSelectedOptions(new Set());
   };
 
-  const handleResetSeries = () => {
-    setSelectedSeries(null);
-    setSelectedOptions(new Set());
-  };
-
   return (
     <div className="mb-12 px-4 relative">
       {selectedSeries && (
@@ -148,7 +143,7 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
           onToggleOption={toggleOption}
-          onResetSeries={handleResetSeries}
+
           onSendConfig={handleSendConfig}
         />
       )}
@@ -260,11 +255,6 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
     setSelectedOptions(new Set());
   };
 
-  const handleResetSeries = () => {
-    setSelectedSeries(null);
-    setSelectedOptions(new Set());
-  };
-
   return (
     <div className="mb-16 relative">
       {selectedSeries && (
@@ -293,7 +283,7 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
           onToggleOption={toggleOption}
-          onResetSeries={handleResetSeries}
+
           onSendConfig={handleSendConfig}
         />
       )}
