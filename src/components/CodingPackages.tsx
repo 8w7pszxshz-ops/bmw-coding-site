@@ -16,12 +16,13 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
     if (selectedSeries && !audioRef.current) {
       audioRef.current = new Audio('/music/1.mp3');
       audioRef.current.loop = true;
-      audioRef.current.volume = 0.3;
+      audioRef.current.volume = 0.2;
       audioRef.current.play().catch(() => {});
     }
     return () => {
@@ -31,6 +32,17 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
       }
     };
   }, [selectedSeries]);
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    if (isMuted) {
+      audioRef.current.play().catch(() => {});
+      setIsMuted(false);
+    } else {
+      audioRef.current.pause();
+      setIsMuted(true);
+    }
+  };
 
   const toggleOption = (optionId: string) => {
     const newSelected = new Set(selectedOptions);
@@ -76,7 +88,16 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
   };
 
   return (
-    <div className="mb-12 px-4">
+    <div className="mb-12 px-4 relative">
+      {selectedSeries && (
+        <button
+          onClick={toggleMute}
+          className="absolute top-0 right-4 w-10 h-10 flex items-center justify-center transition-all hover:scale-110 z-10 bg-blue-500/20 hover:bg-blue-500/30 border-2 border-blue-400/50 rounded-lg"
+          title={isMuted ? 'Включить звук' : 'Выключить звук'}
+        >
+          <Icon name={isMuted ? "VolumeX" : "Volume2"} className="w-5 h-5 text-blue-400" />
+        </button>
+      )}
       <div className="text-center mb-6">
         <div className="flex items-center justify-center gap-2 mb-3">
           <Icon name="Wrench" className="w-6 h-6 text-[#81C4FF]" />
@@ -107,12 +128,13 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('comfort');
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
     if (selectedSeries && !audioRef.current) {
       audioRef.current = new Audio('/music/1.mp3');
       audioRef.current.loop = true;
-      audioRef.current.volume = 0.3;
+      audioRef.current.volume = 0.2;
       audioRef.current.play().catch(() => {});
     }
     return () => {
@@ -122,6 +144,17 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
       }
     };
   }, [selectedSeries]);
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    if (isMuted) {
+      audioRef.current.play().catch(() => {});
+      setIsMuted(false);
+    } else {
+      audioRef.current.pause();
+      setIsMuted(true);
+    }
+  };
 
   const toggleOption = (optionId: string) => {
     const newSelected = new Set(selectedOptions);
@@ -167,7 +200,16 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
   };
 
   return (
-    <div className="mb-16">
+    <div className="mb-16 relative">
+      {selectedSeries && (
+        <button
+          onClick={toggleMute}
+          className="absolute top-0 right-0 w-12 h-12 flex items-center justify-center transition-all hover:scale-110 z-10 bg-blue-500/20 hover:bg-blue-500/30 border-2 border-blue-400/50 rounded-lg"
+          title={isMuted ? 'Включить звук' : 'Выключить звук'}
+        >
+          <Icon name={isMuted ? "VolumeX" : "Volume2"} className="w-6 h-6 text-blue-400" />
+        </button>
+      )}
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Icon name="Wrench" className="w-8 h-8 text-[#81C4FF]" />

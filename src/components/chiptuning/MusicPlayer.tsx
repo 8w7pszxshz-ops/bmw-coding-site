@@ -14,8 +14,7 @@ const playlist = [
 
 export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [musicVolume, setMusicVolume] = useState(0.5);
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -25,19 +24,12 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
       const nextIndex = (currentTrackIndex + 1) % playlist.length;
       setCurrentTrackIndex(nextIndex);
       audio.src = playlist[nextIndex];
-      if (isMusicPlaying) {
+      if (!isMuted) {
         audio.play().catch(err => console.log('Play error:', err));
       }
     };
 
     audio.addEventListener('ended', handleTrackEnd);
-
-    const handleVisibilityChange = () => {
-      if (document.hidden && audio) {
-        audio.pause();
-        setIsMusicPlaying(false);
-      }
-    };
 
     const handleBeforeUnload = () => {
       if (audio) {
@@ -46,22 +38,13 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
       audio.removeEventListener('ended', handleTrackEnd);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [currentTrackIndex, isMusicPlaying]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.volume = musicVolume;
-  }, [musicVolume]);
+  }, [currentTrackIndex, isMuted]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -70,21 +53,13 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
 
     if (isOpen) {
       setCurrentTrackIndex(0);
-      audio.volume = musicVolume;
-      
-      // Проверяем, играет ли музыка
-      if (!audio.paused) {
-        setIsMusicPlaying(true);
-      } else {
-        setIsMusicPlaying(false);
-      }
+      audio.volume = 0.2; // 60% ниже от 0.5 = 0.2
     } else {
-      // КРИТИЧНО: полностью останавливаем при закрытии
       audio.pause();
       audio.currentTime = 0;
-      setIsMusicPlaying(false);
+      setIsMuted(false);
     }
-  }, [isOpen, musicVolume]);
+  }, [isOpen]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -92,111 +67,38 @@ export default function MusicPlayer({ isOpen, audioRef }: MusicPlayerProps) {
 
     if (audio.src !== playlist[currentTrackIndex]) {
       audio.src = playlist[currentTrackIndex];
-      if (isMusicPlaying) {
+      if (!isMuted) {
         audio.play().catch(err => console.log('Play error:', err));
       }
     }
-  }, [currentTrackIndex, isMusicPlaying]);
+  }, [currentTrackIndex, isMuted]);
 
-  const toggleMusic = () => {
+  const toggleMute = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (isMusicPlaying) {
-      audio.pause();
-      setIsMusicPlaying(false);
+    if (isMuted) {
+      audio.play().catch(err => console.log('Play error:', err));
+      setIsMuted(false);
     } else {
-      audio.play().then(() => {
-        setIsMusicPlaying(true);
-      }).catch(err => {
-        console.log('Play error:', err);
-        setIsMusicPlaying(false);
-      });
+      audio.pause();
+      setIsMuted(true);
     }
   };
 
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value);
-    setMusicVolume(newVolume);
-  };
-
-  const nextTrack = () => {
-    const nextIndex = (currentTrackIndex + 1) % playlist.length;
-    setCurrentTrackIndex(nextIndex);
-  };
-
-  const prevTrack = () => {
-    const prevIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-    setCurrentTrackIndex(prevIndex);
-  };
-
   return (
-    <div 
-      className="absolute top-4 left-4 flex items-center gap-2 px-3 py-2 z-10"
+    <button
+      onClick={toggleMute}
+      className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center transition-all hover:scale-110 z-10"
       style={{
-        background: 'linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(26, 8, 8, 0.9) 100%)',
-        border: '2px solid rgba(255, 0, 0, 0.4)',
-        clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)',
+        background: isMuted ? 'rgba(255, 0, 0, 0.1)' : 'rgba(255, 0, 0, 0.3)',
+        border: '2px solid rgba(255, 0, 0, 0.5)',
+        clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)',
         boxShadow: '0 0 15px rgba(255, 0, 0, 0.3)'
       }}
+      title={isMuted ? 'Включить звук' : 'Выключить звук'}
     >
-      {/* Track info */}
-      <span className="text-red-400 text-xs uppercase tracking-wider" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
-        {currentTrackIndex + 1}/{playlist.length}
-      </span>
-      
-      {/* Previous track button */}
-      <button
-        onClick={prevTrack}
-        className="w-7 h-7 flex items-center justify-center transition-all hover:scale-110"
-        style={{
-          background: 'rgba(255, 0, 0, 0.1)',
-          border: '1px solid rgba(255, 0, 0, 0.5)'
-        }}
-      >
-        <Icon name="ChevronLeft" className="w-4 h-4 text-red-400" />
-      </button>
-      
-      {/* Play/Pause button */}
-      <button
-        onClick={toggleMusic}
-        className="w-8 h-8 flex items-center justify-center transition-all hover:scale-110"
-        style={{
-          background: isMusicPlaying ? 'rgba(255, 0, 0, 0.3)' : 'rgba(255, 0, 0, 0.1)',
-          border: '1px solid rgba(255, 0, 0, 0.5)'
-        }}
-      >
-        <Icon name={isMusicPlaying ? "Pause" : "Play"} className="w-4 h-4 text-red-400" />
-      </button>
-      
-      {/* Next track button */}
-      <button
-        onClick={nextTrack}
-        className="w-7 h-7 flex items-center justify-center transition-all hover:scale-110"
-        style={{
-          background: 'rgba(255, 0, 0, 0.1)',
-          border: '1px solid rgba(255, 0, 0, 0.5)'
-        }}
-      >
-        <Icon name="ChevronRight" className="w-4 h-4 text-red-400" />
-      </button>
-      
-      {/* Volume slider */}
-      <div className="flex items-center gap-2">
-        <Icon name="Volume2" className="w-4 h-4 text-red-400" />
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
-          value={musicVolume}
-          onChange={handleVolumeChange}
-          className="w-20 h-1 bg-red-900/30 rounded-lg appearance-none cursor-pointer"
-          style={{
-            accentColor: '#ff0000'
-          }}
-        />
-      </div>
-    </div>
+      <Icon name={isMuted ? "VolumeX" : "Volume2"} className="w-5 h-5 text-red-400" />
+    </button>
   );
 }
