@@ -269,19 +269,7 @@ export default function OptionsList({
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <button
-              onClick={() => onToggleOption('')}
-              disabled={selectedCount === 0}
-              className="px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed hover:shadow-[0_0_40px_rgba(231,34,46,0.4)]"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              Сбросить
-            </button>
+          <div>
             <button
               onClick={onSendConfig}
               disabled={selectedCount === 0}
