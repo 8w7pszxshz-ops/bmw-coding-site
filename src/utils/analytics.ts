@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-const METRIKA_ID = 101026698;
+const METRIKA_ID = 106455755;
 
 /**
  * Отправка цели в Яндекс.Метрику
