@@ -42,6 +42,111 @@ def handler(event: dict, context) -> dict:
         conn = psycopg2.connect(os.environ['DATABASE_URL'])
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         
+        # === ANALYTICS HANDLING ===
+        if action == 'analytics_overview':
+            # Общая статистика для админки
+            stats = {}
+            
+            # Всего визитов за последние 30 дней
+            cursor.execute("""
+                SELECT COUNT(*) as total_visits
+                FROM site_visits
+                WHERE created_at >= NOW() - INTERVAL '30 days'
+            """)
+            result = cursor.fetchone()
+            stats['total_visits_30d'] = result['total_visits'] if result else 0
+            
+            # Визиты за сегодня
+            cursor.execute("""
+                SELECT COUNT(*) as today_visits
+                FROM site_visits
+                WHERE created_at >= CURRENT_DATE
+            """)
+            result = cursor.fetchone()
+            stats['today_visits'] = result['today_visits'] if result else 0
+            
+            # Популярные коды ошибок (топ-10)
+            cursor.execute("""
+                SELECT code, title, search_count, category, severity
+                FROM error_codes
+                ORDER BY search_count DESC
+                LIMIT 10
+            """)
+            stats['popular_errors'] = [dict(row) for row in cursor.fetchall()]
+            
+            # Поиски кодов за последние 7 дней
+            cursor.execute("""
+                SELECT COUNT(*) as total_searches
+                FROM error_code_searches
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+            """)
+            result = cursor.fetchone()
+            stats['error_searches_7d'] = result['total_searches'] if result else 0
+            
+            # График визитов за последние 14 дней
+            cursor.execute("""
+                SELECT 
+                    DATE(created_at) as date,
+                    COUNT(*) as visits
+                FROM site_visits
+                WHERE created_at >= NOW() - INTERVAL '14 days'
+                GROUP BY DATE(created_at)
+                ORDER BY date ASC
+            """)
+            visits_data = cursor.fetchall()
+            stats['visits_chart'] = [
+                {'date': row['date'].isoformat(), 'visits': row['visits']}
+                for row in visits_data
+            ]
+            
+            # Разбивка по устройствам за последние 30 дней
+            cursor.execute("""
+                SELECT 
+                    device_type,
+                    COUNT(*) as count
+                FROM site_visits
+                WHERE created_at >= NOW() - INTERVAL '30 days'
+                  AND device_type IS NOT NULL
+                GROUP BY device_type
+            """)
+            stats['devices'] = [dict(row) for row in cursor.fetchall()]
+            
+            cursor.close()
+            conn.close()
+            
+            return {
+                'statusCode': 200,
+                'headers': get_cors_headers(origin),
+                'body': json.dumps(stats, ensure_ascii=False, default=str),
+                'isBase64Encoded': False
+            }
+        
+        elif action == 'analytics_errors':
+            # Детальная статистика по кодам ошибок
+            cursor.execute("""
+                SELECT 
+                    code,
+                    title,
+                    category,
+                    severity,
+                    search_count
+                FROM error_codes
+                WHERE search_count > 0
+                ORDER BY search_count DESC
+                LIMIT 100
+            """)
+            errors = [dict(row) for row in cursor.fetchall()]
+            
+            cursor.close()
+            conn.close()
+            
+            return {
+                'statusCode': 200,
+                'headers': get_cors_headers(origin),
+                'body': json.dumps({'errors': errors}, ensure_ascii=False),
+                'isBase64Encoded': False
+            }
+        
         # === ERROR CODES HANDLING ===
         if action == 'get_popular_errors':
             cursor.execute("""
