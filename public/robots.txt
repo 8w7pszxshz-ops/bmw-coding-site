@@ -16,8 +16,9 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://reborn-bmw.poehali.app/sitemap.xml
+Sitemap: https://reborn-bmw.tech/sitemap.xml
 
-# Запрет для админ-панели
+# Запрет для служебных страниц
+User-agent: *
 Disallow: /admin
 Disallow: /analytics
