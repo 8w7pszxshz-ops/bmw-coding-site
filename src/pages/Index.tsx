@@ -76,26 +76,27 @@ export default function Index() {
       <PullToRefresh onRefresh={handleRefresh}>
         <StickyContactButton selectedCity={selectedCity} />
         <BurgerMenu />
-      <FloatingAIButton />
-      <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
-      <HeroSection />
-      <div id="offers">
-        <SpecialOffer selectedCity={selectedCity} />
-      </div>
-      <CalculatorHub selectedCity={selectedCity} />
-      <div id="services">
-        <ServicesGrid selectedCity={selectedCity} />
-      </div>
-      <div id="tips">
-        <ExpertTips />
-      </div>
-      <div id="reviews">
-        <Reviews />
-      </div>
-      <div id="contact">
-        <QuickActions selectedCity={selectedCity} />
-      </div>
-    </MainLayout>
-    </PullToRefresh>
+        <FloatingAIButton />
+        <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
+          <HeroSection />
+          <div id="offers">
+            <SpecialOffer selectedCity={selectedCity} />
+          </div>
+          <CalculatorHub selectedCity={selectedCity} />
+          <div id="services">
+            <ServicesGrid selectedCity={selectedCity} />
+          </div>
+          <div id="tips">
+            <ExpertTips />
+          </div>
+          <div id="reviews">
+            <Reviews />
+          </div>
+          <div id="contact">
+            <QuickActions selectedCity={selectedCity} />
+          </div>
+        </MainLayout>
+      </PullToRefresh>
+    </>
   );
 }

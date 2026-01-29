@@ -273,5 +273,6 @@ export default function ErrorCodes() {
         </div>
       </div>
     </div>
+    </>
   );
 }

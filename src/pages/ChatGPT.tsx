@@ -94,5 +94,6 @@ export default function ChatGPT() {
         </div>
       </div>
     </div>
+    </>
   );
 }
