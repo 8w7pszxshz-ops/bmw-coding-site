@@ -14,6 +14,7 @@ import PullToRefresh from '@/components/PullToRefresh';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { preloadImages, clearExpiredCache } from '@/utils/imageCache';
+import { SEO } from '@/utils/seo';
 
 export default function Index() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
@@ -65,9 +66,16 @@ export default function Index() {
   }
 
   return (
-    <PullToRefresh onRefresh={handleRefresh}>
-      <StickyContactButton selectedCity={selectedCity} />
-      <BurgerMenu />
+    <>
+      <SEO 
+        title="Чип-тюнинг и Кодирование BMW"
+        description="Профессиональный чип-тюнинг BMW: Stage 1, Stage 2, отключение Euro 2, EGR, DPF, ADBLUE. Увеличение мощности до 30%. Работаем в Москве и Владивостоке. Гарантия качества."
+        keywords="чип тюнинг BMW, чип тюнинг BMW Москва, увеличение мощности BMW, stage 1 BMW, stage 2 BMW, кодирование BMW, русификация BMW"
+        canonical="https://reborn-bmw.poehali.app/"
+      />
+      <PullToRefresh onRefresh={handleRefresh}>
+        <StickyContactButton selectedCity={selectedCity} />
+        <BurgerMenu />
       <FloatingAIButton />
       <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
       <HeroSection />

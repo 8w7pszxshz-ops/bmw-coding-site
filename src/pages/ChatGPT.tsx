@@ -1,6 +1,7 @@
 import { ChatGPTPlayground } from "@/components/extensions/chatgpt-polza/ChatGPTPlayground";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import { SEO } from "@/utils/seo";
 
 const API_URL = "https://functions.poehali.dev/df31c433-12db-4a99-ab16-3d4ab626565d";
 
@@ -32,10 +33,17 @@ export default function ChatGPT() {
   const navigate = useNavigate();
 
   return (
-    <div 
-      className="min-h-screen relative overflow-hidden"
-      style={{
-        background: `
+    <>
+      <SEO 
+        title="Консультация по BMW с ИИ"
+        description="Получите экспертную консультацию по диагностике, ремонту и обслуживанию BMW от ИИ-ассистента. Ответы на вопросы о чип-тюнинге, кодировании, ошибках BMW."
+        keywords="консультация BMW, диагностика BMW онлайн, вопросы по BMW, ИИ консультант BMW"
+        canonical="https://reborn-bmw.poehali.app/chatgpt"
+      />
+      <div 
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          background: `
           radial-gradient(ellipse 800px 600px at 20% 30%, rgba(0, 150, 255, 0.15), transparent),
           radial-gradient(ellipse 600px 800px at 80% 70%, rgba(100, 200, 255, 0.12), transparent),
           radial-gradient(ellipse 400px 400px at 50% 50%, rgba(50, 180, 255, 0.08), transparent),

@@ -4,6 +4,9 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: Yandex
+Allow: /
+
 User-agent: Twitterbot
 Allow: /
 
@@ -12,3 +15,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://reborn-bmw.poehali.app/sitemap.xml
+
+# Запрет для админ-панели
+Disallow: /admin
+Disallow: /analytics

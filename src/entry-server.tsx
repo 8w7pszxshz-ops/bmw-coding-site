@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router-dom/server';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Index from './pages/Index';
 import ChatGPT from './pages/ChatGPT';
 import Admin from './pages/Admin';
@@ -21,23 +22,34 @@ export function render(url: string) {
     },
   });
 
+  const helmetContext = {};
+
   const html = renderToString(
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <StaticRouter location={url}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/chatgpt" element={<ChatGPT />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/error-codes" element={<ErrorCodes />} />
-            <Route path="/error-codes/:code" element={<ErrorCodeDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </StaticRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <HelmetProvider context={helmetContext}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <StaticRouter location={url}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/chatgpt" element={<ChatGPT />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/error-codes" element={<ErrorCodes />} />
+              <Route path="/error-codes/:code" element={<ErrorCodeDetail />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </StaticRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 
-  return { html };
+  const { helmet } = helmetContext as any;
+
+  return { 
+    html,
+    head: helmet 
+      ? `${helmet.title.toString()}${helmet.meta.toString()}${helmet.link.toString()}`
+      : ''
+  };
 }
