@@ -217,6 +217,20 @@
 
     <meta name="pp-name" value="bmw-coding-site">
       <script src="https://cdn.poehali.dev/intertnal/js/inspector-min.js"></script>
+      
+    <!-- Prerender detection для SEO ботов -->
+    <script>
+      (function() {
+        var ua = navigator.userAgent.toLowerCase();
+        var botKeywords = ['yandex', 'googlebot', 'bingbot', 'slurp', 'duckduckbot'];
+        var isBot = botKeywords.some(function(keyword) { return ua.indexOf(keyword) !== -1; });
+        
+        if (isBot) {
+          // Редирект бота на prerender функцию
+          window.location.href = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
+        }
+      })();
+    </script>
   </head>
 
 <body>

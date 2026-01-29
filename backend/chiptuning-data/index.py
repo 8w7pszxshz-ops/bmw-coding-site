@@ -1,5 +1,5 @@
 """
-API для получения данных о чип-тюнинге BMW из базы данных
+API для получения данных о чип-тюнинге BMW из базы данных + Prerendering для SEO ботов
 """
 import json
 import os
@@ -8,6 +8,7 @@ from psycopg2.extras import RealDictCursor
 import base64
 import requests
 from datetime import datetime
+from prerender_html import get_seo_html
 
 def get_cors_headers(origin=None):
     """Возвращает стандартные CORS заголовки"""
@@ -23,6 +24,26 @@ def handler(event: dict, context) -> dict:
     method = event.get('httpMethod', 'GET')
     headers = event.get('headers', {})
     origin = headers.get('origin') or headers.get('Origin')
+    
+    # === PRERENDERING ДЛЯ SEO БОТОВ ===
+    user_agent = headers.get('user-agent', '').lower()
+    bot_keywords = ['yandex', 'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 
+                    'facebookexternalhit', 'twitterbot', 'linkedinbot', 'whatsapp']
+    is_bot = any(keyword in user_agent for keyword in bot_keywords)
+    
+    # Если бот запрашивает корень (без action параметра) — отдаём HTML
+    params = event.get('queryStringParameters') or {}
+    if is_bot and not params.get('action'):
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'text/html; charset=utf-8',
+                'Cache-Control': 'public, max-age=3600',
+                'X-Robots-Tag': 'index, follow'
+            },
+            'body': get_seo_html(),
+            'isBase64Encoded': False
+        }
     
     # CORS preflight
     if method == 'OPTIONS':
