@@ -79,5 +79,73 @@ def get_seo_html() -> str:
             <p><strong>Адреса:</strong> Москва, Владивосток, Саратов</p>
         </div>
     </div>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://reborn-bmw.tech/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Чип-тюнинг BMW",
+          "item": "https://reborn-bmw.tech/#services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Коды ошибок BMW",
+          "item": "https://reborn-bmw.tech/error-codes"
+        }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Безопасен ли чип-тюнинг для BMW?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Да, при профессиональном выполнении чип-тюнинг Stage 1 абсолютно безопасен. Мы работаем в пределах запаса прочности двигателя."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Можно ли вернуть стоковую прошивку BMW?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Да, мы сохраняем оригинальную прошивку и можем вернуть её в любой момент бесплатно."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Сколько времени занимает чип-тюнинг BMW?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Чип-тюнинг BMW занимает 1-3 часа в зависимости от модели. Кодирование — 30-60 минут."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Какой прирост мощности даёт чип-тюнинг BMW?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Stage 1 даёт прирост 20-30% мощности и крутящего момента. Stage 2 — до 40%. Для дизельных BMW прирост до 35%."
+          }
+        }
+      ]
+    }
+    </script>
 </body>
 </html>'''

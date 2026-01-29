@@ -41,6 +41,71 @@ export default function ErrorCodeDetail() {
     }
   }, [code]);
 
+  useEffect(() => {
+    if (errorData) {
+      // Добавляем breadcrumbs микроразметку
+      const breadcrumbScript = document.createElement('script');
+      breadcrumbScript.type = 'application/ld+json';
+      breadcrumbScript.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Главная",
+            "item": "https://reborn-bmw.tech/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Коды ошибок BMW",
+            "item": "https://reborn-bmw.tech/error-codes"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": `Ошибка ${errorData.code}`,
+            "item": `https://reborn-bmw.tech/error-codes/${errorData.code}`
+          }
+        ]
+      });
+      document.head.appendChild(breadcrumbScript);
+
+      // Добавляем FAQ микроразметку для решений
+      const faqScript = document.createElement('script');
+      faqScript.type = 'application/ld+json';
+      faqScript.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": `Что означает ошибка ${errorData.code}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": errorData.description
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `Как устранить ошибку ${errorData.code}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": errorData.solutions.join('. ')
+            }
+          }
+        ]
+      });
+      document.head.appendChild(faqScript);
+
+      return () => {
+        document.head.removeChild(breadcrumbScript);
+        document.head.removeChild(faqScript);
+      };
+    }
+  }, [errorData]);
+
   const loadErrorCode = async (errorCode: string) => {
     setLoading(true);
     setNotFound(false);

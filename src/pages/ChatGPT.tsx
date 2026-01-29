@@ -1,5 +1,6 @@
 import { ChatGPTPlayground } from "@/components/extensions/chatgpt-polza/ChatGPTPlayground";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const API_URL = "https://functions.poehali.dev/df31c433-12db-4a99-ab16-3d4ab626565d";
@@ -30,6 +31,35 @@ const BMW_SYSTEM_PROMPT = `Ты — профессиональный консу�
 
 export default function ChatGPT() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Добавляем breadcrumbs микроразметку
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://reborn-bmw.tech/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ChatGPT помощник BMW",
+          "item": "https://reborn-bmw.tech/chatgpt"
+        }
+      ]
+    });
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   return (
     <div 
