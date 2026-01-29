@@ -50,7 +50,7 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
     <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 flex items-center justify-between backdrop-blur-md border-b border-white/5">
       <div className="flex items-center gap-3">
         <img 
-          src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/reborn.jpg" 
+          src="https://cdn.poehali.dev/files/reborn.jpg" 
           alt="Logo" 
           className="h-10 w-auto opacity-90"
         />
