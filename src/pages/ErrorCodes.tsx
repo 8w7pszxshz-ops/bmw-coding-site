@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import ErrorCodeSearch from '@/components/ErrorCodeSearch';
-import { SEO } from '@/utils/seo';
 
 const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
 
@@ -69,14 +68,7 @@ export default function ErrorCodes() {
   };
 
   return (
-    <>
-      <SEO 
-        title="Коды ошибок BMW"
-        description="База ошибок BMW с расшифровкой кодов диагностики. Поиск по популярным ошибкам двигателя, трансмиссии, электроники. Решение проблем BMW."
-        keywords="коды ошибок BMW, расшифровка ошибок BMW, диагностика BMW, ошибки двигателя BMW"
-        canonical="https://reborn-bmw.poehali.app/error-codes"
-      />
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-8 md:py-16">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-8 md:py-16">
       <div className="max-w-6xl mx-auto px-4">
         {/* Hero section */}
         <div className="text-center mb-12 md:mb-16">
@@ -273,6 +265,5 @@ export default function ErrorCodes() {
         </div>
       </div>
     </div>
-    </>
   );
 }

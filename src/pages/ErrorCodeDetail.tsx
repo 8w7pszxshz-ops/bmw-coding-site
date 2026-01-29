@@ -4,7 +4,6 @@ import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { City } from '@/components/CitySelector';
 import { getTelegramLink } from '@/utils/cityConfig';
-import { SEO } from '@/utils/seo';
 
 const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
 
@@ -149,14 +148,7 @@ export default function ErrorCodeDetail() {
   );
 
   return (
-    <>
-      <SEO 
-        title={`${errorData.code} - ${errorData.title}`}
-        description={`Расшифровка ошибки BMW ${errorData.code}: ${errorData.description}. Причины возникновения, симптомы и способы устранения ошибки.`}
-        keywords={`ошибка BMW ${errorData.code}, ${errorData.code} BMW расшифровка, ${errorData.category} BMW`}
-        canonical={`https://reborn-bmw.poehali.app/error-codes/${errorData.code}`}
-      />
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-8 md:py-16">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-8 md:py-16">
         <div className="max-w-4xl mx-auto px-4">
         {/* Back button */}
         <Link
@@ -381,6 +373,5 @@ export default function ErrorCodeDetail() {
         </div>
       </div>
     </div>
-    </>
   );
 }
