@@ -1,24 +1,6 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Yandex
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
-
-Sitemap: https://reborn-bmw.tech/sitemap.xml
-
-# Запрет для служебных страниц
-User-agent: *
 Disallow: /admin
 Disallow: /analytics
+
+Sitemap: https://reborn-bmw.tech/sitemap.xml
