@@ -33,7 +33,7 @@ export default function FloatingAIButton() {
           <div 
             className="absolute -inset-2 rounded-full blur-xl animate-pulse"
             style={{
-              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.5), rgba(6, 182, 212, 0.5))',
+              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.7), rgba(6, 182, 212, 0.7))',
               animationDuration: '3s'
             }}
           />
@@ -52,8 +52,8 @@ export default function FloatingAIButton() {
             <div 
               className="absolute inset-0 rounded-full pointer-events-none animate-pulse"
               style={{
-                background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.5), transparent 60%)',
-                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.5)',
+                background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.7), transparent 60%)',
+                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.7)',
                 animationDuration: '4s',
                 animationDelay: '0.5s'
               }}
@@ -97,7 +97,7 @@ export default function FloatingAIButton() {
               className="relative w-3 h-3 rounded-full border-2 border-black/80"
               style={{
                 background: 'rgb(74, 222, 128)',
-                boxShadow: '0 0 8px rgba(74, 222, 128, 0.5)'
+                boxShadow: '0 0 8px rgba(74, 222, 128, 0.7)'
               }}
             />
           </div>

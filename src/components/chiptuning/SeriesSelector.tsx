@@ -18,18 +18,18 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
       <>
         {/* Layer 1 - Main gradient */}
         <div 
-          className="absolute inset-0 opacity-50 pointer-events-none blur-3xl"
+          className="absolute inset-0 opacity-70 pointer-events-none blur-3xl"
           style={{
-            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 51, 0.5) 25%, transparent 50%, rgba(0, 212, 255, 0.5) 75%, rgba(56, 189, 248, 0.5) 100%)',
+            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 25%, transparent 50%, rgba(0, 212, 255, 0.7) 75%, rgba(56, 189, 248, 0.7) 100%)',
             backgroundSize: '400% 400%',
             animation: 'policeLights 8s ease-in-out infinite'
           }}
         />
         {/* Layer 2 - Radial glow */}
         <div 
-          className="absolute inset-0 opacity-50 pointer-events-none blur-2xl"
+          className="absolute inset-0 opacity-70 pointer-events-none blur-2xl"
           style={{
-            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 40%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.5) 0%, transparent 40%)',
+            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.7) 0%, transparent 40%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.7) 0%, transparent 40%)',
             animation: 'breathePulse 5s ease-in-out infinite'
           }}
         />

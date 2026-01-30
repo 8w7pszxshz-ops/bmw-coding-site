@@ -86,7 +86,7 @@ export default function StickyContactButton({ selectedCity }: StickyContactButto
           onClick={handleToggle}
           className="min-w-[56px] min-h-[56px] w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 animate-pulse"
           style={{
-            boxShadow: '0 8px 32px rgba(59, 130, 246, 0.5)',
+            boxShadow: '0 8px 32px rgba(59, 130, 246, 0.7)',
             animationDuration: '3s'
           }}
         >
