@@ -18,19 +18,36 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
       <>
         {/* Layer 1 - Main gradient */}
         <div 
-          className="absolute inset-0 opacity-70 pointer-events-none blur-3xl"
+          className="absolute inset-0 opacity-80 pointer-events-none blur-[120px]"
           style={{
-            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 25%, transparent 50%, rgba(0, 212, 255, 0.7) 75%, rgba(56, 189, 248, 0.7) 100%)',
+            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 25%, transparent 50%, rgba(0, 212, 255, 0.9) 75%, rgba(56, 189, 248, 0.9) 100%)',
             backgroundSize: '400% 400%',
-            animation: 'policeLights 8s ease-in-out infinite'
+            animation: 'policeLights 2s ease-in-out infinite'
           }}
         />
-        {/* Layer 2 - Radial glow */}
+        {/* Layer 2 - Accent pulse */}
         <div 
-          className="absolute inset-0 opacity-70 pointer-events-none blur-2xl"
+          className="absolute inset-0 opacity-60 pointer-events-none blur-[100px]"
           style={{
-            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.7) 0%, transparent 40%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.7) 0%, transparent 40%)',
-            animation: 'breathePulse 5s ease-in-out infinite'
+            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.8) 0%, rgba(255, 0, 51, 0.8) 25%, transparent 50%, rgba(0, 212, 255, 0.8) 75%, rgba(56, 189, 248, 0.8) 100%)',
+            backgroundSize: '400% 400%',
+            animation: 'policeLights 2s ease-in-out infinite'
+          }}
+        />
+        {/* Layer 3 - Outer glow */}
+        <div 
+          className="absolute inset-0 opacity-40 pointer-events-none blur-[150px]"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.6) 0%, transparent 60%), radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.6) 0%, transparent 60%)',
+            animation: 'breathePulse 2.5s ease-in-out infinite'
+          }}
+        />
+        {/* Layer 4 - Center flash */}
+        <div 
+          className="absolute inset-0 opacity-30 pointer-events-none blur-[80px]"
+          style={{
+            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.9) 0%, transparent 40%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.9) 0%, transparent 40%)',
+            animation: 'breathePulse 2s ease-in-out infinite'
           }}
         />
       </>
