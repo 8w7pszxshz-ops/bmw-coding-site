@@ -31,9 +31,10 @@ export default function FloatingAIButton() {
         <div className="relative">
           {/* Внешняя пульсирующая подсветка */}
           <div 
-            className="absolute -inset-2 rounded-full blur-xl"
+            className="absolute -inset-2 rounded-full blur-xl animate-pulse"
             style={{
-              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.6), rgba(6, 182, 212, 0.4))'
+              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.3), rgba(6, 182, 212, 0.2))',
+              animationDuration: '3s'
             }}
           />
           
@@ -49,10 +50,12 @@ export default function FloatingAIButton() {
           >
             {/* Внутренняя пульсирующая подсветка */}
             <div 
-              className="absolute inset-0 rounded-full pointer-events-none"
+              className="absolute inset-0 rounded-full pointer-events-none animate-pulse"
               style={{
-                background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.4), transparent 60%)',
-                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.3)'
+                background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.2), transparent 60%)',
+                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.15)',
+                animationDuration: '4s',
+                animationDelay: '0.5s'
               }}
             />
             
@@ -84,10 +87,17 @@ export default function FloatingAIButton() {
           {/* Индикатор "online" */}
           <div className="absolute -top-1 -right-1 flex items-center justify-center">
             <div 
+              className="absolute w-3 h-3 rounded-full border-2 border-black/80 animate-ping"
+              style={{
+                background: 'rgb(74, 222, 128)',
+                animationDuration: '2s'
+              }}
+            />
+            <div 
               className="relative w-3 h-3 rounded-full border-2 border-black/80"
               style={{
                 background: 'rgb(74, 222, 128)',
-                boxShadow: '0 0 8px rgba(74, 222, 128, 0.6)'
+                boxShadow: '0 0 8px rgba(74, 222, 128, 0.4)'
               }}
             />
           </div>

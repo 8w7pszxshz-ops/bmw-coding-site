@@ -17,7 +17,22 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
       {/* Police lights behind buttons - always on */}
       <>
         {/* Layer 1 - Main gradient */}
-
+        <div 
+          className="absolute inset-0 opacity-20 pointer-events-none blur-3xl"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 51, 0.3) 25%, transparent 50%, rgba(0, 212, 255, 0.3) 75%, rgba(56, 189, 248, 0.4) 100%)',
+            backgroundSize: '400% 400%',
+            animation: 'policeLights 8s ease-in-out infinite'
+          }}
+        />
+        {/* Layer 2 - Radial glow */}
+        <div 
+          className="absolute inset-0 opacity-15 pointer-events-none blur-2xl"
+          style={{
+            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.3) 0%, transparent 40%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.3) 0%, transparent 40%)',
+            animation: 'breathePulse 5s ease-in-out infinite'
+          }}
+        />
       </>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
@@ -50,7 +65,8 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
               backgroundClip: 'padding-box, border-box',
               boxShadow: `0 0 30px ${glowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6)`,
               minHeight: '140px',
-              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
+              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
+              animation: 'breathePulse 4s ease-in-out infinite'
             }}
           >
           {/* NFS Corner cuts with glow */}

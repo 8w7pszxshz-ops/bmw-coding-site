@@ -13,7 +13,22 @@ interface MainLayoutProps {
 export default function MainLayout({ children, selectedCity, onCityChange, showCityPulse }: MainLayoutProps) {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-
+      {/* Плавные красные мигалки на фоне */}
+      <div 
+        className="absolute inset-0 opacity-30 pointer-events-none blur-3xl"
+        style={{
+          background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 51, 0.1) 25%, transparent 50%, rgba(0, 212, 255, 0.1) 75%, rgba(56, 189, 248, 0.15) 100%)',
+          backgroundSize: '400% 400%',
+          animation: 'policeLights 6s ease-in-out infinite'
+        }}
+      />
+      <div 
+        className="absolute inset-0 opacity-20 pointer-events-none blur-2xl"
+        style={{
+          background: 'radial-gradient(circle at 30% 50%, rgba(255, 0, 0, 0.2) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(0, 212, 255, 0.2) 0%, transparent 50%)',
+          animation: 'breathePulse 4s ease-in-out infinite'
+        }}
+      />
       
       <div 
         className="min-h-screen relative"
