@@ -7,7 +7,8 @@ export default function BackgroundEffects() {
           background: 'radial-gradient(circle, rgba(0, 150, 255, 0.7), transparent)',
           top: '10%',
           left: '15%',
-          animationDuration: '4s'
+          animationDuration: '1.5s',
+          animationTimingFunction: 'steps(3, jump-both)'
         }}
       />
       <div 
@@ -16,8 +17,9 @@ export default function BackgroundEffects() {
           background: 'radial-gradient(circle, rgba(100, 200, 255, 0.7), transparent)',
           bottom: '15%',
           right: '20%',
-          animationDuration: '5s',
-          animationDelay: '1s'
+          animationDuration: '1.8s',
+          animationDelay: '0.3s',
+          animationTimingFunction: 'steps(3, jump-both)'
         }}
       />
       <div 
@@ -27,8 +29,9 @@ export default function BackgroundEffects() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          animationDuration: '6s',
-          animationDelay: '2s'
+          animationDuration: '2s',
+          animationDelay: '0.6s',
+          animationTimingFunction: 'steps(3, jump-both)'
         }}
       />
     </div>
