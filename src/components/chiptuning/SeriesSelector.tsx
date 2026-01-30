@@ -18,8 +18,9 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
       <>
         {/* Layer 1 - Main gradient */}
         <div 
-          className="absolute inset-0 opacity-80 pointer-events-none blur-[120px]"
+          className="absolute opacity-80 pointer-events-none blur-[180px]"
           style={{
+            inset: '-100px',
             background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 25%, transparent 50%, rgba(0, 212, 255, 0.9) 75%, rgba(56, 189, 248, 0.9) 100%)',
             backgroundSize: '400% 400%',
             animation: 'policeLights 2s ease-in-out infinite'
@@ -27,8 +28,9 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
         />
         {/* Layer 2 - Accent pulse */}
         <div 
-          className="absolute inset-0 opacity-60 pointer-events-none blur-[100px]"
+          className="absolute opacity-60 pointer-events-none blur-[150px]"
           style={{
+            inset: '-80px',
             background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.8) 0%, rgba(255, 0, 51, 0.8) 25%, transparent 50%, rgba(0, 212, 255, 0.8) 75%, rgba(56, 189, 248, 0.8) 100%)',
             backgroundSize: '400% 400%',
             animation: 'policeLights 2s ease-in-out infinite'
@@ -36,17 +38,19 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
         />
         {/* Layer 3 - Outer glow */}
         <div 
-          className="absolute inset-0 opacity-40 pointer-events-none blur-[150px]"
+          className="absolute opacity-40 pointer-events-none blur-[200px]"
           style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.6) 0%, transparent 60%), radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.6) 0%, transparent 60%)',
+            inset: '-120px',
+            background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.6) 0%, transparent 70%), radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.6) 0%, transparent 70%)',
             animation: 'breathePulse 2.5s ease-in-out infinite'
           }}
         />
         {/* Layer 4 - Center flash */}
         <div 
-          className="absolute inset-0 opacity-30 pointer-events-none blur-[80px]"
+          className="absolute opacity-30 pointer-events-none blur-[120px]"
           style={{
-            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.9) 0%, transparent 40%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.9) 0%, transparent 40%)',
+            inset: '-60px',
+            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.9) 0%, transparent 50%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.9) 0%, transparent 50%)',
             animation: 'breathePulse 2s ease-in-out infinite'
           }}
         />
@@ -80,10 +84,11 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
               backgroundImage: `linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(26, 8, 8, 0.95) 100%), ${borderGradient}`,
               backgroundOrigin: 'border-box',
               backgroundClip: 'padding-box, border-box',
-              boxShadow: `0 0 30px ${glowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6)`,
+              boxShadow: `0 0 30px ${glowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(255, 0, 0, 0.3), 0 10px 40px rgba(0, 212, 255, 0.3)`,
               minHeight: '140px',
               clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
-              animation: 'breathePulse 4s ease-in-out infinite'
+              animation: 'breathePulse 2s ease-in-out infinite',
+              filter: 'drop-shadow(0 0 20px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 20px rgba(0, 212, 255, 0.4))'
             }}
           >
           {/* NFS Corner cuts with glow */}
