@@ -68,7 +68,7 @@ export default function StageCard({
         </div>
         {isSelected && (
           <div className="flex items-center gap-1">
-            <div className="w-1.5 h-1.5 animate-pulse" style={{ background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
+            <div className="w-1.5 h-1.5" style={{ background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
             <Icon name="Check" className="w-5 h-5 text-white" />
           </div>
         )}

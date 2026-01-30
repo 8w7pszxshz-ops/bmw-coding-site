@@ -34,7 +34,7 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
       <div className="fixed top-16 left-4 z-50">
         <div className="relative">
           {showCityPulse && (
-            <div className="absolute -inset-2 bg-blue-500/30 rounded-lg animate-pulse" />
+            <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
           )}
           <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
         </div>
@@ -62,9 +62,9 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
         <div className="relative">
           {showCityPulse && (
             <>
-              <div className="absolute -inset-2 bg-blue-500/30 rounded-lg animate-pulse" />
+              <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1 rounded-full shadow-lg animate-bounce flex items-center gap-1">
+                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
                   <Icon name="MapPin" className="w-3 h-3" />
                   <span>Выберите город</span>
                 </div>

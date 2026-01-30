@@ -17,45 +17,7 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
       {/* Police lights behind buttons - always on */}
       <>
         {/* Layer 1 - Main gradient */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.6) 25%, transparent 50%, rgba(255, 0, 13, 0.6) 75%, transparent 100%)',
-            backgroundSize: '200% 100%',
-            animation: 'policeLights 2s linear infinite',
-            filter: 'blur(120px)',
-            borderRadius: '1rem'
-          }}
-        />
-        {/* Layer 2 - Radial ellipses */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background: 'radial-gradient(ellipse at 20% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255, 0, 13, 0.4) 0%, transparent 50%)',
-            backgroundSize: '200% 100%',
-            animation: 'policeLights 2s linear infinite',
-            filter: 'blur(100px)'
-          }}
-        />
-        {/* Layer 3 - Slower gradient */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 13, 0.35) 20%, transparent 40%, transparent 60%, rgba(255, 0, 13, 0.35) 80%, transparent 100%)',
-            backgroundSize: '200% 100%',
-            animation: 'policeLights 2.5s linear infinite',
-            filter: 'blur(150px)'
-          }}
-        />
-        {/* Extra intensity layer */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 13, 0.5) 0%, transparent 50%)',
-            animation: 'policeLights 2s linear infinite',
-            filter: 'blur(140px)'
-          }}
-        />
+
       </>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
@@ -88,8 +50,7 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
               backgroundClip: 'padding-box, border-box',
               boxShadow: `0 0 30px ${glowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6)`,
               minHeight: '140px',
-              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
-              animation: 'breathePulse 3s ease-in-out infinite'
+              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
             }}
           >
           {/* NFS Corner cuts with glow */}

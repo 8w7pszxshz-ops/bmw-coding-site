@@ -20,16 +20,7 @@ export default function FloatingAIButton() {
 
   return (
     <DesktopOnly>
-      <style>{`
-        @keyframes glowOuter {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
-        }
-        @keyframes glowInner {
-          0%, 100% { opacity: 0.8; }
-          50% { opacity: 0.2; }
-        }
-      `}</style>
+
       <button
         onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
@@ -42,8 +33,7 @@ export default function FloatingAIButton() {
           <div 
             className="absolute -inset-2 rounded-full blur-xl"
             style={{
-              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.6), rgba(6, 182, 212, 0.4))',
-              animation: 'glowOuter 2s ease-in-out infinite'
+              background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.6), rgba(6, 182, 212, 0.4))'
             }}
           />
           
@@ -62,8 +52,7 @@ export default function FloatingAIButton() {
               className="absolute inset-0 rounded-full pointer-events-none"
               style={{
                 background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.4), transparent 60%)',
-                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.3)',
-                animation: 'glowInner 2s ease-in-out infinite'
+                boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.3)'
               }}
             />
             
@@ -94,12 +83,6 @@ export default function FloatingAIButton() {
 
           {/* Индикатор "online" */}
           <div className="absolute -top-1 -right-1 flex items-center justify-center">
-            <div 
-              className="absolute w-4 h-4 rounded-full animate-ping"
-              style={{
-                background: 'rgba(74, 222, 128, 0.4)'
-              }}
-            />
             <div 
               className="relative w-3 h-3 rounded-full border-2 border-black/80"
               style={{

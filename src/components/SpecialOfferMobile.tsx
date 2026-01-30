@@ -196,7 +196,7 @@ export default function SpecialOfferMobile({ selectedCity }: SpecialOfferMobileP
         </div>
       </div>
       <div className="flex flex-col items-center gap-3 mt-4">
-        <div className="flex items-center gap-2 text-white/50 text-xs animate-pulse">
+        <div className="flex items-center gap-2 text-white/50 text-xs">
           <Icon name="ChevronsRight" className="w-4 h-4" />
           <span>Листайте для просмотра всех акций</span>
         </div>
