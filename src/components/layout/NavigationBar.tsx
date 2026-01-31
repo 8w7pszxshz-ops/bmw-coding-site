@@ -20,10 +20,6 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
             src="https://cdn.poehali.dev/files/reborn.jpg" 
             alt="Logo" 
             className="h-7 w-auto opacity-90"
-            style={{
-              filter: 'drop-shadow(0 0 8px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 15px rgba(0, 212, 255, 0.4))',
-              animation: 'breathePulse 2s ease-in-out infinite'
-            }}
           />
           <div className="h-4 w-px bg-white/20" />
           <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
@@ -57,10 +53,6 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
           src="https://cdn.poehali.dev/files/reborn.jpg" 
           alt="Logo" 
           className="h-10 w-auto opacity-90"
-          style={{
-            filter: 'drop-shadow(0 0 10px rgba(255, 0, 0, 0.7)) drop-shadow(0 0 20px rgba(0, 212, 255, 0.5))',
-            animation: 'breathePulse 2s ease-in-out infinite'
-          }}
         />
         <div className="h-6 w-px bg-white/20" />
         <span className="text-white/60 text-sm font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
