@@ -15,9 +15,9 @@ export default function MainLayout({ children, selectedCity, onCityChange, showC
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle 600px at 25% 40%, rgba(255, 0, 0, 0.4), transparent 70%), radial-gradient(circle 600px at 75% 60%, rgba(0, 150, 255, 0.4), transparent 70%)',
-          filter: 'blur(120px)',
-          animation: 'subtleFlash 3.5s ease-in-out infinite',
+          background: 'radial-gradient(ellipse 900px 700px at 15% 35%, rgba(255, 0, 0, 0.5), transparent 65%), radial-gradient(ellipse 900px 700px at 85% 65%, rgba(0, 150, 255, 0.5), transparent 65%)',
+          filter: 'blur(90px)',
+          animation: 'subtleFlash 3s ease-in-out infinite',
           zIndex: 1
         }}
       />
