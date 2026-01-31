@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import BackgroundEffects from './BackgroundEffects';
 import NavigationBar from './NavigationBar';
 import { City } from '@/components/CitySelector';
 
