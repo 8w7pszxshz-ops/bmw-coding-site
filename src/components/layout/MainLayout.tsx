@@ -12,6 +12,16 @@ interface MainLayoutProps {
 export default function MainLayout({ children, selectedCity, onCityChange, showCityPulse }: MainLayoutProps) {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 20% 30%, rgba(255, 0, 0, 0.15), transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(0, 120, 255, 0.15), transparent 60%)',
+          filter: 'blur(80px)',
+          opacity: 0.6,
+          animation: 'subtleFlash 4s ease-in-out infinite'
+        }}
+      />
+      
       <div className="min-h-screen relative">
         <NavigationBar selectedCity={selectedCity} onCityChange={onCityChange} showCityPulse={showCityPulse} />
         

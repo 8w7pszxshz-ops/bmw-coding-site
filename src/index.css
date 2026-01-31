@@ -415,6 +415,22 @@
     }
   }
 
+  @keyframes subtleFlash {
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+    25% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    75% {
+      opacity: 0.5;
+    }
+  }
+
   body.with-police-lights::after {
     content: "";
     position: fixed;
