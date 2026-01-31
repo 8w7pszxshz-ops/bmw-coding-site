@@ -17,10 +17,9 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
       <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md border-b border-white/5">
         <div className="flex items-center gap-2">
           <img 
-            src="https://cdn.poehali.dev/files/reborn.jpg" 
+            src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/bf6e599a-dea7-4790-89ca-1e92a66d7b70.jpg" 
             alt="Logo" 
             className="h-7 w-auto opacity-90"
-            style={{ mixBlendMode: 'lighten' }}
           />
           <div className="h-4 w-px bg-white/20" />
           <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
@@ -51,10 +50,9 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
     <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 flex items-center justify-between backdrop-blur-md border-b border-white/5">
       <div className="flex items-center gap-3">
         <img 
-          src="https://cdn.poehali.dev/files/reborn.jpg" 
+          src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/bf6e599a-dea7-4790-89ca-1e92a66d7b70.jpg" 
           alt="Logo" 
           className="h-10 w-auto opacity-90"
-          style={{ mixBlendMode: 'lighten' }}
         />
         <div className="h-6 w-px bg-white/20" />
         <span className="text-white/60 text-sm font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
