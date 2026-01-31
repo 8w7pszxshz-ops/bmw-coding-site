@@ -325,56 +325,7 @@
     </div>
   </div>
 </noscript>
-<div id="root">
-  <div style="min-height: 100vh; background: #000; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-    <!-- NFS-style racing stripes background -->
-    <div style="position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0px, transparent 80px, rgba(231, 34, 46, 0.03) 80px, rgba(231, 34, 46, 0.03) 160px); animation: raceStripes 2s linear infinite;"></div>
-    
-    <!-- Red glow pulse -->
-    <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(231, 34, 46, 0.15), transparent 70%); animation: redPulse 2s ease-in-out infinite;"></div>
-    
-    <div style="text-align: center; position: relative; z-index: 10;">
-      <!-- Logo with glow -->
-      <div style="margin-bottom: 40px; position: relative;">
-        <img 
-          src="https://cdn.poehali.dev/projects/892585f1-24a2-432b-810c-dd69d2686659/files/bf6e599a-dea7-4790-89ca-1e92a66d7b70.jpg" 
-          alt="Reborn BMW" 
-          style="height: 120px; width: auto; filter: drop-shadow(0 0 20px rgba(231, 34, 46, 0.8)) drop-shadow(0 0 40px rgba(231, 34, 46, 0.4)); animation: logoGlow 2s ease-in-out infinite;"
-        />
-      </div>
-      
-      <!-- Loading bar -->
-      <div style="width: 300px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin: 0 auto; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; left: 0; height: 100%; width: 40%; background: linear-gradient(90deg, transparent, #E7222E, #ff4444, #E7222E, transparent); animation: loadingBar 1.5s ease-in-out infinite; box-shadow: 0 0 10px #E7222E, 0 0 20px #E7222E;"></div>
-      </div>
-      
-      <!-- Loading text -->
-      <p style="color: rgba(255,255,255,0.7); font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin-top: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 3px; font-weight: 600; animation: textPulse 2s ease-in-out infinite;">Loading</p>
-    </div>
-  </div>
-  <style>
-    @keyframes raceStripes {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-160px); }
-    }
-    @keyframes redPulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-    @keyframes logoGlow {
-      0%, 100% { filter: drop-shadow(0 0 20px rgba(231, 34, 46, 0.8)) drop-shadow(0 0 40px rgba(231, 34, 46, 0.4)); }
-      50% { filter: drop-shadow(0 0 30px rgba(231, 34, 46, 1)) drop-shadow(0 0 60px rgba(231, 34, 46, 0.6)); }
-    }
-    @keyframes loadingBar {
-      0% { left: -40%; }
-      100% { left: 100%; }
-    }
-    @keyframes textPulse {
-      0%, 100% { opacity: 0.7; }
-      50% { opacity: 1; }
-    }
-  </style>
-</div>
+<div id="root"></div>
 <script type="module" src="/src/main.tsx"></script>
 
 <!-- Yandex.Metrika counter -->
