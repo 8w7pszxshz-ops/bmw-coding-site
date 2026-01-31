@@ -374,24 +374,44 @@
   }
 
   @keyframes policeLights {
-    0%,
-    100% {
+    0% {
       background-position: 0% 50%;
+      opacity: 1;
+    }
+    25% {
+      background-position: 0% 50%;
+      opacity: 0.3;
     }
     50% {
       background-position: 100% 50%;
+      opacity: 1;
+    }
+    75% {
+      background-position: 100% 50%;
+      opacity: 0.3;
+    }
+    100% {
+      background-position: 0% 50%;
+      opacity: 1;
     }
   }
 
   @keyframes breathePulse {
-    0%,
-    100% {
+    0% {
       opacity: 1;
-      filter: brightness(1);
+      filter: brightness(1.2);
     }
-    50% {
-      opacity: 0.7;
-      filter: brightness(0.85);
+    33% {
+      opacity: 0.3;
+      filter: brightness(0.5);
+    }
+    66% {
+      opacity: 1;
+      filter: brightness(1.2);
+    }
+    100% {
+      opacity: 0.3;
+      filter: brightness(0.5);
     }
   }
 
