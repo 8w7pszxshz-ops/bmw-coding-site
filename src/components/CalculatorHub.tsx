@@ -30,6 +30,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
     if (!chipTuningAudioRef.current) {
       chipTuningAudioRef.current = new Audio('/music/track3.mp3');
       chipTuningAudioRef.current.volume = 0.12;
+      chipTuningAudioRef.current.loop = true;
     }
     
     chipTuningAudioRef.current.play().catch(err => {

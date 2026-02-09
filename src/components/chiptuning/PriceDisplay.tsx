@@ -93,10 +93,10 @@ export default function PriceDisplay({
       <style>{`
         @keyframes orderButtonPulse {
           0%, 100% { 
-            box-shadow: 0 0 40px rgba(127, 106, 127, 0.6), inset 0 0 40px rgba(127, 106, 127, 0.2);
+            box-shadow: 0 0 30px rgba(127, 106, 127, 0.5), inset 0 0 30px rgba(127, 106, 127, 0.15);
           }
           50% { 
-            box-shadow: 0 0 60px rgba(127, 106, 127, 0.9), inset 0 0 60px rgba(127, 106, 127, 0.3);
+            box-shadow: 0 0 45px rgba(127, 106, 127, 0.7), inset 0 0 45px rgba(127, 106, 127, 0.2);
           }
         }
       `}</style>

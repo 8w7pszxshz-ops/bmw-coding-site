@@ -79,19 +79,19 @@ export default function StageCard({
         @keyframes chiptuningPulse {
           0%, 100% { 
             box-shadow: ${stageId === 'stage1' 
-              ? '0 0 60px rgba(0, 255, 0, 0.8), inset 0 0 80px rgba(0, 255, 0, 0.25)' 
-              : '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)'}; 
+              ? '0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 50px rgba(0, 255, 0, 0.15)' 
+              : '0 0 20px rgba(127, 106, 127, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.5)'}; 
           }
           50% { 
             box-shadow: ${stageId === 'stage1' 
-              ? '0 0 100px rgba(0, 255, 0, 1), inset 0 0 100px rgba(0, 255, 0, 0.4)' 
-              : '0 0 60px rgba(127, 106, 127, 1), inset 0 0 80px rgba(127, 106, 127, 0.3)'}; 
+              ? '0 0 45px rgba(0, 255, 0, 0.7), inset 0 0 65px rgba(0, 255, 0, 0.2)' 
+              : '0 0 30px rgba(127, 106, 127, 0.6), inset 0 0 50px rgba(127, 106, 127, 0.1)'}; 
           }
         }
         
         @keyframes blinkIndicator {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
+          50% { opacity: 0.4; }
         }
       `}</style>
     </button>
