@@ -57,7 +57,8 @@ export default function PriceDisplay({
           boxShadow: hasAnyOption
             ? '0 0 40px rgba(127, 106, 127, 0.6), inset 0 0 40px rgba(127, 106, 127, 0.2)'
             : '0 0 10px rgba(100, 100, 100, 0.3)',
-          clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)'
+          clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)',
+          animation: hasAnyOption ? 'orderButtonPulse 2s ease-in-out infinite' : 'none'
         }}
       >
         <Icon name={hasAnyOption ? "Send" : "AlertCircle"} className="w-4 h-4 text-white" />
@@ -88,6 +89,17 @@ export default function PriceDisplay({
           {finalPrice.toLocaleString('ru-RU')}₽
         </span>
       </div>
+      
+      <style>{`
+        @keyframes orderButtonPulse {
+          0%, 100% { 
+            box-shadow: 0 0 40px rgba(127, 106, 127, 0.6), inset 0 0 40px rgba(127, 106, 127, 0.2);
+          }
+          50% { 
+            box-shadow: 0 0 60px rgba(127, 106, 127, 0.9), inset 0 0 60px rgba(127, 106, 127, 0.3);
+          }
+        }
+      `}</style>
     </div>
   );
 }

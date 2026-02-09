@@ -35,7 +35,8 @@ export default function StageCard({
         boxShadow: stageId === 'stage1'
           ? (isSelected ? '0 0 60px rgba(0, 255, 0, 0.8), inset 0 0 80px rgba(0, 255, 0, 0.25)' : '0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 50px rgba(0, 255, 0, 0.15)')
           : (isSelected ? '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)' : '0 0 20px rgba(127, 106, 127, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.5)'),
-        clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
+        clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)',
+        animation: isSelected ? 'chiptuningPulse 2s ease-in-out infinite' : 'none'
       }}
     >
       <div className="absolute top-0 right-0 w-12 h-12 pointer-events-none" style={{ 
@@ -68,11 +69,31 @@ export default function StageCard({
         </div>
         {isSelected && (
           <div className="flex items-center gap-1">
-            <div className="w-1.5 h-1.5" style={{ background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)' }} />
+            <div className="w-1.5 h-1.5" style={{ background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(0, 212, 255, 0.9))', boxShadow: '0 0 10px rgba(127, 106, 127, 0.7)', animation: 'blinkIndicator 1s ease-in-out infinite' }} />
             <Icon name="Check" className="w-5 h-5 text-white" />
           </div>
         )}
       </div>
+      
+      <style>{`
+        @keyframes chiptuningPulse {
+          0%, 100% { 
+            box-shadow: ${stageId === 'stage1' 
+              ? '0 0 60px rgba(0, 255, 0, 0.8), inset 0 0 80px rgba(0, 255, 0, 0.25)' 
+              : '0 0 40px rgba(127, 106, 127, 0.7), inset 0 0 60px rgba(127, 106, 127, 0.15)'}; 
+          }
+          50% { 
+            box-shadow: ${stageId === 'stage1' 
+              ? '0 0 100px rgba(0, 255, 0, 1), inset 0 0 100px rgba(0, 255, 0, 0.4)' 
+              : '0 0 60px rgba(127, 106, 127, 1), inset 0 0 80px rgba(127, 106, 127, 0.3)'}; 
+          }
+        }
+        
+        @keyframes blinkIndicator {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+      `}</style>
     </button>
   );
 }
