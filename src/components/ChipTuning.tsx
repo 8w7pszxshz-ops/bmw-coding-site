@@ -12,13 +12,16 @@ interface ChipTuningProps {
   audioRef: React.RefObject<HTMLAudioElement | null>;
 }
 
+type DepthLevel = 'series' | 'body' | 'engine' | 'stage';
+
 export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: ChipTuningProps) {
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
+  const [depthLevel, setDepthLevel] = useState<DepthLevel>('series');
 
   useEffect(() => {
     if (!isOpen) {
       setSelectedSeries(null);
-      // Останавливаем музыку при закрытии
+      setDepthLevel('series');
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
@@ -64,7 +67,15 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
 
   const handleReset = () => {
     setSelectedSeries(null);
+    setDepthLevel('series');
   };
+
+  const handleSelectSeries = (series: Series) => {
+    setSelectedSeries(series);
+    setDepthLevel('body');
+  };
+
+  const lightsOpacity = depthLevel === 'series' ? 1 : depthLevel === 'body' ? 0.5 : depthLevel === 'engine' ? 0.2 : 0;
 
   if (!isOpen) return null;
 
@@ -92,19 +103,21 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
         <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-600/50 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
         <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-red-600/50 to-transparent pointer-events-none" style={{ clipPath: 'polygon(0 100%, 100% 100%, 0 0)' }} />
         
-        {/* Police lights — red and blue, full window coverage */}
+        {/* Police lights — fade out as user goes deeper */}
         <div 
-          className="absolute inset-0 pointer-events-none z-[1]"
+          className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-500"
           style={{
             background: 'rgba(255, 0, 0, 0.12)',
-            animation: 'policeRedFlash 0.8s ease-in-out infinite'
+            animation: 'policeRedFlash 0.8s ease-in-out infinite',
+            opacity: lightsOpacity
           }}
         />
         <div 
-          className="absolute inset-0 pointer-events-none z-[1]"
+          className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-500"
           style={{
             background: 'rgba(0, 150, 255, 0.12)',
-            animation: 'policeBlueFlash 0.8s ease-in-out infinite'
+            animation: 'policeBlueFlash 0.8s ease-in-out infinite',
+            opacity: lightsOpacity
           }}
         />
 
@@ -182,13 +195,14 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
 
           {!selectedSeries ? (
             <SeriesSelector 
-              onSelectSeries={setSelectedSeries}
+              onSelectSeries={handleSelectSeries}
             />
           ) : (
             <StageSelector 
               selectedSeries={selectedSeries}
               selectedCity={selectedCity}
               onReset={handleReset}
+              onStepChange={(step) => setDepthLevel(step as DepthLevel)}
             />
           )}
         </div>

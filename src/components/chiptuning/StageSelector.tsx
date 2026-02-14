@@ -12,10 +12,16 @@ interface StageSelectorProps {
   selectedSeries: Series;
   selectedCity: City;
   onReset: () => void;
+  onStepChange?: (step: string) => void;
 }
 
-export default function StageSelector({ selectedSeries, selectedCity, onReset }: StageSelectorProps) {
-  const [step, setStep] = React.useState<'body' | 'engine' | 'stage'>('body');
+export default function StageSelector({ selectedSeries, selectedCity, onReset, onStepChange }: StageSelectorProps) {
+  const [step, setStepState] = React.useState<'body' | 'engine' | 'stage'>('body');
+  
+  const setStep = (newStep: 'body' | 'engine' | 'stage') => {
+    setStepState(newStep);
+    onStepChange?.(newStep);
+  };
   const [bodyTypes, setBodyTypes] = React.useState<string[]>([]);
   const [selectedBody, setSelectedBody] = React.useState<string | null>(null);
   const [engines, setEngines] = React.useState<ChiptuningData[]>([]);
