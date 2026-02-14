@@ -10,6 +10,7 @@ import QuickActions from '@/components/QuickActions';
 import StickyContactButton from '@/components/StickyContactButton';
 import BurgerMenu from '@/components/BurgerMenu';
 import FloatingAIButton from '@/components/FloatingAIButton';
+import BlogPreview from '@/components/BlogPreview';
 import PullToRefresh from '@/components/PullToRefresh';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
@@ -77,6 +78,7 @@ export default function Index() {
           <div id="reviews">
             <Reviews />
           </div>
+          <BlogPreview />
           <div id="contact">
             <QuickActions selectedCity={selectedCity} />
           </div>
