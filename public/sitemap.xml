@@ -207,6 +207,28 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Блог -->
+  <url>
+    <loc>https://reborn-bmw.tech/blog</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://reborn-bmw.tech/blog/stoit-li-delat-chip-tuning-bmw</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://reborn-bmw.tech/blog/top-10-bmw-dlya-chip-tuninga</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Другие страницы -->
   <url>
     <loc>https://reborn-bmw.tech/error-codes</loc>

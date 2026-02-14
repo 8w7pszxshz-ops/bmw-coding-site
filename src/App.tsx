@@ -17,6 +17,8 @@ import BMWModelPage from "./pages/BMWModelPage";
 import BMWEnginePage from "./pages/BMWEnginePage";
 import PricesPage from "./pages/PricesPage";
 import AboutPage from "./pages/AboutPage";
+import BlogPage from "./pages/BlogPage";
+import BlogArticlePage from "./pages/BlogArticlePage";
 import NotFound from "./pages/NotFound";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
@@ -45,6 +47,8 @@ const App = () => {
             <Route path="/ecology" element={<EcologyPage />} />
             <Route path="/prices" element={<PricesPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogArticlePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
