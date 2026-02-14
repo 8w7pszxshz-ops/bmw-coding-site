@@ -4,7 +4,7 @@ import { Adaptive } from '@/components/ui/responsive';
 import SeriesSelector from './coding/SeriesSelector';
 import OptionsList from './coding/OptionsList';
 import { options, calculatePrice } from './coding/codingData';
-import { getTelegramLink } from '@/utils/cityConfig';
+import { getTelegramLink, getCityName, getCityConfig } from '@/utils/cityConfig';
 import { City } from '@/components/CitySelector';
 
 interface CodingPackagesProps {
@@ -103,11 +103,11 @@ const CodingPackagesMobile = memo(function CodingPackagesMobile({ selectedCity }
       message += `Скидка: ${pricing.discount}%\n`;
       message += `Было: ${pricing.original.toLocaleString('ru-RU')} ₽\n`;
     }
-    message += `Итого: ${pricing.total.toLocaleString('ru-RU')} ₽`;
+    message += `Итого: ${pricing.total.toLocaleString('ru-RU')} ₽\n`;
+    message += `Город: ${getCityName(selectedCity)}`;
     
-    const url = getTelegramLink(selectedCity, `кодирование BMW ${selectedSeries}-series`);
-    const separator = url.includes('?') ? '&' : '?';
-    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
+    const config = getCityConfig(selectedCity);
+    window.open(`${config.telegram}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleSeriesChange = (series: 'F' | 'G') => {
@@ -249,11 +249,11 @@ const CodingPackagesDesktop = memo(function CodingPackagesDesktop({ selectedCity
       message += `Скидка: ${pricing.discount}%\n`;
       message += `Было: ${pricing.original.toLocaleString('ru-RU')} ₽\n`;
     }
-    message += `Итого: ${pricing.total.toLocaleString('ru-RU')} ₽`;
+    message += `Итого: ${pricing.total.toLocaleString('ru-RU')} ₽\n`;
+    message += `Город: ${getCityName(selectedCity)}`;
     
-    const url = getTelegramLink(selectedCity, `кодирование BMW ${selectedSeries}-series`);
-    const separator = url.includes('?') ? '&' : '?';
-    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
+    const config = getCityConfig(selectedCity);
+    window.open(`${config.telegram}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleSeriesChange = (series: 'F' | 'G') => {

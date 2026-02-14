@@ -4,7 +4,7 @@ import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 
 import { City } from '@/components/CitySelector';
-import { getTelegramLink } from '@/utils/cityConfig';
+import { getTelegramLink, getCityName, getCityConfig } from '@/utils/cityConfig';
 
 const services = [
   {
@@ -173,7 +173,11 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           </div>
           
           <a
-            href={getTelegramLink(selectedCity, service.title)}
+            href={(() => {
+              const msg = `${service.title}\n${service.price}\nГород: ${getCityName(selectedCity)}`;
+              const config = getCityConfig(selectedCity);
+              return `${config.telegram}?text=${encodeURIComponent(msg)}`;
+            })()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-1.5 w-full py-1.5 px-2 rounded-lg transition-all duration-300"
@@ -301,7 +305,11 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
           </div>
           
           <a
-            href={getTelegramLink(selectedCity, service.title)}
+            href={(() => {
+              const msg = `${service.title}\n${service.price}\nГород: ${getCityName(selectedCity)}`;
+              const config = getCityConfig(selectedCity);
+              return `${config.telegram}?text=${encodeURIComponent(msg)}`;
+            })()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-lg transition-all duration-300 hover:scale-[1.02]"

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { getTelegramLink } from '@/utils/cityConfig';
+import { getTelegramLink, getCityName, getCityConfig } from '@/utils/cityConfig';
 import { City } from '@/components/CitySelector';
 
 type SeriesType = 'F' | 'G' | 'U';
@@ -344,10 +344,10 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                 if (series === 'G') lines.push(`Тип: ${keyType === 'copy' ? 'Копия' : 'Дилерский'}`);
                 lines.push('');
                 lines.push(`СТОИМОСТЬ: ${price.toLocaleString('ru-RU')} ₽`);
+                lines.push(`Город: ${getCityName(selectedCity)}`);
                 const message = lines.join('\n');
-                const url = getTelegramLink(selectedCity, `изготовление ключа BMW`);
-                const sep = url.includes('?') ? '&' : '?';
-                return `${url}${sep}text=${encodeURIComponent(message)}`;
+                const config = getCityConfig(selectedCity);
+                return `${config.telegram}?text=${encodeURIComponent(message)}`;
               })()}
               target="_blank"
               rel="noopener noreferrer"

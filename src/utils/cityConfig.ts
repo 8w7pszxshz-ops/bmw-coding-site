@@ -28,6 +28,8 @@ const cityNames: Record<City, string> = {
   moscow: 'Саратов'
 };
 
+export const getCityName = (city: City): string => cityNames[city];
+
 export const getTelegramLink = (city: City, service?: string): string => {
   const config = getCityConfig(city);
   const baseUrl = config.telegram;

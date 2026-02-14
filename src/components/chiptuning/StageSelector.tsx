@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
-import { getTelegramLink } from '@/utils/cityConfig';
+import { getTelegramLink, getCityName, getCityConfig } from '@/utils/cityConfig';
 import type { Series } from './SeriesSelector';
 import { API_URL, convertSeriesForAPI, ChiptuningData } from './types';
 import BodyTypeStep from './BodyTypeStep';
@@ -102,11 +102,11 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset, o
 
     messageLines.push('');
     messageLines.push(`СТОИМОСТЬ: ${finalPrice.toLocaleString('ru-RU')} ₽`);
+    messageLines.push(`Город: ${getCityName(selectedCity)}`);
     
     const message = messageLines.join('\n');
-    const url = getTelegramLink(selectedCity, `чип-тюнинг BMW ${selectedSeries}`);
-    const separator = url.includes('?') ? '&' : '?';
-    window.open(`${url}${separator}text=${encodeURIComponent(message)}`, '_blank');
+    const config = getCityConfig(selectedCity);
+    window.open(`${config.telegram}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleBack = () => {
