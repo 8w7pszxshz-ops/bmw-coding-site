@@ -203,6 +203,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset, o
               euro2Enabled={euro2Enabled}
               dieselOptions={dieselOptions}
               transmissionTuningEnabled={transmissionTuningEnabled}
+              selectedBody={selectedBody}
               onSelectStage={setSelectedStage}
               onEuro2Change={setEuro2Enabled}
               onDieselOptionChange={(option, enabled) => {
