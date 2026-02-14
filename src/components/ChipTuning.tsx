@@ -103,23 +103,26 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
         <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-600/50 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
         <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-red-600/50 to-transparent pointer-events-none" style={{ clipPath: 'polygon(0 100%, 100% 100%, 0 0)' }} />
         
-        {/* Police lights — fade out as user goes deeper */}
+        {/* Police lights wrapper — opacity controlled by depth */}
         <div 
-          className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-500"
-          style={{
-            background: 'rgba(255, 0, 0, 0.12)',
-            animation: 'policeRedFlash 0.8s ease-in-out infinite',
-            opacity: lightsOpacity
-          }}
-        />
-        <div 
-          className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-500"
-          style={{
-            background: 'rgba(0, 150, 255, 0.12)',
-            animation: 'policeBlueFlash 0.8s ease-in-out infinite',
-            opacity: lightsOpacity
-          }}
-        />
+          className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-700"
+          style={{ opacity: lightsOpacity }}
+        >
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'rgba(255, 0, 0, 0.12)',
+              animation: 'policeRedFlash 0.8s ease-in-out infinite'
+            }}
+          />
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'rgba(0, 150, 255, 0.12)',
+              animation: 'policeBlueFlash 0.8s ease-in-out infinite'
+            }}
+          />
+        </div>
 
         <style>{`
           @keyframes policeRedFlash {
