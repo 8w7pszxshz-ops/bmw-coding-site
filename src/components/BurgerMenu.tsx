@@ -11,6 +11,8 @@ const menuItems = [
   { id: 'tips', label: 'Рекомендации', icon: 'Lightbulb', type: 'scroll' },
   { id: 'offers', label: 'Акции', icon: 'Tag', type: 'scroll' },
   { id: 'reviews', label: 'Отзывы', icon: 'Star', type: 'scroll' },
+  { id: 'prices', label: 'Цены', icon: 'Tag', type: 'link' },
+  { id: 'about', label: 'О нас', icon: 'Info', type: 'link' },
   { id: 'chatgpt', label: 'AI Консультант', icon: 'Bot', type: 'link' },
   { id: 'contact', label: 'Контакты', icon: 'MapPin', type: 'scroll' },
 ];

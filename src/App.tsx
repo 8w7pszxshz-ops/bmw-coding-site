@@ -13,6 +13,10 @@ import ChipTuningPage from "./pages/ChipTuningPage";
 import CodingPage from "./pages/CodingPage";
 import KeysPage from "./pages/KeysPage";
 import EcologyPage from "./pages/EcologyPage";
+import BMWModelPage from "./pages/BMWModelPage";
+import BMWEnginePage from "./pages/BMWEnginePage";
+import PricesPage from "./pages/PricesPage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
@@ -34,9 +38,13 @@ const App = () => {
             <Route path="/error-codes" element={<ErrorCodes />} />
             <Route path="/error-codes/:code" element={<ErrorCodeDetail />} />
             <Route path="/chip-tuning" element={<ChipTuningPage />} />
+            <Route path="/chip-tuning/:slug" element={<BMWModelPage />} />
+            <Route path="/engines/:slug" element={<BMWEnginePage />} />
             <Route path="/coding" element={<CodingPage />} />
             <Route path="/keys" element={<KeysPage />} />
             <Route path="/ecology" element={<EcologyPage />} />
+            <Route path="/prices" element={<PricesPage />} />
+            <Route path="/about" element={<AboutPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

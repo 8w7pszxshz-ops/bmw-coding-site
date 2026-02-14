@@ -7,6 +7,8 @@ import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
+import { bmwModels } from '@/data/bmwModels';
+import { bmwEngines } from '@/data/bmwEngines';
 
 export default function ChipTuningPage() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
@@ -77,26 +79,25 @@ export default function ChipTuningPage() {
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Какие двигатели мы прошиваем</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {['B58', 'N55', 'S58', 'B48', 'N20', 'M54', 'B47', 'N47', 'S55', 'N54', 'S63', 'B57'].map((engine) => (
-                <div key={engine} className="p-3 rounded-xl text-center" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <span className="text-white font-light">{engine}</span>
-                </div>
+              {bmwEngines.map((engine) => (
+                <Link key={engine.slug} to={`/engines/${engine.slug}`} className="p-3 rounded-xl text-center transition-all hover:scale-[1.02]" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <span className="text-white font-light">{engine.name}</span>
+                  <span className="text-white/30 text-xs block">{engine.type}</span>
+                </Link>
               ))}
             </div>
           </div>
 
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Популярные модели для чип-тюнинга</h2>
-            <p className="text-white/60 leading-relaxed mb-4">
-              BMW G30, G20, F30, F10, F20, F25, E90, E60 — мы работаем со всеми поколениями BMW. 
-              Серии F и G — наиболее востребованы. Для каждой модели разработана индивидуальная калибровка 
-              с учётом особенностей двигателя и трансмиссии.
-            </p>
-            <p className="text-white/60 leading-relaxed">
-              BMW X5 (F15/G05), X3 (F25/G01), X6, X1, а также М-серия: M2, M3, M4, M5 — 
-              для спортивных моделей доступны специальные прошивки с увеличенным лимитом оборотов 
-              и отключением ограничителя скорости.
-            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+              {bmwModels.map((m) => (
+                <Link key={m.slug} to={`/chip-tuning/${m.slug}`} className="p-4 rounded-xl transition-all hover:scale-[1.02]" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <h3 className="text-white font-light">{m.generation}</h3>
+                  <p className="text-white/40 text-xs">{m.series} • {m.years}</p>
+                </Link>
+              ))}
+            </div>
           </div>
 
           <div className="mb-12">
