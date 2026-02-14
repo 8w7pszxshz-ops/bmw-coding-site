@@ -7,15 +7,23 @@ import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
+import { updateSeoMeta, injectServiceSchema, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function KeysPage() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   useEffect(() => {
-    document.title = 'Изготовление ключей BMW — Программирование и копия | Reborn BMW';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Изготовление и программирование ключей BMW: серии F, G, U. Копия ключа, дилерский ключ. Привязка к автомобилю. Саратов, Москва.');
+    updateSeoMeta({
+      title: 'Изготовление ключей BMW — Программирование и копия | Reborn BMW',
+      description: 'Изготовление и программирование ключей BMW: серии F, G, U. Копия ключа, дилерский ключ. Привязка к автомобилю. Саратов, Москва.',
+      path: '/keys'
+    });
+    injectBreadcrumbSchema([
+      { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+      { name: 'Ключи BMW', url: 'https://reborn-bmw.tech/keys' }
+    ]);
+    injectServiceSchema({ name: 'Изготовление ключей BMW', description: 'Программирование и изготовление ключей BMW серий F, G, U.', path: '/keys' });
 
     const initCity = async () => {
       const result = await detectCityByGeolocation();
@@ -27,6 +35,8 @@ export default function KeysPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, []);
 
   const config = getCityConfig(selectedCity);

@@ -8,6 +8,7 @@ import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
 import { getArticleBySlug, blogArticles } from '@/data/blogArticles';
+import { updateSeoMeta, injectArticleSchema, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function BlogArticlePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -18,9 +19,25 @@ export default function BlogArticlePage() {
 
   useEffect(() => {
     if (article) {
-      document.title = article.metaTitle;
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta) meta.setAttribute('content', article.metaDescription);
+      const path = `/blog/${article.slug}`;
+      updateSeoMeta({
+        title: article.metaTitle,
+        description: article.metaDescription,
+        path,
+        ogType: 'article'
+      });
+      injectArticleSchema({
+        title: article.title,
+        description: article.metaDescription,
+        path,
+        datePublished: article.date,
+        readTime: article.readTime
+      });
+      injectBreadcrumbSchema([
+        { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+        { name: 'Блог', url: 'https://reborn-bmw.tech/blog' },
+        { name: article.title, url: `https://reborn-bmw.tech${path}` }
+      ]);
     }
 
     const initCity = async () => {
@@ -33,6 +50,8 @@ export default function BlogArticlePage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, [article]);
 
   if (!article) return <Navigate to="/blog" replace />;

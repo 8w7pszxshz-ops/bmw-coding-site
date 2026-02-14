@@ -7,15 +7,22 @@ import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { blogArticles } from '@/data/blogArticles';
+import { updateSeoMeta, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function BlogPage() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   useEffect(() => {
-    document.title = 'Блог о чип-тюнинге BMW — статьи и руководства | Reborn BMW';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Статьи о чип-тюнинге BMW: руководства, сравнения двигателей, советы по выбору. Полезная информация от специалистов Reborn BMW.');
+    updateSeoMeta({
+      title: 'Блог о чип-тюнинге BMW — статьи и руководства | Reborn BMW',
+      description: 'Статьи о чип-тюнинге BMW: руководства, сравнения двигателей, советы по выбору. Полезная информация от специалистов Reborn BMW.',
+      path: '/blog'
+    });
+    injectBreadcrumbSchema([
+      { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+      { name: 'Блог', url: 'https://reborn-bmw.tech/blog' }
+    ]);
 
     const initCity = async () => {
       const result = await detectCityByGeolocation();
@@ -27,6 +34,8 @@ export default function BlogPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, []);
 
   return (

@@ -7,6 +7,7 @@ import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
+import { updateSeoMeta, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 const priceCategories = [
   {
@@ -69,9 +70,15 @@ export default function PricesPage() {
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   useEffect(() => {
-    document.title = 'Цены на чип-тюнинг и кодирование BMW — Reborn BMW';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Прайс-лист Reborn BMW: чип-тюнинг от 35 000 ₽, кодирование от 3 000 ₽, изготовление ключей от 15 000 ₽, отключение экологии от 15 000 ₽. Саратов.');
+    updateSeoMeta({
+      title: 'Цены на чип-тюнинг и кодирование BMW — Reborn BMW',
+      description: 'Прайс-лист Reborn BMW: чип-тюнинг от 35 000 ₽, кодирование от 3 000 ₽, изготовление ключей от 15 000 ₽, отключение экологии от 15 000 ₽. Саратов.',
+      path: '/prices'
+    });
+    injectBreadcrumbSchema([
+      { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+      { name: 'Цены', url: 'https://reborn-bmw.tech/prices' }
+    ]);
 
     const initCity = async () => {
       const result = await detectCityByGeolocation();
@@ -83,6 +90,8 @@ export default function PricesPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, []);
 
   const config = getCityConfig(selectedCity);

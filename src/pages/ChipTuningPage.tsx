@@ -9,15 +9,23 @@ import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
 import { bmwModels } from '@/data/bmwModels';
 import { bmwEngines } from '@/data/bmwEngines';
+import { updateSeoMeta, injectServiceSchema, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function ChipTuningPage() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   useEffect(() => {
-    document.title = 'Чип-тюнинг BMW — Stage 1, Stage 2, Stage 3 | Reborn BMW';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Профессиональный чип-тюнинг BMW: Stage 1 (+20-30% мощности), Stage 2, Stage 3. Прошивка ЭБУ, увеличение мощности и крутящего момента. Гарантия. Саратов, Москва.');
+    updateSeoMeta({
+      title: 'Чип-тюнинг BMW — Stage 1, Stage 2, Stage 3 | Reborn BMW',
+      description: 'Профессиональный чип-тюнинг BMW: Stage 1 (+20-30% мощности), Stage 2, Stage 3. Прошивка ЭБУ, увеличение мощности и крутящего момента. Гарантия. Саратов, Москва.',
+      path: '/chip-tuning'
+    });
+    injectBreadcrumbSchema([
+      { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+      { name: 'Чип-тюнинг BMW', url: 'https://reborn-bmw.tech/chip-tuning' }
+    ]);
+    injectServiceSchema({ name: 'Чип-тюнинг BMW', description: 'Профессиональный чип-тюнинг BMW: Stage 1, Stage 2, Stage 3. Прошивка ЭБУ.', path: '/chip-tuning' });
 
     const initCity = async () => {
       const result = await detectCityByGeolocation();
@@ -29,6 +37,8 @@ export default function ChipTuningPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, []);
 
   const config = getCityConfig(selectedCity);

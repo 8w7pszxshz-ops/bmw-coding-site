@@ -7,15 +7,22 @@ import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
+import { updateSeoMeta, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function AboutPage() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   useEffect(() => {
-    document.title = 'О компании Reborn BMW — чип-тюнинг и кодирование BMW в Саратове';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Reborn BMW — профессиональный чип-тюнинг и кодирование BMW в Саратове. Опыт работы с BMW более 5 лет. Более 500 прошитых автомобилей. Гарантия на все работы.');
+    updateSeoMeta({
+      title: 'О компании Reborn BMW — чип-тюнинг и кодирование BMW в Саратове',
+      description: 'Reborn BMW — профессиональный чип-тюнинг и кодирование BMW в Саратове. Опыт работы с BMW более 5 лет. Более 500 прошитых автомобилей. Гарантия на все работы.',
+      path: '/about'
+    });
+    injectBreadcrumbSchema([
+      { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+      { name: 'О компании', url: 'https://reborn-bmw.tech/about' }
+    ]);
 
     const initCity = async () => {
       const result = await detectCityByGeolocation();
@@ -27,6 +34,8 @@ export default function AboutPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, []);
 
   const config = getCityConfig(selectedCity);

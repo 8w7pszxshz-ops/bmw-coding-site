@@ -7,15 +7,23 @@ import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
+import { updateSeoMeta, injectServiceSchema, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function EcologyPage() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   useEffect(() => {
-    document.title = 'Отключение экологии BMW — EGR, DPF, ADBLUE, Euro 2 | Reborn BMW';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Отключение экологии BMW: EGR, DPF, ADBLUE, Euro 2. Программное удаление сажевого фильтра, клапана EGR, системы мочевины. Саратов, Москва.');
+    updateSeoMeta({
+      title: 'Отключение экологии BMW — EGR, DPF, ADBLUE, Euro 2 | Reborn BMW',
+      description: 'Отключение экологии BMW: EGR, DPF, ADBLUE, Euro 2. Программное удаление сажевого фильтра, клапана EGR, системы мочевины. Саратов, Москва.',
+      path: '/ecology'
+    });
+    injectBreadcrumbSchema([
+      { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+      { name: 'Отключение экологии BMW', url: 'https://reborn-bmw.tech/ecology' }
+    ]);
+    injectServiceSchema({ name: 'Отключение экологии BMW', description: 'Программное удаление EGR, DPF, ADBLUE, Euro 2 на BMW.', path: '/ecology' });
 
     const initCity = async () => {
       const result = await detectCityByGeolocation();
@@ -27,6 +35,8 @@ export default function EcologyPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, []);
 
   const config = getCityConfig(selectedCity);

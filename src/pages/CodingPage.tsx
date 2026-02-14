@@ -7,15 +7,23 @@ import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
+import { updateSeoMeta, injectServiceSchema, injectBreadcrumbSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function CodingPage() {
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   useEffect(() => {
-    document.title = 'Кодирование BMW — Активация скрытых функций | Reborn BMW';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', 'Кодирование BMW: активация Apple CarPlay, видео в движении, отключение Start/Stop, спортивный режим АКПП, русификация. Саратов, Москва.');
+    updateSeoMeta({
+      title: 'Кодирование BMW — Активация скрытых функций | Reborn BMW',
+      description: 'Кодирование BMW: активация Apple CarPlay, видео в движении, отключение Start/Stop, спортивный режим АКПП, русификация. Саратов, Москва.',
+      path: '/coding'
+    });
+    injectBreadcrumbSchema([
+      { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+      { name: 'Кодирование BMW', url: 'https://reborn-bmw.tech/coding' }
+    ]);
+    injectServiceSchema({ name: 'Кодирование BMW', description: 'Активация скрытых функций BMW: CarPlay, видео в движении, русификация.', path: '/coding' });
 
     const initCity = async () => {
       const result = await detectCityByGeolocation();
@@ -27,6 +35,8 @@ export default function CodingPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, []);
 
   const config = getCityConfig(selectedCity);

@@ -9,6 +9,7 @@ import { detectCityByGeolocation } from '@/utils/geolocation';
 import { getCityConfig } from '@/utils/cityConfig';
 import { getModelBySlug, bmwModels } from '@/data/bmwModels';
 import { bmwEngines } from '@/data/bmwEngines';
+import { updateSeoMeta, injectFaqSchema, injectBreadcrumbSchema, injectServiceSchema, cleanupSchemas } from '@/utils/seo';
 
 export default function BMWModelPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -19,9 +20,15 @@ export default function BMWModelPage() {
 
   useEffect(() => {
     if (model) {
-      document.title = model.metaTitle;
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta) meta.setAttribute('content', model.metaDescription);
+      const path = `/chip-tuning/${model.slug}`;
+      updateSeoMeta({ title: model.metaTitle, description: model.metaDescription, path });
+      injectBreadcrumbSchema([
+        { name: 'Главная', url: 'https://reborn-bmw.tech/' },
+        { name: 'Чип-тюнинг', url: 'https://reborn-bmw.tech/chip-tuning' },
+        { name: model.name, url: `https://reborn-bmw.tech${path}` }
+      ]);
+      injectServiceSchema({ name: `Чип-тюнинг ${model.name}`, description: model.description, path });
+      if (model.faq?.length) injectFaqSchema({ questions: model.faq });
     }
 
     const initCity = async () => {
@@ -34,6 +41,8 @@ export default function BMWModelPage() {
       }
     };
     initCity();
+
+    return () => { cleanupSchemas(); };
   }, [model]);
 
   if (!model) return <Navigate to="/chip-tuning" replace />;
