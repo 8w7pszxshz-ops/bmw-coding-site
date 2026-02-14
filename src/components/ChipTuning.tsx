@@ -92,6 +92,47 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
         <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-600/50 to-transparent pointer-events-none" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 0)' }} />
         <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-red-600/50 to-transparent pointer-events-none" style={{ clipPath: 'polygon(0 100%, 100% 100%, 0 0)' }} />
         
+        {/* Police lights — red left, blue right, covers logo + cards */}
+        <div 
+          className="absolute pointer-events-none z-[1]"
+          style={{
+            inset: 0,
+            left: '-30px',
+            right: '50%',
+            background: 'radial-gradient(ellipse at 0% 40%, rgba(255, 0, 0, 0.3) 0%, transparent 65%)',
+            animation: 'policeRedFlash 0.8s ease-in-out infinite',
+            filter: 'blur(50px)'
+          }}
+        />
+        <div 
+          className="absolute pointer-events-none z-[1]"
+          style={{
+            inset: 0,
+            left: '50%',
+            right: '-30px',
+            background: 'radial-gradient(ellipse at 100% 40%, rgba(0, 150, 255, 0.3) 0%, transparent 65%)',
+            animation: 'policeBlueFlash 0.8s ease-in-out infinite',
+            filter: 'blur(50px)'
+          }}
+        />
+
+        <style>{`
+          @keyframes policeRedFlash {
+            0%, 100% { opacity: 0.15; }
+            15% { opacity: 1; }
+            30% { opacity: 0.1; }
+            45% { opacity: 0.9; }
+            60% { opacity: 0.05; }
+          }
+          @keyframes policeBlueFlash {
+            0%, 100% { opacity: 0.05; }
+            60% { opacity: 0.15; }
+            75% { opacity: 1; }
+            85% { opacity: 0.1; }
+            95% { opacity: 0.9; }
+          }
+        `}</style>
+
         {/* Grunge scratches overlay */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-20"

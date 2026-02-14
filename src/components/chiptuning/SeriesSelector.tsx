@@ -17,49 +17,6 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
 
   return (
     <div className="relative">
-      {/* Police lights — left red, right blue */}
-      <div 
-        className="absolute pointer-events-none"
-        style={{
-          top: '-40px',
-          bottom: '-40px',
-          left: '-60px',
-          right: '50%',
-          background: 'radial-gradient(ellipse at 0% 50%, rgba(255, 0, 0, 0.35) 0%, transparent 70%)',
-          animation: 'policeRedFlash 0.8s ease-in-out infinite',
-          filter: 'blur(40px)'
-        }}
-      />
-      <div 
-        className="absolute pointer-events-none"
-        style={{
-          top: '-40px',
-          bottom: '-40px',
-          left: '50%',
-          right: '-60px',
-          background: 'radial-gradient(ellipse at 100% 50%, rgba(0, 150, 255, 0.35) 0%, transparent 70%)',
-          animation: 'policeBlueFlash 0.8s ease-in-out infinite',
-          filter: 'blur(40px)'
-        }}
-      />
-
-      <style>{`
-        @keyframes policeRedFlash {
-          0%, 100% { opacity: 0.15; }
-          15% { opacity: 1; }
-          30% { opacity: 0.1; }
-          45% { opacity: 0.9; }
-          60% { opacity: 0.05; }
-        }
-        @keyframes policeBlueFlash {
-          0%, 100% { opacity: 0.05; }
-          60% { opacity: 0.15; }
-          75% { opacity: 1; }
-          85% { opacity: 0.1; }
-          95% { opacity: 0.9; }
-        }
-      `}</style>
-
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
       {seriesList.map((series) => (
         <div key={series} className="relative">
