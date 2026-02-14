@@ -12,61 +12,14 @@ interface SeriesSelectorProps {
 }
 
 export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) {
+  const borderGradient = 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 50%, rgba(0, 212, 255, 0.7) 50%, rgba(56, 189, 248, 0.7) 100%)';
+  const glowColor = 'rgba(127, 106, 127, 0.5)';
+
   return (
     <div className="relative">
-      {/* Police lights behind buttons - always on */}
-      <>
-        {/* Layer 1 - Main gradient */}
-        <div 
-          className="absolute opacity-80 pointer-events-none blur-[180px]"
-          style={{
-            inset: '-100px',
-            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 51, 0.9) 25%, transparent 50%, rgba(0, 212, 255, 0.9) 75%, rgba(56, 189, 248, 0.9) 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'policeLights 2s ease-in-out infinite'
-          }}
-        />
-        {/* Layer 2 - Accent pulse */}
-        <div 
-          className="absolute opacity-60 pointer-events-none blur-[150px]"
-          style={{
-            inset: '-80px',
-            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.8) 0%, rgba(255, 0, 51, 0.8) 25%, transparent 50%, rgba(0, 212, 255, 0.8) 75%, rgba(56, 189, 248, 0.8) 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'policeLights 2s ease-in-out infinite'
-          }}
-        />
-        {/* Layer 3 - Outer glow */}
-        <div 
-          className="absolute opacity-40 pointer-events-none blur-[200px]"
-          style={{
-            inset: '-120px',
-            background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.6) 0%, transparent 70%), radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.6) 0%, transparent 70%)',
-            animation: 'breathePulse 2.5s ease-in-out infinite'
-          }}
-        />
-        {/* Layer 4 - Center flash */}
-        <div 
-          className="absolute opacity-30 pointer-events-none blur-[120px]"
-          style={{
-            inset: '-60px',
-            background: 'radial-gradient(circle at 25% 50%, rgba(255, 0, 0, 0.9) 0%, transparent 50%), radial-gradient(circle at 75% 50%, rgba(0, 212, 255, 0.9) 0%, transparent 50%)',
-            animation: 'breathePulse 2s ease-in-out infinite'
-          }}
-        />
-      </>
-
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
-      {seriesList.map((series, index) => {
-        const colIndex = index % 4;
-        
-        // All columns: Red to Cyan gradient (half and half)
-        const borderGradient = 'linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 51, 0.7) 50%, rgba(0, 212, 255, 0.7) 50%, rgba(56, 189, 248, 0.7) 100%)';
-        const glowColor = 'rgba(127, 106, 127, 0.5)';
-        
-        return (
+      {seriesList.map((series) => (
         <div key={series} className="relative">
-          {/* Black backdrop */}
           <div 
             className="absolute inset-0 bg-black rounded-lg"
             style={{
@@ -84,32 +37,26 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
               backgroundImage: `linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(26, 8, 8, 0.95) 100%), ${borderGradient}`,
               backgroundOrigin: 'border-box',
               backgroundClip: 'padding-box, border-box',
-              boxShadow: `0 0 30px ${glowColor}, inset 0 0 40px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(255, 0, 0, 0.3), 0 10px 40px rgba(0, 212, 255, 0.3)`,
+              boxShadow: `0 0 15px ${glowColor}, inset 0 0 30px rgba(0, 0, 0, 0.6)`,
               minHeight: '140px',
-              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
-              animation: 'breathePulse 2s ease-in-out infinite',
-              filter: 'drop-shadow(0 0 20px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 20px rgba(0, 212, 255, 0.4))'
+              clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
             }}
           >
-          {/* NFS Corner cuts with glow */}
           <div 
             className="absolute top-0 right-0 w-12 h-12 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
             style={{ 
               background: `linear-gradient(to bottom right, ${glowColor.replace('0.5', '0.6')}, transparent)`,
-              clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
-              boxShadow: `0 0 20px ${glowColor}`
+              clipPath: 'polygon(100% 0, 100% 100%, 0 0)'
             }} 
           />
           <div 
             className="absolute bottom-0 left-0 w-12 h-12 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
             style={{ 
               background: `linear-gradient(to top right, ${glowColor.replace('0.5', '0.6')}, transparent)`,
-              clipPath: 'polygon(0 100%, 100% 100%, 0 0)',
-              boxShadow: `0 0 20px ${glowColor}`
+              clipPath: 'polygon(0 100%, 100% 100%, 0 0)'
             }} 
           />
           
-          {/* NFS glow on hover */}
           <div 
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
             style={{
@@ -118,7 +65,6 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
             }}
           />
           
-          {/* NFS scanlines */}
           <div 
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
@@ -126,9 +72,7 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
             }}
           />
           
-          {/* Content */}
           <div className="relative z-10 p-6 flex flex-col items-center justify-center h-full">
-            {/* NFS corner accent lines */}
             <div 
               className="absolute top-2 left-2 w-8 h-0.5 group-hover:w-12 transition-all"
               style={{ 
@@ -160,7 +104,6 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
               )}
             </div>
             
-            {/* NFS speed stripes - bottom right */}
             <div className="absolute bottom-2 right-2 flex flex-col gap-0.5">
               <div 
                 className="h-0.5 transition-all group-hover:w-8"
@@ -190,8 +133,7 @@ export default function SeriesSelector({ onSelectSeries }: SeriesSelectorProps) 
           </div>
         </button>
         </div>
-        );
-      })}
+      ))}
       </div>
     </div>
   );
