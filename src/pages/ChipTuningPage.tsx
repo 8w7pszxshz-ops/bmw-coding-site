@@ -1,0 +1,183 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import MainLayout from '@/components/layout/MainLayout';
+import StickyContactButton from '@/components/StickyContactButton';
+import BurgerMenu from '@/components/BurgerMenu';
+import Icon from '@/components/ui/icon';
+import { City } from '@/components/CitySelector';
+import { detectCityByGeolocation } from '@/utils/geolocation';
+import { getCityConfig } from '@/utils/cityConfig';
+
+export default function ChipTuningPage() {
+  const [selectedCity, setSelectedCity] = useState<City>('saratov');
+  const [showCityPulse, setShowCityPulse] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Чип-тюнинг BMW — Stage 1, Stage 2, Stage 3 | Reborn BMW';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'Профессиональный чип-тюнинг BMW: Stage 1 (+20-30% мощности), Stage 2, Stage 3. Прошивка ЭБУ, увеличение мощности и крутящего момента. Гарантия. Саратов, Москва.');
+
+    const initCity = async () => {
+      const result = await detectCityByGeolocation();
+      if (result.detected && result.city) {
+        setSelectedCity(result.city);
+      } else {
+        setShowCityPulse(true);
+        setTimeout(() => setShowCityPulse(false), 5000);
+      }
+    };
+    initCity();
+  }, []);
+
+  const config = getCityConfig(selectedCity);
+
+  return (
+    <>
+      <StickyContactButton selectedCity={selectedCity} />
+      <BurgerMenu />
+      <MainLayout selectedCity={selectedCity} onCityChange={setSelectedCity} showCityPulse={showCityPulse}>
+        <div className="max-w-4xl mx-auto">
+          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white/80 transition-colors mb-6 text-sm">
+            <Icon name="ChevronLeft" size={16} />
+            <span>На главную</span>
+          </Link>
+
+          <h1 className="text-3xl md:text-5xl font-extralight text-white mb-4 leading-tight">
+            Чип-тюнинг <span className="bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">BMW</span>
+          </h1>
+
+          <p className="text-white/70 text-lg md:text-xl font-light mb-8 leading-relaxed">
+            Увеличение мощности и крутящего момента вашего BMW через профессиональную прошивку ЭБУ. 
+            Индивидуальная калибровка под каждый автомобиль.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+            {[
+              { stage: 'Stage 1', power: '+20-30%', desc: 'Безопасная прошивка без вмешательства в железо. Не оставляет следов у дилера.', price: 'от 35 000 ₽' },
+              { stage: 'Stage 2', power: '+30-40%', desc: 'Максимальная мощность с доработкой впуска и выхлопа. Для тех, кто хочет больше.', price: 'от 55 000 ₽' },
+              { stage: 'Stage 3', power: '+40-60%', desc: 'Спортивная прошивка для трека. Максимум возможностей двигателя.', price: 'от 80 000 ₽' }
+            ].map((item) => (
+              <div
+                key={item.stage}
+                className="p-6 rounded-2xl relative overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',
+                  border: '1px solid rgba(231, 34, 46, 0.25)',
+                }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8), transparent)' }} />
+                <h3 className="text-white text-xl font-light mb-1">{item.stage}</h3>
+                <div className="text-red-400 text-2xl font-light mb-2">{item.power}</div>
+                <p className="text-white/60 text-sm mb-3 leading-relaxed">{item.desc}</p>
+                <div className="text-white/80 text-lg font-light">{item.price}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Какие двигатели мы прошиваем</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {['B58', 'N55', 'S58', 'B48', 'N20', 'M54', 'B47', 'N47', 'S55', 'N54', 'S63', 'B57'].map((engine) => (
+                <div key={engine} className="p-3 rounded-xl text-center" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <span className="text-white font-light">{engine}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Популярные модели для чип-тюнинга</h2>
+            <p className="text-white/60 leading-relaxed mb-4">
+              BMW G30, G20, F30, F10, F20, F25, E90, E60 — мы работаем со всеми поколениями BMW. 
+              Серии F и G — наиболее востребованы. Для каждой модели разработана индивидуальная калибровка 
+              с учётом особенностей двигателя и трансмиссии.
+            </p>
+            <p className="text-white/60 leading-relaxed">
+              BMW X5 (F15/G05), X3 (F25/G01), X6, X1, а также М-серия: M2, M3, M4, M5 — 
+              для спортивных моделей доступны специальные прошивки с увеличенным лимитом оборотов 
+              и отключением ограничителя скорости.
+            </p>
+          </div>
+
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Что входит в чип-тюнинг</h2>
+            <div className="space-y-3">
+              {[
+                'Диагностика двигателя перед прошивкой',
+                'Считывание и сохранение оригинальной прошивки',
+                'Загрузка индивидуальной калибровки',
+                'Тестовый заезд и проверка параметров',
+                'Гарантия возврата к стоку бесплатно'
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                  <Icon name="Check" className="w-5 h-5 text-green-400 flex-shrink-0" />
+                  <span className="text-white/80 font-light">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Часто задаваемые вопросы</h2>
+            <div className="space-y-4">
+              {[
+                { q: 'Безопасен ли чип-тюнинг для двигателя BMW?', a: 'Да. Stage 1 работает в пределах запаса прочности двигателя. Мы не превышаем допустимые нагрузки и используем проверенные калибровки. Stage 1 не оставляет следов в системе BMW.' },
+                { q: 'Можно ли вернуть стоковую прошивку?', a: 'Да, мы сохраняем оригинальную прошивку и можем вернуть её в любой момент бесплатно. Процедура занимает 30-60 минут.' },
+                { q: 'Сколько времени занимает чип-тюнинг?', a: 'Процедура занимает 1-3 часа в зависимости от модели и типа двигателя. Вам не нужно оставлять автомобиль.' },
+                { q: 'Увеличится ли расход топлива?', a: 'При спокойной езде расход не меняется или даже снижается за счёт оптимизации карт впрыска. При активном вождении расход может увеличиться на 5-10%.' },
+                { q: 'Потеряю ли я гарантию дилера?', a: 'Stage 1 не оставляет следов и не влияет на гарантию. Stage 2-3 могут быть обнаружены при детальной диагностике у дилера.' }
+              ].map((faq, i) => (
+                <div key={i} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <h3 className="text-white font-medium mb-2">{faq.q}</h3>
+                  <p className="text-white/60 font-light leading-relaxed">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-6 rounded-2xl mb-12 text-center" style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.15), rgba(231, 34, 46, 0.05))', border: '1px solid rgba(231, 34, 46, 0.3)' }}>
+            <h2 className="text-2xl font-light text-white mb-3">Рассчитать стоимость чип-тюнинга</h2>
+            <p className="text-white/60 mb-4">Выберите модель и получите точную цену за 30 секунд</p>
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-medium transition-all hover:scale-105"
+              style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))', boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4)' }}
+            >
+              <Icon name="Calculator" size={18} />
+              Открыть калькулятор
+            </Link>
+          </div>
+
+          <div className="mb-12">
+            <h2 className="text-xl font-light text-white/50 mb-4">Другие услуги</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {[
+                { title: 'Кодирование BMW', desc: 'Активация скрытых функций', link: '/coding' },
+                { title: 'Изготовление ключей BMW', desc: 'Программирование ключей', link: '/keys' },
+                { title: 'Отключение экологии BMW', desc: 'EGR, DPF, ADBLUE, Euro 2', link: '/ecology' }
+              ].map((s) => (
+                <Link key={s.link} to={s.link} className="p-4 rounded-xl transition-all hover:scale-[1.02]" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div className="text-white font-light mb-1">{s.title}</div>
+                  <div className="text-white/40 text-sm">{s.desc}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center pb-8">
+            <a
+              href={`${config.telegram}?text=${encodeURIComponent('Здравствуйте! Интересует чип-тюнинг BMW')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-medium transition-all hover:scale-105"
+              style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 10px 40px rgba(37, 99, 235, 0.4)' }}
+            >
+              <Icon name="Send" size={18} />
+              Записаться на чип-тюнинг
+            </a>
+          </div>
+        </div>
+      </MainLayout>
+    </>
+  );
+}

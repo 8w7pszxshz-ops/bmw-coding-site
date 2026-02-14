@@ -4,7 +4,10 @@ import { MobileOnly } from '@/components/ui/responsive';
 
 const menuItems = [
   { id: 'services', label: 'Услуги', icon: 'Wrench', type: 'scroll' },
-
+  { id: 'chip-tuning', label: 'Чип-тюнинг', icon: 'Zap', type: 'link' },
+  { id: 'coding', label: 'Кодирование', icon: 'Code', type: 'link' },
+  { id: 'keys', label: 'Ключи', icon: 'Key', type: 'link' },
+  { id: 'ecology', label: 'Экология', icon: 'Leaf', type: 'link' },
   { id: 'tips', label: 'Рекомендации', icon: 'Lightbulb', type: 'scroll' },
   { id: 'offers', label: 'Акции', icon: 'Tag', type: 'scroll' },
   { id: 'reviews', label: 'Отзывы', icon: 'Star', type: 'scroll' },
