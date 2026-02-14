@@ -8,6 +8,9 @@ import AdminTable from '@/components/admin/AdminTable';
 const API_URL = 'https://functions.poehali.dev/1465efc7-1ef5-4210-8079-7bbd027f47a0';
 
 export default function Admin() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const [records, setRecords] = useState<ChiptuningRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -19,8 +22,15 @@ export default function Admin() {
   const [filterStatus, setFilterStatus] = useState('all');
 
   useEffect(() => {
-    loadData();
+    const saved = sessionStorage.getItem('admin_auth');
+    if (saved === 'true') {
+      setAuthenticated(true);
+    }
   }, []);
+
+  useEffect(() => {
+    if (authenticated) loadData();
+  }, [authenticated]);
 
   const loadData = async () => {
     try {
@@ -234,6 +244,39 @@ export default function Admin() {
     setFilterBodyType('all');
     setFilterStatus('all');
   };
+
+  const handleLogin = () => {
+    if (passwordInput === 'bmw2025') {
+      setAuthenticated(true);
+      sessionStorage.setItem('admin_auth', 'true');
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);
+    }
+  };
+
+  if (!authenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 flex items-center justify-center">
+        <div className="bg-white/5 border border-white/10 rounded-lg p-8 w-full max-w-sm">
+          <h2 className="text-white text-xl font-bold mb-6 text-center">Вход в админ-панель</h2>
+          <input
+            type="password"
+            placeholder="Пароль"
+            value={passwordInput}
+            onChange={(e) => { setPasswordInput(e.target.value); setPasswordError(false); }}
+            onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+            className={`w-full px-4 py-3 rounded-lg bg-white/10 border text-white placeholder-white/40 mb-4 outline-none focus:ring-2 focus:ring-blue-500 ${passwordError ? 'border-red-500' : 'border-white/20'}`}
+            autoFocus
+          />
+          {passwordError && <p className="text-red-400 text-sm mb-4">Неверный пароль</p>}
+          <Button onClick={handleLogin} className="w-full bg-blue-600 hover:bg-blue-700">
+            Войти
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
