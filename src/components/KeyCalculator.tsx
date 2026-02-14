@@ -337,7 +337,18 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
               </div>
             </div>
             <a
-              href={getTelegramLink(selectedCity, `изготовление ключа BMW`)}
+              href={(() => {
+                const lines = ['ИЗГОТОВЛЕНИЕ КЛЮЧА BMW', ''];
+                lines.push(`Серия: ${series}`);
+                if (series === 'F') lines.push(`Позиция: ${selectedFKey + 1}`);
+                if (series === 'G') lines.push(`Тип: ${keyType === 'copy' ? 'Копия' : 'Дилерский'}`);
+                lines.push('');
+                lines.push(`СТОИМОСТЬ: ${price.toLocaleString('ru-RU')} ₽`);
+                const message = lines.join('\n');
+                const url = getTelegramLink(selectedCity, `изготовление ключа BMW`);
+                const sep = url.includes('?') ? '&' : '?';
+                return `${url}${sep}text=${encodeURIComponent(message)}`;
+              })()}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-xl text-sm md:text-base font-medium text-white transition-all duration-300 hover:scale-105"

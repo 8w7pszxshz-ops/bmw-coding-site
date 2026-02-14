@@ -23,7 +23,7 @@ interface StageStepProps {
   onEuro2Change: (enabled: boolean) => void;
   onDieselOptionChange: (option: 'egr' | 'dpf' | 'flaps' | 'adblue', enabled: boolean) => void;
   onTransmissionTuningChange: (enabled: boolean) => void;
-  onOrder: (finalPrice: number) => void;
+  onOrder: (finalPrice: number, extras?: { dateOption?: string | null; startStopOff?: boolean }) => void;
 }
 
 export default function StageStep({ 
@@ -257,9 +257,7 @@ export default function StageStep({
               finalPrice
             });
 
-            onOrder(finalPrice);
-            const telegramLink = getTelegramLink(selectedCity.value);
-            window.open(telegramLink, '_blank');
+            onOrder(finalPrice, { dateOption, startStopOff });
           }}
         />
       </div>

@@ -76,8 +76,7 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset, o
     setStep('stage');
   };
 
-  // Заказ
-  const handleOrder = (finalPrice: number) => {
+  const handleOrder = (finalPrice: number, extras?: { dateOption?: string | null; startStopOff?: boolean }) => {
     if (!selectedEngine) return;
 
     const messageLines = [`ЧИП-ТЮНИНГ BMW ${selectedSeries}`, '', `${selectedEngine.engine_code} (${selectedEngine.body_type})`];
@@ -91,7 +90,11 @@ export default function StageSelector({ selectedSeries, selectedCity, onReset, o
       }
     }
 
+    if (extras?.dateOption === '2020') messageLines.push('Дата выпуска: 06.2020+ (+50 000₽)');
+    if (extras?.dateOption === '2023') messageLines.push('Дата выпуска: 01.2023+ (+95 000₽)');
+    if (extras?.startStopOff) messageLines.push('Start/Stop OFF: Да');
     if (euro2Enabled) messageLines.push('EURO 2: Да');
+    if (transmissionTuningEnabled) messageLines.push('Чип-тюнинг АКПП: Да');
     if (dieselOptions.egr) messageLines.push('EGR: Да');
     if (dieselOptions.dpf) messageLines.push('DPF: Да');
     if (dieselOptions.flaps) messageLines.push('FLAPS: Да');
