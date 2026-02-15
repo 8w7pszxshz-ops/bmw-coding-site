@@ -14,7 +14,7 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md border-b border-white/5">
+      <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
         <div className="flex items-center gap-2">
           <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
         </div>
@@ -41,7 +41,7 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
   const [currentTime] = useState(new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 flex items-center justify-between backdrop-blur-md border-b border-white/5">
+    <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
       <div className="flex items-center gap-3">
         <span className="text-white/60 text-sm font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
       </div>

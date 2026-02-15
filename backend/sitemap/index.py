@@ -14,7 +14,7 @@ def handler(event, context):
         }
 
     base = 'https://reborn-bmw.tech'
-    today = '2026-02-14'
+    today = '2026-02-15'
 
     pages = [
         ('/', today, 'weekly', '1.0'),

@@ -4,9 +4,7 @@
       "name": "Get sitemap XML",
       "method": "GET",
       "path": "/",
-      "expectedStatus": 200,
-      "expectedBody": {"key": "string"},
-      "bodyMatcher": "partial"
+      "expectedStatus": 200
     }
   ]
 }

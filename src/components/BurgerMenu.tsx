@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { MobileOnly } from '@/components/ui/responsive';
 
 const menuItems = [
   { id: 'services', label: 'Услуги', icon: 'Wrench', type: 'scroll' },
@@ -23,8 +22,6 @@ const vibrate = (pattern: number | number[] = 10) => {
     navigator.vibrate(pattern);
   }
 };
-
-
 
 export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +53,7 @@ export default function BurgerMenu() {
   };
 
   return (
-    <MobileOnly>
+    <>
       <button
         onClick={handleToggle}
         className="fixed top-4 right-4 z-[60] min-w-[48px] min-h-[48px] w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/90 to-cyan-500/90 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg"
@@ -92,6 +89,6 @@ export default function BurgerMenu() {
           </div>
         </>
       )}
-    </MobileOnly>
+    </>
   );
 }
