@@ -1,5 +1,10 @@
+import os
+import psycopg2
+from psycopg2.extras import RealDictCursor
+from datetime import date
+
 def handler(event, context):
-    """Генерация sitemap.xml со всеми страницами сайта Reborn BMW"""
+    """Генерация sitemap.xml со всеми страницами сайта Reborn BMW, включая коды ошибок из БД"""
 
     if event.get('httpMethod') == 'OPTIONS':
         return {
@@ -14,7 +19,7 @@ def handler(event, context):
         }
 
     base = 'https://reborn-bmw.tech'
-    today = '2026-02-15'
+    today = date.today().isoformat()
 
     pages = [
         ('/', today, 'weekly', '1.0'),
@@ -40,6 +45,16 @@ def handler(event, context):
     engines = ['n55', 'b58', 'n54', 'b48', 'n20', 's58', 'n57']
     for slug in engines:
         pages.append((f'/engines/{slug}', today, 'monthly', '0.8'))
+
+    conn = psycopg2.connect(os.environ['DATABASE_URL'])
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor.execute("SELECT code FROM error_codes ORDER BY search_count DESC, id")
+    error_codes = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    for row in error_codes:
+        pages.append((f'/error-codes/{row["code"]}', today, 'weekly', '0.6'))
 
     urls = ''
     for path, lastmod, freq, priority in pages:
