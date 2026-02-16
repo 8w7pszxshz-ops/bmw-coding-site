@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 
 function GlitchText({ text, gradient, className, style }: { text: string; gradient?: boolean; className?: string; style?: React.CSSProperties }) {
@@ -32,61 +31,9 @@ function GlitchText({ text, gradient, className, style }: { text: string; gradie
   );
 }
 
-function OfferCard({ mobile }: { mobile?: boolean }) {
-  const size = mobile
-    ? { pad: '12px', clip: 12, icon: 'w-8 h-8', iconClip: 5, iconInner: 'w-4 h-4', titleClass: 'text-sm', descClass: 'text-[11px]', cornerSize: 'w-8 h-8', cornerLg: 'w-8 h-8' }
-    : { pad: '20px', clip: 16, icon: 'w-11 h-11', iconClip: 6, iconInner: 'w-5 h-5', titleClass: 'text-base mb-1', descClass: 'text-xs', cornerSize: 'w-12 h-12', cornerLg: 'w-12 h-12' };
-
-  return (
-    <div className="relative overflow-hidden" style={{
-      background: 'linear-gradient(160deg, rgba(26, 8, 8, 0.85) 0%, rgba(10, 10, 15, 0.85) 100%)',
-      border: '2px solid',
-      borderImage: 'linear-gradient(160deg, rgba(255, 0, 0, 0.6) 0%, rgba(0, 212, 255, 0.6) 100%) 1',
-      boxShadow: '0 0 25px rgba(127, 106, 127, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.4)',
-      clipPath: `polygon(0 0, calc(100% - ${size.clip}px) 0, 100% ${size.clip}px, 100% 100%, ${size.clip}px 100%, 0 calc(100% - ${size.clip}px))`,
-      padding: size.pad
-    }}>
-      <div className="absolute top-0 left-0 right-0" style={{
-        height: '2px',
-        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 0, 0.5) 20%, rgba(127, 106, 127, 0.8) 50%, rgba(0, 212, 255, 0.5) 80%, transparent 100%)',
-        boxShadow: '0 0 20px rgba(127, 106, 127, 0.6)'
-      }} />
-      <div className="absolute bottom-0 left-0 right-0" style={{
-        height: '1px',
-        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 0, 0, 0.3) 30%, rgba(0, 212, 255, 0.3) 70%, transparent 100%)',
-        boxShadow: '0 0 10px rgba(127, 106, 127, 0.3)'
-      }} />
-      <div className={`absolute top-0 right-0 ${size.cornerSize} pointer-events-none`} style={{
-        background: 'linear-gradient(to bottom right, rgba(255, 0, 0, 0.2), rgba(0, 212, 255, 0.15))',
-        clipPath: 'polygon(100% 0, 100% 100%, 0 0)'
-      }} />
-      <div className={`absolute bottom-0 left-0 ${size.cornerLg} pointer-events-none`} style={{
-        background: 'linear-gradient(to top left, rgba(0, 212, 255, 0.15), rgba(255, 0, 0, 0.1))',
-        clipPath: 'polygon(0 100%, 100% 100%, 0 0)'
-      }} />
-      <div className="flex items-start gap-2.5 relative z-10">
-        <div className={`${size.icon} flex items-center justify-center flex-shrink-0`} style={{
-          background: '#000000',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.6)',
-          clipPath: `polygon(0 0, calc(100% - ${size.iconClip}px) 0, 100% ${size.iconClip}px, 100% 100%, ${size.iconClip}px 100%, 0 calc(100% - ${size.iconClip}px))`
-        }}>
-          <Icon name="ShieldCheck" className={size.iconInner} style={{ color: '#00d4ff' }} />
-        </div>
-        <div>
-          <div className={`text-white font-medium tracking-wide ${size.titleClass}`}>Без экспериментов</div>
-          <div className={`text-white/50 font-light leading-relaxed ${size.descClass}`}>
-            {mobile ? 'Только проверенные решения для вашего BMW' : 'Применяем только проверенные решения для вашего BMW'}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function HeroMobile() {
   return (
-    <div className="mb-6 mt-3 px-4">
+    <div className="mb-4 mt-3 px-4">
       <div className="flex items-center gap-2 mb-2">
         <div className="h-0.5 w-5 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
         <span className="text-[9px] tracking-[0.15em] uppercase font-light">
@@ -94,20 +41,18 @@ function HeroMobile() {
         </span>
       </div>
       
-      <h1 className="text-3xl font-medium text-white tracking-tight leading-none mb-3">
+      <h1 className="text-4xl font-medium text-white tracking-tight leading-none">
         <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
         {' '}
         <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
       </h1>
-
-      <OfferCard mobile />
     </div>
   );
 }
 
 function HeroDesktop() {
   return (
-    <div className="mb-10 mt-6">
+    <div className="mb-6 mt-6">
       <div className="flex items-center gap-2.5 mb-4">
         <div className="h-0.5 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
         <span className="text-xs tracking-[0.25em] uppercase font-light">
@@ -115,19 +60,11 @@ function HeroDesktop() {
         </span>
       </div>
       
-      <div className="flex items-start justify-between gap-10">
-        <div className="flex-1">
-          <h1 className="text-5xl md:text-6xl font-medium text-white tracking-tight leading-none mb-8">
-            <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
-            {' '}
-            <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
-          </h1>
-        </div>
-
-        <div className="flex-shrink-0 mt-3 -ml-24">
-          <OfferCard />
-        </div>
-      </div>
+      <h1 className="text-6xl md:text-7xl font-medium text-white tracking-tight leading-none">
+        <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
+        {' '}
+        <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
+      </h1>
     </div>
   );
 }

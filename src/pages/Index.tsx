@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import HeroSection from '@/components/HeroSection';
+import TrustBanner from '@/components/TrustBanner';
 import SpecialOffer from '@/components/SpecialOffer';
 import CalculatorHub from '@/components/CalculatorHub';
 import ServicesGrid from '@/components/ServicesGrid';
@@ -70,6 +71,7 @@ export default function Index() {
         <FloatingAIButton />
         <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
           <HeroSection />
+          <TrustBanner />
           <div id="offers">
             <SpecialOffer selectedCity={selectedCity} />
           </div>
