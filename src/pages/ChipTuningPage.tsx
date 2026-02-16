@@ -87,7 +87,7 @@ export default function ChipTuningPage() {
 
           <div className="text-center mb-12">
             <Link
-              to="/#calculator-hub"
+              to="/#chiptuning"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-medium transition-all hover:scale-105"
               style={{ background: 'linear-gradient(135deg, #e7222e, #c41e28)', boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4)' }}
             >
