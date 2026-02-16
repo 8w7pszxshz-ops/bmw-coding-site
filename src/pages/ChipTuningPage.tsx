@@ -157,7 +157,7 @@ export default function ChipTuningPage() {
             <h2 className="text-2xl font-light text-white mb-3">Рассчитать стоимость чип-тюнинга</h2>
             <p className="text-white/60 mb-4">Выберите модель и получите точную цену за 30 секунд</p>
             <Link
-              to="/"
+              to="/#chiptuning"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-medium transition-all hover:scale-105"
               style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))', boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4)' }}
             >
@@ -182,18 +182,7 @@ export default function ChipTuningPage() {
             </div>
           </div>
 
-          <div className="text-center pb-8">
-            <a
-              href={`${config.telegram}?text=${encodeURIComponent('Здравствуйте! Интересует чип-тюнинг BMW')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-medium transition-all hover:scale-105"
-              style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 10px 40px rgba(37, 99, 235, 0.4)' }}
-            >
-              <Icon name="Send" size={18} />
-              Записаться на чип-тюнинг
-            </a>
-          </div>
+
         </div>
       </MainLayout>
     </>
