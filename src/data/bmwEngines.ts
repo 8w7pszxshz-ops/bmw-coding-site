@@ -118,10 +118,6 @@ export const bmwEngines: BMWEngineData[] = [
     turbo: 'Два турбонагнетателя (twin-turbo)',
     years: '2006–2016',
     models: [
-      { name: 'BMW 335i E90/E92', power: '306 л.с.', stage1: '380 л.с.' },
-      { name: 'BMW 535i E60', power: '306 л.с.', stage1: '380 л.с.' },
-      { name: 'BMW 135i E82', power: '306 л.с.', stage1: '380 л.с.' },
-      { name: 'BMW Z4 35i E89', power: '306 л.с.', stage1: '380 л.с.' },
       { name: 'BMW 740i F01', power: '326 л.с.', stage1: '400 л.с.' },
     ],
     description: 'BMW N54 — культовый twin-turbo мотор, легенда тюнинга. Первый турбированный рядный 6-цилиндровый двигатель BMW нового поколения. Кованый коленвал и прочный блок позволяют достигать 700+ л.с.',
