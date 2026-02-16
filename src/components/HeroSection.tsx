@@ -51,8 +51,8 @@ function HeroMobile() {
             <Icon name="ShieldCheck" className="w-4 h-4" style={{ color: '#00d4ff' }} />
           </div>
           <div>
-            <div className="text-white font-bold text-sm tracking-widest uppercase" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>Без экспериментов</div>
-            <div className="text-white/50 text-[11px] font-light leading-relaxed tracking-wide" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+            <div className="text-white font-medium text-sm tracking-wide">Без экспериментов</div>
+            <div className="text-white/50 text-[11px] font-light leading-relaxed">
               Только проверенные решения для вашего BMW
             </div>
           </div>
@@ -116,8 +116,8 @@ function HeroDesktop() {
                 <Icon name="ShieldCheck" className="w-5 h-5" style={{ color: '#00d4ff' }} />
               </div>
               <div>
-                <div className="text-white font-bold text-base mb-1 tracking-widest uppercase" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>Без экспериментов</div>
-                <div className="text-white/50 text-xs font-light leading-relaxed tracking-wide" style={{ fontFamily: '"Reborn Technologies", sans-serif' }}>
+                <div className="text-white font-medium text-base mb-1 tracking-wide">Без экспериментов</div>
+                <div className="text-white/50 text-xs font-light leading-relaxed">
                   Применяем только проверенные решения для вашего BMW
                 </div>
               </div>
