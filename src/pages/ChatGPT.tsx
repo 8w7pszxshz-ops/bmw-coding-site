@@ -33,31 +33,19 @@ export default function ChatGPT() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Добавляем breadcrumbs микроразметку
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Главная",
-          "item": "https://reborn-bmw.tech/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "ChatGPT помощник BMW",
-          "item": "https://reborn-bmw.tech/chatgpt"
-        }
-      ]
-    });
-    document.head.appendChild(script);
+    // Закрываем страницу от индексации
+    const metaRobots = document.createElement('meta');
+    metaRobots.name = 'robots';
+    metaRobots.content = 'noindex, nofollow';
+    document.head.appendChild(metaRobots);
+    
+    const metaTitle = document.createElement('title');
+    metaTitle.textContent = 'AI Консультант BMW | Reborn BMW';
+    document.head.appendChild(metaTitle);
     
     return () => {
-      document.head.removeChild(script);
+      document.head.removeChild(metaRobots);
+      document.head.removeChild(metaTitle);
     };
   }, []);
 
