@@ -29,7 +29,9 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const hashHandled = useRef(false);
 
   useEffect(() => {
+    console.log('CalculatorHub hash:', location.hash);
     if (location.hash === '#chiptuning' && !hashHandled.current) {
+      console.log('Opening chiptuning calculator');
       hashHandled.current = true;
       setTimeout(() => {
         setIsChipTuningOpen(true);
