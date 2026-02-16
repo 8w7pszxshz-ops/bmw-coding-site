@@ -1,4 +1,5 @@
-import { useState, lazy, Suspense, useRef } from 'react';
+import { useState, useEffect, lazy, Suspense, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import ChipTuning from './ChipTuning';
@@ -21,9 +22,16 @@ interface CalculatorHubProps {
 }
 
 export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
+  const location = useLocation();
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
   const [isChipTuningOpen, setIsChipTuningOpen] = useState(false);
   const chipTuningAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (location.hash === '#chiptuning') {
+      handleChipTuningOpen();
+    }
+  }, [location.hash]);
 
   const handleChipTuningOpen = () => {
     // Создаем и запускаем аудио track3.mp3 для чип-тюнинга
