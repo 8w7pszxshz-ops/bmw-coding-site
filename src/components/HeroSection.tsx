@@ -94,7 +94,7 @@ function HeroMobile() {
         </span>
       </div>
       
-      <h1 className="text-3xl font-extralight text-white tracking-tight leading-none mb-3">
+      <h1 className="text-3xl font-medium text-white tracking-tight leading-none mb-3">
         <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
         {' '}
         <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
@@ -117,7 +117,7 @@ function HeroDesktop() {
       
       <div className="flex items-start justify-between gap-10">
         <div className="flex-1">
-          <h1 className="text-5xl md:text-6xl font-extralight text-white tracking-tight leading-none mb-8">
+          <h1 className="text-5xl md:text-6xl font-medium text-white tracking-tight leading-none mb-8">
             <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
             {' '}
             <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
