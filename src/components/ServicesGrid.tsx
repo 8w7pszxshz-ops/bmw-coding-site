@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
@@ -68,7 +69,8 @@ const services = [
     icon: 'Wrench',
     price: 'от 5 000 ₽',
     color: '#FFA500',
-    details: 'Комплексное техническое обслуживание и ремонт BMW. Замена масла, тормозных колодок, диагностика ходовой части, ремонт двигателя и трансмиссии. Оригинальные и качественные аналоги.'
+    details: 'Комплексное техническое обслуживание и ремонт BMW. Замена масла, тормозных колодок, диагностика ходовой части, ремонт двигателя и трансмиссии. Оригинальные и качественные аналоги.',
+    link: '/maintenance'
   }
 ];
 
@@ -181,24 +183,42 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
             </button>
           </div>
           
-          <a
-            href={(() => {
-              const msg = `${service.title}\n${service.price}\nГород: ${getCityName(selectedCity)}`;
-              const config = getCityConfig(selectedCity);
-              return `${config.telegram}?text=${encodeURIComponent(msg)}`;
-            })()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 w-full py-1.5 px-2 rounded-lg transition-all duration-300"
-            style={{
-              background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
-              border: `1px solid ${service.color}30`,
-              color: service.color
-            }}
-          >
-            <span className="text-[10px] font-medium">Записаться</span>
-            <Icon name="ArrowRight" className="w-3 h-3" />
-          </a>
+          {service.link ? (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                window.location.href = service.link;
+              }}
+              className="flex items-center justify-center gap-1.5 w-full py-1.5 px-2 rounded-lg transition-all duration-300"
+              style={{
+                background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
+                border: `1px solid ${service.color}30`,
+                color: service.color
+              }}
+            >
+              <span className="text-[10px] font-medium">Подробнее</span>
+              <Icon name="ArrowRight" className="w-3 h-3" />
+            </button>
+          ) : (
+            <a
+              href={(() => {
+                const msg = `${service.title}\n${service.price}\nГород: ${getCityName(selectedCity)}`;
+                const config = getCityConfig(selectedCity);
+                return `${config.telegram}?text=${encodeURIComponent(msg)}`;
+              })()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1.5 w-full py-1.5 px-2 rounded-lg transition-all duration-300"
+              style={{
+                background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
+                border: `1px solid ${service.color}30`,
+                color: service.color
+              }}
+            >
+              <span className="text-[10px] font-medium">Записаться</span>
+              <Icon name="ArrowRight" className="w-3 h-3" />
+            </a>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -313,24 +333,42 @@ function ServiceCardDesktop({ service, index, isSelected, onToggle, selectedCity
             </button>
           </div>
           
-          <a
-            href={(() => {
-              const msg = `${service.title}\n${service.price}\nГород: ${getCityName(selectedCity)}`;
-              const config = getCityConfig(selectedCity);
-              return `${config.telegram}?text=${encodeURIComponent(msg)}`;
-            })()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-lg transition-all duration-300 hover:scale-[1.02]"
-            style={{
-              background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
-              border: `1px solid ${service.color}30`,
-              color: service.color
-            }}
-          >
-            <span className="text-xs font-medium">Записаться</span>
-            <Icon name="ArrowRight" className="w-4 h-4" />
-          </a>
+          {service.link ? (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                window.location.href = service.link;
+              }}
+              className="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-lg transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
+                border: `1px solid ${service.color}30`,
+                color: service.color
+              }}
+            >
+              <span className="text-xs font-medium">Подробнее</span>
+              <Icon name="ArrowRight" className="w-4 h-4" />
+            </button>
+          ) : (
+            <a
+              href={(() => {
+                const msg = `${service.title}\n${service.price}\nГород: ${getCityName(selectedCity)}`;
+                const config = getCityConfig(selectedCity);
+                return `${config.telegram}?text=${encodeURIComponent(msg)}`;
+              })()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-lg transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                background: `linear-gradient(135deg, ${service.color}20, ${service.color}10)`,
+                border: `1px solid ${service.color}30`,
+                color: service.color
+              }}
+            >
+              <span className="text-xs font-medium">Записаться</span>
+              <Icon name="ArrowRight" className="w-4 h-4" />
+            </a>
+          )}
         </div>
       </CardContent>
     </Card>

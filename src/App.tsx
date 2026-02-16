@@ -18,6 +18,7 @@ import BMWModelPage from "./pages/BMWModelPage";
 import BMWEnginePage from "./pages/BMWEnginePage";
 import PricesPage from "./pages/PricesPage";
 import AboutPage from "./pages/AboutPage";
+import MaintenancePage from "./pages/MaintenancePage";
 import BlogPage from "./pages/BlogPage";
 import BlogArticlePage from "./pages/BlogArticlePage";
 import NotFound from "./pages/NotFound";
@@ -66,6 +67,7 @@ const App = () => {
             <Route path="/ecology" element={<EcologyPage />} />
             <Route path="/prices" element={<PricesPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/maintenance" element={<MaintenancePage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogArticlePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
