@@ -26,25 +26,33 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   const [activeCalculator, setActiveCalculator] = useState<CalculatorType>(null);
   const [isChipTuningOpen, setIsChipTuningOpen] = useState(false);
   const chipTuningAudioRef = useRef<HTMLAudioElement | null>(null);
+  const hashHandled = useRef(false);
 
   useEffect(() => {
-    if (location.hash === '#chiptuning') {
-      handleChipTuningOpen();
+    if (location.hash === '#chiptuning' && !hashHandled.current) {
+      hashHandled.current = true;
+      setTimeout(() => {
+        setIsChipTuningOpen(true);
+        if (!chipTuningAudioRef.current) {
+          chipTuningAudioRef.current = new Audio('/music/track3.mp3');
+          chipTuningAudioRef.current.volume = 0.12;
+          chipTuningAudioRef.current.loop = true;
+        }
+        chipTuningAudioRef.current.play().catch(() => {});
+      }, 300);
+    }
+    if (location.hash !== '#chiptuning') {
+      hashHandled.current = false;
     }
   }, [location.hash]);
 
   const handleChipTuningOpen = () => {
-    // Создаем и запускаем аудио track3.mp3 для чип-тюнинга
     if (!chipTuningAudioRef.current) {
       chipTuningAudioRef.current = new Audio('/music/track3.mp3');
       chipTuningAudioRef.current.volume = 0.12;
       chipTuningAudioRef.current.loop = true;
     }
-    
-    chipTuningAudioRef.current.play().catch(err => {
-      console.log('Audio play error:', err);
-    });
-    
+    chipTuningAudioRef.current.play().catch(() => {});
     setIsChipTuningOpen(true);
   };
 
