@@ -125,11 +125,11 @@ function ServiceCardMobile({ service, index, isSelected, onToggle, selectedCity 
           />
         </div>
         
-        <h3 className="text-xs font-light text-white mb-1.5 tracking-tight leading-tight h-[2rem] line-clamp-2">
+        <h3 className="text-xs font-light text-white mb-1.5 tracking-tight leading-tight overflow-hidden">
           {service.title}
         </h3>
         
-        <div className="relative">
+        <div className="relative hidden">
           <p className="text-[11px] text-white/70 font-light leading-relaxed" style={{ display: '-webkit-box', WebkitLineClamp: isSelected ? 'unset' : 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
             {service.details}
           </p>
