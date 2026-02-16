@@ -73,10 +73,10 @@ export default function Index() {
           <div id="offers">
             <SpecialOffer selectedCity={selectedCity} />
           </div>
-          <CalculatorHub selectedCity={selectedCity} />
           <div id="services">
-            <ServicesGrid selectedCity={selectedCity} />
+            <CalculatorHub selectedCity={selectedCity} />
           </div>
+          <ServicesGrid selectedCity={selectedCity} />
           <div id="tips">
             <ExpertTips />
           </div>
