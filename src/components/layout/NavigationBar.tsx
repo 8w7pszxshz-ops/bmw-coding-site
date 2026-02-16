@@ -135,13 +135,13 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
   return (
     <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-gradient-to-b from-black/90 via-black/80 to-transparent border-b border-blue-500/10">
       <div className="px-8 py-4 flex items-center justify-between max-w-[1400px] mx-auto">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 flex-wrap">
           <div className="h-0.5 w-6 bg-gradient-to-r from-blue-500 to-transparent rounded-full mr-4" />
           {menuItems.map((item, index) => (
             <div key={item.id} className="flex items-center">
               <button
                 onClick={() => handleMenuClick(item)}
-                className="flex items-center gap-1.5 text-white/60 hover:text-blue-400 text-xs font-light transition-all px-3 py-1.5 rounded-lg hover:bg-blue-500/5"
+                className="flex items-center gap-1.5 text-white/60 hover:text-blue-400 text-xs font-light transition-all px-3 py-1.5 rounded-lg hover:bg-blue-500/5 whitespace-nowrap"
               >
                 <Icon name={item.icon} className="w-3.5 h-3.5" />
                 <span>{item.label}</span>
