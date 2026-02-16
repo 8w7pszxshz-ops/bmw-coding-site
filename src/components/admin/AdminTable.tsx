@@ -148,7 +148,6 @@ export default function AdminTable({ records, onSave, onDelete }: AdminTableProp
               <th className="px-4 py-3 text-left text-white/80 font-medium">Серия</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Кузов</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Двигатель</th>
-              <th className="px-4 py-3 text-left text-white/80 font-medium">Прошивка</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Сток л.с.</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Сток Нм</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Stage1 л.с.</th>
@@ -170,7 +169,6 @@ export default function AdminTable({ records, onSave, onDelete }: AdminTableProp
                 {renderCell(record, 'series', record.series)}
                 {renderCell(record, 'body_type', record.body_type)}
                 {renderCell(record, 'engine_code', record.engine_code)}
-                {renderCell(record, 'firmware_type', record.firmware_type)}
                 {renderCell(record, 'stock.power', record.stock.power)}
                 {renderCell(record, 'stock.torque', record.stock.torque)}
                 {renderCell(record, 'stage1.power', record.stage1.power)}
