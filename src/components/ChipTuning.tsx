@@ -182,7 +182,7 @@ export default function ChipTuning({ selectedCity, isOpen, onClose, audioRef }: 
               <img 
                 src="https://cdn.poehali.dev/files/rebornlogo.png" 
                 alt="Reborn Technologies" 
-                className="h-16 md:h-20"
+                className="h-16 md:h-20 w-auto object-contain"
               />
             </div>
             
