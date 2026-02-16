@@ -45,41 +45,41 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
   return (
     <div id="key-calculator" className="mb-16">
       <div 
-        className="relative rounded-3xl p-6 md:p-12 overflow-hidden"
+        className="relative rounded-3xl p-6 md:p-12 overflow-hidden backdrop-blur-xl"
         style={{
-          background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%)',
-          border: '1px solid rgba(245, 158, 11, 0.25)',
-          boxShadow: '0 30px 90px -20px rgba(245, 158, 11, 0.5)',
+          background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(255, 215, 0, 0.05) 100%)',
+          border: '1px solid rgba(212, 175, 55, 0.3)',
+          boxShadow: '0 30px 90px -20px rgba(212, 175, 55, 0.3)',
         }}
       >
         <div 
           className="absolute top-0 left-0 right-0"
           style={{
-            height: '3px',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.2) 15%, rgba(245, 158, 11, 0.9) 50%, rgba(245, 158, 11, 0.2) 85%, transparent 100%)',
-            boxShadow: '0 0 30px rgba(245, 158, 11, 0.6), 0 2px 20px rgba(245, 158, 11, 0.4)'
+            height: '2px',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 15%, rgba(255, 215, 0, 0.6) 50%, rgba(212, 175, 55, 0.3) 85%, transparent 100%)',
+            boxShadow: '0 0 20px rgba(255, 215, 0, 0.4)'
           }}
         />
         <div 
           className="absolute bottom-0 left-0 right-0"
           style={{
             height: '1px',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.15) 30%, rgba(245, 158, 11, 0.5) 50%, rgba(245, 158, 11, 0.15) 70%, transparent 100%)',
-            boxShadow: '0 0 15px rgba(245, 158, 11, 0.3)'
+            background: 'linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 30%, rgba(255, 215, 0, 0.4) 50%, rgba(212, 175, 55, 0.2) 70%, transparent 100%)',
+            boxShadow: '0 0 10px rgba(255, 215, 0, 0.3)'
           }}
         />
-        <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
+        <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
           <defs>
             <pattern id="key-calc-bg" x="0" y="0" width="35" height="35" patternUnits="userSpaceOnUse">
-              <circle cx="17.5" cy="17.5" r="1.2" fill="rgba(245, 158, 11, 0.6)">
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+              <circle cx="17.5" cy="17.5" r="1.2" fill="rgba(255, 215, 0, 0.5)">
+                <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite" />
               </circle>
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#key-calc-bg)" />
         </svg>
         <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-          <Icon name="Calculator" className="w-5 h-5 md:w-7 md:h-7 text-amber-400" />
+          <Icon name="Calculator" className="w-5 h-5 md:w-7 md:h-7" style={{ color: '#FFD700' }} />
           <h2 className="text-xl md:text-3xl font-light text-white">Калькулятор стоимости ключа</h2>
         </div>
 
@@ -103,15 +103,15 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                 className="relative flex-1 py-3 px-3 md:py-4 md:px-6 rounded-xl font-medium transition-all duration-300 overflow-hidden"
                 style={{
                   background: series === s 
-                    ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(245, 158, 11, 0.7))'
-                    : 'rgba(255, 255, 255, 0.05)',
+                    ? 'linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(255, 215, 0, 0.15))'
+                    : 'rgba(255, 255, 255, 0.03)',
                   border: series === s 
-                    ? '1px solid rgba(245, 158, 11, 0.5)' 
-                    : '1px solid rgba(255, 255, 255, 0.1)',
+                    ? '1px solid rgba(212, 175, 55, 0.4)' 
+                    : '1px solid rgba(255, 255, 255, 0.08)',
                   boxShadow: series === s 
-                    ? '0 10px 40px rgba(245, 158, 11, 0.4)' 
+                    ? '0 10px 40px rgba(255, 215, 0, 0.2)' 
                     : 'none',
-                  color: series === s ? '#fff' : 'rgba(255, 255, 255, 0.6)'
+                  color: series === s ? '#FFD700' : 'rgba(255, 255, 255, 0.5)'
                 }}
               >
                 {series === s && (
@@ -120,15 +120,15 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                       className="absolute top-0 left-0 right-0"
                       style={{
                         height: '2px',
-                        background: 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.8), transparent)',
-                        boxShadow: '0 0 15px rgba(245, 158, 11, 0.6)'
+                        background: 'linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6), transparent)',
+                        boxShadow: '0 0 15px rgba(255, 215, 0, 0.4)'
                       }}
                     />
                     <div 
                       className="absolute bottom-1 right-1 w-2 h-2 rounded-full"
                       style={{
-                        background: 'rgba(245, 158, 11, 0.6)',
-                        boxShadow: '0 0 12px rgba(245, 158, 11, 0.8)'
+                        background: 'rgba(255, 215, 0, 0.5)',
+                        boxShadow: '0 0 12px rgba(255, 215, 0, 0.6)'
                       }}
                     />
                   </>
@@ -153,15 +153,15 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                   className="py-2 px-2 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300"
                   style={{
                     background: selectedFKey === idx
-                      ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(245, 158, 11, 0.7))'
-                      : 'rgba(255, 255, 255, 0.05)',
+                      ? 'linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(255, 215, 0, 0.15))'
+                      : 'rgba(255, 255, 255, 0.03)',
                     border: selectedFKey === idx
-                      ? '1px solid rgba(245, 158, 11, 0.5)'
-                      : '1px solid rgba(255, 255, 255, 0.1)',
+                      ? '1px solid rgba(212, 175, 55, 0.4)'
+                      : '1px solid rgba(255, 255, 255, 0.08)',
                     boxShadow: selectedFKey === idx
-                      ? '0 8px 30px rgba(245, 158, 11, 0.4)'
+                      ? '0 8px 30px rgba(255, 215, 0, 0.2)'
                       : 'none',
-                    color: selectedFKey === idx ? '#fff' : 'rgba(255, 255, 255, 0.6)'
+                    color: selectedFKey === idx ? '#FFD700' : 'rgba(255, 255, 255, 0.5)'
                   }}
                 >
                   {selectedFKey === idx && (
@@ -169,15 +169,15 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                       <div 
                         className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
                         style={{
-                          background: 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.8), transparent)',
-                          boxShadow: '0 0 8px rgba(245, 158, 11, 0.6)'
+                          background: 'linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6), transparent)',
+                          boxShadow: '0 0 8px rgba(255, 215, 0, 0.4)'
                         }}
                       />
                       <div 
                         className="absolute top-1 left-1 w-2 h-2 rounded-full"
                         style={{
-                          background: 'rgba(245, 158, 11, 0.5)',
-                          boxShadow: '0 0 10px rgba(245, 158, 11, 0.8)'
+                          background: 'rgba(255, 215, 0, 0.5)',
+                          boxShadow: '0 0 10px rgba(255, 215, 0, 0.6)'
                         }}
                       />
                     </>
@@ -202,13 +202,13 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                 className="relative py-4 px-4 md:py-6 md:px-6 rounded-xl transition-all duration-300 overflow-hidden"
                 style={{
                   background: keyType === 'copy'
-                    ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(245, 158, 11, 0.7))'
-                    : 'rgba(255, 255, 255, 0.05)',
+                    ? 'linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(255, 215, 0, 0.15))'
+                    : 'rgba(255, 255, 255, 0.03)',
                   border: keyType === 'copy'
-                    ? '1px solid rgba(245, 158, 11, 0.5)'
-                    : '1px solid rgba(255, 255, 255, 0.1)',
+                    ? '1px solid rgba(212, 175, 55, 0.4)'
+                    : '1px solid rgba(255, 255, 255, 0.08)',
                   boxShadow: keyType === 'copy'
-                    ? '0 10px 40px rgba(245, 158, 11, 0.4)'
+                    ? '0 10px 40px rgba(255, 215, 0, 0.2)'
                     : 'none',
                 }}
               >
@@ -217,14 +217,14 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                     <div 
                       className="absolute top-0 right-0 w-px h-full"
                       style={{
-                        background: 'linear-gradient(180deg, transparent, rgba(245, 158, 11, 0.6), transparent)',
-                        boxShadow: '0 0 12px rgba(245, 158, 11, 0.5)'
+                        background: 'linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.5), transparent)',
+                        boxShadow: '0 0 12px rgba(255, 215, 0, 0.3)'
                       }}
                     />
-                    <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none">
+                    <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
                       <defs>
                         <pattern id="copy-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                          <circle cx="10" cy="10" r="0.8" fill="rgba(245, 158, 11, 0.6)" />
+                          <circle cx="10" cy="10" r="0.8" fill="rgba(255, 215, 0, 0.5)" />
                         </pattern>
                       </defs>
                       <rect width="100%" height="100%" fill="url(#copy-dots)" />
@@ -232,12 +232,12 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                   </>
                 )}
                 <div className="relative flex items-center justify-between mb-1 md:mb-2">
-                  <span className="text-sm md:text-lg font-light" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                  <span className="text-sm md:text-lg font-light" style={{ color: keyType === 'copy' ? '#FFD700' : 'rgba(255, 255, 255, 0.5)' }}>
                     Копия
                   </span>
-                  <Icon name="Key" className="w-4 h-4 md:w-5 md:h-5" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.4)' }} />
+                  <Icon name="Key" className="w-4 h-4 md:w-5 md:h-5" style={{ color: keyType === 'copy' ? '#FFD700' : 'rgba(255, 255, 255, 0.3)' }} />
                 </div>
-                <div className="text-lg md:text-2xl font-medium" style={{ color: keyType === 'copy' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                <div className="text-lg md:text-2xl font-medium" style={{ color: keyType === 'copy' ? '#FFD700' : 'rgba(255, 255, 255, 0.5)' }}>
                   25 000 ₽
                 </div>
               </button>
@@ -247,13 +247,13 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                 className="relative py-4 px-4 md:py-6 md:px-6 rounded-xl transition-all duration-300 overflow-hidden"
                 style={{
                   background: keyType === 'dealer'
-                    ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(245, 158, 11, 0.7))'
-                    : 'rgba(255, 255, 255, 0.05)',
+                    ? 'linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(255, 215, 0, 0.15))'
+                    : 'rgba(255, 255, 255, 0.03)',
                   border: keyType === 'dealer'
-                    ? '1px solid rgba(245, 158, 11, 0.5)'
-                    : '1px solid rgba(255, 255, 255, 0.1)',
+                    ? '1px solid rgba(212, 175, 55, 0.4)'
+                    : '1px solid rgba(255, 255, 255, 0.08)',
                   boxShadow: keyType === 'dealer'
-                    ? '0 10px 40px rgba(245, 158, 11, 0.4)'
+                    ? '0 10px 40px rgba(255, 215, 0, 0.2)'
                     : 'none',
                 }}
               >
@@ -262,14 +262,14 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                     <div 
                       className="absolute top-0 right-0 w-px h-full"
                       style={{
-                        background: 'linear-gradient(180deg, transparent, rgba(245, 158, 11, 0.6), transparent)',
-                        boxShadow: '0 0 12px rgba(245, 158, 11, 0.5)'
+                        background: 'linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.5), transparent)',
+                        boxShadow: '0 0 12px rgba(255, 215, 0, 0.3)'
                       }}
                     />
-                    <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none">
+                    <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
                       <defs>
                         <pattern id="dealer-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                          <circle cx="10" cy="10" r="0.8" fill="rgba(245, 158, 11, 0.6)" />
+                          <circle cx="10" cy="10" r="0.8" fill="rgba(255, 215, 0, 0.5)" />
                         </pattern>
                       </defs>
                       <rect width="100%" height="100%" fill="url(#dealer-dots)" />
@@ -277,12 +277,12 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                   </>
                 )}
                 <div className="relative flex items-center justify-between mb-1 md:mb-2">
-                  <span className="text-sm md:text-lg font-light" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                  <span className="text-sm md:text-lg font-light" style={{ color: keyType === 'dealer' ? '#FFD700' : 'rgba(255, 255, 255, 0.5)' }}>
                     Дилерский
                   </span>
-                  <Icon name="Award" className="w-4 h-4 md:w-5 md:h-5" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.4)' }} />
+                  <Icon name="Award" className="w-4 h-4 md:w-5 md:h-5" style={{ color: keyType === 'dealer' ? '#FFD700' : 'rgba(255, 255, 255, 0.3)' }} />
                 </div>
-                <div className="text-lg md:text-2xl font-medium" style={{ color: keyType === 'dealer' ? '#fff' : 'rgba(255, 255, 255, 0.6)' }}>
+                <div className="text-lg md:text-2xl font-medium" style={{ color: keyType === 'dealer' ? '#FFD700' : 'rgba(255, 255, 255, 0.5)' }}>
                   40 000 ₽
                 </div>
               </button>
@@ -292,34 +292,34 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
 
         {/* Итоговая стоимость */}
         <div 
-          className="relative rounded-2xl p-4 md:p-8 mt-6 md:mt-8 overflow-hidden"
+          className="relative rounded-2xl p-4 md:p-8 mt-6 md:mt-8 overflow-hidden backdrop-blur-lg"
           style={{
-            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05))',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
-            boxShadow: '0 8px 32px rgba(245, 158, 11, 0.15)'
+            background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(255, 215, 0, 0.08))',
+            border: '1px solid rgba(212, 175, 55, 0.3)',
+            boxShadow: '0 8px 32px rgba(255, 215, 0, 0.1)'
           }}
         >
           <div 
             className="absolute top-0 left-0 right-0"
             style={{
               height: '2px',
-              background: 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.8) 30%, rgba(245, 158, 11, 1) 50%, rgba(245, 158, 11, 0.8) 70%, transparent)',
-              boxShadow: '0 0 25px rgba(245, 158, 11, 0.7)'
+              background: 'linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5) 30%, rgba(255, 215, 0, 0.7) 50%, rgba(212, 175, 55, 0.5) 70%, transparent)',
+              boxShadow: '0 0 20px rgba(255, 215, 0, 0.4)'
             }}
           />
           <div 
             className="absolute left-0 top-0 bottom-0"
             style={{
               width: '2px',
-              background: 'linear-gradient(180deg, transparent, rgba(245, 158, 11, 0.6) 50%, transparent)',
-              boxShadow: '0 0 15px rgba(245, 158, 11, 0.5)'
+              background: 'linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.5) 50%, transparent)',
+              boxShadow: '0 0 15px rgba(255, 215, 0, 0.3)'
             }}
           />
-          <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
+          <svg className="absolute inset-0 w-full h-full opacity-15 pointer-events-none">
             <defs>
               <pattern id="final-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                <circle cx="20" cy="20" r="1" fill="rgba(245, 158, 11, 0.5)">
-                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite" />
+                <circle cx="20" cy="20" r="1" fill="rgba(255, 215, 0, 0.5)">
+                  <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite" />
                 </circle>
               </pattern>
             </defs>
@@ -351,11 +351,12 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
               })()}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-xl text-sm md:text-base font-medium text-white transition-all duration-300 hover:scale-105"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-xl text-sm md:text-base font-medium transition-all duration-300 hover:scale-105"
               style={{
-                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(245, 158, 11, 0.7))',
-                border: '1px solid rgba(245, 158, 11, 0.5)',
-                boxShadow: '0 10px 40px rgba(245, 158, 11, 0.4)',
+                background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(255, 215, 0, 0.2))',
+                border: '1px solid rgba(212, 175, 55, 0.5)',
+                boxShadow: '0 10px 40px rgba(255, 215, 0, 0.25)',
+                color: '#FFD700'
               }}
             >
               <Icon name="Send" className="w-4 h-4 md:w-5 md:h-5" />
