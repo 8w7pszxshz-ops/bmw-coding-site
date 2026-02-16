@@ -81,12 +81,14 @@ export default function BMWEnginePage() {
             Чип-тюнинг двигателя <span className="bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">BMW {engine.name}</span>
           </h1>
 
-          <p className="text-white/70 text-lg md:text-xl font-light mb-8 leading-relaxed">{engine.heroText}</p>
+          <p className="text-white/70 text-lg md:text-xl font-light mb-8 leading-relaxed">
+            {engine.type === 'бензиновый' ? 'Бензиновый' : 'Дизельный'} двигатель BMW {engine.name} ({engine.years}). Индивидуальная калибровка ECU для увеличения мощности и крутящего момента.
+          </p>
 
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Характеристики {engine.name}</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {engine.specs.map((spec) => (
+              {engine.specs.filter((spec) => !spec.label.toLowerCase().includes('мощность') && !spec.label.toLowerCase().includes('момент')).map((spec) => (
                 <div key={spec.label} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
                   <div className="text-white/40 text-xs uppercase tracking-wider mb-1">{spec.label}</div>
                   <div className="text-white font-light">{spec.value}</div>
@@ -97,77 +99,24 @@ export default function BMWEnginePage() {
 
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Модели с двигателем {engine.name}</h2>
-            {isLoading ? (
-              <div className="text-white/50 text-center py-8">Загрузка данных...</div>
-            ) : variants.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}>
-                  <thead>
-                    <tr>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Модель</th>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Мощность стока</th>
-                      <th className="text-right text-white/40 text-xs uppercase tracking-wider px-4 py-2">Рассчитать</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {variants.map((v) => (
-                      <tr key={v.model} style={{ background: 'rgba(255,255,255,0.03)' }}>
-                        <td className="px-4 py-3 rounded-l-xl">
-                          <span className="text-white font-light">{v.model}</span>
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="text-white/60">{v.stock_power} л.с. / {v.stock_torque} Нм</span>
-                        </td>
-                        <td className="px-4 py-3 rounded-r-xl text-right">
-                          <button
-                            onClick={() => navigate('/calculator')}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all hover:scale-105"
-                            style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))' }}
-                          >
-                            <Icon name="Calculator" size={16} />
-                            Рассчитать
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}>
-                  <thead>
-                    <tr>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Модель</th>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Мощность стока</th>
-                      <th className="text-right text-white/40 text-xs uppercase tracking-wider px-4 py-2">Рассчитать</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {engine.models.map((m) => (
-                      <tr key={m.name} style={{ background: 'rgba(255,255,255,0.03)' }}>
-                        <td className="px-4 py-3 rounded-l-xl">
-                          <span className="text-white font-light">{m.name}</span>
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="text-white/60">{m.power}</span>
-                        </td>
-                        <td className="px-4 py-3 rounded-r-xl text-right">
-                          <button
-                            onClick={() => navigate('/calculator')}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all hover:scale-105"
-                            style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))' }}
-                          >
-                            <Icon name="Calculator" size={16} />
-                            Рассчитать
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+            <div className="space-y-2">
+              {(variants.length > 0
+                ? variants.map((v) => v.model)
+                : engine.models.map((m) => m.name)
+              ).map((modelName) => (
+                <div key={modelName} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                  <span className="text-white font-light">{modelName}</span>
+                  <button
+                    onClick={() => navigate('/calculator')}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all hover:scale-105"
+                    style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))' }}
+                  >
+                    <Icon name="Calculator" size={16} />
+                    Рассчитать
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mb-12">
@@ -175,39 +124,31 @@ export default function BMWEnginePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.2)' }}>
                 <Icon name="Zap" className="w-8 h-8 text-red-400 mb-3" />
-                <h3 className="text-white text-lg font-medium mb-2">Мощность и крутящий момент</h3>
-                <p className="text-white/60 text-sm leading-relaxed">Прирост до 30% мощности и 35% крутящего момента без вмешательства в механику</p>
+                <h3 className="text-white text-lg font-medium mb-2">Увеличение мощности</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Прирост мощности и крутящего момента без вмешательства в механику двигателя</p>
               </div>
               <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.2)' }}>
                 <Icon name="Gauge" className="w-8 h-8 text-red-400 mb-3" />
                 <h3 className="text-white text-lg font-medium mb-2">Улучшенная динамика</h3>
-                <p className="text-white/60 text-sm leading-relaxed">Плавный разгон, быстрый отклик педали газа, эффективные обгоны</p>
+                <p className="text-white/60 text-sm leading-relaxed">Более быстрый отклик на педаль газа, уверенные обгоны, ровная полка момента</p>
               </div>
               <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.2)' }}>
-                <Icon name="Droplet" className="w-8 h-8 text-red-400 mb-3" />
-                <h3 className="text-white text-lg font-medium mb-2">Оптимизация расхода</h3>
-                <p className="text-white/60 text-sm leading-relaxed">Снижение расхода топлива до 10-15% при спокойной езде</p>
+                <Icon name="ShieldCheck" className="w-8 h-8 text-red-400 mb-3" />
+                <h3 className="text-white text-lg font-medium mb-2">Безопасность</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Работа в пределах запаса прочности мотора. Возможность отката на стоковую прошивку</p>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.25)' }}>
-                <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8), transparent)' }} />
                 <h3 className="text-white text-lg font-light mb-2">Stage 1 — программный тюнинг</h3>
-                <p className="text-white/60 text-sm leading-relaxed">{engine.stage1gains}</p>
-                <p className="text-white/40 text-xs mt-3">Калибровка блока управления двигателем через OBD-порт. Безопасная оптимизация параметров впрыска, зажигания и наддува.</p>
+                <p className="text-white/60 text-sm leading-relaxed">Калибровка блока управления двигателем через OBD-порт. Оптимизация параметров впрыска, зажигания и наддува. Не требует доработок по железу.</p>
               </div>
               <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.15)' }}>
                 <h3 className="text-white text-lg font-light mb-2">Stage 2 — программа + железо</h3>
-                <p className="text-white/60 text-sm leading-relaxed">{engine.stage2gains}</p>
-                <p className="text-white/40 text-xs mt-3">Требуется установка даунпайпа, улучшенного интеркулера. Максимальная производительность двигателя.</p>
+                <p className="text-white/60 text-sm leading-relaxed">Более агрессивная калибровка с установкой даунпайпа, улучшенного интеркулера и других компонентов. Максимальная производительность.</p>
               </div>
             </div>
-          </div>
-
-          <div className="mb-12">
-            <h2 className="text-2xl md:text-3xl font-light text-white mb-4">Потенциал тюнинга {engine.name}</h2>
-            <p className="text-white/60 leading-relaxed">{engine.tuningPotential}</p>
           </div>
 
           <div className="mb-12">
@@ -230,14 +171,20 @@ export default function BMWEnginePage() {
           )}
 
           <div className="mb-12">
-            <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Вопросы о чип-тюнинге {engine.name}</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Частые вопросы</h2>
             <div className="space-y-4">
-              {engine.faq.map((faq, i) => (
-                <div key={i} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <h3 className="text-white font-medium mb-2">{faq.q}</h3>
-                  <p className="text-white/60 font-light leading-relaxed">{faq.a}</p>
-                </div>
-              ))}
+              <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <h3 className="text-white font-medium mb-2">Что такое чип-тюнинг?</h3>
+                <p className="text-white/60 font-light leading-relaxed">Это изменение программы блока управления двигателем (ECU). Оптимизируются карты впрыска, зажигания, давления наддува и других параметров для повышения мощности и крутящего момента.</p>
+              </div>
+              <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <h3 className="text-white font-medium mb-2">Можно ли откатить прошивку?</h3>
+                <p className="text-white/60 font-light leading-relaxed">Да. Перед прошивкой сохраняется оригинальная калибровка. Возврат к стоковой программе возможен в любой момент.</p>
+              </div>
+              <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <h3 className="text-white font-medium mb-2">Как узнать стоимость и прирост для моего автомобиля?</h3>
+                <p className="text-white/60 font-light leading-relaxed">Воспользуйтесь калькулятором на сайте — выберите свою модель и узнайте точные параметры. Также можно записаться на бесплатную диагностику.</p>
+              </div>
             </div>
           </div>
 
