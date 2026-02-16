@@ -1,4 +1,5 @@
 from datetime import datetime
+import html
 
 def handler(event, context):
     """
@@ -15,6 +16,10 @@ def handler(event, context):
             },
             'body': ''
         }
+    
+    def escape_xml(text):
+        """Экранирование специальных символов для XML"""
+        return html.escape(str(text), quote=True)
     
     # Данные для фида
     shop_name = "Reborn BMW Саратов"
@@ -191,51 +196,42 @@ def handler(event, context):
         },
     ]
     
-    # Генерация XML
-    xml_parts = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<!DOCTYPE yml_catalog SYSTEM "shops.dtd">',
-        f'<yml_catalog date="{current_date}">',
-        '  <shop>',
-        f'    <name>{shop_name}</name>',
-        '    <company>Reborn BMW</company>',
-        f'    <url>{shop_url}</url>',
-        '    <currencies>',
-        '      <currency id="RUB" rate="1"/>',
-        '    </currencies>',
-        '    <categories>',
-    ]
+    # Формирование XML вручную
+    lines = []
+    lines.append('<?xml version="1.0" encoding="UTF-8"?>')
+    lines.append('<!DOCTYPE yml_catalog SYSTEM "shops.dtd">')
+    lines.append(f'<yml_catalog date="{current_date}">')
+    lines.append('  <shop>')
+    lines.append(f'    <name>{escape_xml(shop_name)}</name>')
+    lines.append('    <company>Reborn BMW</company>')
+    lines.append(f'    <url>{shop_url}</url>')
+    lines.append('    <currencies>')
+    lines.append('      <currency id="RUB" rate="1"/>')
+    lines.append('    </currencies>')
+    lines.append('    <categories>')
     
-    # Добавляем категории
     for cat in categories:
-        xml_parts.append(f'      <category id="{cat["id"]}">{cat["name"]}</category>')
+        lines.append(f'      <category id="{cat["id"]}">{escape_xml(cat["name"])}</category>')
     
-    xml_parts.extend([
-        '    </categories>',
-        '    <offers>',
-    ])
+    lines.append('    </categories>')
+    lines.append('    <offers>')
     
-    # Добавляем офферы
     for offer in offers:
-        xml_parts.extend([
-            f'      <offer id="{offer["id"]}" available="true">',
-            f'        <name>{offer["name"]}</name>',
-            f'        <categoryId>{offer["categoryId"]}</categoryId>',
-            f'        <price>{offer["price"]}</price>',
-            '        <currencyId>RUB</currencyId>',
-            '        <delivery>false</delivery>',
-            f'        <description>{offer["description"]}</description>',
-            f'        <sales_notes>{offer["sales_notes"]}</sales_notes>',
-            '      </offer>',
-        ])
+        lines.append(f'      <offer id="{offer["id"]}" available="true">')
+        lines.append(f'        <name>{escape_xml(offer["name"])}</name>')
+        lines.append(f'        <categoryId>{offer["categoryId"]}</categoryId>')
+        lines.append(f'        <price>{offer["price"]}</price>')
+        lines.append('        <currencyId>RUB</currencyId>')
+        lines.append('        <delivery>false</delivery>')
+        lines.append(f'        <description>{escape_xml(offer["description"])}</description>')
+        lines.append(f'        <sales_notes>{escape_xml(offer["sales_notes"])}</sales_notes>')
+        lines.append('      </offer>')
     
-    xml_parts.extend([
-        '    </offers>',
-        '  </shop>',
-        '</yml_catalog>',
-    ])
+    lines.append('    </offers>')
+    lines.append('  </shop>')
+    lines.append('</yml_catalog>')
     
-    xml_content = '\n'.join(xml_parts)
+    xml_content = '\n'.join(lines)
     
     return {
         'statusCode': 200,
