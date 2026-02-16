@@ -10,6 +10,7 @@ import { getCityConfig } from '@/utils/cityConfig';
 import { getEngineBySlug, bmwEngines } from '@/data/bmwEngines';
 import { bmwModels } from '@/data/bmwModels';
 import { updateSeoMeta, injectFaqSchema, injectBreadcrumbSchema, injectServiceSchema, cleanupSchemas } from '@/utils/seo';
+import { useChiptuningData } from '@/hooks/useChiptuningData';
 
 export default function BMWEnginePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -17,6 +18,7 @@ export default function BMWEnginePage() {
   const [showCityPulse, setShowCityPulse] = useState(false);
 
   const engine = slug ? getEngineBySlug(slug) : undefined;
+  const { variants, isLoading } = useChiptuningData(engine?.name || '');
 
   useEffect(() => {
     if (engine) {
@@ -94,32 +96,67 @@ export default function BMWEnginePage() {
 
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Модели с двигателем {engine.name}</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}>
-                <thead>
-                  <tr>
-                    <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Модель</th>
-                    <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Сток</th>
-                    <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Stage 1</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {engine.models.map((m) => (
-                    <tr key={m.name} style={{ background: 'rgba(255,255,255,0.03)' }}>
-                      <td className="px-4 py-3 rounded-l-xl">
-                        <span className="text-white font-light">{m.name}</span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="text-white/60">{m.power}</span>
-                      </td>
-                      <td className="px-4 py-3 rounded-r-xl">
-                        <span className="text-red-400 font-medium">{m.stage1}</span>
-                      </td>
+            {isLoading ? (
+              <div className="text-white/50 text-center py-8">Загрузка данных...</div>
+            ) : variants.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}>
+                  <thead>
+                    <tr>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Модель</th>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Сток</th>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Stage 1</th>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Цена</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {variants.map((v) => (
+                      <tr key={v.model} style={{ background: 'rgba(255,255,255,0.03)' }}>
+                        <td className="px-4 py-3 rounded-l-xl">
+                          <span className="text-white font-light">{v.model}</span>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="text-white/60">{v.stock_power} л.с. / {v.stock_torque} Нм</span>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="text-red-400 font-medium">{v.stage1_power} л.с. / {v.stage1_torque} Нм</span>
+                        </td>
+                        <td className="px-4 py-3 rounded-r-xl">
+                          <span className="text-green-400 font-medium">{v.stage1_price.toLocaleString('ru-RU')} ₽</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}>
+                  <thead>
+                    <tr>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Модель</th>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Сток</th>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Stage 1</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {engine.models.map((m) => (
+                      <tr key={m.name} style={{ background: 'rgba(255,255,255,0.03)' }}>
+                        <td className="px-4 py-3 rounded-l-xl">
+                          <span className="text-white font-light">{m.name}</span>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="text-white/60">{m.power}</span>
+                        </td>
+                        <td className="px-4 py-3 rounded-r-xl">
+                          <span className="text-red-400 font-medium">{m.stage1}</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
