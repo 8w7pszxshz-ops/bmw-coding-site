@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2026-02-16T12:00:00+03:00">
+  <shop>
+    <name>Reborn BMW Саратов</name>
+    <company>Reborn BMW</company>
+    <url>https://reborn-bmw.ru/</url>
+    <currencies>
+      <currency id="RUB" rate="1"/>
+    </currencies>
+    <categories>
+      <category id="1">Чип-тюнинг BMW</category>
+      <category id="2">Кодирование BMW</category>
+      <category id="3">Изготовление ключей BMW</category>
+      <category id="4">Отключение экологии BMW</category>
+      <category id="5">Диагностика BMW</category>
+    </categories>
+    <offers>
+      <!-- Чип-тюнинг -->
+      <offer id="chip-stage1-4cyl" available="true">
+        <name>Чип-тюнинг BMW Stage 1 (4 цилиндра)</name>
+        <categoryId>1</categoryId>
+        <price>35000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Прошивка Stage 1 для 4-цилиндровых двигателей BMW. Прирост мощности 20-25%. Сохранение заводской надёжности. Работа 1-3 часа.</description>
+        <sales_notes>Саратов, выезд возможен</sales_notes>
+      </offer>
+      <offer id="chip-stage1-6cyl" available="true">
+        <name>Чип-тюнинг BMW Stage 1 (6 цилиндров)</name>
+        <categoryId>1</categoryId>
+        <price>40000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Прошивка Stage 1 для 6-цилиндровых двигателей BMW (N55, B58 и др.). Прирост до 70 л.с. Проверенные калибровки.</description>
+        <sales_notes>Саратов, выезд возможен</sales_notes>
+      </offer>
+      <offer id="chip-stage1-v8" available="true">
+        <name>Чип-тюнинг BMW Stage 1 (V8)</name>
+        <categoryId>1</categoryId>
+        <price>50000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Прошивка Stage 1 для V8 двигателей BMW. Мощный прирост для моделей X5, X6, 7 серии с N63/S63.</description>
+        <sales_notes>Саратов, выезд возможен</sales_notes>
+      </offer>
+      <offer id="chip-stage1-m" available="true">
+        <name>Чип-тюнинг BMW Stage 1 (M-моторы)</name>
+        <categoryId>1</categoryId>
+        <price>55000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Прошивка Stage 1 для M-моторов BMW (S55, S58, S63). До +70 л.с. для M3, M4, M5, X5M.</description>
+        <sales_notes>Саратов, выезд возможен</sales_notes>
+      </offer>
+      <offer id="chip-stage2" available="true">
+        <name>Чип-тюнинг BMW Stage 2</name>
+        <categoryId>1</categoryId>
+        <price>55000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Прошивка Stage 2 с доработкой впуска/выпуска. Максимальный прирост для подготовленных автомобилей.</description>
+        <sales_notes>Требуется модернизация железа</sales_notes>
+      </offer>
+
+      <!-- Кодирование -->
+      <offer id="coding-1" available="true">
+        <name>Кодирование BMW — 1 опция</name>
+        <categoryId>2</categoryId>
+        <price>3000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Активация одной скрытой функции BMW: отключение Start/Stop, видео в движении, складывание зеркал и другие.</description>
+        <sales_notes>Саратов, работа 30 минут</sales_notes>
+      </offer>
+      <offer id="coding-5" available="true">
+        <name>Кодирование BMW — пакет 5 опций</name>
+        <categoryId>2</categoryId>
+        <price>10000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Активация 5 скрытых функций BMW. Популярный выбор для максимального комфорта.</description>
+        <sales_notes>Саратов, работа 1 час</sales_notes>
+      </offer>
+      <offer id="coding-10" available="true">
+        <name>Кодирование BMW — пакет 10 опций</name>
+        <categoryId>2</categoryId>
+        <price>15000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Активация 10 скрытых функций BMW. Полное раскрытие возможностей вашего автомобиля.</description>
+        <sales_notes>Саратов, работа 1-2 часа</sales_notes>
+      </offer>
+      <offer id="coding-max" available="true">
+        <name>Кодирование BMW — максимальный пакет</name>
+        <categoryId>2</categoryId>
+        <price>20000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Активация всех доступных скрытых функций BMW. Комплексная настройка автомобиля под ваши требования.</description>
+        <sales_notes>Саратов, работа 2-3 часа</sales_notes>
+      </offer>
+
+      <!-- Изготовление ключей -->
+      <offer id="key-f-series" available="true">
+        <name>Изготовление ключа BMW F серия</name>
+        <categoryId>3</categoryId>
+        <price>15000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Изготовление и программирование ключа для BMW F серии (F30, F10, F20 и др.). Работающий ключ за 1 день.</description>
+        <sales_notes>Саратов, работа 2-4 часа</sales_notes>
+      </offer>
+      <offer id="key-g-series" available="true">
+        <name>Изготовление ключа BMW G серия</name>
+        <categoryId>3</categoryId>
+        <price>25000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Изготовление и программирование ключа для BMW G серии (G30, G20, G05 и др.). Новейшие технологии.</description>
+        <sales_notes>Саратов, работа 3-5 часов</sales_notes>
+      </offer>
+      <offer id="digital-key" available="true">
+        <name>Digital Key BMW</name>
+        <categoryId>3</categoryId>
+        <price>20000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Активация Digital Key для BMW — управление автомобилем со смартфона. Для G серии с поддержкой технологии.</description>
+        <sales_notes>Саратов, работа 1-2 часа</sales_notes>
+      </offer>
+
+      <!-- Отключение экологии -->
+      <offer id="eco-egr" available="true">
+        <name>Отключение EGR BMW</name>
+        <categoryId>4</categoryId>
+        <price>15000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Программное отключение клапана EGR для дизельных BMW. Устранение ошибок, улучшение тяги.</description>
+        <sales_notes>Саратов, работа 1-2 часа</sales_notes>
+      </offer>
+      <offer id="eco-dpf" available="true">
+        <name>Удаление DPF (сажевый фильтр) BMW</name>
+        <categoryId>4</categoryId>
+        <price>20000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Программное удаление сажевого фильтра DPF на дизельных BMW. Без регенераций и ошибок.</description>
+        <sales_notes>Саратов, работа 2-3 часа</sales_notes>
+      </offer>
+      <offer id="eco-adblue" available="true">
+        <name>Удаление ADBLUE BMW</name>
+        <categoryId>4</categoryId>
+        <price>20000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Программное отключение системы ADBLUE (мочевина) на дизельных BMW. Экономия на обслуживании.</description>
+        <sales_notes>Саратов, работа 2-3 часа</sales_notes>
+      </offer>
+      <offer id="eco-euro2" available="true">
+        <name>Понижение до Евро 2 BMW</name>
+        <categoryId>4</categoryId>
+        <price>15000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Понижение экологического класса до Евро 2 для BMW. Возможность заправки низкокачественным топливом.</description>
+        <sales_notes>Саратов, работа 1-2 часа</sales_notes>
+      </offer>
+      <offer id="eco-complex" available="true">
+        <name>Комплекс отключения экологии BMW</name>
+        <categoryId>4</categoryId>
+        <price>45000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Комплексное отключение EGR + DPF + ADBLUE + понижение Евро 2. Полное решение экологических проблем дизельных BMW.</description>
+        <sales_notes>Саратов, работа 4-6 часов</sales_notes>
+      </offer>
+
+      <!-- Диагностика -->
+      <offer id="diagnostic-basic" available="true">
+        <name>Компьютерная диагностика BMW</name>
+        <categoryId>5</categoryId>
+        <price>3000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Полная компьютерная диагностика BMW. Считывание ошибок всех блоков, проверка состояния систем.</description>
+        <sales_notes>Саратов, работа 30-60 минут</sales_notes>
+      </offer>
+      <offer id="diagnostic-extended" available="true">
+        <name>Расширенная диагностика BMW</name>
+        <categoryId>5</categoryId>
+        <price>5000</price>
+        <currencyId>RUB</currencyId>
+        <delivery>false</delivery>
+        <description>Углублённая диагностика BMW с проверкой параметров работы двигателя, подвески, электроники. Подробный отчёт.</description>
+        <sales_notes>Саратов, работа 1-2 часа</sales_notes>
+      </offer>
+    </offers>
+  </shop>
+</yml_catalog>
