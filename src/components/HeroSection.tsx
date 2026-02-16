@@ -41,7 +41,7 @@ function HeroMobile() {
         </span>
       </div>
       
-      <h1 className="text-4xl font-medium text-white tracking-tight leading-none">
+      <h1 className="text-[8.5vw] font-medium text-white tracking-tight leading-none whitespace-nowrap">
         <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
         {' '}
         <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
