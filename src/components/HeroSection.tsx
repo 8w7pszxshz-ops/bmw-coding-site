@@ -22,10 +22,14 @@ function GlitchText({ text, gradient, className, style }: { text: string; gradie
     );
   }
 
+  const firstLetter = text.charAt(0);
+  const rest = text.slice(1);
+
   return (
     <span className={`relative inline-block ${className || ''}`} style={style}>
+      <span className="text-[#ff0033]">{firstLetter}</span>
       <span className={showStrobes ? 'strobe-stencil' : 'strobe-stencil-fade'}>
-        {text}
+        {rest}
       </span>
     </span>
   );
