@@ -556,6 +556,169 @@
     }
   }
 
+  .hero-glitch {
+    position: relative;
+    animation: heroGlitch 0.15s infinite;
+    animation-iteration-count: 14;
+    animation-fill-mode: forwards;
+  }
+
+  .hero-glitch::before,
+  .hero-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-glitch::before {
+    color: #ff0040;
+    animation: heroGlitchLeft 0.1s infinite;
+    animation-iteration-count: 22;
+    animation-fill-mode: forwards;
+    clip-path: inset(0 0 50% 0);
+  }
+
+  .hero-glitch::after {
+    color: #00d4ff;
+    animation: heroGlitchRight 0.12s infinite;
+    animation-iteration-count: 18;
+    animation-fill-mode: forwards;
+    clip-path: inset(50% 0 0 0);
+  }
+
+  .hero-glitch-blue {
+    position: relative;
+    animation: heroGlitch 0.13s infinite;
+    animation-iteration-count: 16;
+    animation-fill-mode: forwards;
+  }
+
+  .hero-glitch-blue::before,
+  .hero-glitch-blue::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #60a5fa, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-glitch-blue::before {
+    animation: heroGlitchLeft 0.11s infinite;
+    animation-iteration-count: 20;
+    animation-fill-mode: forwards;
+    clip-path: inset(0 0 60% 0);
+    filter: hue-rotate(-20deg);
+  }
+
+  .hero-glitch-blue::after {
+    animation: heroGlitchRight 0.09s infinite;
+    animation-iteration-count: 24;
+    animation-fill-mode: forwards;
+    clip-path: inset(40% 0 0 0);
+    filter: hue-rotate(20deg);
+  }
+
+  @keyframes heroGlitch {
+    0% {
+      transform: translate(0);
+    }
+    10% {
+      transform: translate(-3px, 2px);
+    }
+    20% {
+      transform: translate(3px, -1px);
+    }
+    30% {
+      transform: translate(-1px, -2px);
+    }
+    40% {
+      transform: translate(2px, 1px);
+    }
+    50% {
+      transform: translate(-2px, 0px);
+    }
+    60% {
+      transform: translate(1px, 2px);
+    }
+    70% {
+      transform: translate(-3px, -1px);
+    }
+    80% {
+      transform: translate(2px, -2px);
+    }
+    90% {
+      transform: translate(-1px, 1px);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
+
+  @keyframes heroGlitchLeft {
+    0% {
+      transform: translate(0);
+    }
+    15% {
+      transform: translate(-4px, 0);
+    }
+    30% {
+      transform: translate(3px, 0);
+    }
+    45% {
+      transform: translate(-2px, 0);
+    }
+    60% {
+      transform: translate(4px, 0);
+    }
+    75% {
+      transform: translate(-1px, 0);
+    }
+    90% {
+      transform: translate(2px, 0);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
+
+  @keyframes heroGlitchRight {
+    0% {
+      transform: translate(0);
+    }
+    12% {
+      transform: translate(3px, 0);
+    }
+    25% {
+      transform: translate(-4px, 0);
+    }
+    37% {
+      transform: translate(2px, 0);
+    }
+    50% {
+      transform: translate(-3px, 0);
+    }
+    62% {
+      transform: translate(1px, 0);
+    }
+    75% {
+      transform: translate(-2px, 0);
+    }
+    87% {
+      transform: translate(3px, 0);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
+
   .chiptuning-dialog [data-radix-dialog-close] {
     pointer-events: auto !important;
   }
