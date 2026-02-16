@@ -65,9 +65,9 @@ export default function ChipTuningPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             {[
-              { stage: 'Stage 1', power: '+20-30%', desc: 'Безопасная прошивка без вмешательства в железо. Не оставляет следов у дилера.', price: 'от 35 000 ₽' },
-              { stage: 'Stage 2', power: '+30-40%', desc: 'Максимальная мощность с доработкой впуска и выхлопа. Для тех, кто хочет больше.', price: 'от 55 000 ₽' },
-              { stage: 'Stage 3', power: '+40-60%', desc: 'Спортивная прошивка для трека. Максимум возможностей двигателя.', price: 'от 80 000 ₽' }
+              { stage: 'Stage 1', power: '+20-30%', desc: 'Безопасная прошивка без вмешательства в железо. Не оставляет следов у дилера.' },
+              { stage: 'Stage 2', power: '+30-40%', desc: 'Максимальная мощность с доработкой впуска и выхлопа. Для тех, кто хочет больше.' },
+              { stage: 'Stage 3', power: '+40-60%', desc: 'Спортивная прошивка для трека. Максимум возможностей двигателя.' }
             ].map((item) => (
               <div
                 key={item.stage}
@@ -80,10 +80,20 @@ export default function ChipTuningPage() {
                 <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8), transparent)' }} />
                 <h3 className="text-white text-xl font-light mb-1">{item.stage}</h3>
                 <div className="text-red-400 text-2xl font-light mb-2">{item.power}</div>
-                <p className="text-white/60 text-sm mb-3 leading-relaxed">{item.desc}</p>
-                <div className="text-white/80 text-lg font-light">{item.price}</div>
+                <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mb-12">
+            <Link
+              to="/#calculator-hub"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-medium transition-all hover:scale-105"
+              style={{ background: 'linear-gradient(135deg, #e7222e, #c41e28)', boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4)' }}
+            >
+              <Icon name="Calculator" size={18} />
+              Рассчитать стоимость
+            </Link>
           </div>
 
           <div className="mb-12">
@@ -117,8 +127,7 @@ export default function ChipTuningPage() {
                 'Диагностика двигателя перед прошивкой',
                 'Считывание и сохранение оригинальной прошивки',
                 'Загрузка индивидуальной калибровки',
-                'Тестовый заезд и проверка параметров',
-                'Возврат к стоковой прошивке бесплатно'
+                'Тестовый заезд и проверка параметров'
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
                   <Icon name="Check" className="w-5 h-5 text-green-400 flex-shrink-0" />
