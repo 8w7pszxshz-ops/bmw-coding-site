@@ -48,6 +48,8 @@ export default function BurgerMenu() {
           top: offsetPosition,
           behavior: 'smooth'
         });
+      } else {
+        window.location.href = `/#${item.id}`;
       }
     }
   };
