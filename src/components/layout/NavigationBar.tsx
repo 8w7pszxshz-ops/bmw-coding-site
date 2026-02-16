@@ -13,27 +13,23 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
   const [currentTime] = useState(new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
 
   return (
-    <>
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
-        <div className="flex items-center gap-2">
-          <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
-        </div>
-        
-        <div className="flex items-center gap-3 text-white/60 text-xs">
-          <Icon name="Wifi" className="w-3 h-3" />
-          <Icon name="Signal" className="w-3 h-3" />
-          <div className="font-light tracking-wide">{currentTime}</div>
-        </div>
+    <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
+      <div className="flex items-center gap-2">
+        <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
       </div>
-      <div className="fixed top-16 left-4 z-50">
+      
+      <div className="flex items-center gap-3 text-white/60 text-xs">
         <div className="relative">
           {showCityPulse && (
             <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
           )}
           <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
         </div>
+        <Icon name="Wifi" className="w-3 h-3" />
+        <Icon name="Signal" className="w-3 h-3" />
+        <div className="font-light tracking-wide">{currentTime}</div>
       </div>
-    </>
+    </div>
   );
 }
 

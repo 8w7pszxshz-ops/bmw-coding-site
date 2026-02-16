@@ -58,13 +58,13 @@ export default function BurgerMenu() {
     <>
       <button
         onClick={handleToggle}
-        className="fixed top-4 right-4 z-[60] min-w-[48px] min-h-[48px] w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/90 to-cyan-500/90 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg"
+        className="fixed top-3 right-4 z-[60] min-w-[40px] min-h-[40px] w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/90 to-cyan-500/90 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg md:top-4 md:w-12 md:h-12"
         aria-label="Меню"
       >
         {isOpen ? (
-          <Icon name="X" className="w-5 h-5 text-white" />
+          <Icon name="X" className="w-4 h-4 md:w-5 md:h-5 text-white" />
         ) : (
-          <Icon name="Menu" className="w-5 h-5 text-white" />
+          <Icon name="Menu" className="w-4 h-4 md:w-5 md:h-5 text-white" />
         )}
       </button>
 
@@ -75,7 +75,7 @@ export default function BurgerMenu() {
             onClick={() => { vibrate(5); setIsOpen(false); }}
           />
           
-          <div className="fixed top-20 right-4 z-[58] bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="fixed top-16 right-4 z-[58] bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 md:top-20">
             <div className="p-2">
               {menuItems.map((item) => (
                 <button
