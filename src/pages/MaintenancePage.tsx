@@ -14,11 +14,11 @@ const services = [
     icon: 'Droplets',
     color: '#FFA500',
     items: [
-      { name: 'Замена масла в двигателе', price: 'от 5 000 ₽' },
-      { name: 'Замена масла в АКПП', price: 'от 8 000 ₽' },
-      { name: 'Замена масла в редукторе', price: 'от 4 000 ₽' },
-      { name: 'Замена воздушного фильтра', price: 'от 1 500 ₽' },
-      { name: 'Замена салонного фильтра', price: 'от 1 500 ₽' },
+      { name: 'Замена масла в двигателе' },
+      { name: 'Замена масла в АКПП' },
+      { name: 'Замена масла в редукторе' },
+      { name: 'Замена воздушного фильтра' },
+      { name: 'Замена салонного фильтра' },
     ]
   },
   {
@@ -26,10 +26,10 @@ const services = [
     icon: 'CircleDot',
     color: '#FF4444',
     items: [
-      { name: 'Замена тормозных колодок (ось)', price: 'от 3 000 ₽' },
-      { name: 'Замена тормозных дисков (ось)', price: 'от 5 000 ₽' },
-      { name: 'Замена тормозной жидкости', price: 'от 3 000 ₽' },
-      { name: 'Диагностика тормозной системы', price: 'от 1 500 ₽' },
+      { name: 'Замена тормозных колодок (ось)' },
+      { name: 'Замена тормозных дисков (ось)' },
+      { name: 'Замена тормозной жидкости' },
+      { name: 'Диагностика тормозной системы' },
     ]
   },
   {
@@ -37,11 +37,11 @@ const services = [
     icon: 'Car',
     color: '#00BFFF',
     items: [
-      { name: 'Диагностика ходовой', price: 'от 2 000 ₽' },
-      { name: 'Замена рычагов подвески', price: 'от 5 000 ₽' },
-      { name: 'Замена амортизаторов', price: 'от 4 000 ₽' },
-      { name: 'Замена ступичного подшипника', price: 'от 5 000 ₽' },
-      { name: 'Сход-развал', price: 'от 3 000 ₽' },
+      { name: 'Диагностика ходовой' },
+      { name: 'Замена рычагов подвески' },
+      { name: 'Замена амортизаторов' },
+      { name: 'Замена ступичного подшипника' },
+      { name: 'Сход-развал' },
     ]
   },
   {
@@ -49,11 +49,11 @@ const services = [
     icon: 'Settings',
     color: '#7B68EE',
     items: [
-      { name: 'Компьютерная диагностика', price: 'от 2 000 ₽' },
-      { name: 'Замена свечей зажигания', price: 'от 3 000 ₽' },
-      { name: 'Замена катушек зажигания', price: 'от 2 500 ₽' },
-      { name: 'Замена ремня/цепи ГРМ', price: 'от 15 000 ₽' },
-      { name: 'Замена антифриза', price: 'от 3 000 ₽' },
+      { name: 'Компьютерная диагностика' },
+      { name: 'Замена свечей зажигания' },
+      { name: 'Замена катушек зажигания' },
+      { name: 'Замена ремня/цепи ГРМ' },
+      { name: 'Замена антифриза' },
     ]
   },
 ];
@@ -127,12 +127,9 @@ export default function MaintenancePage() {
                 </div>
                 <div className="space-y-2.5">
                   {group.items.map((item, i) => (
-                    <div key={i} className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <Icon name="Check" className="w-3.5 h-3.5 flex-shrink-0" style={{ color: `${group.color}80` }} />
-                        <span className="text-white/70 text-sm font-light truncate">{item.name}</span>
-                      </div>
-                      <span className="text-white/50 text-sm font-light flex-shrink-0">{item.price}</span>
+                    <div key={i} className="flex items-center gap-2">
+                      <Icon name="Check" className="w-3.5 h-3.5 flex-shrink-0" style={{ color: `${group.color}80` }} />
+                      <span className="text-white/70 text-sm font-light">{item.name}</span>
                     </div>
                   ))}
                 </div>
