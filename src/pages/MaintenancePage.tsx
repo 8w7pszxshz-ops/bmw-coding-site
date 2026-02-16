@@ -177,14 +177,12 @@ export default function MaintenancePage() {
             <h2 className="text-2xl font-light text-white mb-3">Записаться на ТО / ремонт</h2>
             <p className="text-white/60 mb-5">Опишите что нужно — подберём запчасти и назовём точную цену</p>
             <a
-              href={`${config.telegram}?text=${encodeURIComponent(`Здравствуйте! Интересует ТО/ремонт BMW. Город: ${getCityName(selectedCity)}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:+79586754984"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-medium transition-all hover:scale-105"
               style={{ background: 'linear-gradient(135deg, #F59E0B, #D97706)', boxShadow: '0 10px 40px rgba(245, 158, 11, 0.3)' }}
             >
-              <Icon name="Send" size={18} />
-              Написать в Telegram
+              <Icon name="Phone" size={18} />
+              Позвонить
             </a>
           </div>
 
