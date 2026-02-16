@@ -57,23 +57,29 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
-        <button
-          onClick={() => {
-            vibrate(15);
-            setIsMenuOpen(!isMenuOpen);
-          }}
-          className="flex items-center gap-2"
-        >
-          <Icon name="Menu" className="w-4 h-4 text-white/60" />
-        </button>
-        
-        <div className="flex items-center gap-3 text-white/60 text-xs">
-          <div className="relative">
-            {showCityPulse && (
-              <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
-            )}
-            <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
+      <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-gradient-to-b from-black/90 via-black/80 to-transparent border-b border-blue-500/10">
+        <div className="px-4 py-3 flex items-center justify-between">
+          <button
+            onClick={() => {
+              vibrate(15);
+              setIsMenuOpen(!isMenuOpen);
+            }}
+            className="flex items-center gap-2 group"
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded blur-sm group-hover:blur-md transition-all" />
+              <Icon name="Menu" className="w-4 h-4 text-blue-400 relative" />
+            </div>
+            <div className="h-0.5 w-4 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
+          </button>
+          
+          <div className="flex items-center gap-2 text-white/60 text-[10px]">
+            <div className="relative">
+              {showCityPulse && (
+                <div className="absolute -inset-2 bg-blue-500/30 rounded-lg animate-pulse" />
+              )}
+              <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
+            </div>
           </div>
         </div>
       </div>
@@ -127,28 +133,33 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 backdrop-blur-md bg-black/70 border-b border-white/5">
-      <div className="flex items-center justify-between max-w-[1400px] mx-auto">
-        <div className="flex items-center gap-6">
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleMenuClick(item)}
-              className="flex items-center gap-1.5 text-white/60 hover:text-white text-xs font-light transition-colors"
-            >
-              <Icon name={item.icon} className="w-3.5 h-3.5" />
-              <span>{item.label}</span>
-            </button>
+    <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-gradient-to-b from-black/90 via-black/80 to-transparent border-b border-blue-500/10">
+      <div className="px-8 py-4 flex items-center justify-between max-w-[1400px] mx-auto">
+        <div className="flex items-center gap-1">
+          <div className="h-0.5 w-6 bg-gradient-to-r from-blue-500 to-transparent rounded-full mr-4" />
+          {menuItems.map((item, index) => (
+            <div key={item.id} className="flex items-center">
+              <button
+                onClick={() => handleMenuClick(item)}
+                className="flex items-center gap-1.5 text-white/60 hover:text-blue-400 text-xs font-light transition-all px-3 py-1.5 rounded-lg hover:bg-blue-500/5"
+              >
+                <Icon name={item.icon} className="w-3.5 h-3.5" />
+                <span>{item.label}</span>
+              </button>
+              {index < menuItems.length - 1 && (
+                <div className="text-white/20 text-[8px] mx-1">•</div>
+              )}
+            </div>
           ))}
         </div>
 
-        <div className="flex items-center gap-6 text-white/60 text-sm">
+        <div className="flex items-center gap-4 text-white/60 text-sm">
           <div className="relative">
             {showCityPulse && (
               <>
-                <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
+                <div className="absolute -inset-2 bg-blue-500/30 rounded-lg animate-pulse" />
                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
                     <Icon name="MapPin" className="w-3 h-3" />
                     <span>Выберите город</span>
                   </div>
