@@ -72,20 +72,6 @@ export default function EngineStep({ engines, selectedBody, onSelectEngine }: En
                 >
                   СТОК: {engine.stock.power} Л.С. / {engine.stock.torque} НМ
                 </p>
-                <p 
-                  className="text-white/70 text-xs tracking-wide uppercase font-medium"
-                  style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                >
-                  STAGE 1: {engine.stage1.power} Л.С. / {engine.stage1.torque} НМ
-                </p>
-                {engine.stage2 && (
-                  <p 
-                    className="text-white/70 text-xs tracking-wide uppercase font-medium"
-                    style={{ fontFamily: '"Reborn Technologies", sans-serif' }}
-                  >
-                    STAGE 2: {engine.stage2.power} Л.С. / {engine.stage2.torque} НМ
-                  </p>
-                )}
               </div>
             </div>
           </button>
