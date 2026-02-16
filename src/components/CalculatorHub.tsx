@@ -197,6 +197,20 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
             </svg>
             
             <div className="relative">
+              {calc.id === 'chiptuning' && (
+                <div 
+                  className="absolute -top-2 -right-2 z-20 px-2 py-1 text-[10px] font-medium tracking-wider border"
+                  style={{
+                    transform: 'rotate(15deg)',
+                    background: 'rgba(255, 0, 64, 0.15)',
+                    border: '1px solid rgba(255, 0, 64, 0.5)',
+                    color: '#FF0040',
+                    letterSpacing: '0.05em'
+                  }}
+                >
+                  [В РАЗРАБОТКЕ]
+                </div>
+              )}
               <div 
                 className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center mb-3 md:mb-4 relative overflow-hidden"
                 style={{
