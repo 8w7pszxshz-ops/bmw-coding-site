@@ -31,6 +31,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
   useEffect(() => {
     console.log('CalculatorHub hash:', location.hash);
     const shouldOpenChiptuning = (location.hash === '#chiptuning' || location.hash === '#calculator-hub') && !hashHandled.current;
+    const shouldOpenKeys = location.hash === '#keys' && !hashHandled.current;
     
     if (shouldOpenChiptuning) {
       console.log('Opening chiptuning calculator');
@@ -45,7 +46,16 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
         chipTuningAudioRef.current.play().catch(() => {});
       }, 300);
     }
-    if (location.hash !== '#chiptuning' && location.hash !== '#calculator-hub') {
+    
+    if (shouldOpenKeys) {
+      console.log('Opening keys calculator');
+      hashHandled.current = true;
+      setTimeout(() => {
+        setActiveCalculator('key');
+      }, 300);
+    }
+    
+    if (location.hash !== '#chiptuning' && location.hash !== '#calculator-hub' && location.hash !== '#keys') {
       hashHandled.current = false;
     }
   }, [location.hash]);

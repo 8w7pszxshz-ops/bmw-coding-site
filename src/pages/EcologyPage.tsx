@@ -184,7 +184,7 @@ export default function EcologyPage() {
             <h2 className="text-2xl font-light text-white mb-3">Выгоднее вместе с чип-тюнингом</h2>
             <p className="text-white/60 mb-4">Закажите чип-тюнинг + отключение экологии и сэкономьте до 70%</p>
             <Link
-              to="/?calculator=true"
+              to="/#chiptuning"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-medium transition-all hover:scale-105"
               style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', boxShadow: '0 10px 40px rgba(34, 197, 94, 0.4)' }}
             >
