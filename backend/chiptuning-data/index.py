@@ -276,6 +276,7 @@ def handler(event: dict, context) -> dict:
                     stage1_price,
                     stage2_power,
                     stage2_torque,
+                    stage2_price,
                     stage_type,
                     is_restyling,
                     status,
@@ -307,7 +308,8 @@ def handler(event: dict, context) -> dict:
                     },
                     'stage2': {
                         'power': r['stage2_power'],
-                        'torque': r['stage2_torque']
+                        'torque': r['stage2_torque'],
+                        'price': r['stage2_price']
                     } if r['stage2_power'] and r['stage2_torque'] else None,
                     'stage_type': r['stage_type'],
                     'is_restyling': r['is_restyling'],
@@ -350,6 +352,7 @@ def handler(event: dict, context) -> dict:
                         stage1_price = %s,
                         stage2_power = %s,
                         stage2_torque = %s,
+                        stage2_price = %s,
                         stage_type = %s,
                         is_restyling = %s,
                         status = %s,
@@ -370,6 +373,7 @@ def handler(event: dict, context) -> dict:
                     data['stage1_price'],
                     data['stage2_power'],
                     data['stage2_torque'],
+                    data.get('stage2_price'),
                     data['stage_type'],
                     data['is_restyling'],
                     data['status'],
@@ -395,8 +399,8 @@ def handler(event: dict, context) -> dict:
                     INSERT INTO t_p937713_bmw_coding_site.bmw_chiptuning
                     (model_name, series, body_type, engine_code, article_code,
                      stock_power, stock_torque, stage1_power, stage1_torque, stage1_price,
-                     stage2_power, stage2_torque, stage_type, is_restyling, status, show_stage2, firmware_type)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                     stage2_power, stage2_torque, stage2_price, stage_type, is_restyling, status, show_stage2, firmware_type)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     RETURNING id
                 """
                 cursor.execute(query, (
@@ -412,6 +416,7 @@ def handler(event: dict, context) -> dict:
                     data['stage1_price'],
                     data.get('stage2_power'),
                     data.get('stage2_torque'),
+                    data.get('stage2_price'),
                     data.get('stage_type', 'St.1'),
                     data.get('is_restyling', False),
                     data.get('status', '1'),

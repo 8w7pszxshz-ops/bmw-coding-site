@@ -9,12 +9,18 @@ interface ChiptuningVariant {
   stage1_price: number;
   stage2_power?: number;
   stage2_torque?: number;
+  stage2_price?: number;
   show_stage2: boolean;
 }
 
-interface ApiChiptuningItem extends ChiptuningVariant {
-  engine_name?: string;
-  [key: string]: unknown;
+interface ApiChiptuningItem {
+  model_name: string;
+  engine_code: string;
+  stock: { power: number; torque: number };
+  stage1: { power: number; torque: number; price: number };
+  stage2?: { power: number; torque: number; price?: number } | null;
+  show_stage2: boolean;
+  status: string;
 }
 
 interface ChiptuningData {
@@ -34,24 +40,27 @@ export function useChiptuningData(engineName: string): ChiptuningData {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${CHIPTUNING_API}?action=admin`);
+        const response = await fetch(`${CHIPTUNING_API}?admin=1`);
         if (!response.ok) throw new Error('Failed to fetch chiptuning data');
         
-        const data = await response.json();
+        const data: ApiChiptuningItem[] = await response.json();
         
-        const filtered = data.filter((item: ApiChiptuningItem) => 
-          item.engine_name && item.engine_name.toLowerCase().includes(engineName.toLowerCase())
+        const filtered = data.filter((item) => 
+          item.status === '1' &&
+          item.engine_code && 
+          item.engine_code.toLowerCase().includes(engineName.toLowerCase())
         );
         
-        setVariants(filtered.map((item: ApiChiptuningItem) => ({
-          model: item.model,
-          stock_power: item.stock_power,
-          stock_torque: item.stock_torque,
-          stage1_power: item.stage1_power,
-          stage1_torque: item.stage1_torque,
-          stage1_price: item.stage1_price,
-          stage2_power: item.stage2_power,
-          stage2_torque: item.stage2_torque,
+        setVariants(filtered.map((item) => ({
+          model: item.model_name,
+          stock_power: item.stock.power,
+          stock_torque: item.stock.torque,
+          stage1_power: item.stage1.power,
+          stage1_torque: item.stage1.torque,
+          stage1_price: item.stage1.price,
+          stage2_power: item.stage2?.power,
+          stage2_torque: item.stage2?.torque,
+          stage2_price: item.stage2?.price,
           show_stage2: item.show_stage2
         })));
         

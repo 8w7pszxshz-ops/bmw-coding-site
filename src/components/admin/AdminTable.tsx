@@ -156,6 +156,7 @@ export default function AdminTable({ records, onSave, onDelete }: AdminTableProp
               <th className="px-4 py-3 text-left text-white/80 font-medium">Цена</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 л.с.</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 Нм</th>
+              <th className="px-4 py-3 text-left text-white/80 font-medium">Stage2 Цена</th>
               <th className="px-4 py-3 text-center text-white/80 font-medium">На сайте</th>
               <th className="px-4 py-3 text-center text-white/80 font-medium">Stage2 на сайте</th>
               <th className="px-4 py-3 text-left text-white/80 font-medium">Действия</th>
@@ -177,6 +178,7 @@ export default function AdminTable({ records, onSave, onDelete }: AdminTableProp
                 {renderCell(record, 'stage1.price', record.stage1.price)}
                 {renderCell(record, 'stage2.power', record.stage2?.power)}
                 {renderCell(record, 'stage2.torque', record.stage2?.torque)}
+                {renderCell(record, 'stage2.price', record.stage2?.price)}
                 {renderCheckbox(record, 'status', record.status === '1')}
                 {renderCheckbox(record, 'show_stage2', record.show_stage2)}
                 <td className="px-4 py-3">

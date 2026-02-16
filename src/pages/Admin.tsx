@@ -80,6 +80,7 @@ export default function Admin() {
             stage1_price: updatedRecord.stage1.price,
             stage2_power: updatedRecord.stage2?.power ?? null,
             stage2_torque: updatedRecord.stage2?.torque ?? null,
+            stage2_price: updatedRecord.stage2?.price ?? null,
             stage_type: updatedRecord.stage_type,
             is_restyling: updatedRecord.is_restyling,
             status: updatedRecord.status,
@@ -120,6 +121,7 @@ export default function Admin() {
             stage1_price: newData.stage1.price,
             stage2_power: newData.stage2?.power ?? null,
             stage2_torque: newData.stage2?.torque ?? null,
+            stage2_price: newData.stage2?.price ?? null,
             stage_type: newData.stage_type,
             is_restyling: newData.is_restyling,
             status: newData.status,
@@ -166,11 +168,11 @@ export default function Admin() {
   };
 
   const handleExport = () => {
-    const headers = ['Модель', 'Серия', 'Кузов', 'Двигатель', 'Артикул', 'Сток л.с.', 'Сток Нм', 'Stage1 л.с.', 'Stage1 Нм', 'Цена Stage1', 'Stage2 л.с.', 'Stage2 Нм', 'Тип', 'Рестайлинг', 'Статус', 'Показ Stage2'];
+    const headers = ['Модель', 'Серия', 'Кузов', 'Двигатель', 'Артикул', 'Сток л.с.', 'Сток Нм', 'Stage1 л.с.', 'Stage1 Нм', 'Цена Stage1', 'Stage2 л.с.', 'Stage2 Нм', 'Цена Stage2', 'Тип', 'Рестайлинг', 'Статус', 'Показ Stage2'];
     const rows = records.map(r => [
       r.model_name, r.series, r.body_type, r.engine_code, r.article_code,
       r.stock.power, r.stock.torque, r.stage1.power, r.stage1.torque, r.stage1.price,
-      r.stage2?.power ?? '', r.stage2?.torque ?? '', r.stage_type, r.is_restyling ? '1' : '0', r.status, r.show_stage2 ? '1' : '0'
+      r.stage2?.power ?? '', r.stage2?.torque ?? '', r.stage2?.price ?? '', r.stage_type, r.is_restyling ? '1' : '0', r.status, r.show_stage2 ? '1' : '0'
     ]);
     
     const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
@@ -190,7 +192,7 @@ export default function Admin() {
       
       for (const line of lines) {
         const parts = line.split(',');
-        if (parts.length < 15) continue;
+        if (parts.length < 16) continue;
 
         try {
           await fetch(API_URL, {
@@ -211,10 +213,11 @@ export default function Admin() {
                 stage1_price: parseFloat(parts[9]),
                 stage2_power: parts[10] ? parseFloat(parts[10]) : null,
                 stage2_torque: parts[11] ? parseFloat(parts[11]) : null,
-                stage_type: parts[12],
-                is_restyling: parts[13] === '1',
-                status: parts[14],
-                show_stage2: parts[15] === '1'
+                stage2_price: parts[12] ? parseFloat(parts[12]) : null,
+                stage_type: parts[13],
+                is_restyling: parts[14] === '1',
+                status: parts[15],
+                show_stage2: parts[16] === '1'
               }
             })
           });

@@ -10,7 +10,7 @@ export interface ChiptuningRecord {
   article_code: string;
   stock: { power: number; torque: number };
   stage1: { power: number; torque: number; price: number };
-  stage2: { power: number; torque: number } | null;
+  stage2: { power: number; torque: number; price?: number } | null;
   stage_type: string;
   is_restyling: boolean;
   status: string;
@@ -37,6 +37,7 @@ export default function AddCarForm({ onAdd, onCancel }: AddCarFormProps) {
     stage1_price: '30000',
     stage2_power: '',
     stage2_torque: '',
+    stage2_price: '',
     stage_type: 'St.1',
     firmware_type: '30I',
     is_restyling: false,
@@ -64,7 +65,8 @@ export default function AddCarForm({ onAdd, onCancel }: AddCarFormProps) {
       },
       stage2: formData.stage2_power && formData.stage2_torque ? {
         power: parseInt(formData.stage2_power),
-        torque: parseInt(formData.stage2_torque)
+        torque: parseInt(formData.stage2_torque),
+        price: formData.stage2_price ? parseInt(formData.stage2_price) : undefined
       } : null,
       stage_type: formData.stage_type,
       firmware_type: formData.firmware_type,
@@ -217,6 +219,15 @@ export default function AddCarForm({ onAdd, onCancel }: AddCarFormProps) {
             type="number"
             value={formData.stage2_torque}
             onChange={(e) => setFormData(prev => ({ ...prev, stage2_torque: e.target.value }))}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
+          />
+        </div>
+        <div>
+          <label className="text-white/70 text-sm mb-1 block">Цена Stage2 (опционально)</label>
+          <input
+            type="number"
+            value={formData.stage2_price}
+            onChange={(e) => setFormData(prev => ({ ...prev, stage2_price: e.target.value }))}
             className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white"
           />
         </div>
