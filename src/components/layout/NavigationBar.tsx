@@ -41,7 +41,7 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
     } else {
       const element = document.getElementById(item.id);
       if (element) {
-        const offset = 80;
+        const offset = item.id === 'services' ? 120 : 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - offset;
 
@@ -118,7 +118,7 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
     } else {
       const element = document.getElementById(item.id);
       if (element) {
-        const offset = 80;
+        const offset = item.id === 'services' ? 120 : 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - offset;
 
