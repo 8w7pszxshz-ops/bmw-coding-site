@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import StickyContactButton from '@/components/StickyContactButton';
-import BurgerMenu from '@/components/BurgerMenu';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
@@ -59,7 +58,6 @@ export default function BMWEnginePage() {
   return (
     <>
       <StickyContactButton selectedCity={selectedCity} />
-      <BurgerMenu />
       <MainLayout selectedCity={selectedCity} onCityChange={setSelectedCity} showCityPulse={showCityPulse}>
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 text-white/50 text-sm mb-6 flex-wrap">

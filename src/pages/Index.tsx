@@ -8,7 +8,6 @@ import ExpertTips from '@/components/ExpertTips';
 import Reviews from '@/components/Reviews';
 import QuickActions from '@/components/QuickActions';
 import StickyContactButton from '@/components/StickyContactButton';
-import BurgerMenu from '@/components/BurgerMenu';
 import FloatingAIButton from '@/components/FloatingAIButton';
 import BlogPreview from '@/components/BlogPreview';
 import PullToRefresh from '@/components/PullToRefresh';
@@ -68,7 +67,6 @@ export default function Index() {
 
       <PullToRefresh onRefresh={handleRefresh}>
         <StickyContactButton selectedCity={selectedCity} />
-        <BurgerMenu />
         <FloatingAIButton />
         <MainLayout selectedCity={selectedCity} onCityChange={handleCityChange} showCityPulse={showCityPulse}>
           <HeroSection />

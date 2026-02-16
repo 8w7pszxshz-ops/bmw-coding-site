@@ -9,61 +9,174 @@ interface NavigationBarProps {
   showCityPulse: boolean;
 }
 
+const menuItems = [
+  { id: 'services', label: 'Услуги', icon: 'Wrench', type: 'scroll' },
+  { id: 'chip-tuning', label: 'Чип-тюнинг', icon: 'Zap', type: 'link' },
+  { id: 'coding', label: 'Кодирование', icon: 'Code', type: 'link' },
+  { id: 'keys', label: 'Ключи', icon: 'Key', type: 'link' },
+  { id: 'ecology', label: 'Экология', icon: 'Leaf', type: 'link' },
+  { id: 'tips', label: 'Рекомендации', icon: 'Lightbulb', type: 'scroll' },
+  { id: 'offers', label: 'Акции', icon: 'Tag', type: 'scroll' },
+  { id: 'reviews', label: 'Отзывы', icon: 'Star', type: 'scroll' },
+  { id: 'about', label: 'О нас', icon: 'Info', type: 'link' },
+  { id: 'blog', label: 'Блог', icon: 'FileText', type: 'link' },
+  { id: 'chatgpt', label: 'AI', icon: 'Bot', type: 'link' },
+  { id: 'contact', label: 'Контакты', icon: 'MapPin', type: 'scroll' },
+];
+
+const vibrate = (pattern: number | number[] = 10) => {
+  if ('vibrate' in navigator) {
+    navigator.vibrate(pattern);
+  }
+};
+
 function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: NavigationBarProps) {
   const [currentTime] = useState(new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuClick = (item: typeof menuItems[0]) => {
+    vibrate(10);
+    setIsMenuOpen(false);
+    
+    if (item.type === 'link') {
+      window.location.href = `/${item.id}`;
+    } else {
+      const element = document.getElementById(item.id);
+      if (element) {
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      } else {
+        window.location.href = `/#${item.id}`;
+      }
+    }
+  };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
-      <div className="flex items-center gap-2">
-        <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
-      </div>
-      
-      <div className="flex items-center gap-3 text-white/60 text-xs">
-        <div className="relative">
-          {showCityPulse && (
-            <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
-          )}
-          <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
+    <>
+      <div className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
+        <button
+          onClick={() => {
+            vibrate(15);
+            setIsMenuOpen(!isMenuOpen);
+          }}
+          className="flex items-center gap-2"
+        >
+          <Icon name="Menu" className="w-4 h-4 text-white/60" />
+          <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
+        </button>
+        
+        <div className="flex items-center gap-3 text-white/60 text-xs">
+          <div className="relative">
+            {showCityPulse && (
+              <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
+            )}
+            <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
+          </div>
+          <Icon name="Wifi" className="w-3 h-3" />
+          <Icon name="Signal" className="w-3 h-3" />
+          <div className="font-light tracking-wide">{currentTime}</div>
         </div>
-        <Icon name="Wifi" className="w-3 h-3" />
-        <Icon name="Signal" className="w-3 h-3" />
-        <div className="font-light tracking-wide">{currentTime}</div>
       </div>
-    </div>
+
+      {isMenuOpen && (
+        <>
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[45]"
+            onClick={() => { vibrate(5); setIsMenuOpen(false); }}
+          />
+          
+          <div className="fixed top-16 left-4 right-4 z-[48] bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="grid grid-cols-3 gap-2 p-4">
+              {menuItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleMenuClick(item)}
+                  className="flex flex-col items-center justify-center gap-2 p-3 hover:bg-white/10 rounded-xl transition-all active:scale-95 min-h-[70px]"
+                >
+                  <Icon name={item.icon} className="w-5 h-5 text-blue-400" />
+                  <span className="text-white font-light text-xs text-center leading-tight">{item.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }
 
 function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: NavigationBarProps) {
   const [currentTime] = useState(new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
 
+  const handleMenuClick = (item: typeof menuItems[0]) => {
+    if (item.type === 'link') {
+      window.location.href = `/${item.id}`;
+    } else {
+      const element = document.getElementById(item.id);
+      if (element) {
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      } else {
+        window.location.href = `/#${item.id}`;
+      }
+    }
+  };
+
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 flex items-center justify-between backdrop-blur-md bg-black/70 border-b border-white/5">
-      <div className="flex items-center gap-3">
-        <span className="text-white/60 text-sm font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
-      </div>
-      
-      <div className="flex items-center gap-6 text-white/60 text-sm">
-        <div className="relative">
-          {showCityPulse && (
-            <>
-              <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
-                  <Icon name="MapPin" className="w-3 h-3" />
-                  <span>Выберите город</span>
+    <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 backdrop-blur-md bg-black/70 border-b border-white/5">
+      <div className="flex items-center justify-between max-w-[1400px] mx-auto">
+        <div className="flex items-center gap-3">
+          <span className="text-white/60 text-sm font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
+        </div>
+        
+        <div className="flex items-center gap-6">
+          {menuItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => handleMenuClick(item)}
+              className="flex items-center gap-1.5 text-white/60 hover:text-white text-xs font-light transition-colors"
+            >
+              <Icon name={item.icon} className="w-3.5 h-3.5" />
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-6 text-white/60 text-sm">
+          <div className="relative">
+            {showCityPulse && (
+              <>
+                <div className="absolute -inset-2 bg-blue-500/30 rounded-lg" />
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+                    <Icon name="MapPin" className="w-3 h-3" />
+                    <span>Выберите город</span>
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
-          <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
+              </>
+            )}
+            <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
+          </div>
+          <div className="flex items-center gap-2">
+            <Icon name="Wifi" className="w-4 h-4" />
+          </div>
+          <div className="flex items-center gap-2">
+            <Icon name="Signal" className="w-4 h-4" />
+          </div>
+          <div className="font-light tracking-wide">{currentTime}</div>
         </div>
-        <div className="flex items-center gap-2">
-          <Icon name="Wifi" className="w-4 h-4" />
-        </div>
-        <div className="flex items-center gap-2">
-          <Icon name="Signal" className="w-4 h-4" />
-        </div>
-        <div className="font-light tracking-wide">{currentTime}</div>
       </div>
     </div>
   );

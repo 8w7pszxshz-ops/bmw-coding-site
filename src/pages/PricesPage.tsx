@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import StickyContactButton from '@/components/StickyContactButton';
-import BurgerMenu from '@/components/BurgerMenu';
 import Icon from '@/components/ui/icon';
 import { City } from '@/components/CitySelector';
 import { detectCityByGeolocation } from '@/utils/geolocation';
@@ -99,7 +98,6 @@ export default function PricesPage() {
   return (
     <>
       <StickyContactButton selectedCity={selectedCity} />
-      <BurgerMenu />
       <MainLayout selectedCity={selectedCity} onCityChange={setSelectedCity} showCityPulse={showCityPulse}>
         <div className="max-w-4xl mx-auto">
           <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white/80 transition-colors mb-6 text-sm">
