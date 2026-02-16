@@ -16,7 +16,6 @@ const menuItems = [
   { id: 'keys', label: 'Ключи', icon: 'Key', type: 'link' },
   { id: 'ecology', label: 'Экология', icon: 'Leaf', type: 'link' },
   { id: 'tips', label: 'Рекомендации', icon: 'Lightbulb', type: 'scroll' },
-  { id: 'offers', label: 'Акции', icon: 'Tag', type: 'scroll' },
   { id: 'reviews', label: 'Отзывы', icon: 'Star', type: 'scroll' },
   { id: 'about', label: 'О нас', icon: 'Info', type: 'link' },
   { id: 'blog', label: 'Блог', icon: 'FileText', type: 'link' },
@@ -31,7 +30,6 @@ const vibrate = (pattern: number | number[] = 10) => {
 };
 
 function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: NavigationBarProps) {
-  const [currentTime] = useState(new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuClick = (item: typeof menuItems[0]) => {
@@ -68,7 +66,6 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
           className="flex items-center gap-2"
         >
           <Icon name="Menu" className="w-4 h-4 text-white/60" />
-          <span className="text-white/60 text-xs font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
         </button>
         
         <div className="flex items-center gap-3 text-white/60 text-xs">
@@ -78,9 +75,6 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
             )}
             <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
           </div>
-          <Icon name="Wifi" className="w-3 h-3" />
-          <Icon name="Signal" className="w-3 h-3" />
-          <div className="font-light tracking-wide">{currentTime}</div>
         </div>
       </div>
 
@@ -112,8 +106,6 @@ function NavigationBarMobile({ selectedCity, onCityChange, showCityPulse }: Navi
 }
 
 function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: NavigationBarProps) {
-  const [currentTime] = useState(new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
-
   const handleMenuClick = (item: typeof menuItems[0]) => {
     if (item.type === 'link') {
       window.location.href = `/${item.id}`;
@@ -137,10 +129,6 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
   return (
     <div className="fixed top-0 left-0 right-0 z-50 px-8 py-4 backdrop-blur-md bg-black/70 border-b border-white/5">
       <div className="flex items-center justify-between max-w-[1400px] mx-auto">
-        <div className="flex items-center gap-3">
-          <span className="text-white/60 text-sm font-light tracking-wider" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>REBORN BMW</span>
-        </div>
-        
         <div className="flex items-center gap-6">
           {menuItems.map((item) => (
             <button
@@ -169,13 +157,6 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
             )}
             <CitySelector selectedCity={selectedCity} onCityChange={onCityChange} />
           </div>
-          <div className="flex items-center gap-2">
-            <Icon name="Wifi" className="w-4 h-4" />
-          </div>
-          <div className="flex items-center gap-2">
-            <Icon name="Signal" className="w-4 h-4" />
-          </div>
-          <div className="font-light tracking-wide">{currentTime}</div>
         </div>
       </div>
     </div>
