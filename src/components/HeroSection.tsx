@@ -11,25 +11,24 @@ function HeroMobile() {
         </span>
       </div>
       
-      <h1 className="text-3xl font-extralight text-white tracking-tight leading-none mb-1.5" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>
-        REBORN
-        <br />
-        <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-          BMW
-        </span>
+      <h1 className="text-3xl font-extralight text-white tracking-tight leading-none mb-3" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>
+        REBORN <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">BMW</span>
       </h1>
-      
-      <p className="text-xs text-white/70 font-light mb-3">
-        Профессиональное программирование
-      </p>
 
-      <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 rounded-lg p-3 backdrop-blur-sm">
-        <div className="flex items-start gap-2">
-          <Icon name="ShieldCheck" className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+      <div className="relative rounded-xl p-3 backdrop-blur-sm overflow-hidden" style={{
+        background: 'linear-gradient(135deg, rgba(0, 100, 255, 0.15) 0%, rgba(0, 200, 255, 0.08) 100%)',
+        border: '1px solid rgba(0, 150, 255, 0.4)',
+        boxShadow: '0 0 20px rgba(0, 120, 255, 0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
+      }}>
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-400/60 to-transparent" />
+        <div className="flex items-start gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center flex-shrink-0">
+            <Icon name="ShieldCheck" className="w-4 h-4 text-blue-400" />
+          </div>
           <div>
-            <div className="text-white/90 font-light text-xs mb-0.5">Без экспериментов</div>
-            <div className="text-white/75 text-[11px] font-light leading-relaxed">
-              Только рабочие решения
+            <div className="text-white font-medium text-sm tracking-wide">Без экспериментов</div>
+            <div className="text-blue-200/70 text-[11px] font-light leading-relaxed">
+              Только проверенные решения для вашего BMW
             </div>
           </div>
         </div>
@@ -50,27 +49,26 @@ function HeroDesktop() {
       
       <div className="flex items-start justify-between gap-10">
         <div className="flex-1">
-          <h1 className="text-5xl md:text-6xl font-extralight text-white tracking-tight leading-none mb-3" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>
-            REBORN
-            <br />
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              BMW
-            </span>
+          <h1 className="text-5xl md:text-6xl font-extralight text-white tracking-tight leading-none mb-8" style={{ fontFamily: 'BMW Helvetica, sans-serif' }}>
+            REBORN <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">BMW</span>
           </h1>
-          
-          <p className="text-base text-white/70 font-light max-w-xl mb-8">
-            Профессиональное программирование и активация скрытых функций
-          </p>
         </div>
 
         <div className="flex-shrink-0 mt-3 -ml-24">
-          <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 rounded-lg p-5 backdrop-blur-sm max-w-[280px]">
+          <div className="relative rounded-xl p-5 backdrop-blur-sm max-w-[300px] overflow-hidden" style={{
+            background: 'linear-gradient(135deg, rgba(0, 100, 255, 0.15) 0%, rgba(0, 200, 255, 0.08) 100%)',
+            border: '1px solid rgba(0, 150, 255, 0.4)',
+            boxShadow: '0 0 30px rgba(0, 120, 255, 0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
+          }}>
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-400/60 to-transparent" />
             <div className="flex items-start gap-3">
-              <Icon name="ShieldCheck" className="w-7 h-7 text-blue-400 flex-shrink-0 mt-0.5" />
+              <div className="w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center flex-shrink-0">
+                <Icon name="ShieldCheck" className="w-5 h-5 text-blue-400" />
+              </div>
               <div>
-                <div className="text-white/90 font-light text-sm mb-1.5">Без экспериментов</div>
-                <div className="text-white/75 text-xs font-light leading-relaxed">
-                  Применяем только рабочие решения
+                <div className="text-white font-medium text-base mb-1 tracking-wide">Без экспериментов</div>
+                <div className="text-blue-200/70 text-xs font-light leading-relaxed">
+                  Применяем только проверенные решения для вашего BMW
                 </div>
               </div>
             </div>
