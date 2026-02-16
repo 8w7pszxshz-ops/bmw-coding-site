@@ -167,7 +167,7 @@ export default function QuickActions({ selectedCity = 'saratov' }: QuickActionsP
 
       <div className="max-w-4xl mx-auto mt-12 text-center">
         <p className="text-white/30 text-sm font-light mb-6">
-          © 2024 REBORN BMW. Чип-тюнинг, кодирование, ТО и ремонт BMW
+          © 2026 REBORN BMW. Чип-тюнинг, кодирование, ТО и ремонт BMW
         </p>
         
         <div className="flex items-center justify-center gap-6">
