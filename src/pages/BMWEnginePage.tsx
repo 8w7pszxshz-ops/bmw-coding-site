@@ -106,14 +106,14 @@ export default function BMWEnginePage() {
               ).map((modelName) => (
                 <div key={modelName} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
                   <span className="text-white font-light">{modelName}</span>
-                  <button
-                    onClick={() => navigate('/#calculator-hub')}
+                  <Link
+                    to="/#calculator-hub"
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all hover:scale-105"
                     style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))' }}
                   >
                     <Icon name="Calculator" size={16} />
                     Рассчитать
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -191,14 +191,14 @@ export default function BMWEnginePage() {
           <div className="p-6 rounded-2xl mb-12 text-center" style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.15), rgba(231, 34, 46, 0.05))', border: '1px solid rgba(231, 34, 46, 0.3)' }}>
             <h2 className="text-2xl font-light text-white mb-3">Прошить {engine.name}</h2>
             <p className="text-white/60 mb-4">Бесплатная диагностика + точный расчёт мощности для вашего двигателя</p>
-            <button
-              onClick={() => navigate('/#calculator-hub')}
+            <Link
+              to="/#calculator-hub"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-medium transition-all hover:scale-105"
               style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))', boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4)' }}
             >
               <Icon name="Calculator" size={18} />
               Рассчитать стоимость
-            </button>
+            </Link>
           </div>
 
           {relatedModels.length > 0 && (
