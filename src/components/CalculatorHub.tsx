@@ -52,6 +52,10 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
       hashHandled.current = true;
       setTimeout(() => {
         setActiveCalculator('key');
+        const element = document.getElementById('services');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }, 300);
     }
     
