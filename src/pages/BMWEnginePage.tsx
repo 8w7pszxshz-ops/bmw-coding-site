@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import StickyContactButton from '@/components/StickyContactButton';
 import BurgerMenu from '@/components/BurgerMenu';
@@ -14,6 +14,7 @@ import { useChiptuningData } from '@/hooks/useChiptuningData';
 
 export default function BMWEnginePage() {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const [selectedCity, setSelectedCity] = useState<City>('saratov');
   const [showCityPulse, setShowCityPulse] = useState(false);
 
@@ -104,9 +105,8 @@ export default function BMWEnginePage() {
                   <thead>
                     <tr>
                       <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Модель</th>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Сток</th>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Stage 1</th>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Цена</th>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Мощность стока</th>
+                      <th className="text-right text-white/40 text-xs uppercase tracking-wider px-4 py-2">Рассчитать</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -118,11 +118,15 @@ export default function BMWEnginePage() {
                         <td className="px-4 py-3">
                           <span className="text-white/60">{v.stock_power} л.с. / {v.stock_torque} Нм</span>
                         </td>
-                        <td className="px-4 py-3">
-                          <span className="text-red-400 font-medium">{v.stage1_power} л.с. / {v.stage1_torque} Нм</span>
-                        </td>
-                        <td className="px-4 py-3 rounded-r-xl">
-                          <span className="text-green-400 font-medium">{v.stage1_price.toLocaleString('ru-RU')} ₽</span>
+                        <td className="px-4 py-3 rounded-r-xl text-right">
+                          <button
+                            onClick={() => navigate('/calculator')}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all hover:scale-105"
+                            style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))' }}
+                          >
+                            <Icon name="Calculator" size={16} />
+                            Рассчитать
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -135,8 +139,8 @@ export default function BMWEnginePage() {
                   <thead>
                     <tr>
                       <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Модель</th>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Сток</th>
-                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Stage 1</th>
+                      <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-2">Мощность стока</th>
+                      <th className="text-right text-white/40 text-xs uppercase tracking-wider px-4 py-2">Рассчитать</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -148,8 +152,15 @@ export default function BMWEnginePage() {
                         <td className="px-4 py-3">
                           <span className="text-white/60">{m.power}</span>
                         </td>
-                        <td className="px-4 py-3 rounded-r-xl">
-                          <span className="text-red-400 font-medium">{m.stage1}</span>
+                        <td className="px-4 py-3 rounded-r-xl text-right">
+                          <button
+                            onClick={() => navigate('/calculator')}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all hover:scale-105"
+                            style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))' }}
+                          >
+                            <Icon name="Calculator" size={16} />
+                            Рассчитать
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -159,15 +170,38 @@ export default function BMWEnginePage() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-            <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.25)' }}>
-              <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8), transparent)' }} />
-              <h3 className="text-white text-lg font-light mb-2">Stage 1</h3>
-              <p className="text-white/60 text-sm leading-relaxed">{engine.stage1gains}</p>
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Преимущества чип-тюнинга BMW</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.2)' }}>
+                <Icon name="Zap" className="w-8 h-8 text-red-400 mb-3" />
+                <h3 className="text-white text-lg font-medium mb-2">Мощность и крутящий момент</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Прирост до 30% мощности и 35% крутящего момента без вмешательства в механику</p>
+              </div>
+              <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.2)' }}>
+                <Icon name="Gauge" className="w-8 h-8 text-red-400 mb-3" />
+                <h3 className="text-white text-lg font-medium mb-2">Улучшенная динамика</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Плавный разгон, быстрый отклик педали газа, эффективные обгоны</p>
+              </div>
+              <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.2)' }}>
+                <Icon name="Droplet" className="w-8 h-8 text-red-400 mb-3" />
+                <h3 className="text-white text-lg font-medium mb-2">Оптимизация расхода</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Снижение расхода топлива до 10-15% при спокойной езде</p>
+              </div>
             </div>
-            <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.15)' }}>
-              <h3 className="text-white text-lg font-light mb-2">Stage 2</h3>
-              <p className="text-white/60 text-sm leading-relaxed">{engine.stage2gains}</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.25)' }}>
+                <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(231, 34, 46, 0.8), transparent)' }} />
+                <h3 className="text-white text-lg font-light mb-2">Stage 1 — программный тюнинг</h3>
+                <p className="text-white/60 text-sm leading-relaxed">{engine.stage1gains}</p>
+                <p className="text-white/40 text-xs mt-3">Калибровка блока управления двигателем через OBD-порт. Безопасная оптимизация параметров впрыска, зажигания и наддува.</p>
+              </div>
+              <div className="p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98))', border: '1px solid rgba(231, 34, 46, 0.15)' }}>
+                <h3 className="text-white text-lg font-light mb-2">Stage 2 — программа + железо</h3>
+                <p className="text-white/60 text-sm leading-relaxed">{engine.stage2gains}</p>
+                <p className="text-white/40 text-xs mt-3">Требуется установка даунпайпа, улучшенного интеркулера. Максимальная производительность двигателя.</p>
+              </div>
             </div>
           </div>
 
@@ -209,17 +243,15 @@ export default function BMWEnginePage() {
 
           <div className="p-6 rounded-2xl mb-12 text-center" style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.15), rgba(231, 34, 46, 0.05))', border: '1px solid rgba(231, 34, 46, 0.3)' }}>
             <h2 className="text-2xl font-light text-white mb-3">Прошить {engine.name}</h2>
-            <p className="text-white/60 mb-4">Бесплатная диагностика + расчёт мощности для вашего двигателя</p>
-            <a
-              href={config.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
+            <p className="text-white/60 mb-4">Бесплатная диагностика + точный расчёт мощности для вашего двигателя</p>
+            <button
+              onClick={() => navigate('/calculator')}
               className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-medium transition-all hover:scale-105"
               style={{ background: 'linear-gradient(135deg, rgba(231, 34, 46, 0.9), rgba(231, 34, 46, 0.7))', boxShadow: '0 10px 40px rgba(231, 34, 46, 0.4)' }}
             >
-              <Icon name="MessageCircle" size={18} />
-              Записаться в Telegram
-            </a>
+              <Icon name="Calculator" size={18} />
+              Рассчитать стоимость
+            </button>
           </div>
 
           {relatedModels.length > 0 && (
