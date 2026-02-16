@@ -3,11 +3,28 @@ import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 
 function GlitchText({ text, gradient, className, style }: { text: string; gradient?: boolean; className?: string; style?: React.CSSProperties }) {
-  const [glitching, setGlitching] = useState(true);
+  const [glitching, setGlitching] = useState(false);
+  const [showLightning, setShowLightning] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setGlitching(false), 2200);
-    return () => clearTimeout(timer);
+    // Показываем молнии сразу
+    setShowLightning(true);
+    
+    // Запускаем глитч после молний
+    const glitchTimer = setTimeout(() => {
+      setShowLightning(false);
+      setGlitching(true);
+    }, 800);
+
+    // Останавливаем глитч
+    const stopTimer = setTimeout(() => {
+      setGlitching(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(glitchTimer);
+      clearTimeout(stopTimer);
+    };
   }, []);
 
   if (gradient) {
@@ -25,6 +42,12 @@ function GlitchText({ text, gradient, className, style }: { text: string; gradie
 
   return (
     <span className={`relative inline-block ${className || ''}`} style={style}>
+      {showLightning && (
+        <>
+          <span className="absolute inset-0 lightning-strike-red" data-text={text}>{text}</span>
+          <span className="absolute inset-0 lightning-strike-blue" data-text={text}>{text}</span>
+        </>
+      )}
       <span className={glitching ? 'hero-glitch' : ''} data-text={text}>
         {text}
       </span>
