@@ -80,7 +80,7 @@ export default function CalculatorHub({ selectedCity }: CalculatorHubProps) {
       icon: 'Key',
       title: 'Изготовление ключей',
       description: 'Рассчитайте стоимость ключа для вашего BMW',
-      color: '#E7222E'
+      color: '#FFD700'
     },
     {
       id: 'coding' as CalculatorType,
