@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Generate YML feed",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "contains": ["yml_catalog", "Reborn BMW", "Чип-тюнинг BMW", "chip-stage1-4cyl"]
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
