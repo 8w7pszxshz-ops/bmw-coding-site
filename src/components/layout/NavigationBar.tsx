@@ -140,12 +140,12 @@ function NavigationBarDesktop({ selectedCity, onCityChange, showCityPulse }: Nav
             <div key={item.id} className="flex items-center">
               <button
                 onClick={() => handleMenuClick(item)}
-                className="text-white/60 hover:text-blue-400 text-xs font-light transition-all px-2.5 py-1.5 rounded-lg hover:bg-blue-500/5 whitespace-nowrap"
+                className="text-white/70 hover:text-blue-400 text-sm font-light transition-all px-3 py-2 rounded-lg hover:bg-blue-500/5 whitespace-nowrap"
               >
                 {item.label}
               </button>
               {index < menuItems.length - 1 && (
-                <div className="text-white/20 text-[10px]">•</div>
+                <div className="text-white/30 mx-1">·</div>
               )}
             </div>
           ))}
