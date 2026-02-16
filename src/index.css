@@ -812,6 +812,119 @@
     }
   }
 
+  .strobe-stencil {
+    color: transparent;
+    background: linear-gradient(
+      90deg,
+      #ff0000 0%,
+      #0064ff 25%,
+      #ff0000 50%,
+      #0064ff 75%,
+      #ff0000 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: strobeFlash 5s ease-in-out;
+    animation-fill-mode: forwards;
+    text-shadow:
+      0 0 20px rgba(255, 0, 0, 0.8),
+      0 0 40px rgba(0, 100, 255, 0.8);
+  }
+
+  .strobe-stencil-fade {
+    color: white;
+    transition: all 1s ease-out;
+  }
+
+  @keyframes strobeFlash {
+    0%,
+    2% {
+      background-position: 0% 50%;
+      filter: brightness(3);
+      text-shadow:
+        0 0 30px rgba(255, 0, 0, 1),
+        0 0 60px rgba(255, 0, 0, 0.8);
+    }
+    3%,
+    5% {
+      background-position: 25% 50%;
+      filter: brightness(1);
+      text-shadow: 0 0 10px rgba(0, 100, 255, 0.3);
+    }
+    6%,
+    8% {
+      background-position: 50% 50%;
+      filter: brightness(3);
+      text-shadow:
+        0 0 30px rgba(0, 100, 255, 1),
+        0 0 60px rgba(0, 100, 255, 0.8);
+    }
+    9%,
+    11% {
+      background-position: 75% 50%;
+      filter: brightness(1);
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    12%,
+    14% {
+      background-position: 100% 50%;
+      filter: brightness(3);
+      text-shadow:
+        0 0 30px rgba(255, 0, 0, 1),
+        0 0 60px rgba(255, 0, 0, 0.8);
+    }
+    15%,
+    17% {
+      background-position: 0% 50%;
+      filter: brightness(1);
+      text-shadow: 0 0 10px rgba(0, 100, 255, 0.3);
+    }
+    18%,
+    20% {
+      background-position: 50% 50%;
+      filter: brightness(3);
+      text-shadow:
+        0 0 30px rgba(0, 100, 255, 1),
+        0 0 60px rgba(0, 100, 255, 0.8);
+    }
+    21%,
+    23% {
+      background-position: 25% 50%;
+      filter: brightness(1);
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    24%,
+    26% {
+      background-position: 75% 50%;
+      filter: brightness(3);
+      text-shadow:
+        0 0 30px rgba(255, 0, 0, 1),
+        0 0 60px rgba(255, 0, 0, 0.8);
+    }
+    27%,
+    29% {
+      background-position: 100% 50%;
+      filter: brightness(1);
+      text-shadow: 0 0 10px rgba(0, 100, 255, 0.3);
+    }
+    30%,
+    32% {
+      background-position: 0% 50%;
+      filter: brightness(3);
+      text-shadow:
+        0 0 30px rgba(0, 100, 255, 1),
+        0 0 60px rgba(0, 100, 255, 0.8);
+    }
+    33%,
+    100% {
+      background-position: 0% 50%;
+      filter: brightness(1);
+      text-shadow: none;
+      color: white;
+    }
+  }
+
   .chiptuning-dialog [data-radix-dialog-close] {
     pointer-events: auto !important;
   }
