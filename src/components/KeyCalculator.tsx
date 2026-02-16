@@ -49,7 +49,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
         style={{
           background: 'linear-gradient(135deg, rgba(255, 223, 0, 0.12) 0%, rgba(255, 235, 59, 0.08) 100%)',
           border: '1px solid rgba(255, 223, 0, 0.4)',
-          boxShadow: '0 30px 90px -20px rgba(255, 223, 0, 0.4)',
         }}
       >
         <div 
@@ -57,7 +56,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
           style={{
             height: '2px',
             background: 'linear-gradient(90deg, transparent 0%, rgba(255, 223, 0, 0.4) 15%, rgba(255, 235, 59, 0.7) 50%, rgba(255, 223, 0, 0.4) 85%, transparent 100%)',
-            boxShadow: '0 0 25px rgba(255, 235, 59, 0.5)'
           }}
         />
         <div 
@@ -65,7 +63,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
           style={{
             height: '1px',
             background: 'linear-gradient(90deg, transparent 0%, rgba(255, 223, 0, 0.3) 30%, rgba(255, 235, 59, 0.5) 50%, rgba(255, 223, 0, 0.3) 70%, transparent 100%)',
-            boxShadow: '0 0 15px rgba(255, 235, 59, 0.4)'
           }}
         />
         <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" style={{ mixBlendMode: 'screen' }}>
@@ -108,9 +105,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                   border: series === s 
                     ? '1px solid rgba(255, 223, 0, 0.5)' 
                     : '1px solid rgba(255, 255, 255, 0.08)',
-                  boxShadow: series === s 
-                    ? '0 10px 40px rgba(255, 235, 59, 0.25)' 
-                    : 'none',
                   color: series === s ? '#FFEB3B' : 'rgba(255, 255, 255, 0.5)'
                 }}
               >
@@ -121,14 +115,12 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                       style={{
                         height: '2px',
                         background: 'linear-gradient(90deg, transparent, rgba(255, 235, 59, 0.7), transparent)',
-                        boxShadow: '0 0 15px rgba(255, 235, 59, 0.5)'
                       }}
                     />
                     <div 
                       className="absolute bottom-1 right-1 w-2 h-2 rounded-full"
                       style={{
                         background: 'rgba(255, 235, 59, 0.6)',
-                        boxShadow: '0 0 12px rgba(255, 235, 59, 0.7)'
                       }}
                     />
                   </>
@@ -158,9 +150,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                     border: selectedFKey === idx
                       ? '1px solid rgba(255, 223, 0, 0.5)'
                       : '1px solid rgba(255, 255, 255, 0.08)',
-                    boxShadow: selectedFKey === idx
-                      ? '0 8px 30px rgba(255, 235, 59, 0.25)'
-                      : 'none',
                     color: selectedFKey === idx ? '#FFEB3B' : 'rgba(255, 255, 255, 0.5)'
                   }}
                 >
@@ -170,14 +159,12 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                         className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
                         style={{
                           background: 'linear-gradient(90deg, transparent, rgba(255, 235, 59, 0.7), transparent)',
-                          boxShadow: '0 0 8px rgba(255, 235, 59, 0.5)'
                         }}
                       />
                       <div 
                         className="absolute top-1 left-1 w-2 h-2 rounded-full"
                         style={{
                           background: 'rgba(255, 235, 59, 0.6)',
-                          boxShadow: '0 0 10px rgba(255, 235, 59, 0.7)'
                         }}
                       />
                     </>
@@ -207,9 +194,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                   border: keyType === 'copy'
                     ? '1px solid rgba(255, 223, 0, 0.5)'
                     : '1px solid rgba(255, 255, 255, 0.08)',
-                  boxShadow: keyType === 'copy'
-                    ? '0 10px 40px rgba(255, 235, 59, 0.25)'
-                    : 'none',
                 }}
               >
                 {keyType === 'copy' && (
@@ -218,7 +202,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                       className="absolute top-0 right-0 w-px h-full"
                       style={{
                         background: 'linear-gradient(180deg, transparent, rgba(255, 235, 59, 0.6), transparent)',
-                        boxShadow: '0 0 12px rgba(255, 235, 59, 0.4)'
                       }}
                     />
                     <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none">
@@ -252,9 +235,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                   border: keyType === 'dealer'
                     ? '1px solid rgba(255, 223, 0, 0.5)'
                     : '1px solid rgba(255, 255, 255, 0.08)',
-                  boxShadow: keyType === 'dealer'
-                    ? '0 10px 40px rgba(255, 235, 59, 0.25)'
-                    : 'none',
                 }}
               >
                 {keyType === 'dealer' && (
@@ -263,7 +243,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
                       className="absolute top-0 right-0 w-px h-full"
                       style={{
                         background: 'linear-gradient(180deg, transparent, rgba(255, 235, 59, 0.6), transparent)',
-                        boxShadow: '0 0 12px rgba(255, 235, 59, 0.4)'
                       }}
                     />
                     <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none">
@@ -296,7 +275,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
           style={{
             background: 'linear-gradient(135deg, rgba(255, 223, 0, 0.15), rgba(255, 235, 59, 0.1))',
             border: '1px solid rgba(255, 223, 0, 0.4)',
-            boxShadow: '0 8px 32px rgba(255, 235, 59, 0.15)'
           }}
         >
           <div 
@@ -304,7 +282,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
             style={{
               height: '2px',
               background: 'linear-gradient(90deg, transparent, rgba(255, 223, 0, 0.6) 30%, rgba(255, 235, 59, 0.8) 50%, rgba(255, 223, 0, 0.6) 70%, transparent)',
-              boxShadow: '0 0 20px rgba(255, 235, 59, 0.5)'
             }}
           />
           <div 
@@ -312,7 +289,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
             style={{
               width: '2px',
               background: 'linear-gradient(180deg, transparent, rgba(255, 235, 59, 0.6) 50%, transparent)',
-              boxShadow: '0 0 15px rgba(255, 235, 59, 0.4)'
             }}
           />
           <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
@@ -355,7 +331,6 @@ export default function KeyCalculator({ selectedCity }: KeyCalculatorProps) {
               style={{
                 background: 'linear-gradient(135deg, rgba(255, 223, 0, 0.35), rgba(255, 235, 59, 0.25))',
                 border: '1px solid rgba(255, 223, 0, 0.6)',
-                boxShadow: '0 10px 40px rgba(255, 235, 59, 0.3)',
                 color: '#FFEB3B'
               }}
             >
