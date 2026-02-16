@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Adaptive } from '@/components/ui/responsive';
 
-function GlitchTitle({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function GlitchText({ text, gradient, className, style }: { text: string; gradient?: boolean; className?: string; style?: React.CSSProperties }) {
   const [glitching, setGlitching] = useState(true);
 
   useEffect(() => {
@@ -10,21 +10,25 @@ function GlitchTitle({ className, style }: { className?: string; style?: React.C
     return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <h1 className={`relative select-none ${className || ''}`} style={style}>
-      <span className="relative inline-block">
-        <span className={glitching ? 'hero-glitch' : ''} data-text="REBORN">REBORN</span>
-      </span>
-      {' '}
-      <span className="relative inline-block">
+  if (gradient) {
+    return (
+      <span className={`relative inline-block ${className || ''}`} style={style}>
         <span
           className={`bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent ${glitching ? 'hero-glitch-blue' : ''}`}
-          data-text="BMW"
+          data-text={text}
         >
-          BMW
+          {text}
         </span>
       </span>
-    </h1>
+    );
+  }
+
+  return (
+    <span className={`relative inline-block ${className || ''}`} style={style}>
+      <span className={glitching ? 'hero-glitch' : ''} data-text={text}>
+        {text}
+      </span>
+    </span>
   );
 }
 
@@ -80,100 +84,50 @@ function OfferCard({ mobile }: { mobile?: boolean }) {
   );
 }
 
-function ScrollIndicator() {
-  return (
-    <button
-      onClick={() => {
-        const el = document.getElementById('offers');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }}
-      className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 hover:text-white/60 transition-colors z-20"
-    >
-      <span className="text-[10px] tracking-widest uppercase">Листай</span>
-      <Icon name="ChevronDown" className="w-5 h-5 animate-bounce" />
-    </button>
-  );
-}
-
 function HeroMobile() {
   return (
-    <div className="relative flex flex-col justify-center min-h-[85vh] px-4 -mt-4 -mx-4 mb-6 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://cdn.poehali.dev/files/reborn.jpg"
-          alt=""
-          className="w-full h-full object-cover"
-          style={{ filter: 'brightness(0.25) contrast(1.1) saturate(0.8)' }}
-        />
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0.95) 100%)'
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse at 30% 40%, rgba(255, 0, 0, 0.06), transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(0, 150, 255, 0.06), transparent 60%)'
-        }} />
+    <div className="mb-6 mt-3 px-4">
+      <div className="flex items-center gap-2 mb-2">
+        <div className="h-0.5 w-5 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
+        <span className="text-[9px] tracking-[0.15em] uppercase font-light">
+          <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span>
+        </span>
       </div>
+      
+      <h1 className="text-3xl font-extralight text-white tracking-tight leading-none mb-3">
+        <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
+        {' '}
+        <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
+      </h1>
 
-      <div className="relative z-10 mt-auto mb-16">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="h-0.5 w-5 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-          <span className="text-[9px] tracking-[0.15em] uppercase font-light">
-            <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span>
-          </span>
-        </div>
-
-        <GlitchTitle
-          className="text-4xl font-extralight text-white tracking-tight leading-none mb-4"
-          style={{ fontFamily: 'BMW Helvetica, sans-serif' }}
-        />
-
-        <OfferCard mobile />
-      </div>
-
-      <ScrollIndicator />
+      <OfferCard mobile />
     </div>
   );
 }
 
 function HeroDesktop() {
   return (
-    <div className="relative flex flex-col justify-center min-h-[90vh] -mt-6 -mx-6 mb-10 overflow-hidden rounded-2xl">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://cdn.poehali.dev/files/reborn.jpg"
-          alt=""
-          className="w-full h-full object-cover"
-          style={{ filter: 'brightness(0.2) contrast(1.15) saturate(0.7)' }}
-        />
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.95) 100%)'
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse at 25% 45%, rgba(255, 0, 0, 0.07), transparent 50%), radial-gradient(ellipse at 75% 55%, rgba(0, 150, 255, 0.07), transparent 50%)'
-        }} />
+    <div className="mb-10 mt-6">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="h-0.5 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
+        <span className="text-xs tracking-[0.25em] uppercase font-light">
+          <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Дооснащение</span>
+        </span>
       </div>
-
-      <div className="relative z-10 px-12 mt-auto mb-20">
-        <div className="flex items-center gap-2.5 mb-5">
-          <div className="h-0.5 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
-          <span className="text-xs tracking-[0.25em] uppercase font-light">
-            <span className="text-[#81C4FF]">Чип-тюнинг</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Кодирование</span> <span className="text-white/40">•</span> <span className="text-[#81C4FF]">Дооснащение</span>
-          </span>
+      
+      <div className="flex items-start justify-between gap-10">
+        <div className="flex-1">
+          <h1 className="text-5xl md:text-6xl font-extralight text-white tracking-tight leading-none mb-8">
+            <GlitchText text="REBORN" style={{ fontFamily: '"Reborn Technologies", sans-serif' }} />
+            {' '}
+            <GlitchText text="BMW" gradient style={{ fontFamily: 'BMW Helvetica, sans-serif' }} />
+          </h1>
         </div>
 
-        <div className="flex items-end justify-between gap-10">
-          <div>
-            <GlitchTitle
-              className="text-6xl md:text-7xl lg:text-8xl font-extralight text-white tracking-tight leading-none mb-0"
-              style={{ fontFamily: 'BMW Helvetica, sans-serif' }}
-            />
-          </div>
-          <div className="flex-shrink-0 max-w-[320px] mb-1">
-            <OfferCard />
-          </div>
+        <div className="flex-shrink-0 mt-3 -ml-24">
+          <OfferCard />
         </div>
       </div>
-
-      <ScrollIndicator />
     </div>
   );
 }
